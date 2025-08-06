@@ -122,30 +122,65 @@ export const mockCourses: Course[] = [
 // Mock Student Courses
 export const mockStudentCourses: StudentCourse[] = [
   {
+    studentId: '1',
     courseId: '1',
     status: 'completed',
     grade: 'A',
-    semester: 1,
-    year: 1
+    semester: '1/2566'
   },
   {
+    studentId: '1',
     courseId: '2',
     status: 'completed',
     grade: 'B+',
-    semester: 2,
-    year: 1
+    semester: '2/2566'
   },
   {
+    studentId: '1',
     courseId: '3',
     status: 'in_progress',
-    semester: 1,
-    year: 2
+    semester: '1/2567'
   },
   {
+    studentId: '1',
     courseId: '4',
     status: 'planned',
-    semester: 2,
-    year: 2
+    semester: '2/2567'
+  },
+  {
+    studentId: '1',
+    courseId: '5',
+    status: 'failed',
+    grade: 'F',
+    semester: '1/2566'
+  },
+  // Additional students
+  {
+    studentId: '2',
+    courseId: '1',
+    status: 'completed',
+    grade: 'B',
+    semester: '1/2566'
+  },
+  {
+    studentId: '2',
+    courseId: '2',
+    status: 'in_progress',
+    semester: '1/2567'
+  },
+  {
+    studentId: '3',
+    courseId: '1',
+    status: 'completed',
+    grade: 'A',
+    semester: '1/2566'
+  },
+  {
+    studentId: '3',
+    courseId: '3',
+    status: 'failed',
+    grade: 'F',
+    semester: '2/2566'
   }
 ];
 

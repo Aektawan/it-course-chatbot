@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
 import { mockUsers, mockCourses, mockStudentCourses } from '@/services/mockData';
+import StudentDetailView from './StudentDetailView';
 import { 
   UserCheck, 
   GraduationCap, 
@@ -22,6 +23,7 @@ import {
 const InstructorDashboard: React.FC = () => {
   const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedStudentId, setSelectedStudentId] = useState<string | null>(null);
 
   // Mock data for students under instructor's care
   const studentsUnderCare = mockUsers.filter(u => u.role === 'student').slice(0, 5);
@@ -40,6 +42,23 @@ const InstructorDashboard: React.FC = () => {
     student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     student.studentId?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // If a student is selected, show their detail view
+  if (selectedStudentId) {
+    const selectedStudent = mockUsers.find(u => u.id === selectedStudentId);
+    if (selectedStudent) {
+      return (
+        <div className="min-h-screen p-6 gradient-subtle">
+          <div className="container mx-auto">
+            <StudentDetailView 
+              student={selectedStudent} 
+              onBack={() => setSelectedStudentId(null)} 
+            />
+          </div>
+        </div>
+      );
+    }
+  }
 
   return (
     <div className="min-h-screen p-6 gradient-subtle">
@@ -181,7 +200,11 @@ const InstructorDashboard: React.FC = () => {
                           </div>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => setSelectedStudentId(student.id)}
+                          >
                             ดูรายละเอียด
                           </Button>
                         </div>

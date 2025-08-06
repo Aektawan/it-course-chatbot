@@ -14,11 +14,11 @@ export interface Course {
 }
 
 export interface StudentCourse {
+  studentId: string;
   courseId: string;
   status: 'completed' | 'in_progress' | 'planned' | 'failed';
   grade?: string;
-  semester: number;
-  year: number;
+  semester?: string;
 }
 
 export interface StudyPlan {

@@ -15,8 +15,12 @@ import {
   Calendar,
   Target,
   TrendingUp,
-  Award
+  Award,
+  Save
 } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 
 const StudentDashboard: React.FC = () => {
   const { user } = useAuth();
@@ -46,10 +50,11 @@ const StudentDashboard: React.FC = () => {
     return mockCourses.find(course => course.id === courseId);
   };
 
-  const completedCourses = mockStudentCourses.filter(sc => sc.status === 'completed');
-  const inProgressCourses = mockStudentCourses.filter(sc => sc.status === 'in_progress');
-  const plannedCourses = mockStudentCourses.filter(sc => sc.status === 'planned');
-  const failedCourses = mockStudentCourses.filter(sc => sc.status === 'failed');
+  const userCourses = mockStudentCourses.filter(sc => sc.studentId === user?.id);
+  const completedCourses = userCourses.filter(sc => sc.status === 'completed');
+  const inProgressCourses = userCourses.filter(sc => sc.status === 'in_progress');
+  const plannedCourses = userCourses.filter(sc => sc.status === 'planned');
+  const failedCourses = userCourses.filter(sc => sc.status === 'failed');
 
   const progressPercentage = (studyPlan.completedCredits / studyPlan.totalCredits) * 100;
 
@@ -140,11 +145,12 @@ const StudentDashboard: React.FC = () => {
 
         {/* Main Content */}
         <Tabs defaultValue="study-plan" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="study-plan">แผนการเรียน</TabsTrigger>
             <TabsTrigger value="completed">วิชาที่ผ่าน</TabsTrigger>
             <TabsTrigger value="in-progress">กำลังเรียน</TabsTrigger>
-            <TabsTrigger value="recommendations">แนะนำวิชา</TabsTrigger>
+            <TabsTrigger value="failed">ไม่ผ่าน</TabsTrigger>
+            <TabsTrigger value="profile">โปรไฟล์</TabsTrigger>
           </TabsList>
 
           <TabsContent value="study-plan" className="space-y-6">
@@ -268,40 +274,108 @@ const StudentDashboard: React.FC = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="recommendations" className="space-y-6">
+          <TabsContent value="failed" className="space-y-6">
             <Card className="shadow-medium">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <TrendingUp className="w-5 h-5" />
-                  <span>แนะนำวิชาสำหรับภาคต่อไป</span>
+                  <AlertCircle className="w-5 h-5" />
+                  <span>วิชาที่ไม่ผ่าน</span>
                 </CardTitle>
                 <CardDescription>
-                  วิชาที่แนะนำให้เรียนในภาคการศึกษาถัดไป
+                  รายวิชาที่ต้องเรียนซ้ำหรือปรับปรุงผลการเรียน
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {mockCourses.filter(course => !mockStudentCourses.some(sc => sc.courseId === course.id)).slice(0, 3).map((course) => (
-                    <div key={course.id} className="flex items-center justify-between p-4 rounded-lg border bg-info/5">
-                      <div className="flex items-center space-x-3">
-                        <BookOpen className="w-6 h-6 text-info" />
-                        <div>
-                          <div className="font-medium">{course.code} - {course.name}</div>
-                          <div className="text-sm text-muted-foreground">
-                            {course.credits} หน่วยกิต • {course.description}
-                          </div>
-                          {course.prerequisites.length > 0 && (
-                            <div className="text-xs text-muted-foreground mt-1">
-                              ต้องผ่าน: {course.prerequisites.join(', ')}
+                  {failedCourses.length > 0 ? failedCourses.map((studentCourse) => {
+                    const course = getCourseDetails(studentCourse.courseId);
+                    if (!course) return null;
+                    
+                    return (
+                      <div key={studentCourse.courseId} className="flex items-center justify-between p-4 rounded-lg border bg-destructive/5">
+                        <div className="flex items-center space-x-3">
+                          <AlertCircle className="w-6 h-6 text-destructive" />
+                          <div>
+                            <div className="font-medium">{course.code} - {course.name}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {course.credits} หน่วยกิต • เกรด: {studentCourse.grade}
                             </div>
-                          )}
+                            <div className="text-xs text-muted-foreground mt-1">
+                              ควรลงทะเบียนเรียนซ้ำในภาคการศึกษาถัดไป
+                            </div>
+                          </div>
                         </div>
+                        <Badge variant="destructive">ไม่ผ่าน</Badge>
                       </div>
-                      <Button size="sm" variant="outline">
-                        เพิ่มในแผน
-                      </Button>
+                    );
+                  }) : (
+                    <div className="text-center p-8 text-muted-foreground">
+                      <CheckCircle className="w-12 h-12 mx-auto mb-4 text-success" />
+                      <p>ยินดีด้วย! คุณไม่มีวิชาที่ไม่ผ่าน</p>
                     </div>
-                  ))}
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="profile" className="space-y-6">
+            <Card className="shadow-medium">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <GraduationCap className="w-5 h-5" />
+                  <span>ข้อมูลส่วนตัว</span>
+                </CardTitle>
+                <CardDescription>
+                  แก้ไขข้อมูลส่วนตัวและข้อมูลการศึกษา
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="student-name">ชื่อ-นามสกุล</Label>
+                      <Input id="student-name" value={user?.name || ''} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="student-email">อีเมล</Label>
+                      <Input id="student-email" value={user?.email || ''} disabled />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="student-id">รหัสนักศึกษา</Label>
+                      <Input id="student-id" value={user?.studentId || ''} />
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="student-program">หลักสูตร</Label>
+                      <Input id="student-program" value={user?.program || ''} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="student-year">ปีการศึกษา</Label>
+                      <Select value={user?.year?.toString() || ''}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="เลือกปีการศึกษา" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">ปี 1</SelectItem>
+                          <SelectItem value="2">ปี 2</SelectItem>
+                          <SelectItem value="3">ปี 3</SelectItem>
+                          <SelectItem value="4">ปี 4</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="student-gpa">เกรดเฉลี่ย</Label>
+                      <Input id="student-gpa" value="3.25" disabled />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-end pt-4 border-t">
+                  <Button>
+                    <Save className="w-4 h-4 mr-2" />
+                    บันทึกการเปลี่ยนแปลง
+                  </Button>
                 </div>
               </CardContent>
             </Card>
