@@ -158,14 +158,64 @@ const StudentDashboard: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Target className="w-5 h-5" />
-                  <span>แผนการเรียนโดยรวม</span>
+                  <span>แผนการเรียนตามหลักสูตร</span>
                 </CardTitle>
                 <CardDescription>
-                  ภาพรวมการเรียนและความก้าวหน้าตามหลักสูตร
+                  เลือกหลักสูตรและวางแผนการเรียนตามปีการศึกษา
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-6">
+              <CardContent className="space-y-6">
+                {/* Program Selection */}
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="program-select">เลือกหลักสูตร</Label>
+                    <Select defaultValue="IT-62">
+                      <SelectTrigger>
+                        <SelectValue placeholder="เลือกหลักสูตร" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="IT-62">IT หลักสูตร 62 (4 ปี)</SelectItem>
+                        <SelectItem value="IT-67">IT หลักสูตร 67 (4 ปี)</SelectItem>
+                        <SelectItem value="INE-62">INE หลักสูตร 62 (4 ปี)</SelectItem>
+                        <SelectItem value="INE-67">INE หลักสูตร 67 (4 ปี)</SelectItem>
+                        <SelectItem value="INET-62">INET หลักสูตร 62 (3 ปี)</SelectItem>
+                        <SelectItem value="INET-67">INET หลักสูตร 67 (3 ปี)</SelectItem>
+                        <SelectItem value="ITI-61">ITI หลักสูตร 61 (2 ปี)</SelectItem>
+                        <SelectItem value="ITI-66">ITI หลักสูตร 66 (2 ปี)</SelectItem>
+                        <SelectItem value="ITT-67">ITT หลักสูตร 67 (2 ปี)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="year-select">ปีการศึกษา</Label>
+                    <Select defaultValue="1">
+                      <SelectTrigger>
+                        <SelectValue placeholder="เลือกปี" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">ปีที่ 1</SelectItem>
+                        <SelectItem value="2">ปีที่ 2</SelectItem>
+                        <SelectItem value="3">ปีที่ 3</SelectItem>
+                        <SelectItem value="4">ปีที่ 4</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="semester-select">ภาคการศึกษา</Label>
+                    <Select defaultValue="1">
+                      <SelectTrigger>
+                        <SelectValue placeholder="เลือกภาค" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">ภาคต้น</SelectItem>
+                        <SelectItem value="2">ภาคปลาย</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {/* Study Plan Overview */}
+                <div className="grid md:grid-cols-2 gap-6 pt-4 border-t">
                   <div className="space-y-4">
                     <h4 className="font-medium">สถิติการเรียน</h4>
                     <div className="space-y-2">
@@ -198,6 +248,49 @@ const StudentDashboard: React.FC = () => {
                       <div className="flex justify-between">
                         <span className="text-sm">เหลืออีก</span>
                         <span className="font-medium">{studyPlan.totalCredits - studyPlan.completedCredits} หน่วยกิต</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recommended Courses for Selected Semester */}
+                <div className="space-y-4 pt-4 border-t">
+                  <h4 className="font-medium">รายวิชาแนะนำสำหรับปี 1 ภาคต้น</h4>
+                  <div className="grid gap-3">
+                    <div className="p-4 rounded-lg border bg-card">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <BookOpen className="w-5 h-5 text-primary" />
+                          <div>
+                            <div className="font-medium">IT101 - พื้นฐานเทคโนโลยีสารสนเทศ</div>
+                            <div className="text-sm text-muted-foreground">3 หน่วยกิต • วิชาพื้นฐาน</div>
+                          </div>
+                        </div>
+                        <Badge variant="outline">แนะนำ</Badge>
+                      </div>
+                    </div>
+                    <div className="p-4 rounded-lg border bg-card">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <BookOpen className="w-5 h-5 text-primary" />
+                          <div>
+                            <div className="font-medium">IT102 - การเขียนโปรแกรมพื้นฐาน</div>
+                            <div className="text-sm text-muted-foreground">3 หน่วยกิต • วิชาพื้นฐาน</div>
+                          </div>
+                        </div>
+                        <Badge variant="outline">แนะนำ</Badge>
+                      </div>
+                    </div>
+                    <div className="p-4 rounded-lg border bg-card">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <BookOpen className="w-5 h-5 text-primary" />
+                          <div>
+                            <div className="font-medium">IT103 - คณิตศาสตร์สำหรับเทคโนโลยีสารสนเทศ</div>
+                            <div className="text-sm text-muted-foreground">3 หน่วยกิต • วิชาพื้นฐาน</div>
+                          </div>
+                        </div>
+                        <Badge variant="outline">แนะนำ</Badge>
                       </div>
                     </div>
                   </div>

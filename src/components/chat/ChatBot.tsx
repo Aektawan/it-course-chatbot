@@ -14,7 +14,9 @@ import {
   Sparkles,
   GraduationCap,
   BookOpen,
-  HelpCircle
+  HelpCircle,
+  ChevronUp,
+  ChevronDown
 } from 'lucide-react';
 
 interface ChatBotProps {
@@ -26,6 +28,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ className }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -131,99 +134,128 @@ const ChatBot: React.FC<ChatBotProps> = ({ className }) => {
   };
 
   return (
-    <Card className={`${className} shadow-medium`}>
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center space-x-2">
-          <div className="p-2 gradient-primary rounded-lg">
-            <Bot className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <span className="text-lg">AI Assistant</span>
-            <p className="text-sm font-normal text-muted-foreground">
-              แชทบอทแนะนำหลักสูตร IT
-            </p>
-          </div>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {/* Chat Messages */}
-        <ScrollArea className="h-96 pr-4">
-          <div className="space-y-4">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
-              >
-                <div
-                  className={`max-w-[80%] p-3 rounded-lg whitespace-pre-line ${
-                    message.isBot 
-                      ? 'chat-bubble-bot' 
-                      : 'chat-bubble-user'
-                  }`}
-                >
-                  {message.content}
+    <div className={`${className} fixed bottom-6 right-6 z-50`}>
+      {/* Toggle Button */}
+      <Button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="w-14 h-14 rounded-full gradient-primary shadow-elegant mb-4 transition-transform hover:scale-105"
+      >
+        {isExpanded ? (
+          <ChevronDown className="w-6 h-6" />
+        ) : (
+          <MessageCircle className="w-6 h-6" />
+        )}
+      </Button>
+
+      {/* Chat Window */}
+      {isExpanded && (
+        <Card className="w-96 h-[500px] shadow-medium animate-in slide-in-from-bottom-2 duration-200">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="p-2 gradient-primary rounded-lg">
+                  <Bot className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <span className="text-lg">AI Assistant</span>
+                  <p className="text-sm font-normal text-muted-foreground">
+                    แชทบอทแนะนำหลักสูตร IT
+                  </p>
                 </div>
               </div>
-            ))}
-            
-            {isTyping && (
-              <div className="flex justify-start">
-                <div className="chat-bubble-bot p-3 rounded-lg">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-current rounded-full animate-bounce" />
-                    <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                    <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsExpanded(false)}
+                className="h-8 w-8"
+              >
+                <ChevronUp className="w-4 h-4" />
+              </Button>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 h-[calc(500px-80px)] flex flex-col">
+            {/* Chat Messages */}
+            <ScrollArea className="flex-1 pr-4">
+              <div className="space-y-4">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
+                  >
+                    <div
+                      className={`max-w-[80%] p-3 rounded-lg whitespace-pre-line ${
+                        message.isBot 
+                          ? 'chat-bubble-bot' 
+                          : 'chat-bubble-user'
+                      }`}
+                    >
+                      {message.content}
+                    </div>
                   </div>
+                ))}
+                
+                {isTyping && (
+                  <div className="flex justify-start">
+                    <div className="chat-bubble-bot p-3 rounded-lg">
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-current rounded-full animate-bounce" />
+                        <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                        <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+            </ScrollArea>
+
+            <div className="space-y-3">
+              {/* Quick Suggestions */}
+              <div className="space-y-2">
+                <p className="text-sm text-muted-foreground">คำถามที่ถามบ่อย:</p>
+                <div className="flex flex-wrap gap-2">
+                  {chatbotResponses.suggestions.map((suggestion, index) => (
+                    <Badge
+                      key={index}
+                      variant="outline"
+                      className="cursor-pointer hover:bg-accent transition-colors text-xs"
+                      onClick={() => handleSuggestionClick(suggestion)}
+                    >
+                      {suggestion}
+                    </Badge>
+                  ))}
                 </div>
               </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-        </ScrollArea>
 
-        {/* Quick Suggestions */}
-        <div className="space-y-2">
-          <p className="text-sm text-muted-foreground">คำถามที่ถามบ่อย:</p>
-          <div className="flex flex-wrap gap-2">
-            {chatbotResponses.suggestions.map((suggestion, index) => (
-              <Badge
-                key={index}
-                variant="outline"
-                className="cursor-pointer hover:bg-accent transition-colors"
-                onClick={() => handleSuggestionClick(suggestion)}
-              >
-                {suggestion}
-              </Badge>
-            ))}
-          </div>
-        </div>
+              {/* Input Section */}
+              <div className="flex space-x-2">
+                <Input
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="พิมพ์คำถามของคุณ..."
+                  className="flex-1"
+                />
+                <Button onClick={handleSendMessage} size="icon" className="gradient-primary">
+                  <Send className="w-4 h-4" />
+                </Button>
+              </div>
 
-        {/* Input Section */}
-        <div className="flex space-x-2">
-          <Input
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="พิมพ์คำถามของคุณ..."
-            className="flex-1"
-          />
-          <Button onClick={handleSendMessage} size="icon" className="gradient-primary">
-            <Send className="w-4 h-4" />
-          </Button>
-        </div>
-
-        {/* Status */}
-        <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-          <Sparkles className="w-3 h-3" />
-          <span>
-            {isAuthenticated 
-              ? `เข้าสู่ระบบแล้วในฐานะ ${user?.name}` 
-              : 'เข้าสู่ระบบเพื่อใช้ฟีเจอร์เพิ่มเติม'
-            }
-          </span>
-        </div>
-      </CardContent>
-    </Card>
+              {/* Status */}
+              <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                <Sparkles className="w-3 h-3" />
+                <span>
+                  {isAuthenticated 
+                    ? `เข้าสู่ระบบแล้วในฐานะ ${user?.name}` 
+                    : 'เข้าสู่ระบบเพื่อใช้ฟีเจอร์เพิ่มเติม'
+                  }
+                </span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </div>
   );
 };
 
