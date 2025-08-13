@@ -5,7 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
-import { mockCourses, mockStudentCourses, mockStudyPlan } from '@/services/mockData';
+import { mockDepartments, mockStudentCourses, mockStudyPlan } from '@/services/mockData';
+import { Department, Curriculum } from '@/types/course';
 import { 
   GraduationCap, 
   BookOpen, 
@@ -16,7 +17,9 @@ import {
   Target,
   TrendingUp,
   Award,
-  Save
+  Save,
+  Settings,
+  ChevronDown
 } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -25,6 +28,14 @@ import { Input } from '@/components/ui/input';
 const StudentDashboard: React.FC = () => {
   const { user } = useAuth();
   const [studyPlan] = useState(mockStudyPlan);
+  const [selectedDepartment, setSelectedDepartment] = useState<string>('');
+  const [selectedCurriculum, setSelectedCurriculum] = useState<string>('');
+  const [selectedYear, setSelectedYear] = useState<number>(1);
+  const [selectedSemester, setSelectedSemester] = useState<number>(1);
+  
+  const selectedDept = mockDepartments.find(d => d.id === selectedDepartment);
+  const selectedCurr = selectedDept?.curricula.find(c => c.id === selectedCurriculum);
+  const selectedSemesterData = selectedCurr?.semesters.find(s => s.year === selectedYear && s.semester === selectedSemester);
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -46,8 +57,14 @@ const StudentDashboard: React.FC = () => {
     }
   };
 
+  const allCourses = mockDepartments.flatMap(dept => 
+    dept.curricula.flatMap(curr => 
+      curr.semesters.flatMap(sem => sem.courses)
+    )
+  );
+
   const getCourseDetails = (courseId: string) => {
-    return mockCourses.find(course => course.id === courseId);
+    return allCourses.find(course => course.id === courseId);
   };
 
   const userCourses = mockStudentCourses.filter(sc => sc.studentId === user?.id);
@@ -154,149 +171,245 @@ const StudentDashboard: React.FC = () => {
           </TabsList>
 
           <TabsContent value="study-plan" className="space-y-6">
+            {/* Department and Curriculum Selection */}
             <Card className="shadow-medium">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Target className="w-5 h-5" />
-                  <span>แผนการเรียนตามหลักสูตร</span>
+                  <Settings className="w-5 h-5" />
+                  <span>เลือกหลักสูตรของคุณ</span>
                 </CardTitle>
                 <CardDescription>
-                  เลือกหลักสูตรและวางแผนการเรียนตามปีการศึกษา
+                  เลือกสาขาวิชาและหลักสูตรเพื่อดูแผนการเรียน
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Program Selection */}
-                <div className="grid md:grid-cols-3 gap-4">
+              <CardContent className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="program-select">เลือกหลักสูตร</Label>
-                    <Select defaultValue="IT-62">
+                    <Label>สาขาวิชา</Label>
+                    <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="เลือกสาขาวิชา" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {mockDepartments.map(dept => (
+                          <SelectItem key={dept.id} value={dept.id}>
+                            {dept.code} - {dept.nameThai}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label>หลักสูตร</Label>
+                    <Select 
+                      value={selectedCurriculum} 
+                      onValueChange={setSelectedCurriculum}
+                      disabled={!selectedDepartment}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="เลือกหลักสูตร" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="IT-62">IT หลักสูตร 62 (4 ปี)</SelectItem>
-                        <SelectItem value="IT-67">IT หลักสูตร 67 (4 ปี)</SelectItem>
-                        <SelectItem value="INE-62">INE หลักสูตร 62 (4 ปี)</SelectItem>
-                        <SelectItem value="INE-67">INE หลักสูตร 67 (4 ปี)</SelectItem>
-                        <SelectItem value="INET-62">INET หลักสูตร 62 (3 ปี)</SelectItem>
-                        <SelectItem value="INET-67">INET หลักสูตร 67 (3 ปี)</SelectItem>
-                        <SelectItem value="ITI-61">ITI หลักสูตร 61 (2 ปี)</SelectItem>
-                        <SelectItem value="ITI-66">ITI หลักสูตร 66 (2 ปี)</SelectItem>
-                        <SelectItem value="ITT-67">ITT หลักสูตร 67 (2 ปี)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="year-select">ปีการศึกษา</Label>
-                    <Select defaultValue="1">
-                      <SelectTrigger>
-                        <SelectValue placeholder="เลือกปี" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1">ปีที่ 1</SelectItem>
-                        <SelectItem value="2">ปีที่ 2</SelectItem>
-                        <SelectItem value="3">ปีที่ 3</SelectItem>
-                        <SelectItem value="4">ปีที่ 4</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="semester-select">ภาคการศึกษา</Label>
-                    <Select defaultValue="1">
-                      <SelectTrigger>
-                        <SelectValue placeholder="เลือกภาค" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1">ภาคต้น</SelectItem>
-                        <SelectItem value="2">ภาคปลาย</SelectItem>
+                        {selectedDept?.curricula.map(curr => (
+                          <SelectItem key={curr.id} value={curr.id}>
+                            {curr.name} ({curr.duration} ปี)
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
-
-                {/* Study Plan Overview */}
-                <div className="grid md:grid-cols-2 gap-6 pt-4 border-t">
-                  <div className="space-y-4">
-                    <h4 className="font-medium">สถิติการเรียน</h4>
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-sm">วิชาที่ผ่านแล้ว</span>
-                        <span className="font-medium">{completedCourses.length} วิชา</span>
+                
+                {selectedCurr && (
+                  <div className="pt-4 border-t">
+                    <div className="grid md:grid-cols-3 gap-4 mb-4">
+                      <div className="p-4 rounded-lg bg-primary/5 text-center">
+                        <div className="text-2xl font-bold text-primary">{selectedCurr.duration}</div>
+                        <div className="text-sm text-muted-foreground">ปีการศึกษา</div>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-sm">วิชาที่กำลังเรียน</span>
-                        <span className="font-medium">{inProgressCourses.length} วิชา</span>
+                      <div className="p-4 rounded-lg bg-success/5 text-center">
+                        <div className="text-2xl font-bold text-success">{selectedCurr.totalCredits}</div>
+                        <div className="text-sm text-muted-foreground">หน่วยกิตรวม</div>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-sm">วิชาที่วางแผนไว้</span>
-                        <span className="font-medium">{plannedCourses.length} วิชา</span>
+                      <div className="p-4 rounded-lg bg-info/5 text-center">
+                        <div className="text-2xl font-bold text-info">{selectedCurr.semesters.length}</div>
+                        <div className="text-sm text-muted-foreground">ภาคการศึกษา</div>
                       </div>
                     </div>
                   </div>
-                  
-                  <div className="space-y-4">
-                    <h4 className="font-medium">ข้อมูลการเรียน</h4>
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-sm">ภาคการศึกษาปัจจุบัน</span>
-                        <span className="font-medium">{studyPlan.currentSemester}/{studyPlan.currentYear}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-sm">หน่วยกิตสะสม</span>
-                        <span className="font-medium">{studyPlan.completedCredits} หน่วยกิต</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-sm">เหลืออีก</span>
-                        <span className="font-medium">{studyPlan.totalCredits - studyPlan.completedCredits} หน่วยกิต</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Recommended Courses for Selected Semester */}
-                <div className="space-y-4 pt-4 border-t">
-                  <h4 className="font-medium">รายวิชาแนะนำสำหรับปี 1 ภาคต้น</h4>
-                  <div className="grid gap-3">
-                    <div className="p-4 rounded-lg border bg-card">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <BookOpen className="w-5 h-5 text-primary" />
-                          <div>
-                            <div className="font-medium">IT101 - พื้นฐานเทคโนโลยีสารสนเทศ</div>
-                            <div className="text-sm text-muted-foreground">3 หน่วยกิต • วิชาพื้นฐาน</div>
-                          </div>
-                        </div>
-                        <Badge variant="outline">แนะนำ</Badge>
-                      </div>
-                    </div>
-                    <div className="p-4 rounded-lg border bg-card">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <BookOpen className="w-5 h-5 text-primary" />
-                          <div>
-                            <div className="font-medium">IT102 - การเขียนโปรแกรมพื้นฐาน</div>
-                            <div className="text-sm text-muted-foreground">3 หน่วยกิต • วิชาพื้นฐาน</div>
-                          </div>
-                        </div>
-                        <Badge variant="outline">แนะนำ</Badge>
-                      </div>
-                    </div>
-                    <div className="p-4 rounded-lg border bg-card">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <BookOpen className="w-5 h-5 text-primary" />
-                          <div>
-                            <div className="font-medium">IT103 - คณิตศาสตร์สำหรับเทคโนโลยีสารสนเทศ</div>
-                            <div className="text-sm text-muted-foreground">3 หน่วยกิต • วิชาพื้นฐาน</div>
-                          </div>
-                        </div>
-                        <Badge variant="outline">แนะนำ</Badge>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                )}
               </CardContent>
             </Card>
+
+            {/* Study Plan Content */}
+            {selectedCurr && (
+              <Card className="shadow-medium">
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <Target className="w-5 h-5" />
+                    <span>แผนการเรียน - {selectedCurr.name}</span>
+                  </CardTitle>
+                  <CardDescription>
+                    เลือกปีและภาคการศึกษาเพื่อดูรายวิชา
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Year and Semester Selection */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>ปีการศึกษา</Label>
+                      <Select value={selectedYear.toString()} onValueChange={(value) => setSelectedYear(parseInt(value))}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Array.from({ length: selectedCurr.duration }, (_, i) => (
+                            <SelectItem key={i + 1} value={(i + 1).toString()}>
+                              ปีที่ {i + 1}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label>ภาคการศึกษา</Label>
+                      <Select value={selectedSemester.toString()} onValueChange={(value) => setSelectedSemester(parseInt(value))}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">ภาคต้น</SelectItem>
+                          <SelectItem value="2">ภาคปลาย</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  {/* Course List for Selected Semester */}
+                  {selectedSemesterData && (
+                    <div className="space-y-4 pt-4 border-t">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-medium">
+                          รายวิชา ปีที่ {selectedYear} ภาค{selectedSemester === 1 ? 'ต้น' : 'ปลาย'}
+                        </h4>
+                        <div className="text-sm text-muted-foreground">
+                          {selectedSemesterData.courses.reduce((sum, course) => sum + course.credits, 0)} หน่วยกิตรวม
+                        </div>
+                      </div>
+                      
+                      <div className="grid gap-3">
+                        {selectedSemesterData.courses.map((course) => (
+                          <div key={course.id} className="p-4 rounded-lg border bg-card hover:shadow-md transition-shadow">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center space-x-3">
+                                <BookOpen className="w-5 h-5 text-primary" />
+                                <div className="flex-1">
+                                  <div className="font-medium">{course.code} - {course.name}</div>
+                                  <div className="text-sm text-muted-foreground">
+                                    {course.credits} หน่วยกิต • {course.category === 'core' ? 'วิชาหลัก' : 
+                                     course.category === 'major' ? 'วิชาเฉพาะ' : 
+                                     course.category === 'elective' ? 'วิชาเลือก' : 'วิชาศึกษาทั่วไป'}
+                                  </div>
+                                  {course.prerequisites.length > 0 && (
+                                    <div className="text-xs text-warning mt-1">
+                                      ต้องเรียน: {course.prerequisites.join(', ')} มาก่อน
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="flex flex-col items-end space-y-1">
+                                <Badge 
+                                  variant={
+                                    course.category === 'core' ? 'default' :
+                                    course.category === 'major' ? 'secondary' : 'outline'
+                                  }
+                                >
+                                  {course.category === 'core' ? 'หลัก' : 
+                                   course.category === 'major' ? 'เฉพาะ' : 
+                                   course.category === 'elective' ? 'เลือก' : 'ทั่วไป'}
+                                </Badge>
+                                {course.instructor && (
+                                  <div className="text-xs text-muted-foreground">
+                                    {course.instructor}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedCurr && !selectedSemesterData && (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <Calendar className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                      <p>ไม่มีข้อมูลรายวิชาสำหรับภาคการศึกษาที่เลือก</p>
+                    </div>
+                  )}
+
+                  {/* All Semesters Overview */}
+                  {selectedCurr && (
+                    <div className="space-y-4 pt-4 border-t">
+                      <h4 className="font-medium">ภาพรวมแผนการเรียนทั้งหมด</h4>
+                      <div className="grid gap-3">
+                        {Array.from({ length: selectedCurr.duration }, (_, yearIndex) => (
+                          <div key={yearIndex} className="space-y-2">
+                            <h5 className="font-medium text-primary">ปีที่ {yearIndex + 1}</h5>
+                            <div className="grid md:grid-cols-2 gap-2">
+                              {[1, 2].map(semesterNum => {
+                                const semester = selectedCurr.semesters.find(s => 
+                                  s.year === yearIndex + 1 && s.semester === semesterNum
+                                );
+                                return (
+                                  <div 
+                                    key={semesterNum}
+                                    className="p-3 rounded-lg border bg-card/50 cursor-pointer hover:bg-card transition-colors"
+                                    onClick={() => {
+                                      setSelectedYear(yearIndex + 1);
+                                      setSelectedSemester(semesterNum);
+                                    }}
+                                  >
+                                    <div className="flex items-center justify-between">
+                                      <div className="font-medium text-sm">
+                                        ภาค{semesterNum === 1 ? 'ต้น' : 'ปลาย'}
+                                      </div>
+                                      <div className="text-xs text-muted-foreground">
+                                        {semester ? `${semester.courses.length} วิชา` : 'ไม่มีข้อมูล'}
+                                      </div>
+                                    </div>
+                                    {semester && (
+                                      <div className="text-xs text-muted-foreground mt-1">
+                                        {semester.courses.reduce((sum, c) => sum + c.credits, 0)} หน่วยกิต
+                                      </div>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
+            {/* No Selection State */}
+            {!selectedDepartment && (
+              <Card className="shadow-medium">
+                <CardContent className="py-12 text-center">
+                  <GraduationCap className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
+                  <h3 className="text-lg font-medium mb-2">เริ่มต้นวางแผนการเรียนของคุณ</h3>
+                  <p className="text-muted-foreground mb-4">
+                    เลือกสาขาวิชาและหลักสูตรที่คุณสนใจเพื่อดูแผนการเรียนและรายวิชาต่างๆ
+                  </p>
+                </CardContent>
+              </Card>
+            )}
           </TabsContent>
 
           <TabsContent value="completed" className="space-y-6">

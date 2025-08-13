@@ -1,3 +1,27 @@
+export interface Department {
+  id: string;
+  code: string;
+  name: string;
+  nameThai: string;
+  curricula: Curriculum[];
+}
+
+export interface Curriculum {
+  id: string;
+  year: number;
+  buddhistYear: number;
+  name: string;
+  duration: number; // years
+  totalCredits: number;
+  semesters: CurriculumSemester[];
+}
+
+export interface CurriculumSemester {
+  year: number;
+  semester: number;
+  courses: Course[];
+}
+
 export interface Course {
   id: string;
   code: string;
