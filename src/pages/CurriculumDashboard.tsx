@@ -21,21 +21,19 @@ const CurriculumDashboard: React.FC = () => {
   const [selectedCurriculum, setSelectedCurriculum] = useState<string>('');
   const [selectedSemester, setSelectedSemester] = useState<string>('');
 
-  // Create curriculum options
+  // Create curriculum options with fixed order
   const curriculumOptions = useMemo(() => {
-    const options: Array<{value: string, label: string, description: string}> = [];
-    
-    mockDepartments.forEach(dept => {
-      dept.curricula.forEach(curr => {
-        options.push({
-          value: curr.id,
-          label: `${dept.code} ${curr.buddhistYear - 543}`,
-          description: curr.name
-        });
-      });
-    });
-    
-    return options;
+    return [
+      { value: 'IT-62', label: 'IT 62', description: 'หลักสูตรเทคโนโลยีสารสนเทศ พ.ศ. 2562' },
+      { value: 'IT-67', label: 'IT 67', description: 'หลักสูตรเทคโนโลยีสารสนเทศ พ.ศ. 2567' },
+      { value: 'INE-62', label: 'INE 62', description: 'หลักสูตรวิศวกรรมเครือข่ายสารสนเทศ พ.ศ. 2562' },
+      { value: 'INE-67', label: 'INE 67', description: 'หลักสูตรวิศวกรรมเครือข่ายสารสนเทศ พ.ศ. 2567' },
+      { value: 'INET-62', label: 'INET 62', description: 'หลักสูตรเทคโนโลยีอินเทอร์เน็ต พ.ศ. 2562' },
+      { value: 'INET-67', label: 'INET 67', description: 'หลักสูตรเทคโนโลยีอินเทอร์เน็ต พ.ศ. 2567' },
+      { value: 'ITI-61', label: 'ITI 61', description: 'หลักสูตรเทคโนโลยีสารสนเทศนวัตกรรม พ.ศ. 2561' },
+      { value: 'ITI-66', label: 'ITI 66', description: 'หลักสูตรเทคโนโลยีสารสนเทศนวัตกรรม พ.ศ. 2566' },
+      { value: 'ITT-67', label: 'ITT 67', description: 'หลักสูตรเทคโนโลยีสารสนเทศสำหรับครู พ.ศ. 2567' }
+    ];
   }, []);
 
   // Get selected curriculum data
@@ -51,24 +49,19 @@ const CurriculumDashboard: React.FC = () => {
     return null;
   }, [selectedCurriculum]);
 
-  // Create semester options based on selected curriculum
+  // Create semester options (fixed 8 semesters for 4 years)
   const semesterOptions = useMemo(() => {
-    if (!selectedCurriculumData) return [];
-    
-    const options: Array<{value: string, label: string}> = [];
-    const maxYear = selectedCurriculumData.curriculum.duration;
-    
-    for (let year = 1; year <= maxYear; year++) {
-      for (let semester = 1; semester <= 2; semester++) {
-        options.push({
-          value: `${year}-${semester}`,
-          label: `ปี ${year} เทอม ${semester}`
-        });
-      }
-    }
-    
-    return options;
-  }, [selectedCurriculumData]);
+    return [
+      { value: '1-1', label: 'Year 1 – Semester 1' },
+      { value: '1-2', label: 'Year 1 – Semester 2' },
+      { value: '2-1', label: 'Year 2 – Semester 1' },
+      { value: '2-2', label: 'Year 2 – Semester 2' },
+      { value: '3-1', label: 'Year 3 – Semester 1' },
+      { value: '3-2', label: 'Year 3 – Semester 2' },
+      { value: '4-1', label: 'Year 4 – Semester 1' },
+      { value: '4-2', label: 'Year 4 – Semester 2' }
+    ];
+  }, []);
 
   // Get courses for selected semester
   const selectedSemesterCourses = useMemo(() => {
