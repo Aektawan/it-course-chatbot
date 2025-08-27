@@ -209,44 +209,161 @@ export const mockDepartments: Department[] = [
       }
     ]
   },
-  // Add remaining departments with placeholder data for now
   {
     id: 'INE',
     code: 'INE', 
     name: 'Information Network Engineering',
     nameThai: 'วิศวกรรมเครือข่ายสารสนเทศ',
     curricula: [
-      { id: 'INE-62', year: 2019, buddhistYear: 2562, name: 'หลักสูตรวิศวกรรมเครือข่ายสารสนเทศ พ.ศ. 2562', duration: 4, totalCredits: 128, semesters: [] },
-      { id: 'INE-67', year: 2024, buddhistYear: 2567, name: 'หลักสูตรวิศวกรรมเครือข่ายสารสนเทศ พ.ศ. 2567', duration: 4, totalCredits: 132, semesters: [] }
-    ]
-  },
-  {
-    id: 'INET',
-    code: 'INET',
-    name: 'Internet Technology', 
-    nameThai: 'เทคโนโลยีอินเทอร์เน็ต',
-    curricula: [
-      { id: 'INET-62', year: 2019, buddhistYear: 2562, name: 'หลักสูตรเทคโนโลยีอินเทอร์เน็ต พ.ศ. 2562', duration: 3, totalCredits: 90, semesters: [] },
-      { id: 'INET-67', year: 2024, buddhistYear: 2567, name: 'หลักสูตรเทคโนโลยีอินเทอร์เน็ต พ.ศ. 2567', duration: 3, totalCredits: 96, semesters: [] }
-    ]
-  },
-  {
-    id: 'ITI',
-    code: 'ITI',
-    name: 'Information Technology Innovation',
-    nameThai: 'เทคโนโลยีสารสนเทศนวัตกรรม',
-    curricula: [
-      { id: 'ITI-61', year: 2018, buddhistYear: 2561, name: 'หลักสูตรเทคโนโลยีสารสนเทศนวัตกรรม พ.ศ. 2561', duration: 2, totalCredits: 60, semesters: [] },
-      { id: 'ITI-66', year: 2023, buddhistYear: 2566, name: 'หลักสูตรเทคโนโลยีสารสนเทศนวัตกรรม พ.ศ. 2566', duration: 2, totalCredits: 66, semesters: [] }
-    ]
-  },
-  {
-    id: 'ITT',
-    code: 'ITT',
-    name: 'Information Technology for Teachers',
-    nameThai: 'เทคโนโลยีสารสนเทศสำหรับครู',
-    curricula: [
-      { id: 'ITT-67', year: 2024, buddhistYear: 2567, name: 'หลักสูตรเทคโนโลยีสารสนเทศสำหรับครู พ.ศ. 2567', duration: 2, totalCredits: 72, semesters: [] }
+      {
+        id: 'INE-62',
+        year: 2019,
+        buddhistYear: 2562,
+        name: 'หลักสูตรวิศวกรรมเครือข่ายสารสนเทศ พ.ศ. 2562 (INE 62)',
+        duration: 4,
+        totalCredits: 128,
+        semesters: [
+          { year: 1, semester: 1, courses: [
+            { id: 'INE101-62', code: 'INE101', name: 'Network Engineering Fundamentals', credits: 3, description: 'พื้นฐานวิศวกรรมเครือข่าย', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Network', isActive: true },
+            { id: 'INE102-62', code: 'INE102', name: 'Mathematics for Engineers', credits: 3, description: 'คณิตศาสตร์สำหรับวิศวกร', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Math', isActive: true },
+            { id: 'INE103-62', code: 'INE103', name: 'Physics for Engineers', credits: 3, description: 'ฟิสิกส์สำหรับวิศวกร', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Physics', isActive: true },
+            { id: 'INE104-62', code: 'INE104', name: 'Programming for Engineers', credits: 2, description: 'การเขียนโปรแกรมสำหรับวิศวกร', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Code', isActive: true },
+            { id: 'INE105-62', code: 'INE105', name: 'Digital Systems', credits: 3, description: 'ระบบดิจิทัล', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Digital', isActive: true },
+            { id: 'INE106-62', code: 'INE106', name: 'Technical English', credits: 2, description: 'ภาษาอังกฤษเทคนิค', prerequisites: [], corequisites: [], category: 'general', semester: 1, year: 1, instructor: 'Prof. English', isActive: true }
+          ]},
+          { year: 1, semester: 2, courses: [
+            { id: 'INE201-62', code: 'INE201', name: 'Circuit Analysis', credits: 3, description: 'การวิเคราะห์วงจร', prerequisites: ['INE103'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Circuit', isActive: true },
+            { id: 'INE202-62', code: 'INE202', name: 'Data Communications', credits: 3, description: 'การสื่อสารข้อมูล', prerequisites: ['INE101'], corequisites: [], category: 'major', semester: 2, year: 1, instructor: 'Dr. Comm', isActive: true },
+            { id: 'INE203-62', code: 'INE203', name: 'Network Protocols', credits: 3, description: 'โปรโตคอลเครือข่าย', prerequisites: ['INE101'], corequisites: [], category: 'major', semester: 2, year: 1, instructor: 'Dr. Protocol', isActive: true },
+            { id: 'INE204-62', code: 'INE204', name: 'Advanced Programming', credits: 3, description: 'การเขียนโปรแกรมขั้นสูง', prerequisites: ['INE104'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Code', isActive: true },
+            { id: 'INE205-62', code: 'INE205', name: 'Statistics for Engineers', credits: 3, description: 'สถิติสำหรับวิศวกร', prerequisites: ['INE102'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Stats', isActive: true },
+            { id: 'INE206-62', code: 'INE206', name: 'Linear Algebra', credits: 2, description: 'พีชคณิตเชิงเส้น', prerequisites: ['INE102'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Math', isActive: true }
+          ]},
+          { year: 2, semester: 1, courses: [
+            { id: 'INE301-62', code: 'INE301', name: 'Network Security', credits: 3, description: 'ความปลอดภัยเครือข่าย', prerequisites: ['INE203'], corequisites: [], category: 'major', semester: 1, year: 2, instructor: 'Dr. Security', isActive: true },
+            { id: 'INE302-62', code: 'INE302', name: 'Wireless Networks', credits: 3, description: 'เครือข่ายไร้สาย', prerequisites: ['INE202'], corequisites: [], category: 'major', semester: 1, year: 2, instructor: 'Dr. Wireless', isActive: true },
+            { id: 'INE303-62', code: 'INE303', name: 'Network Design', credits: 3, description: 'การออกแบบเครือข่าย', prerequisites: ['INE203'], corequisites: [], category: 'major', semester: 1, year: 2, instructor: 'Dr. Design', isActive: true },
+            { id: 'INE304-62', code: 'INE304', name: 'Signal Processing', credits: 3, description: 'การประมวลผลสัญญาณ', prerequisites: ['INE201'], corequisites: [], category: 'core', semester: 1, year: 2, instructor: 'Dr. Signal', isActive: true },
+            { id: 'INE305-62', code: 'INE305', name: 'Database Systems', credits: 2, description: 'ระบบฐานข้อมูล', prerequisites: ['INE204'], corequisites: [], category: 'elective', semester: 1, year: 2, instructor: 'Dr. Database', isActive: true },
+            { id: 'INE306-62', code: 'INE306', name: 'Network Management', credits: 3, description: 'การจัดการเครือข่าย', prerequisites: ['INE203'], corequisites: [], category: 'major', semester: 1, year: 2, instructor: 'Dr. Manage', isActive: true }
+          ]},
+          { year: 2, semester: 2, courses: [
+            { id: 'INE401-62', code: 'INE401', name: 'Advanced Network Security', credits: 3, description: 'ความปลอดภัยเครือข่ายขั้นสูง', prerequisites: ['INE301'], corequisites: [], category: 'major', semester: 2, year: 2, instructor: 'Dr. Security', isActive: true },
+            { id: 'INE402-62', code: 'INE402', name: 'Network Performance', credits: 3, description: 'ประสิทธิภาพเครือข่าย', prerequisites: ['INE303'], corequisites: [], category: 'major', semester: 2, year: 2, instructor: 'Dr. Performance', isActive: true },
+            { id: 'INE403-62', code: 'INE403', name: 'Cloud Networking', credits: 3, description: 'เครือข่ายบนคลาวด์', prerequisites: ['INE302'], corequisites: [], category: 'elective', semester: 2, year: 2, instructor: 'Dr. Cloud', isActive: true },
+            { id: 'INE404-62', code: 'INE404', name: 'Network Automation', credits: 3, description: 'ระบบอัตโนมัติเครือข่าย', prerequisites: ['INE306'], corequisites: [], category: 'major', semester: 2, year: 2, instructor: 'Dr. Auto', isActive: true },
+            { id: 'INE405-62', code: 'INE405', name: 'Project Management', credits: 2, description: 'การจัดการโครงการ', prerequisites: [], corequisites: [], category: 'general', semester: 2, year: 2, instructor: 'Dr. PM', isActive: true },
+            { id: 'INE406-62', code: 'INE406', name: 'Network Testing', credits: 3, description: 'การทดสอบเครือข่าย', prerequisites: ['INE303'], corequisites: [], category: 'major', semester: 2, year: 2, instructor: 'Dr. Test', isActive: true }
+          ]},
+          { year: 3, semester: 1, courses: [
+            { id: 'INE501-62', code: 'INE501', name: 'Enterprise Networks', credits: 3, description: 'เครือข่ายองค์กร', prerequisites: ['INE303'], corequisites: [], category: 'major', semester: 1, year: 3, instructor: 'Dr. Enterprise', isActive: true },
+            { id: 'INE502-62', code: 'INE502', name: 'Network Troubleshooting', credits: 3, description: 'การแก้ปัญหาเครือข่าย', prerequisites: ['INE402'], corequisites: [], category: 'major', semester: 1, year: 3, instructor: 'Dr. Troubleshoot', isActive: true },
+            { id: 'INE503-62', code: 'INE503', name: 'IoT Networks', credits: 3, description: 'เครือข่าย IoT', prerequisites: ['INE302'], corequisites: [], category: 'elective', semester: 1, year: 3, instructor: 'Dr. IoT', isActive: true },
+            { id: 'INE504-62', code: 'INE504', name: 'Network Forensics', credits: 3, description: 'นิติวิทยาศาสตร์เครือข่าย', prerequisites: ['INE401'], corequisites: [], category: 'elective', semester: 1, year: 3, instructor: 'Dr. Forensics', isActive: true },
+            { id: 'INE505-62', code: 'INE505', name: 'Advanced Routing', credits: 2, description: 'การกำหนดเส้นทางขั้นสูง', prerequisites: ['INE303'], corequisites: [], category: 'major', semester: 1, year: 3, instructor: 'Dr. Route', isActive: true },
+            { id: 'INE506-62', code: 'INE506', name: 'Network Virtualization', credits: 3, description: 'การสร้างเครือข่ายเสมือน', prerequisites: ['INE403'], corequisites: [], category: 'elective', semester: 1, year: 3, instructor: 'Dr. Virtual', isActive: true }
+          ]},
+          { year: 3, semester: 2, courses: [
+            { id: 'INE601-62', code: 'INE601', name: 'Capstone Project I', credits: 3, description: 'โครงงานวิจัย 1', prerequisites: ['INE501'], corequisites: [], category: 'major', semester: 2, year: 3, instructor: 'Dr. Project', isActive: true },
+            { id: 'INE602-62', code: 'INE602', name: '5G Networks', credits: 3, description: 'เครือข่าย 5G', prerequisites: ['INE302'], corequisites: [], category: 'elective', semester: 2, year: 3, instructor: 'Dr. 5G', isActive: true },
+            { id: 'INE603-62', code: 'INE603', name: 'Software Defined Networks', credits: 3, description: 'เครือข่ายที่กำหนดด้วยซอฟต์แวร์', prerequisites: ['INE506'], corequisites: [], category: 'elective', semester: 2, year: 3, instructor: 'Dr. SDN', isActive: true },
+            { id: 'INE604-62', code: 'INE604', name: 'Network Economics', credits: 3, description: 'เศรษฐศาสตร์เครือข่าย', prerequisites: [], corequisites: [], category: 'general', semester: 2, year: 3, instructor: 'Dr. Economics', isActive: true },
+            { id: 'INE605-62', code: 'INE605', name: 'Ethics in Engineering', credits: 2, description: 'จริยธรรมทางวิศวกรรม', prerequisites: [], corequisites: [], category: 'general', semester: 2, year: 3, instructor: 'Dr. Ethics', isActive: true },
+            { id: 'INE606-62', code: 'INE606', name: 'Research Methods', credits: 2, description: 'วิธีการวิจัย', prerequisites: [], corequisites: [], category: 'general', semester: 2, year: 3, instructor: 'Dr. Research', isActive: true }
+          ]},
+          { year: 4, semester: 1, courses: [
+            { id: 'INE701-62', code: 'INE701', name: 'Capstone Project II', credits: 3, description: 'โครงงานวิจัย 2', prerequisites: ['INE601'], corequisites: [], category: 'major', semester: 1, year: 4, instructor: 'Dr. Project', isActive: true },
+            { id: 'INE702-62', code: 'INE702', name: 'Industry Internship', credits: 3, description: 'การฝึกงานในอุตสาหกรรม', prerequisites: [], corequisites: [], category: 'major', semester: 1, year: 4, instructor: 'Dr. Industry', isActive: true },
+            { id: 'INE703-62', code: 'INE703', name: 'Network Entrepreneurship', credits: 3, description: 'การเป็นผู้ประกอบการด้านเครือข่าย', prerequisites: [], corequisites: [], category: 'elective', semester: 1, year: 4, instructor: 'Dr. Business', isActive: true },
+            { id: 'INE704-62', code: 'INE704', name: 'Advanced Security', credits: 3, description: 'ความปลอดภัยขั้นสูง', prerequisites: ['INE504'], corequisites: [], category: 'elective', semester: 1, year: 4, instructor: 'Dr. Security', isActive: true },
+            { id: 'INE705-62', code: 'INE705', name: 'Network Integration', credits: 2, description: 'การผสมผสานเครือข่าย', prerequisites: ['INE501'], corequisites: [], category: 'major', semester: 1, year: 4, instructor: 'Dr. Integration', isActive: true },
+            { id: 'INE706-62', code: 'INE706', name: 'Professional Skills', credits: 2, description: 'ทักษะวิชาชีพ', prerequisites: [], corequisites: [], category: 'general', semester: 1, year: 4, instructor: 'Dr. Professional', isActive: true }
+          ]},
+          { year: 4, semester: 2, courses: [
+            { id: 'INE801-62', code: 'INE801', name: 'Senior Project', credits: 3, description: 'โครงงานพิเศษ', prerequisites: ['INE701'], corequisites: [], category: 'major', semester: 2, year: 4, instructor: 'Dr. Project', isActive: true },
+            { id: 'INE802-62', code: 'INE802', name: 'Network Seminar', credits: 2, description: 'สัมมนาเครือข่าย', prerequisites: [], corequisites: [], category: 'major', semester: 2, year: 4, instructor: 'Dr. Seminar', isActive: true },
+            { id: 'INE803-62', code: 'INE803', name: 'Advanced Elective I', credits: 3, description: 'วิชาเลือกขั้นสูง 1', prerequisites: [], corequisites: [], category: 'elective', semester: 2, year: 4, instructor: 'Various', isActive: true },
+            { id: 'INE804-62', code: 'INE804', name: 'Advanced Elective II', credits: 3, description: 'วิชาเลือกขั้นสูง 2', prerequisites: [], corequisites: [], category: 'elective', semester: 2, year: 4, instructor: 'Various', isActive: true },
+            { id: 'INE805-62', code: 'INE805', name: 'Network Trends', credits: 2, description: 'แนวโน้มเครือข่าย', prerequisites: [], corequisites: [], category: 'general', semester: 2, year: 4, instructor: 'Dr. Trends', isActive: true },
+            { id: 'INE806-62', code: 'INE806', name: 'Portfolio Development', credits: 2, description: 'การพัฒนาผลงาน', prerequisites: [], corequisites: [], category: 'major', semester: 2, year: 4, instructor: 'Dr. Portfolio', isActive: true }
+          ]}
+        ]
+      },
+      {
+        id: 'INE-67',
+        year: 2024,
+        buddhistYear: 2567,
+        name: 'หลักสูตรวิศวกรรมเครือข่ายสารสนเทศ พ.ศ. 2567 (INE 67)',
+        duration: 4,
+        totalCredits: 132,
+        semesters: [
+          { year: 1, semester: 1, courses: [
+            { id: 'INE101-67', code: 'INE101', name: 'Modern Network Engineering', credits: 3, description: 'วิศวกรรมเครือข่ายสมัยใหม่', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Modern', isActive: true },
+            { id: 'INE102-67', code: 'INE102', name: 'Engineering Mathematics', credits: 3, description: 'คณิตศาสตร์วิศวกรรม', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Math', isActive: true },
+            { id: 'INE103-67', code: 'INE103', name: 'Applied Physics', credits: 3, description: 'ฟิสิกส์ประยุกต์', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Physics', isActive: true },
+            { id: 'INE104-67', code: 'INE104', name: 'Python Programming', credits: 2, description: 'การเขียนโปรแกรม Python', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Python', isActive: true },
+            { id: 'INE105-67', code: 'INE105', name: 'Digital Innovation', credits: 3, description: 'นวัตกรรมดิจิทัล', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Innovation', isActive: true },
+            { id: 'INE106-67', code: 'INE106', name: 'Communication Skills', credits: 2, description: 'ทักษะการสื่อสาร', prerequisites: [], corequisites: [], category: 'general', semester: 1, year: 1, instructor: 'Prof. Comm', isActive: true }
+          ]},
+          // Continue with similar pattern for remaining semesters...
+          { year: 1, semester: 2, courses: [
+            { id: 'INE201-67', code: 'INE201', name: 'Advanced Circuit Analysis', credits: 3, description: 'การวิเคราะห์วงจรขั้นสูง', prerequisites: ['INE103'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Circuit', isActive: true },
+            { id: 'INE202-67', code: 'INE202', name: 'Data Communication Systems', credits: 3, description: 'ระบบการสื่อสารข้อมูล', prerequisites: ['INE101'], corequisites: [], category: 'major', semester: 2, year: 1, instructor: 'Dr. DataComm', isActive: true },
+            { id: 'INE203-67', code: 'INE203', name: 'Network Protocols & Standards', credits: 3, description: 'โปรโตคอลและมาตรฐานเครือข่าย', prerequisites: ['INE101'], corequisites: [], category: 'major', semester: 2, year: 1, instructor: 'Dr. Standards', isActive: true },
+            { id: 'INE204-67', code: 'INE204', name: 'Object-Oriented Programming', credits: 3, description: 'การเขียนโปรแกรมเชิงวัตถุ', prerequisites: ['INE104'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. OOP', isActive: true },
+            { id: 'INE205-67', code: 'INE205', name: 'Engineering Statistics', credits: 3, description: 'สถิติวิศวกรรม', prerequisites: ['INE102'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Stats', isActive: true },
+            { id: 'INE206-67', code: 'INE206', name: 'Linear Systems', credits: 2, description: 'ระบบเชิงเส้น', prerequisites: ['INE102'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Linear', isActive: true }
+          ]},
+          { year: 2, semester: 1, courses: [
+            { id: 'INE301-67', code: 'INE301', name: 'Cybersecurity Fundamentals', credits: 3, description: 'พื้นฐานความปลอดภัยไซเบอร์', prerequisites: ['INE203'], corequisites: [], category: 'major', semester: 1, year: 2, instructor: 'Dr. Cyber', isActive: true },
+            { id: 'INE302-67', code: 'INE302', name: '5G & Beyond Networks', credits: 3, description: 'เครือข่าย 5G และอนาคต', prerequisites: ['INE202'], corequisites: [], category: 'major', semester: 1, year: 2, instructor: 'Dr. 5G', isActive: true },
+            { id: 'INE303-67', code: 'INE303', name: 'Smart Network Design', credits: 3, description: 'การออกแบบเครือข่ายอัจฉริยะ', prerequisites: ['INE203'], corequisites: [], category: 'major', semester: 1, year: 2, instructor: 'Dr. Smart', isActive: true },
+            { id: 'INE304-67', code: 'INE304', name: 'AI for Networks', credits: 3, description: 'ปัญญาประดิษฐ์สำหรับเครือข่าย', prerequisites: ['INE204'], corequisites: [], category: 'elective', semester: 1, year: 2, instructor: 'Dr. AI', isActive: true },
+            { id: 'INE305-67', code: 'INE305', name: 'Cloud Infrastructure', credits: 2, description: 'โครงสร้างพื้นฐานคลาวด์', prerequisites: ['INE204'], corequisites: [], category: 'elective', semester: 1, year: 2, instructor: 'Dr. Cloud', isActive: true },
+            { id: 'INE306-67', code: 'INE306', name: 'Network Automation', credits: 3, description: 'ระบบอัตโนมัติเครือข่าย', prerequisites: ['INE203'], corequisites: [], category: 'major', semester: 1, year: 2, instructor: 'Dr. Auto', isActive: true }
+          ]},
+          { year: 2, semester: 2, courses: [
+            { id: 'INE401-67', code: 'INE401', name: 'Advanced Cybersecurity', credits: 3, description: 'ความปลอดภัยไซเบอร์ขั้นสูง', prerequisites: ['INE301'], corequisites: [], category: 'major', semester: 2, year: 2, instructor: 'Dr. Cyber', isActive: true },
+            { id: 'INE402-67', code: 'INE402', name: 'Network Performance Analytics', credits: 3, description: 'การวิเคราะห์ประสิทธิภาพเครือข่าย', prerequisites: ['INE303'], corequisites: [], category: 'major', semester: 2, year: 2, instructor: 'Dr. Analytics', isActive: true },
+            { id: 'INE403-67', code: 'INE403', name: 'Edge Computing Networks', credits: 3, description: 'เครือข่าย Edge Computing', prerequisites: ['INE305'], corequisites: [], category: 'elective', semester: 2, year: 2, instructor: 'Dr. Edge', isActive: true },
+            { id: 'INE404-67', code: 'INE404', name: 'Intelligent Network Management', credits: 3, description: 'การจัดการเครือข่ายอัจฉริยะ', prerequisites: ['INE306'], corequisites: [], category: 'major', semester: 2, year: 2, instructor: 'Dr. Intelligent', isActive: true },
+            { id: 'INE405-67', code: 'INE405', name: 'Agile Project Management', credits: 2, description: 'การจัดการโครงการแบบ Agile', prerequisites: [], corequisites: [], category: 'general', semester: 2, year: 2, instructor: 'Dr. Agile', isActive: true },
+            { id: 'INE406-67', code: 'INE406', name: 'Network Simulation', credits: 3, description: 'การจำลองเครือข่าย', prerequisites: ['INE303'], corequisites: [], category: 'major', semester: 2, year: 2, instructor: 'Dr. Simulation', isActive: true }
+          ]},
+          { year: 3, semester: 1, courses: [
+            { id: 'INE501-67', code: 'INE501', name: 'Enterprise Network Architecture', credits: 3, description: 'สถาปัตยกรรมเครือข่ายองค์กร', prerequisites: ['INE303'], corequisites: [], category: 'major', semester: 1, year: 3, instructor: 'Dr. Enterprise', isActive: true },
+            { id: 'INE502-67', code: 'INE502', name: 'Network DevOps', credits: 3, description: 'DevOps สำหรับเครือข่าย', prerequisites: ['INE404'], corequisites: [], category: 'major', semester: 1, year: 3, instructor: 'Dr. DevOps', isActive: true },
+            { id: 'INE503-67', code: 'INE503', name: 'IoT & Smart Cities', credits: 3, description: 'IoT และเมืองอัจฉริยะ', prerequisites: ['INE302'], corequisites: [], category: 'elective', semester: 1, year: 3, instructor: 'Dr. SmartCity', isActive: true },
+            { id: 'INE504-67', code: 'INE504', name: 'Blockchain Networks', credits: 3, description: 'เครือข่าย Blockchain', prerequisites: ['INE401'], corequisites: [], category: 'elective', semester: 1, year: 3, instructor: 'Dr. Blockchain', isActive: true },
+            { id: 'INE505-67', code: 'INE505', name: 'SD-WAN Technologies', credits: 2, description: 'เทคโนโลยี SD-WAN', prerequisites: ['INE306'], corequisites: [], category: 'major', semester: 1, year: 3, instructor: 'Dr. SDWAN', isActive: true },
+            { id: 'INE506-67', code: 'INE506', name: 'Quantum Networks', credits: 3, description: 'เครือข่ายควอนตัม', prerequisites: ['INE401'], corequisites: [], category: 'elective', semester: 1, year: 3, instructor: 'Dr. Quantum', isActive: true }
+          ]},
+          { year: 3, semester: 2, courses: [
+            { id: 'INE601-67', code: 'INE601', name: 'Innovation Project I', credits: 3, description: 'โครงการนวัตกรรม 1', prerequisites: ['INE501'], corequisites: [], category: 'major', semester: 2, year: 3, instructor: 'Dr. Innovation', isActive: true },
+            { id: 'INE602-67', code: 'INE602', name: '6G Research', credits: 3, description: 'การวิจัย 6G', prerequisites: ['INE302'], corequisites: [], category: 'elective', semester: 2, year: 3, instructor: 'Dr. 6G', isActive: true },
+            { id: 'INE603-67', code: 'INE603', name: 'Intent-Based Networking', credits: 3, description: 'เครือข่ายตามเจตนา', prerequisites: ['INE502'], corequisites: [], category: 'elective', semester: 2, year: 3, instructor: 'Dr. Intent', isActive: true },
+            { id: 'INE604-67', code: 'INE604', name: 'Network Economics & Business', credits: 3, description: 'เศรษฐศาสตร์และธุรกิจเครือข่าย', prerequisites: [], corequisites: [], category: 'general', semester: 2, year: 3, instructor: 'Dr. Business', isActive: true },
+            { id: 'INE605-67', code: 'INE605', name: 'Sustainable Technology', credits: 2, description: 'เทคโนโลยียั่งยืน', prerequisites: [], corequisites: [], category: 'general', semester: 2, year: 3, instructor: 'Dr. Sustainable', isActive: true },
+            { id: 'INE606-67', code: 'INE606', name: 'Advanced Research Methods', credits: 2, description: 'วิธีการวิจัยขั้นสูง', prerequisites: [], corequisites: [], category: 'general', semester: 2, year: 3, instructor: 'Dr. Research', isActive: true }
+          ]},
+          { year: 4, semester: 1, courses: [
+            { id: 'INE701-67', code: 'INE701', name: 'Innovation Project II', credits: 3, description: 'โครงการนวัตกรรม 2', prerequisites: ['INE601'], corequisites: [], category: 'major', semester: 1, year: 4, instructor: 'Dr. Innovation', isActive: true },
+            { id: 'INE702-67', code: 'INE702', name: 'Industry Partnership Program', credits: 3, description: 'โปรแกรมความร่วมมืออุตสาหกรรม', prerequisites: [], corequisites: [], category: 'major', semester: 1, year: 4, instructor: 'Dr. Partnership', isActive: true },
+            { id: 'INE703-67', code: 'INE703', name: 'Network Startup', credits: 3, description: 'การสร้างธุรกิจเครือข่าย', prerequisites: [], corequisites: [], category: 'elective', semester: 1, year: 4, instructor: 'Dr. Startup', isActive: true },
+            { id: 'INE704-67', code: 'INE704', name: 'Advanced AI Networks', credits: 3, description: 'เครือข่าย AI ขั้นสูง', prerequisites: ['INE304'], corequisites: [], category: 'elective', semester: 1, year: 4, instructor: 'Dr. AdvancedAI', isActive: true },
+            { id: 'INE705-67', code: 'INE705', name: 'Network Integration & Testing', credits: 2, description: 'การผสมผสานและทดสอบเครือข่าย', prerequisites: ['INE501'], corequisites: [], category: 'major', semester: 1, year: 4, instructor: 'Dr. Testing', isActive: true },
+            { id: 'INE706-67', code: 'INE706', name: 'Leadership & Innovation', credits: 2, description: 'ภาวะผู้นำและนวัตกรรม', prerequisites: [], corequisites: [], category: 'general', semester: 1, year: 4, instructor: 'Dr. Leadership', isActive: true }
+          ]},
+          { year: 4, semester: 2, courses: [
+            { id: 'INE801-67', code: 'INE801', name: 'Capstone Innovation Project', credits: 3, description: 'โครงงานนวัตกรรมสำเร็จการศึกษา', prerequisites: ['INE701'], corequisites: [], category: 'major', semester: 2, year: 4, instructor: 'Dr. Capstone', isActive: true },
+            { id: 'INE802-67', code: 'INE802', name: 'Tech Conference & Presentation', credits: 2, description: 'การประชุมและนำเสนอเทคโนโลยี', prerequisites: [], corequisites: [], category: 'major', semester: 2, year: 4, instructor: 'Dr. Conference', isActive: true },
+            { id: 'INE803-67', code: 'INE803', name: 'Specialized Elective I', credits: 3, description: 'วิชาเลือกเฉพาะทาง 1', prerequisites: [], corequisites: [], category: 'elective', semester: 2, year: 4, instructor: 'Various', isActive: true },
+            { id: 'INE804-67', code: 'INE804', name: 'Specialized Elective II', credits: 3, description: 'วิชาเลือกเฉพาะทาง 2', prerequisites: [], corequisites: [], category: 'elective', semester: 2, year: 4, instructor: 'Various', isActive: true },
+            { id: 'INE805-67', code: 'INE805', name: 'Future Network Trends', credits: 2, description: 'แนวโน้มเครือข่ายอนาคต', prerequisites: [], corequisites: [], category: 'general', semester: 2, year: 4, instructor: 'Dr. Future', isActive: true },
+            { id: 'INE806-67', code: 'INE806', name: 'Professional Portfolio', credits: 2, description: 'ผลงานวิชาชีพ', prerequisites: [], corequisites: [], category: 'major', semester: 2, year: 4, instructor: 'Dr. Portfolio', isActive: true }
+          ]}
+        ]
+      }
     ]
   }
 ];

@@ -160,6 +160,29 @@ const StudentDashboard: React.FC = () => {
           </Card>
         </div>
 
+        {/* Quick Action - Curriculum Dashboard */}
+        <Card className="shadow-medium">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <BookOpen className="w-5 h-5 text-primary" />
+              <span>แผนการเรียนและหลักสูตร</span>
+            </CardTitle>
+            <CardDescription>
+              ดูรายวิชาทั้งหมดในหลักสูตรของคุณ แบ่งตามปีและเทอมการศึกษา
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button 
+              className="w-full md:w-auto" 
+              onClick={() => window.location.href = '/curriculum'}
+              size="lg"
+            >
+              <GraduationCap className="w-4 h-4 mr-2" />
+              เปิดแดชบอร์ดหลักสูตร
+            </Button>
+          </CardContent>
+        </Card>
+
         {/* Main Content */}
         <Tabs defaultValue="study-plan" className="space-y-6">
           <TabsList className="grid w-full grid-cols-5">
