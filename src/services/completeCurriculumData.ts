@@ -467,69 +467,44 @@ const courseDatabase: ProgramData = {
     },
     '66': {
       '1-1': [
-        { code: 'ITI201', name: 'Digital Communication Theory', credits: 3, category: 'core' },
-        { code: 'ITI202', name: 'Interactive Media Design', credits: 3, category: 'core' },
-        { code: 'MT201', name: 'Applied Mathematics for Media', credits: 3, category: 'core' },
-        { code: 'EN201', name: 'International Communication', credits: 3, category: 'general' },
-        { code: 'TH201', name: 'Thai Media and Literature', credits: 2, category: 'general' },
-        { code: 'PE201', name: 'Health and Movement', credits: 1, category: 'general' },
-        { code: 'SO201', name: 'Media and Society', credits: 2, category: 'general' }
+        { code: 'ITI-060223130', name: 'ทักษะคอมพิวเตอร์เบื้องตอน', credits: 1, category: 'core' },
+        { code: 'ITI-060223111*', name: 'ดิจิทัลอิเล็กทรอนิกส์', credits: 3, category: 'core' },
+        { code: 'ITI-060223112', name: 'ปฏิบัติการดิจิทัลอิเล็กทรอนิกส์', credits: 1, category: 'core' },
+        { code: 'ITI-060223131*', name: 'การโปรแกรมโครงสร้าง', credits: 2, category: 'general' },
+        { code: 'ITI-060223114', name: 'ปฏิบัติการโปรแกรมโครงสร้าง', credits: 1, category: 'general' },
+        { code: 'ITI-060223123*', name: 'ระบบฐานข้อมูล', credits: 3, category: 'general' },
+        { code: 'ITI-080103061', name: 'การใช้ภาษาอังกฤษ 1', credits: 3, category: 'general' },
+        { code: 'ITI-040xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'general' }
       ],
       '1-2': [
-        { code: 'ITI203', name: 'Broadcast Technology', credits: 3, category: 'core' },
-        { code: 'ITI204', name: 'Digital Content Creation', credits: 3, category: 'major' },
-        { code: 'MT202', name: 'Media Statistics', credits: 3, category: 'core' },
-        { code: 'EN202', name: 'Media Production English', credits: 3, category: 'general' },
-        { code: 'SC201', name: 'Technology and Innovation', credits: 2, category: 'general' },
-        { code: 'PE202', name: 'Performance Arts', credits: 1, category: 'general' }
+        { code: 'ITI-060223115', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'core' },
+        { code: 'ITI-060223132', name: 'การโปรแกรมเชิงวัตถุ', credits: 2, category: 'core' },
+        { code: 'ITI-060223117', name: 'ปฏิบัติการโปรแกรมเชิงวัตถุ', credits: 1, category: 'core' },
+        { code: 'ITI-060223119', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'general' },
+        { code: 'ITI-060223135*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 3, category: 'general' },
+        { code: 'ITI-060223136', name: 'การศึกษาโครงงานเทคโนโลยีสารสนเทศ', credits: 2, category: 'general' },
+        { code: 'ITI-080103062', name: 'การใชภาษาอังกฤษ 2', credits: 3, category: 'general' },
+        { code: 'ITI-080xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาบูรณาการ', credits: 3, category: 'general' }
       ],
       '2-1': [
-        { code: 'ITI301', name: 'Advanced Digital Communication', credits: 3, category: 'major', prerequisites: ['ITI201', 'ITI203'] },
-        { code: 'ITI302', name: 'Interactive Media Production', credits: 3, category: 'major', prerequisites: ['ITI202', 'ITI204'] },
-        { code: 'ITI303', name: 'Media Technology Integration', credits: 3, category: 'core', prerequisites: ['ITI204', 'MT202'] },
-        { code: 'MT301', name: 'Advanced Media Mathematics', credits: 3, category: 'core', prerequisites: ['MT202'] },
-        { code: 'EN301', name: 'International Media Communication', credits: 2, category: 'general', prerequisites: ['EN202'] },
-        { code: 'ITI304', name: 'Media User Experience Design', credits: 3, category: 'major', prerequisites: ['ITI202'] }
+        { code: 'ITI-060223124', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'ITI-060223133*', name: 'การพัฒนาเว็บแอปพลิเคชัน', credits: 2, category: 'core' },
+        { code: 'ITI-060223134', name: 'ปฏิบัติการพัฒนาเว็บแอปพลิเคชัน', credits: 1, category: 'core' },
+        { code: 'ITI-060223137', name: 'โครงงานพิเศษเทคโนโลยีสารสนเทศ', credits: 4, category: 'general' },
+        { code: 'ITI-08xxxxxxx', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general' },
+        { code: 'ITI-0602232xx', name: 'วิชาเลือก', credits: 3, category: 'general' },
+        { code: 'ITI-xxxxxxxxx', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' }
       ],
       '2-2': [
-        { code: 'ITI305', name: 'Digital Broadcasting Systems', credits: 3, category: 'major', prerequisites: ['ITI301', 'ITI302'] },
-        { code: 'ITI306', name: 'Content Management Systems', credits: 3, category: 'major', prerequisites: ['ITI302', 'ITI303'] },
-        { code: 'ITI307', name: 'Media Streaming Technologies', credits: 3, category: 'core', prerequisites: ['ITI303', 'ITI304'] },
-        { code: 'ITI308', name: 'Digital Media Analytics', credits: 3, category: 'major', prerequisites: ['ITI304'] },
-        { code: 'MT302', name: 'Media Data Science', credits: 3, category: 'core', prerequisites: ['MT301'] },
-        { code: 'EN302', name: 'Media Business Communication', credits: 2, category: 'general', prerequisites: ['EN301'] }
+        { code: 'ITI-060223126', name: 'สัมมนาเทคโนโลยีสารสนเทศ', credits: 1, category: 'core' },
+        { code: 'ITI-060223127', name: 'การพัฒนาโปรแกรมประยุกต์สําหรับสถาปัตยกรรมแบบโอเพ่นซอร์ส', credits: 3, category: 'core' },
+        { code: 'ITI-060223128', name: 'หัวข้อเฉพาะเรื่องทางเทคโนโลยีสารสนเทศเพื่ออุตสาหกรรม', credits: 3, category: 'core' },
+        { code: 'ITI-060223138*', name: 'อินเทอร์เน็ตในทุกสิ่งและระบบอัจฉริยะ', credits: 3, category: 'general' },
+        { code: 'ITI-060223139', name: 'ปฏิบัติการอินเทอร์เน็ตในทุกสิ่งและระบบอัจฉริยะ', credits: 1, category: 'general' },
+        { code: 'ITI-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา', credits: 3, category: 'general' },
+        { code: 'ITI-0602232xx  ', name: 'วิชาเลือก', credits: 3, category: 'general' },
+        { code: 'ITI-xxxxxxxxx      ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' }
       ],
-      '3-1': [
-        { code: 'ITI401', name: 'Advanced Media Technologies', credits: 3, category: 'major', prerequisites: ['ITI305', 'ITI306'] },
-        { code: 'ITI402', name: 'AI in Media and Communication', credits: 3, category: 'major', prerequisites: ['ITI307', 'ITI308'] },
-        { code: 'ITI403', name: 'Virtual Production Systems', credits: 3, category: 'elective', prerequisites: ['ITI305', 'MT302'] },
-        { code: 'ITI404', name: 'Media Cloud Technologies', credits: 3, category: 'elective', prerequisites: ['ITI306'] },
-        { code: 'ITI405', name: 'Media Innovation Management', credits: 3, category: 'major', prerequisites: ['ITI308'] },
-        { code: 'EN401', name: 'Advanced Media Presentation', credits: 2, category: 'general', prerequisites: ['EN302'] }
-      ],
-      '3-2': [
-        { code: 'ITI406', name: 'Next-Gen Broadcasting', credits: 3, category: 'elective', prerequisites: ['ITI401', 'ITI403'] },
-        { code: 'ITI407', name: 'Media Innovation Lab', credits: 3, category: 'major', prerequisites: ['ITI402', 'ITI404'] },
-        { code: 'ITI408', name: 'Immersive Media Experiences', credits: 3, category: 'elective', prerequisites: ['ITI402', 'ITI405'] },
-        { code: 'ITI409', name: 'Media Project Leadership', credits: 3, category: 'major', prerequisites: ['ITI405'] },
-        { code: 'ITI410', name: 'Advanced Media Management', credits: 3, category: 'major', prerequisites: ['ITI407'] },
-        { code: 'ITI411', name: 'Media and Society Ethics', credits: 2, category: 'general' }
-      ],
-      '4-1': [
-        { code: 'ITI501', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['ITI407', 'ITI410'] },
-        { code: 'ITI502', name: 'Future Media Technologies', credits: 3, category: 'elective', prerequisites: ['ITI406', 'ITI408'] }, 
-        { code: 'ITI503', name: 'Media Research Methods', credits: 3, category: 'elective', prerequisites: ['ITI409'] },
-        { code: 'ITI504', name: 'Media Technology Innovation', credits: 3, category: 'elective', prerequisites: ['ITI407'] },
-        { code: 'ITI505', name: 'Media Entrepreneurship', credits: 2, category: 'elective', prerequisites: ['ITI409'] },
-        { code: 'ITI506', name: 'Research Methodology', credits: 2, category: 'general' }
-      ],
-      '4-2': [
-        { code: 'ITI507', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['ITI501'] },
-        { code: 'ITI508', name: 'Advanced Media Solutions', credits: 3, category: 'elective', prerequisites: ['ITI501'] },
-        { code: 'ITI509', name: 'Media Technology Consulting', credits: 2, category: 'elective', prerequisites: ['ITI505'] },
-        { code: 'ITI510', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['ITI501'] },
-        { code: 'ITI511', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['ITI507'] }
-      ]
     }
   },
   'ITT': {
