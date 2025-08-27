@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { mockCourses } from '@/services/mockData';
 import { useAuth } from '@/contexts/AuthContext';
+import { generateCoursesForSemester } from '@/services/completeCurriculumData';
 import { 
   BookOpen, 
   Search, 
@@ -19,18 +20,36 @@ import {
 const Courses: React.FC = () => {
   const { isAuthenticated } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [selectedYear, setSelectedYear] = useState<string>('all');
+  const [selectedDepartment, setSelectedDepartment] = useState<string>('all');
+  const [selectedCurriculum, setSelectedCurriculum] = useState<string>('all');
+  const [selectedSemester, setSelectedSemester] = useState<string>('all');
 
-  const filteredCourses = mockCourses.filter(course => {
+  // Generate courses based on selections
+  const generateFilteredCourses = () => {
+    if (selectedCurriculum === 'all' && selectedSemester === 'all') {
+      return mockCourses;
+    }
+    
+    if (selectedCurriculum !== 'all' && selectedSemester !== 'all') {
+      // Parse semester selection (format: "1-1", "1-2", etc.)
+      const [year, semester] = selectedSemester.split('-').map(Number);
+      return generateCoursesForSemester(selectedCurriculum.split(' ')[0], selectedCurriculum.split(' ')[1], year, semester, 7);
+    }
+    
+    return mockCourses;
+  };
+
+  const allCourses = generateFilteredCourses();
+  
+  const filteredCourses = allCourses.filter(course => {
     const matchesSearch = course.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          course.description.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory;
-    const matchesYear = selectedYear === 'all' || course.year.toString() === selectedYear;
+    const matchesDepartment = selectedDepartment === 'all' || course.code.startsWith(selectedDepartment);
+    const matchesCurriculum = selectedCurriculum === 'all' || course.code.startsWith(selectedCurriculum.split(' ')[0]);
     
-    return matchesSearch && matchesCategory && matchesYear;
+    return matchesSearch && matchesDepartment && matchesCurriculum;
   });
 
   const getCategoryBadge = (category: string) => {
@@ -66,7 +85,7 @@ const Courses: React.FC = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-4 gap-4">
+            <div className="grid md:grid-cols-5 gap-4">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
@@ -77,29 +96,52 @@ const Courses: React.FC = () => {
                 />
               </div>
               
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
                 <SelectTrigger>
-                  <SelectValue placeholder="หมวดวิชา" />
+                  <SelectValue placeholder="สาขาวิชา" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">ทุกหมวดวิชา</SelectItem>
-                  <SelectItem value="core">วิชาแกน</SelectItem>
-                  <SelectItem value="major">วิชาเอก</SelectItem>
-                  <SelectItem value="elective">วิชาเลือก</SelectItem>
-                  <SelectItem value="general">ศึกษาทั่วไป</SelectItem>
+                  <SelectItem value="all">ทุกสาขาวิชา</SelectItem>
+                  <SelectItem value="IT">เทคโนโลยีสารสนเทศ (IT)</SelectItem>
+                  <SelectItem value="INE">วิศวกรรมเครือข่าย (INE)</SelectItem>
+                  <SelectItem value="INET">เทคโนโลยีอินเทอร์เน็ต (INET)</SelectItem>
+                  <SelectItem value="ITI">เทคโนโลยีสารสนเทศและการสื่อสาร (ITI)</SelectItem>
+                  <SelectItem value="ITT">เทคโนโลยีสารสนเทศและการท่องเที่ยว (ITT)</SelectItem>
                 </SelectContent>
               </Select>
 
-              <Select value={selectedYear} onValueChange={setSelectedYear}>
+              <Select value={selectedCurriculum} onValueChange={setSelectedCurriculum}>
                 <SelectTrigger>
-                  <SelectValue placeholder="ชั้นปี" />
+                  <SelectValue placeholder="หลักสูตรปีการศึกษา" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">ทุกชั้นปี</SelectItem>
-                  <SelectItem value="1">ปี 1</SelectItem>
-                  <SelectItem value="2">ปี 2</SelectItem>
-                  <SelectItem value="3">ปี 3</SelectItem>
-                  <SelectItem value="4">ปี 4</SelectItem>
+                  <SelectItem value="all">ทุกหลักสูตร</SelectItem>
+                  <SelectItem value="IT 62">IT 62</SelectItem>
+                  <SelectItem value="IT 67">IT 67</SelectItem>
+                  <SelectItem value="INE 62">INE 62</SelectItem>
+                  <SelectItem value="INE 67">INE 67</SelectItem>
+                  <SelectItem value="INET 62">INET 62</SelectItem>
+                  <SelectItem value="INET 67">INET 67</SelectItem>
+                  <SelectItem value="ITI 61">ITI 61</SelectItem>
+                  <SelectItem value="ITI 66">ITI 66</SelectItem>
+                  <SelectItem value="ITT 67">ITT 67</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={selectedSemester} onValueChange={setSelectedSemester}>
+                <SelectTrigger>
+                  <SelectValue placeholder="เทอม" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">ทุกเทอม</SelectItem>
+                  <SelectItem value="1-1">ปี 1 – เทอม 1</SelectItem>
+                  <SelectItem value="1-2">ปี 1 – เทอม 2</SelectItem>
+                  <SelectItem value="2-1">ปี 2 – เทอม 1</SelectItem>
+                  <SelectItem value="2-2">ปี 2 – เทอม 2</SelectItem>
+                  <SelectItem value="3-1">ปี 3 – เทอม 1</SelectItem>
+                  <SelectItem value="3-2">ปี 3 – เทอม 2</SelectItem>
+                  <SelectItem value="4-1">ปี 4 – เทอม 1</SelectItem>
+                  <SelectItem value="4-2">ปี 4 – เทอม 2</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -107,8 +149,9 @@ const Courses: React.FC = () => {
                 variant="outline" 
                 onClick={() => {
                   setSearchTerm('');
-                  setSelectedCategory('all');
-                  setSelectedYear('all');
+                  setSelectedDepartment('all');
+                  setSelectedCurriculum('all');
+                  setSelectedSemester('all');
                 }}
               >
                 ล้างตัวกรอง
@@ -231,24 +274,24 @@ const Courses: React.FC = () => {
           <CardContent>
             <div className="grid md:grid-cols-4 gap-4 text-center">
               <div>
-                <div className="text-2xl font-bold text-primary">{mockCourses.length}</div>
-                <div className="text-sm text-muted-foreground">รายวิชาทั้งหมด</div>
+                <div className="text-2xl font-bold text-primary">{filteredCourses.length}</div>
+                <div className="text-sm text-muted-foreground">รายวิชาที่แสดง</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-secondary">
-                  {mockCourses.reduce((sum, course) => sum + course.credits, 0)}
+                  {filteredCourses.reduce((sum, course) => sum + course.credits, 0)}
                 </div>
                 <div className="text-sm text-muted-foreground">หน่วยกิตรวม</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-success">
-                  {mockCourses.filter(c => c.category === 'core').length}
+                  {filteredCourses.filter(c => c.category === 'core').length}
                 </div>
                 <div className="text-sm text-muted-foreground">วิชาแกน</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-warning">
-                  {mockCourses.filter(c => c.category === 'major').length}
+                  {filteredCourses.filter(c => c.category === 'major').length}
                 </div>
                 <div className="text-sm text-muted-foreground">วิชาเอก</div>
               </div>
