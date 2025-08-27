@@ -307,7 +307,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233107', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
         { code: 'INET-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general' },
         { code: 'INET-060233110', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general' },
-        { code: 'INET-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' }
+        { code: 'INET-080103xxx ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' }
       ],
       '2-1': [
         { code: 'INET-060233109', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
@@ -334,7 +334,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233213*', name: 'กํารออกแบบและกํารประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' },
         { code: 'INET-060233214', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general' },
         { code: 'INET-080xxxxxx ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 2', credits: 3, category: 'general' },
-        { code: 'INET-xxxxxxxxx   ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'general' }
+        { code: 'INET-xxxxxxxxx                 ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'general' }
       ],
       '3-2': [
         { code: 'INET-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' },
@@ -350,7 +350,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
         { code: 'INET-060233115', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'general' },
         { code: 'INET-080103063', name: 'การใช้ภาษาอังกฤษ', credits: 3, category: 'general' },
-        { code: 'INET-080xxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' }
+        { code: 'INET-080xxxxxx   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' }
       ],
       '1-2': [
         { code: 'INET-060233106', name: 'การเขียนแบบวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' },
@@ -358,7 +358,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233114', name: 'สถิติสําหรับวิศวกรข้อมูลและนักวิทยาศาสตร์ข้อมูล', credits: 3, category: 'core' },
         { code: 'INET-060233116', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general' },
         { code: 'INET-080xxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
-        { code: 'INET-xxxxxxxxx   ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' }
+        { code: 'INET-xxxxxxxxx    ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' }
       ],
       '2-1': [
         { code: 'INET-060233120', name: 'การพัฒนาระบบสารสนเทศแบบครบองค์ประกอบ', credits: 3, category: 'core' },
@@ -366,7 +366,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'core' },
         { code: 'INET-060233215*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 1, category: 'general' },
         { code: 'INET-060233218*', name: 'โครงสร้างพื้นฐานคลาวด์สําหรับซอฟต์แวร์และบริการ', credits: 3, category: 'general' },
-        { code: 'INET-0602333xx  ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+        { code: 'INET-0602333xx    ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' },
 
       ],
       '2-2': [
@@ -376,7 +376,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general' },
         { code: 'INET-060233214*', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general' },
         { code: 'INET-060233216* ', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 1, category: 'general' },
-        { code: 'INET-080xxxxxx   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' }
+        { code: 'INET-080xxxxxx     ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' }
       ],
       '3-1': [
         { code: 'INET-060233118', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
@@ -392,7 +392,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233212*', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core' },
         { code: 'INET-060233219*', name: 'การออกแบบและการประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'core' },
         { code: 'INET-060233405', name: 'โครงงานพิเศษวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'general' },
-        { code: 'INET-xxxxxxxxx    ', name: 'วิชาเลือกเสรี ', credits: 3, category: 'general' }
+        { code: 'INET-xxxxxxxxx     ', name: 'วิชาเลือกเสรี ', credits: 3, category: 'general' }
       ],
 
     }
