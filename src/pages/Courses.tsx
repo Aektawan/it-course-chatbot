@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { mockCourses } from '@/services/mockData';
 import { useAuth } from '@/contexts/AuthContext';
 import { generateCoursesForSemester } from '@/services/completeCurriculumData';
@@ -13,7 +14,8 @@ import {
   Filter,
   GraduationCap,
   Clock,
-  AlertCircle
+  AlertCircle,
+  Info
 } from 'lucide-react';
 
 const Courses: React.FC = () => {
@@ -255,60 +257,83 @@ const Courses: React.FC = () => {
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <CardDescription className="text-sm leading-relaxed">
-                  {course.description}
-                </CardDescription>
-
-                  <div className="space-y-3">
-                  {/* Course Info */}
-                  <div className="flex items-center space-x-1 text-xs">
-                    <Clock className="w-3 h-3 text-muted-foreground" />
-                    <span>ภาค {course.semester}/ปี {course.year}</span>
-                  </div>
-
-                  {/* Prerequisites */}
-                  {course.prerequisites.length > 0 && (
-                    <div className="space-y-1">
-                      <div className="flex items-center space-x-1 text-xs text-muted-foreground">
-                        <AlertCircle className="w-3 h-3" />
-                        <span>ต้องเรียนก่อน:</span>
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {course.prerequisites.map((prereq, index) => (
-                          <Badge key={index} variant="outline" className="text-xs">
-                            {prereq}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Corequisites */}
-                  {course.corequisites.length > 0 && (
-                    <div className="space-y-1">
-                      <div className="flex items-center space-x-1 text-xs text-muted-foreground">
-                        <AlertCircle className="w-3 h-3" />
-                        <span>เรียนพร้อมกัน:</span>
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {course.corequisites.map((coreq, index) => (
-                          <Badge key={index} variant="outline" className="text-xs">
-                            {coreq}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                <div className="flex items-center space-x-1 text-xs text-muted-foreground">
+                  <Clock className="w-3 h-3" />
+                  <span>ภาค {course.semester}/ปี {course.year}</span>
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center justify-between pt-2 border-t">
-                  <Badge variant={course.isActive ? "default" : "secondary"}>
-                    {course.isActive ? 'เปิดสอน' : 'ปิดสอน'}
-                  </Badge>
+                <div className="flex items-center justify-between pt-2">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button size="sm" variant="outline" className="flex items-center space-x-2">
+                        <Info className="w-4 h-4" />
+                        <span>รายละเอียด</span>
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle className="flex items-center space-x-2">
+                          <BookOpen className="w-5 h-5 text-primary" />
+                          <span>{course.code} - {course.name}</span>
+                        </DialogTitle>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div className="flex items-center space-x-4">
+                          {getCategoryBadge(course.category)}
+                          <span className="text-sm text-muted-foreground">{course.credits} หน่วยกิต</span>
+                          <span className="text-sm text-muted-foreground">ภาค {course.semester}/ปี {course.year}</span>
+                        </div>
+                        
+                        <div>
+                          <h4 className="font-medium mb-2">คำอธิบายรายวิชา</h4>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{course.description}</p>
+                        </div>
+
+                        {course.prerequisites.length > 0 && (
+                          <div>
+                            <h4 className="font-medium mb-2 flex items-center space-x-2">
+                              <AlertCircle className="w-4 h-4" />
+                              <span>วิชาที่ต้องเรียนก่อน</span>
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                              {course.prerequisites.map((prereq, index) => (
+                                <Badge key={index} variant="outline">
+                                  {prereq}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {course.corequisites.length > 0 && (
+                          <div>
+                            <h4 className="font-medium mb-2 flex items-center space-x-2">
+                              <AlertCircle className="w-4 h-4" />
+                              <span>วิชาที่ต้องเรียนพร้อมกัน</span>
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                              {course.corequisites.map((coreq, index) => (
+                                <Badge key={index} variant="outline">
+                                  {coreq}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {course.instructor && (
+                          <div>
+                            <h4 className="font-medium mb-2">อาจารย์ผู้สอน</h4>
+                            <p className="text-sm text-muted-foreground">{course.instructor}</p>
+                          </div>
+                        )}
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                   
                   {isAuthenticated && (
-                    <Button size="sm" variant="outline">
+                    <Button size="sm">
                       เพิ่มในแผน
                     </Button>
                   )}
