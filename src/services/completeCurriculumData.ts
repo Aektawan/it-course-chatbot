@@ -589,58 +589,6 @@ const courseDatabase: ProgramData = {
   }
 };
 
-// Manual courses definition - replace courseDatabase lookup
-const manualCourses: { [key: string]: Array<{
-  code: string;
-  name: string;
-  credits: number;
-  category: string;
-  description?: string;
-  prerequisites?: string[];
-  corequisites?: string[];
-}> } = {
-  '1-1': [
-    { code: 'CS101', name: 'Introduction to Computer Science', credits: 3, category: 'core' },
-    { code: 'MT101', name: 'Mathematics for CS', credits: 3, category: 'core' },
-    { code: 'EN101', name: 'English Communication', credits: 3, category: 'general' }
-  ],
-  '1-2': [
-    { code: 'CS102', name: 'Programming Fundamentals', credits: 3, category: 'core', prerequisites: ['CS101'] },
-    { code: 'MT102', name: 'Calculus I', credits: 3, category: 'core', prerequisites: ['MT101'] },
-    { code: 'EN102', name: 'Technical Writing', credits: 3, category: 'general', prerequisites: ['EN101'] }
-  ],
-  '2-1': [
-    { code: 'CS201', name: 'Data Structures', credits: 3, category: 'major', prerequisites: ['CS102'] },
-    { code: 'CS202', name: 'Object-Oriented Programming', credits: 3, category: 'major', prerequisites: ['CS102'] },
-    { code: 'MT201', name: 'Discrete Mathematics', credits: 3, category: 'core', prerequisites: ['MT102'] }
-  ],
-  '2-2': [
-    { code: 'CS203', name: 'Algorithms', credits: 3, category: 'major', prerequisites: ['CS201', 'MT201'] },
-    { code: 'CS204', name: 'Database Systems', credits: 3, category: 'major', prerequisites: ['CS202'] },
-    { code: 'CS205', name: 'Software Engineering', credits: 3, category: 'major', prerequisites: ['CS202'] }
-  ],
-  '3-1': [
-    { code: 'CS301', name: 'Advanced Algorithms', credits: 3, category: 'major', prerequisites: ['CS203'] },
-    { code: 'CS302', name: 'Web Development', credits: 3, category: 'elective', prerequisites: ['CS204'] },
-    { code: 'CS303', name: 'Computer Networks', credits: 3, category: 'elective' }
-  ],
-  '3-2': [
-    { code: 'CS304', name: 'Machine Learning', credits: 3, category: 'elective', prerequisites: ['CS301', 'MT201'] },
-    { code: 'CS305', name: 'Mobile Development', credits: 3, category: 'elective', prerequisites: ['CS302'] },
-    { code: 'CS306', name: 'Cybersecurity', credits: 3, category: 'elective', prerequisites: ['CS303'] }
-  ],
-  '4-1': [
-    { code: 'CS401', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['CS304'] },
-    { code: 'CS402', name: 'Advanced Topics in CS', credits: 3, category: 'elective' },
-    { code: 'CS403', name: 'Capstone Design', credits: 3, category: 'major' }
-  ],
-  '4-2': [
-    { code: 'CS404', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['CS401'] },
-    { code: 'CS405', name: 'Professional Practice', credits: 2, category: 'general' },
-    { code: 'CS406', name: 'Internship', credits: 6, category: 'major', prerequisites: ['CS403'] }
-  ]
-};
-
 export const generateCoursesForSemester = (
   programCode: string, 
   curriculumYear: string, 
@@ -649,27 +597,48 @@ export const generateCoursesForSemester = (
   courseCount: number = 6
 ) => {
   const semesterKey = `${year}-${semester}`;
-  const semesterCourses = manualCourses[semesterKey];
+  const programData = courseDatabase[programCode];
   
-  // If no courses exist for that semester, return empty array
-  if (!semesterCourses || !Array.isArray(semesterCourses)) {
-    return [];
+  if (programData && programData[curriculumYear]) {
+    const curriculumData = programData[curriculumYear];
+    const semesterCourses = curriculumData[semesterKey];
+    
+    if (semesterCourses && Array.isArray(semesterCourses)) {
+      return semesterCourses.map((course) => ({
+        id: `${course.code}-${curriculumYear}`,
+        code: course.code,
+        name: course.name,
+        credits: course.credits,
+        description: `รายละเอียดของ ${course.name} สำหรับหลักสูตร ${programCode} ${curriculumYear}`,
+        prerequisites: course.prerequisites || [],
+        corequisites: course.corequisites || [],
+        category: course.category,
+        semester,
+        year,
+        isActive: true
+      }));
+    }
   }
   
-  // Map courses to the required structure
-  return semesterCourses.map((course) => ({
-    id: `${course.code}-${curriculumYear}`,
-    code: course.code,
-    name: course.name,
-    credits: course.credits,
-    description: course.description || `รายละเอียดของ ${course.name}`,
-    prerequisites: course.prerequisites || [],
-    corequisites: course.corequisites || [],
-    category: course.category,
-    semester,
-    year,
-    isActive: true
-  }));
+  // Fallback to generated courses if specific data not found
+  const courses = [];
+  for (let i = 1; i <= courseCount; i++) {
+    const courseNumber = (year - 1) * 200 + semester * 100 + i;
+    courses.push({
+      id: `${programCode}${courseNumber}-${curriculumYear}`,
+      code: `${programCode}${courseNumber}`,
+      name: `Course ${i} - Year ${year} Semester ${semester}`,
+      credits: Math.floor(Math.random() * 3) + 1,
+      description: `Description for ${programCode} course in Year ${year}, Semester ${semester}`,
+      prerequisites: [],
+      corequisites: [],
+      category: (i <= 3 ? 'core' : (i <= 5 ? 'major' : 'elective')) as 'core' | 'major' | 'elective' | 'general',
+      semester,
+      year,
+      isActive: true
+    });
+  }
+  return courses;
 };
 
 // Helper function to generate complete curriculum data
