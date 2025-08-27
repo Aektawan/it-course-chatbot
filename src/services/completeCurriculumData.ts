@@ -463,37 +463,7 @@ const courseDatabase: ProgramData = {
         { code: 'ITI-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core', prerequisites: ['MT201'] },
         { code: 'ITI-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา', credits:3, category: 'general', prerequisites: ['EN201'] }
       ],
-      '3-1': [
-        { code: 'ITI301', name: 'Advanced Broadcasting Technology', credits: 3, category: 'major', prerequisites: ['ITI205', 'ITI206'] },
-        { code: 'ITI302', name: 'AI in Media Production', credits: 3, category: 'major', prerequisites: ['ITI207', 'ITI208'] },
-        { code: 'ITI303', name: 'Virtual Reality Systems', credits: 3, category: 'elective', prerequisites: ['ITI206', 'MT202'] },
-        { code: 'ITI304', name: 'Media Security', credits: 3, category: 'elective', prerequisites: ['ITI207'] },
-        { code: 'ITI305', name: 'Media Project Management', credits: 3, category: 'major', prerequisites: ['ITI208'] },
-        { code: 'EN301', name: 'Professional Media Communication', credits: 2, category: 'general', prerequisites: ['EN202'] }
-      ],
-      '3-2': [
-        { code: 'ITI306', name: 'Augmented Reality Development', credits: 3, category: 'elective', prerequisites: ['ITI301', 'ITI303'] },
-        { code: 'ITI307', name: 'Media Innovation Lab', credits: 3, category: 'major', prerequisites: ['ITI302', 'ITI304'] },
-        { code: 'ITI308', name: 'Social Media Technologies', credits: 3, category: 'elective', prerequisites: ['ITI302', 'ITI305'] },
-        { code: 'ITI309', name: 'Media Consulting', credits: 3, category: 'major', prerequisites: ['ITI305'] },
-        { code: 'ITI310', name: 'Advanced Media Management', credits: 3, category: 'major', prerequisites: ['ITI307'] },
-        { code: 'ITI311', name: 'Media Ethics', credits: 2, category: 'general' }
-      ],
-      '4-1': [
-        { code: 'ITI401', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['ITI307', 'ITI310'] },
-        { code: 'ITI402', name: 'Next-Gen Media Technologies', credits: 3, category: 'elective', prerequisites: ['ITI306', 'ITI308'] },
-        { code: 'ITI403', name: 'Media Research Methods', credits: 3, category: 'elective', prerequisites: ['ITI309'] },
-        { code: 'ITI404', name: 'Immersive Media Systems', credits: 3, category: 'elective', prerequisites: ['ITI307'] },
-        { code: 'ITI405', name: 'Media Entrepreneurship', credits: 2, category: 'elective', prerequisites: ['ITI309'] },
-        { code: 'ITI406', name: 'Research Methodology', credits: 2, category: 'general' }
-      ],
-      '4-2': [
-        { code: 'ITI407', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['ITI401'] },
-        { code: 'ITI408', name: 'Advanced Media Solutions', credits: 3, category: 'elective', prerequisites: ['ITI401'] },
-        { code: 'ITI409', name: 'Media Technology Consulting', credits: 2, category: 'elective', prerequisites: ['ITI405'] },
-        { code: 'ITI410', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['ITI401'] },
-        { code: 'ITI411', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['ITI407'] }
-      ]
+
     },
     '66': {
       '1-1': [
