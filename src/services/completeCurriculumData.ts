@@ -331,7 +331,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233203*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 3', credits: 1, category: 'core' },
         { code: 'INET-060233211*', name: 'สถาปัตยกรรมคลาวด์และการใช้งาน', credits: 3, category: 'core' },
         { code: 'INET-060233212*', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core' },
-        { code: 'INET-0060233213*', name: 'กํารออกแบบและกํารประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' },
+        { code: 'INET-060233213*', name: 'กํารออกแบบและกํารประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' },
         { code: 'INET-060233214', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general' },
         { code: 'INET-080xxxxxx ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 2', credits: 3, category: 'general' },
         { code: 'INET-xxxxxxxxx   ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'general' }
@@ -345,69 +345,56 @@ const courseDatabase: ProgramData = {
     },
     '67': {
       '1-1': [
-        { code: 'INET201', name: 'Modern Web Technologies', credits: 3, category: 'core' },
-        { code: 'INET202', name: 'Cloud Computing Basics', credits: 3, category: 'core' },
-        { code: 'MT201', name: 'Digital Mathematics', credits: 3, category: 'core' },
-        { code: 'EN201', name: 'Global Communication', credits: 3, category: 'general' },
-        { code: 'TH201', name: 'Academic Thai Writing', credits: 2, category: 'general' },
-        { code: 'PE201', name: 'Health and Fitness', credits: 1, category: 'general' },
-        { code: 'SO201', name: 'Digital Society', credits: 2, category: 'general' }
+        { code: 'INET-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
+        { code: 'INET-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' },
+        { code: 'INET-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'INET-060233115', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'general' },
+        { code: 'INET-080103063', name: 'การใช้ภาษาอังกฤษ', credits: 3, category: 'general' },
+        { code: 'INET-080xxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' }
       ],
       '1-2': [
-        { code: 'INET203', name: 'Internet Security', credits: 3, category: 'core' },
-        { code: 'INET204', name: 'Mobile App Development', credits: 3, category: 'major' },
-        { code: 'MT202', name: 'Applied Statistics', credits: 3, category: 'core' },
-        { code: 'EN202', name: 'Business English', credits: 3, category: 'general' },
-        { code: 'SC201', name: 'Innovation and Technology', credits: 2, category: 'general' },
-        { code: 'PE202', name: 'Team Building Activities', credits: 1, category: 'general' }
+        { code: 'INET-060233106', name: 'การเขียนแบบวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' },
+        { code: 'INET-060233111*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 3, category: 'core' },
+        { code: 'INET-060233114', name: 'สถิติสําหรับวิศวกรข้อมูลและนักวิทยาศาสตร์ข้อมูล', credits: 3, category: 'core' },
+        { code: 'INET-060233116', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general' },
+        { code: 'INET-080xxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
+        { code: 'INET-xxxxxxxxx   ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' }
       ],
       '2-1': [
-        { code: 'INET301', name: 'Advanced Web Technologies', credits: 3, category: 'major', prerequisites: ['INET201', 'INET203'] },
-        { code: 'INET302', name: 'Cloud Native Development', credits: 3, category: 'major', prerequisites: ['INET202', 'INET204'] },
-        { code: 'INET303', name: 'AI-Powered Web Apps', credits: 3, category: 'core', prerequisites: ['INET204', 'MT202'] },
-        { code: 'MT301', name: 'Machine Learning Math', credits: 3, category: 'core', prerequisites: ['MT202'] },
-        { code: 'EN301', name: 'Technical Communication', credits: 2, category: 'general', prerequisites: ['EN202'] },
-        { code: 'INET304', name: 'Progressive Web Apps', credits: 3, category: 'major', prerequisites: ['INET201'] }
+        { code: 'INET-060233120', name: 'การพัฒนาระบบสารสนเทศแบบครบองค์ประกอบ', credits: 3, category: 'core' },
+        { code: 'INET-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'core' },
+        { code: 'INET-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'core' },
+        { code: 'INET-060233215*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 1, category: 'general' },
+        { code: 'INET-060233218*', name: 'โครงสร้างพื้นฐานคลาวด์สําหรับซอฟต์แวร์และบริการ', credits: 3, category: 'general' },
+        { code: 'INET-0602333xx  ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+
       ],
       '2-2': [
-        { code: 'INET305', name: 'Microservices Architecture', credits: 3, category: 'major', prerequisites: ['INET301', 'INET302'] },
-        { code: 'INET306', name: 'Advanced Cloud Security', credits: 3, category: 'major', prerequisites: ['INET302', 'INET303'] },
-        { code: 'INET307', name: 'Real-time Web Applications', credits: 3, category: 'core', prerequisites: ['INET303', 'INET304'] },
-        { code: 'INET308', name: 'Web Performance Optimization', credits: 3, category: 'major', prerequisites: ['INET304'] },
-        { code: 'MT302', name: 'Advanced Data Analytics', credits: 3, category: 'core', prerequisites: ['MT301'] },
-        { code: 'EN302', name: 'Professional Writing', credits: 2, category: 'general', prerequisites: ['EN301'] }
+        { code: 'INET-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'core' },
+        { code: 'INET-060233119', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
+        { code: 'INET-060233204', name: 'การออกแบบและการจัดทําเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'INET-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general' },
+        { code: 'INET-060233214*', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general' },
+        { code: 'INET-060233216* ', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 1, category: 'general' },
+        { code: 'INET-080xxxxxx   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' }
       ],
       '3-1': [
-        { code: 'INET401', name: 'Web3 and Blockchain', credits: 3, category: 'major', prerequisites: ['INET305', 'INET306'] },
-        { code: 'INET402', name: 'Advanced AI Integration', credits: 3, category: 'major', prerequisites: ['INET307', 'INET308'] },
-        { code: 'INET403', name: 'Internet Scalability', credits: 3, category: 'elective', prerequisites: ['INET305', 'MT302'] },
-        { code: 'INET404', name: 'Edge Computing', credits: 3, category: 'elective', prerequisites: ['INET306'] },
-        { code: 'INET405', name: 'Digital Innovation Management', credits: 3, category: 'major', prerequisites: ['INET308'] },
-        { code: 'EN401', name: 'Advanced Technical Presentation', credits: 2, category: 'general', prerequisites: ['EN302'] }
+        { code: 'INET-060233118', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
+        { code: 'INET-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' },
+        { code: 'INET-060233217*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 3', credits: 1, category: 'core' },
+        { code: 'INET-060233220', name: 'การประมวลผลภาษาธรรมชาติ', credits: 3, category: 'general' },
+        { code: 'INET-060233221*', name: 'ความปลอดภัยและความเป็นส่วนตัวของข้อมูล', credits: 3, category: 'general' },
+        { code: 'INET-0602333xx     ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+        { code: 'INET-060233404   ', name: 'การเตรียมโครงงานพิเศษวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general' }
       ],
       '3-2': [
-        { code: 'INET406', name: 'Quantum Internet', credits: 3, category: 'elective', prerequisites: ['INET401', 'INET403'] },
-        { code: 'INET407', name: 'Internet Innovation Lab', credits: 3, category: 'major', prerequisites: ['INET402', 'INET404'] },
-        { code: 'INET408', name: 'Metaverse Technologies', credits: 3, category: 'elective', prerequisites: ['INET402', 'INET405'] },
-        { code: 'INET409', name: 'Internet Project Leadership', credits: 3, category: 'major', prerequisites: ['INET405'] },
-        { code: 'INET410', name: 'Advanced Innovation Management', credits: 3, category: 'major', prerequisites: ['INET407'] },
-        { code: 'INET411', name: 'Digital Society Ethics', credits: 2, category: 'general' }
+        { code: 'INET-060233206', name: 'การจัดการเครือข่ายเบื้องต้นและเครื่องมือ', credits: 3, category: 'core' },
+        { code: 'INET-060233212*', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core' },
+        { code: 'INET-060233219*', name: 'การออกแบบและการประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'core' },
+        { code: 'INET-060233405', name: 'โครงงานพิเศษวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'general' },
+        { code: 'INET-xxxxxxxxx    ', name: 'วิชาเลือกเสรี ', credits: 3, category: 'general' }
       ],
-      '4-1': [
-        { code: 'INET501', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['INET407', 'INET410'] },
-        { code: 'INET502', name: 'Next-Gen Internet Technologies', credits: 3, category: 'elective', prerequisites: ['INET406', 'INET408'] },
-        { code: 'INET503', name: 'Internet Research Methods', credits: 3, category: 'elective', prerequisites: ['INET409'] },
-        { code: 'INET504', name: 'Future Web Technologies', credits: 3, category: 'elective', prerequisites: ['INET407'] },
-        { code: 'INET505', name: 'Internet Startup', credits: 2, category: 'elective', prerequisites: ['INET409'] },
-        { code: 'INET506', name: 'Research Methodology', credits: 2, category: 'general' }
-      ],
-      '4-2': [
-        { code: 'INET507', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['INET501'] },
-        { code: 'INET508', name: 'Advanced Internet Solutions', credits: 3, category: 'elective', prerequisites: ['INET501'] },
-        { code: 'INET509', name: 'Internet Technology Consulting', credits: 2, category: 'elective', prerequisites: ['INET505'] },
-        { code: 'INET510', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['INET501'] },
-        { code: 'INET511', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['INET507'] }
-      ]
+
     }
   },
   'ITI': {
