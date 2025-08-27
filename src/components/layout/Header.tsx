@@ -63,41 +63,41 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-soft">
-      <div className="container mx-auto px-4 flex h-16 items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-soft">
+      <div className="container mx-auto px-6 flex h-16 items-center justify-between">
         {/* Logo and Brand */}
-        <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-          <div className="p-2 gradient-primary rounded-lg">
+        <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+          <div className="p-2.5 gradient-primary rounded-xl shadow-elegant">
             <Bot className="w-6 h-6 text-white" />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold text-lg bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              IT-Chatbot
+            <span className="font-bold text-xl tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              IT Assistant
             </span>
-            <span className="text-xs text-muted-foreground">
-              ระบบแนะนำหลักสูตร IT
+            <span className="text-xs font-medium text-muted-foreground">
+              Professional IT Guidance
             </span>
           </div>
         </Link>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-8">
           <Link 
             to="/" 
-            className="text-sm font-medium hover:text-primary transition-colors"
+            className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors py-2 px-1 border-b-2 border-transparent hover:border-primary/30"
           >
             หน้าหลัก
           </Link>
           <Link 
             to="/courses" 
-            className="text-sm font-medium hover:text-primary transition-colors"
+            className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors py-2 px-1 border-b-2 border-transparent hover:border-primary/30"
           >
             หลักสูตร
           </Link>
           {isAuthenticated && (
             <Link 
               to={`/dashboard/${user?.role}`} 
-              className="text-sm font-medium hover:text-primary transition-colors"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors py-2 px-1 border-b-2 border-transparent hover:border-primary/30"
             >
               แดชบอร์ด
             </Link>
@@ -178,11 +178,11 @@ const Header: React.FC = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <div className="flex items-center space-x-2">
-              <Button variant="ghost" asChild>
+            <div className="flex items-center space-x-3">
+              <Button variant="ghost" asChild className="text-sm font-medium">
                 <Link to="/login">เข้าสู่ระบบ</Link>
               </Button>
-              <Button asChild className="gradient-primary">
+              <Button asChild className="gradient-primary shadow-elegant text-sm font-medium">
                 <Link to="/register">สมัครสมาชิก</Link>
               </Button>
             </div>

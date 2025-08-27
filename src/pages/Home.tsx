@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import ChatBot from '@/components/chat/ChatBot';
+
 import { useAuth } from '@/contexts/AuthContext';
 import { 
   Bot, 
@@ -96,15 +96,15 @@ const Home: React.FC = () => {
                   <Sparkles className="w-4 h-4 mr-1" />
                   ระบบแนะนำหลักสูตรอัจฉริยะ
                 </Badge>
-                <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                  IT-Chatbot
+                <h1 className="text-4xl lg:text-6xl font-bold leading-tight tracking-tight">
+                  IT Assistant
                   <span className="block text-primary-light">
-                    ผู้ช่วยหลักสูตร IT
+                    Professional IT Guidance
                   </span>
                 </h1>
-                <p className="text-xl text-white/90 leading-relaxed">
-                  แชทบอทอัจฉริยะสำหรับให้ข้อมูลหลักสูตรเทคโนโลยีสารสนเทศ 
-                  ช่วยวางแผนการเรียนและตอบคำถามด้าน IT อย่างครบวงจร
+                <p className="text-xl text-white/90 leading-relaxed font-light">
+                  ระบบให้คำปรึกษาหลักสูตรเทคโนโลยีสารสนเทศแบบครบวงจร 
+                  ด้วยเทคโนโลยี AI ที่ทันสมัย เพื่อการวางแผนการเรียนที่มีประสิทธิภาพ
                 </p>
               </div>
               
@@ -146,9 +146,20 @@ const Home: React.FC = () => {
               )}
             </div>
 
-            {/* Chatbot Preview */}
-            <div className="lg:ml-8">
-              <ChatBot className="max-w-md mx-auto" />
+            {/* Hero Image/Illustration */}
+            <div className="lg:ml-8 flex justify-center">
+              <div className="relative">
+                <div className="w-96 h-96 gradient-primary rounded-2xl shadow-elegant flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <Bot className="w-24 h-24 mx-auto mb-4 opacity-80" />
+                    <p className="text-lg font-medium opacity-90">AI-Powered Assistance</p>
+                    <p className="text-sm opacity-70">Available 24/7</p>
+                  </div>
+                </div>
+                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-white rounded-xl shadow-medium flex items-center justify-center">
+                  <MessageCircle className="w-8 h-8 text-primary" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
