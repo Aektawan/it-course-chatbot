@@ -71,16 +71,42 @@ const Courses: React.FC = () => {
 
   // Generate courses based on selections
   const generateFilteredCourses = () => {
-    if (selectedCurriculum === 'all' && selectedSemester === 'all') {
-      return mockCourses;
-    }
-    
+    // If specific curriculum and semester are selected, show only those courses
     if (selectedCurriculum !== 'all' && selectedSemester !== 'all') {
-      // Parse semester selection (format: "1-1", "1-2", etc.)
       const [year, semester] = selectedSemester.split('-').map(Number);
-      return generateCoursesForSemester(selectedCurriculum.split(' ')[0], selectedCurriculum.split(' ')[1], year, semester, 7);
+      const [programCode, curriculumYear] = selectedCurriculum.split(' ');
+      return generateCoursesForSemester(programCode, curriculumYear, year, semester, 7);
     }
     
+    // If only curriculum is selected, show all courses for that curriculum
+    if (selectedCurriculum !== 'all') {
+      const [programCode, curriculumYear] = selectedCurriculum.split(' ');
+      const allCourses = [];
+      // Generate courses for all 8 semesters
+      for (let year = 1; year <= 4; year++) {
+        for (let semester = 1; semester <= 2; semester++) {
+          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, semester, 7));
+        }
+      }
+      return allCourses;
+    }
+    
+    // If only department is selected, show courses from that department
+    if (selectedDepartment !== 'all') {
+      const departmentCourses = [];
+      const curricula = getAvailableCurricula();
+      curricula.forEach(curriculum => {
+        const [programCode, curriculumYear] = curriculum.value.split(' ');
+        for (let year = 1; year <= 4; year++) {
+          for (let semester = 1; semester <= 2; semester++) {
+            departmentCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, semester, 4));
+          }
+        }
+      });
+      return departmentCourses;
+    }
+    
+    // Default: show sample courses from mockData
     return mockCourses;
   };
 
