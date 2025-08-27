@@ -25,7 +25,7 @@ interface ProgramData {
 // Course data by program, curriculum year, and semester
 const courseDatabase: ProgramData = {
   'IT': {
-    '62': {
+    '68': {
       '1-1': [
         { code: 'IT101', name: 'Introduction to Information Technology', credits: 3, category: 'core' },
         { code: 'IT102', name: 'Computer Programming Fundamentals', credits: 3, category: 'core' },
@@ -89,76 +89,10 @@ const courseDatabase: ProgramData = {
         { code: 'IT410', name: 'Internship', credits: 6, category: 'major', prerequisites: ['IT401'] },
         { code: 'IT411', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['IT407'] }
       ]
-    },
-    '67': {
-      '1-1': [
-        { code: 'IT201', name: 'Digital Literacy', credits: 3, category: 'core' },
-        { code: 'IT202', name: 'Programming Logic', credits: 3, category: 'core' },
-        { code: 'MT201', name: 'Discrete Mathematics', credits: 3, category: 'core' },
-        { code: 'EN201', name: 'Communication Skills', credits: 3, category: 'general' },
-        { code: 'TH201', name: 'Thai for Academic Writing', credits: 2, category: 'general' },
-        { code: 'PE201', name: 'Health and Fitness', credits: 1, category: 'general' },
-        { code: 'SO201', name: 'Society and Ethics', credits: 2, category: 'general' }
-      ],
-      '1-2': [
-        { code: 'IT203', name: 'Data Structures', credits: 3, category: 'core', prerequisites: ['IT202'] },
-        { code: 'IT204', name: 'Object-Oriented Programming', credits: 3, category: 'major', prerequisites: ['IT202'] },
-        { code: 'MT202', name: 'Linear Algebra', credits: 3, category: 'core', prerequisites: ['MT201'] },
-        { code: 'EN202', name: 'Technical English', credits: 3, category: 'general', prerequisites: ['EN201'] },
-        { code: 'SC201', name: 'Environmental Science', credits: 2, category: 'general' },
-        { code: 'PE202', name: 'Team Sports', credits: 1, category: 'general' }
-      ],
-      '2-1': [
-        { code: 'IT301', name: 'Advanced Object-Oriented Programming', credits: 3, category: 'major', prerequisites: ['IT203', 'IT204'] },
-        { code: 'IT302', name: 'Database Design and Implementation', credits: 3, category: 'core', prerequisites: ['IT203'] },
-        { code: 'IT303', name: 'Software Architecture', credits: 3, category: 'major', prerequisites: ['IT204'] },
-        { code: 'MT301', name: 'Probability and Statistics', credits: 3, category: 'core', prerequisites: ['MT202'] },
-        { code: 'EN301', name: 'Professional Presentation', credits: 2, category: 'general', prerequisites: ['EN202'] },
-        { code: 'IT304', name: 'Human-Computer Interaction', credits: 3, category: 'elective' }
-      ],
-      '2-2': [
-        { code: 'IT305', name: 'Advanced Web Development', credits: 3, category: 'major', prerequisites: ['IT301', 'IT302'] },
-        { code: 'IT306', name: 'Mobile Application Development', credits: 3, category: 'major', prerequisites: ['IT303'] },
-        { code: 'IT307', name: 'Network Programming', credits: 3, category: 'major', prerequisites: ['IT301'] },
-        { code: 'MT302', name: 'Applied Statistics', credits: 3, category: 'core', prerequisites: ['MT301'] },
-        { code: 'EN302', name: 'Technical Documentation', credits: 2, category: 'general', prerequisites: ['EN301'] },
-        { code: 'IT308', name: 'Software Testing', credits: 3, category: 'major', prerequisites: ['IT303'] }
-      ],
-      '3-1': [
-        { code: 'IT401', name: 'System Integration', credits: 3, category: 'major', prerequisites: ['IT305', 'IT307'] },
-        { code: 'IT402', name: 'Machine Learning Fundamentals', credits: 3, category: 'elective', prerequisites: ['MT302'] },
-        { code: 'IT403', name: 'Cloud Computing', credits: 3, category: 'elective', prerequisites: ['IT307'] },
-        { code: 'IT404', name: 'Cybersecurity', credits: 3, category: 'major', prerequisites: ['IT307'] },
-        { code: 'IT405', name: 'DevOps Practices', credits: 3, category: 'elective', prerequisites: ['IT308'] },
-        { code: 'EN401', name: 'Professional Communication', credits: 2, category: 'general', prerequisites: ['EN302'] }
-      ],
-      '3-2': [
-        { code: 'IT406', name: 'Advanced Machine Learning', credits: 3, category: 'elective', prerequisites: ['IT402'] },
-        { code: 'IT407', name: 'Distributed Systems', credits: 3, category: 'major', prerequisites: ['IT401', 'IT403'] },
-        { code: 'IT408', name: 'Blockchain Technology', credits: 3, category: 'elective', prerequisites: ['IT404'] },
-        { code: 'IT409', name: 'Data Science', credits: 3, category: 'elective', prerequisites: ['IT402', 'MT302'] },
-        { code: 'IT410', name: 'Project Management', credits: 3, category: 'major', prerequisites: ['IT401'] },
-        { code: 'IT411', name: 'Ethics in Technology', credits: 2, category: 'general' }
-      ],
-      '4-1': [
-        { code: 'IT501', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['IT407', 'IT410'] },
-        { code: 'IT502', name: 'Advanced Cybersecurity', credits: 3, category: 'elective', prerequisites: ['IT404', 'IT408'] },
-        { code: 'IT503', name: 'AI Applications', credits: 3, category: 'elective', prerequisites: ['IT406'] },
-        { code: 'IT504', name: 'IoT Systems', credits: 3, category: 'elective', prerequisites: ['IT407'] },
-        { code: 'IT505', name: 'IT Entrepreneurship', credits: 2, category: 'elective', prerequisites: ['IT410'] },
-        { code: 'IT506', name: 'Research Methodology', credits: 2, category: 'general' }
-      ],
-      '4-2': [
-        { code: 'IT507', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['IT501'] },
-        { code: 'IT508', name: 'Advanced Software Engineering', credits: 3, category: 'elective', prerequisites: ['IT501'] },
-        { code: 'IT509', name: 'IT Consulting', credits: 2, category: 'elective', prerequisites: ['IT505'] },
-        { code: 'IT510', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['IT501'] },
-        { code: 'IT511', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['IT507'] }
-      ]
     }
   },
   'INE': {
-    '62': {
+    '68': {
       '1-1': [
         { code: 'INE101', name: 'Network Engineering Fundamentals', credits: 3, category: 'core' },
         { code: 'INE102', name: 'Digital Electronics', credits: 3, category: 'core' },
@@ -222,368 +156,131 @@ const courseDatabase: ProgramData = {
         { code: 'INE410', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['INE401'] },
         { code: 'INE411', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['INE407'] }
       ]
-    },
-    '67': {
-      '1-1': [
-        { code: 'INE201', name: 'Modern Network Infrastructure', credits: 3, category: 'core' },
-        { code: 'INE202', name: 'Network Security Basics', credits: 3, category: 'core' },
-        { code: 'MT201', name: 'Applied Mathematics', credits: 3, category: 'core' },
-        { code: 'EN201', name: 'Professional English', credits: 3, category: 'general' },
-        { code: 'TH201', name: 'Academic Thai', credits: 2, category: 'general' },
-        { code: 'PE201', name: 'Wellness and Health', credits: 1, category: 'general' },
-        { code: 'SO201', name: 'Engineering Ethics', credits: 2, category: 'general' }
-      ],
-      '1-2': [
-        { code: 'INE203', name: 'Wireless Networks', credits: 3, category: 'core' },
-        { code: 'INE204', name: 'Network Design', credits: 3, category: 'major' },
-        { code: 'MT202', name: 'Probability and Statistics', credits: 3, category: 'core' },
-        { code: 'EN202', name: 'Engineering English', credits: 3, category: 'general' },
-        { code: 'SC201', name: 'Applied Physics', credits: 3, category: 'general' },
-        { code: 'PE202', name: 'Competitive Sports', credits: 1, category: 'general' }
-      ],
-      '2-1': [
-        { code: 'INE301', name: 'Advanced Wireless Systems', credits: 3, category: 'major', prerequisites: ['INE201', 'INE203'] },
-        { code: 'INE302', name: 'Network Security Management', credits: 3, category: 'major', prerequisites: ['INE202'] },
-        { code: 'INE303', name: 'Enterprise Network Solutions', credits: 3, category: 'core', prerequisites: ['INE204'] },
-        { code: 'MT301', name: 'Advanced Signal Processing', credits: 3, category: 'core', prerequisites: ['MT202'] },
-        { code: 'EN301', name: 'Technical Presentation', credits: 2, category: 'general', prerequisites: ['EN202'] },
-        { code: 'INE304', name: 'Network Optimization', credits: 3, category: 'major', prerequisites: ['INE203'] }
-      ],
-      '2-2': [
-        { code: 'INE305', name: 'Software-Defined Networks', credits: 3, category: 'major', prerequisites: ['INE301', 'INE302'] },
-        { code: 'INE306', name: 'Cloud Network Architecture', credits: 3, category: 'major', prerequisites: ['INE303', 'INE304'] },
-        { code: 'INE307', name: 'IoT Network Infrastructure', credits: 3, category: 'core', prerequisites: ['INE301', 'MT301'] },
-        { code: 'INE308', name: 'Network Automation Tools', credits: 3, category: 'major', prerequisites: ['INE305'] },
-        { code: 'MT302', name: 'Network Analytics', credits: 3, category: 'core', prerequisites: ['MT301'] },
-        { code: 'EN302', name: 'Professional Communication', credits: 2, category: 'general', prerequisites: ['EN301'] }
-      ],
-      '3-1': [
-        { code: 'INE401', name: 'Advanced Network Security', credits: 3, category: 'major', prerequisites: ['INE305', 'INE306'] },
-        { code: 'INE402', name: '5G Network Technologies', credits: 3, category: 'major', prerequisites: ['INE307', 'INE308'] },
-        { code: 'INE403', name: 'Network AI and ML', credits: 3, category: 'elective', prerequisites: ['INE306', 'MT302'] },
-        { code: 'INE404', name: 'Edge Computing Networks', credits: 3, category: 'elective', prerequisites: ['INE307'] },
-        { code: 'INE405', name: 'Network Project Management', credits: 3, category: 'major', prerequisites: ['INE308'] },
-        { code: 'EN401', name: 'Advanced Technical Communication', credits: 2, category: 'general', prerequisites: ['EN302'] }
-      ],
-      '3-2': [
-        { code: 'INE406', name: 'Cybersecurity in Networks', credits: 3, category: 'elective', prerequisites: ['INE401', 'INE403'] },
-        { code: 'INE407', name: 'Network Innovation Lab', credits: 3, category: 'major', prerequisites: ['INE402', 'INE404'] },
-        { code: 'INE408', name: 'Smart City Networks', credits: 3, category: 'elective', prerequisites: ['INE402', 'INE405'] },
-        { code: 'INE409', name: 'Network Consulting', credits: 3, category: 'major', prerequisites: ['INE405'] },
-        { code: 'INE410', name: 'Advanced Project Management', credits: 3, category: 'major', prerequisites: ['INE407'] },
-        { code: 'INE411', name: 'Ethics in Network Engineering', credits: 2, category: 'general' }
-      ],
-      '4-1': [
-        { code: 'INE501', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['INE407', 'INE410'] },
-        { code: 'INE502', name: 'Next-Gen Network Technologies', credits: 3, category: 'elective', prerequisites: ['INE406', 'INE408'] },
-        { code: 'INE503', name: 'Network Research Methods', credits: 3, category: 'elective', prerequisites: ['INE409'] },
-        { code: 'INE504', name: 'Quantum Networks', credits: 3, category: 'elective', prerequisites: ['INE407'] },
-        { code: 'INE505', name: 'Network Entrepreneurship', credits: 2, category: 'elective', prerequisites: ['INE409'] },
-        { code: 'INE506', name: 'Research Methodology', credits: 2, category: 'general' }
-      ],
-      '4-2': [
-        { code: 'INE507', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['INE501'] },
-        { code: 'INE508', name: 'Advanced Network Engineering', credits: 3, category: 'elective', prerequisites: ['INE501'] },
-        { code: 'INE509', name: 'Network Innovation Consulting', credits: 2, category: 'elective', prerequisites: ['INE505'] },
-        { code: 'INE510', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['INE501'] },
-        { code: 'INE511', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['INE507'] }
-      ]
     }
   },
   'INET': {
-    '62': {
+    '68': {
       '1-1': [
         { code: 'INET101', name: 'Internet Technology Fundamentals', credits: 3, category: 'core' },
-        { code: 'INET102', name: 'Web Programming Basics', credits: 3, category: 'core' },
+        { code: 'INET102', name: 'Web Development Basics', credits: 3, category: 'core' },
+        { code: 'INET103', name: 'Network Protocols', credits: 3, category: 'core' },
         { code: 'MT101', name: 'Mathematics for Internet Tech', credits: 3, category: 'core' },
-        { code: 'EN101', name: 'English for Digital Age', credits: 3, category: 'general' },
-        { code: 'TH101', name: 'Thai Communication', credits: 2, category: 'general' },
+        { code: 'EN101', name: 'English for Internet Business', credits: 3, category: 'general' },
+        { code: 'TH101', name: 'Thai Communication Skills', credits: 2, category: 'general' },
         { code: 'PE101', name: 'Physical Education', credits: 1, category: 'general' }
       ],
       '1-2': [
-        { code: 'INET103', name: 'Internet Protocols', credits: 3, category: 'core' },
-        { code: 'INET104', name: 'E-Commerce Systems', credits: 3, category: 'major' },
-        { code: 'MT102', name: 'Statistics for Internet', credits: 3, category: 'core' },
-        { code: 'EN102', name: 'Technical Writing', credits: 3, category: 'general' },
-        { code: 'SC101', name: 'Computer Science Fundamentals', credits: 3, category: 'general' },
-        { code: 'PE102', name: 'Sports and Wellness', credits: 1, category: 'general' }
+        { code: 'INET104', name: 'Database for Web Applications', credits: 3, category: 'core', prerequisites: ['INET101'] },
+        { code: 'INET105', name: 'Advanced Web Development', credits: 3, category: 'major', prerequisites: ['INET102'] },
+        { code: 'INET106', name: 'Internet Security Basics', credits: 3, category: 'major', prerequisites: ['INET103'] },
+        { code: 'MT102', name: 'Statistics for Internet Business', credits: 3, category: 'core', prerequisites: ['MT101'] },
+        { code: 'EN102', name: 'Technical English', credits: 3, category: 'general', prerequisites: ['EN101'] },
+        { code: 'SC101', name: 'Digital Society', credits: 2, category: 'general' }
       ],
       '2-1': [
-        { code: 'INET201', name: 'Advanced Web Programming', credits: 3, category: 'major', prerequisites: ['INET101', 'INET102'] },
-        { code: 'INET202', name: 'Internet Security', credits: 3, category: 'major', prerequisites: ['INET103'] },
-        { code: 'INET203', name: 'Database for Web Applications', credits: 3, category: 'core', prerequisites: ['INET104'] },
-        { code: 'MT201', name: 'Applied Mathematics', credits: 3, category: 'core', prerequisites: ['MT102'] },
+        { code: 'INET201', name: 'E-Commerce Systems', credits: 3, category: 'major', prerequisites: ['INET104', 'INET105'] },
+        { code: 'INET202', name: 'Mobile Web Development', credits: 3, category: 'major', prerequisites: ['INET105'] },
+        { code: 'INET203', name: 'Cloud Computing', credits: 3, category: 'major', prerequisites: ['INET106'] },
+        { code: 'INET204', name: 'Web Analytics', credits: 3, category: 'major', prerequisites: ['MT102'] },
         { code: 'EN201', name: 'Business Communication', credits: 2, category: 'general', prerequisites: ['EN102'] },
-        { code: 'INET204', name: 'Mobile Web Development', credits: 3, category: 'major', prerequisites: ['INET101'] }
+        { code: 'INET205', name: 'Internet Marketing', credits: 3, category: 'elective' }
       ],
       '2-2': [
-        { code: 'INET205', name: 'Cloud Computing', credits: 3, category: 'major', prerequisites: ['INET201', 'INET202'] },
-        { code: 'INET206', name: 'Web Application Security', credits: 3, category: 'major', prerequisites: ['INET202', 'INET203'] },
-        { code: 'INET207', name: 'Big Data for Internet', credits: 3, category: 'core', prerequisites: ['INET203', 'MT201'] },
-        { code: 'INET208', name: 'Internet of Things', credits: 3, category: 'major', prerequisites: ['INET204'] },
-        { code: 'MT202', name: 'Data Analytics', credits: 3, category: 'core', prerequisites: ['MT201'] },
-        { code: 'EN202', name: 'Technical Documentation', credits: 2, category: 'general', prerequisites: ['EN201'] }
+        { code: 'INET206', name: 'Advanced E-Commerce', credits: 3, category: 'major', prerequisites: ['INET201', 'INET202'] },
+        { code: 'INET207', name: 'API Development', credits: 3, category: 'major', prerequisites: ['INET202', 'INET203'] },
+        { code: 'INET208', name: 'Internet Business Models', credits: 3, category: 'major', prerequisites: ['INET204', 'INET205'] },
+        { code: 'INET209', name: 'Web Project Management', credits: 3, category: 'major', prerequisites: ['INET204'] },
+        { code: 'EN202', name: 'Professional Presentation', credits: 2, category: 'general', prerequisites: ['EN201'] },
+        { code: 'INET210', name: 'Digital Innovation', credits: 2, category: 'elective' }
       ],
       '3-1': [
-        { code: 'INET301', name: 'Advanced Cloud Solutions', credits: 3, category: 'major', prerequisites: ['INET205', 'INET206'] },
-        { code: 'INET302', name: 'AI for Internet Applications', credits: 3, category: 'major', prerequisites: ['INET207', 'INET208'] },
-        { code: 'INET303', name: 'Blockchain Technology', credits: 3, category: 'elective', prerequisites: ['INET206', 'MT202'] },
-        { code: 'INET304', name: 'DevOps and Deployment', credits: 3, category: 'elective', prerequisites: ['INET205'] },
-        { code: 'INET305', name: 'Internet Business Strategy', credits: 3, category: 'major', prerequisites: ['INET208'] },
-        { code: 'EN301', name: 'Professional Presentation', credits: 2, category: 'general', prerequisites: ['EN202'] }
+        { code: 'INET301', name: 'Advanced Internet Technologies', credits: 3, category: 'major', prerequisites: ['INET206', 'INET207'] },
+        { code: 'INET302', name: 'Internet Entrepreneurship', credits: 3, category: 'major', prerequisites: ['INET208', 'INET209'] },
+        { code: 'INET303', name: 'Capstone Project I', credits: 3, category: 'major', prerequisites: ['INET207', 'INET209'] },
+        { code: 'INET304', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['INET206'] },
+        { code: 'INET305', name: 'Industry Seminar', credits: 1, category: 'major' }
       ],
       '3-2': [
-        { code: 'INET306', name: 'Advanced Web Security', credits: 3, category: 'elective', prerequisites: ['INET301', 'INET303'] },
-        { code: 'INET307', name: 'Machine Learning for Web', credits: 3, category: 'major', prerequisites: ['INET302', 'INET304'] },
-        { code: 'INET308', name: 'Digital Marketing Technology', credits: 3, category: 'elective', prerequisites: ['INET302', 'INET305'] },
-        { code: 'INET309', name: 'Internet Project Management', credits: 3, category: 'major', prerequisites: ['INET305'] },
-        { code: 'INET310', name: 'Advanced Web Analytics', credits: 3, category: 'major', prerequisites: ['INET307'] },
-        { code: 'INET311', name: 'Digital Ethics', credits: 2, category: 'general' }
-      ],
-      '4-1': [
-        { code: 'INET401', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['INET307', 'INET310'] },
-        { code: 'INET402', name: 'Advanced Cybersecurity', credits: 3, category: 'elective', prerequisites: ['INET306', 'INET308'] },
-        { code: 'INET403', name: 'Internet Innovation Lab', credits: 3, category: 'elective', prerequisites: ['INET309'] },
-        { code: 'INET404', name: 'Web3 Technologies', credits: 3, category: 'elective', prerequisites: ['INET306'] },
-        { code: 'INET405', name: 'Internet Entrepreneurship', credits: 2, category: 'elective', prerequisites: ['INET309'] },
-        { code: 'INET406', name: 'Research Methodology', credits: 2, category: 'general' }
-      ],
-      '4-2': [
-        { code: 'INET407', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['INET401'] },
-        { code: 'INET408', name: 'Advanced Internet Technologies', credits: 3, category: 'elective', prerequisites: ['INET401'] },
-        { code: 'INET409', name: 'Internet Consulting', credits: 2, category: 'elective', prerequisites: ['INET405'] },
-        { code: 'INET410', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['INET401'] },
-        { code: 'INET411', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['INET407'] }
-      ]
-    },
-    '67': {
-      '1-1': [
-        { code: 'INET201', name: 'Modern Web Technologies', credits: 3, category: 'core' },
-        { code: 'INET202', name: 'Cloud Computing Basics', credits: 3, category: 'core' },
-        { code: 'MT201', name: 'Digital Mathematics', credits: 3, category: 'core' },
-        { code: 'EN201', name: 'Global Communication', credits: 3, category: 'general' },
-        { code: 'TH201', name: 'Academic Thai Writing', credits: 2, category: 'general' },
-        { code: 'PE201', name: 'Health and Fitness', credits: 1, category: 'general' },
-        { code: 'SO201', name: 'Digital Society', credits: 2, category: 'general' }
-      ],
-      '1-2': [
-        { code: 'INET203', name: 'Internet Security', credits: 3, category: 'core' },
-        { code: 'INET204', name: 'Mobile App Development', credits: 3, category: 'major' },
-        { code: 'MT202', name: 'Applied Statistics', credits: 3, category: 'core' },
-        { code: 'EN202', name: 'Business English', credits: 3, category: 'general' },
-        { code: 'SC201', name: 'Innovation and Technology', credits: 2, category: 'general' },
-        { code: 'PE202', name: 'Team Building Activities', credits: 1, category: 'general' }
-      ],
-      '2-1': [
-        { code: 'INET301', name: 'Advanced Web Technologies', credits: 3, category: 'major', prerequisites: ['INET201', 'INET203'] },
-        { code: 'INET302', name: 'Cloud Native Development', credits: 3, category: 'major', prerequisites: ['INET202', 'INET204'] },
-        { code: 'INET303', name: 'AI-Powered Web Apps', credits: 3, category: 'core', prerequisites: ['INET204', 'MT202'] },
-        { code: 'MT301', name: 'Machine Learning Math', credits: 3, category: 'core', prerequisites: ['MT202'] },
-        { code: 'EN301', name: 'Technical Communication', credits: 2, category: 'general', prerequisites: ['EN202'] },
-        { code: 'INET304', name: 'Progressive Web Apps', credits: 3, category: 'major', prerequisites: ['INET201'] }
-      ],
-      '2-2': [
-        { code: 'INET305', name: 'Microservices Architecture', credits: 3, category: 'major', prerequisites: ['INET301', 'INET302'] },
-        { code: 'INET306', name: 'Advanced Cloud Security', credits: 3, category: 'major', prerequisites: ['INET302', 'INET303'] },
-        { code: 'INET307', name: 'Real-time Web Applications', credits: 3, category: 'core', prerequisites: ['INET303', 'INET304'] },
-        { code: 'INET308', name: 'Web Performance Optimization', credits: 3, category: 'major', prerequisites: ['INET304'] },
-        { code: 'MT302', name: 'Advanced Data Analytics', credits: 3, category: 'core', prerequisites: ['MT301'] },
-        { code: 'EN302', name: 'Professional Writing', credits: 2, category: 'general', prerequisites: ['EN301'] }
-      ],
-      '3-1': [
-        { code: 'INET401', name: 'Web3 and Blockchain', credits: 3, category: 'major', prerequisites: ['INET305', 'INET306'] },
-        { code: 'INET402', name: 'Advanced AI Integration', credits: 3, category: 'major', prerequisites: ['INET307', 'INET308'] },
-        { code: 'INET403', name: 'Internet Scalability', credits: 3, category: 'elective', prerequisites: ['INET305', 'MT302'] },
-        { code: 'INET404', name: 'Edge Computing', credits: 3, category: 'elective', prerequisites: ['INET306'] },
-        { code: 'INET405', name: 'Digital Innovation Management', credits: 3, category: 'major', prerequisites: ['INET308'] },
-        { code: 'EN401', name: 'Advanced Technical Presentation', credits: 2, category: 'general', prerequisites: ['EN302'] }
-      ],
-      '3-2': [
-        { code: 'INET406', name: 'Quantum Internet', credits: 3, category: 'elective', prerequisites: ['INET401', 'INET403'] },
-        { code: 'INET407', name: 'Internet Innovation Lab', credits: 3, category: 'major', prerequisites: ['INET402', 'INET404'] },
-        { code: 'INET408', name: 'Metaverse Technologies', credits: 3, category: 'elective', prerequisites: ['INET402', 'INET405'] },
-        { code: 'INET409', name: 'Internet Project Leadership', credits: 3, category: 'major', prerequisites: ['INET405'] },
-        { code: 'INET410', name: 'Advanced Innovation Management', credits: 3, category: 'major', prerequisites: ['INET407'] },
-        { code: 'INET411', name: 'Digital Society Ethics', credits: 2, category: 'general' }
-      ],
-      '4-1': [
-        { code: 'INET501', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['INET407', 'INET410'] },
-        { code: 'INET502', name: 'Next-Gen Internet Technologies', credits: 3, category: 'elective', prerequisites: ['INET406', 'INET408'] },
-        { code: 'INET503', name: 'Internet Research Methods', credits: 3, category: 'elective', prerequisites: ['INET409'] },
-        { code: 'INET504', name: 'Future Web Technologies', credits: 3, category: 'elective', prerequisites: ['INET407'] },
-        { code: 'INET505', name: 'Internet Startup', credits: 2, category: 'elective', prerequisites: ['INET409'] },
-        { code: 'INET506', name: 'Research Methodology', credits: 2, category: 'general' }
-      ],
-      '4-2': [
-        { code: 'INET507', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['INET501'] },
-        { code: 'INET508', name: 'Advanced Internet Solutions', credits: 3, category: 'elective', prerequisites: ['INET501'] },
-        { code: 'INET509', name: 'Internet Technology Consulting', credits: 2, category: 'elective', prerequisites: ['INET505'] },
-        { code: 'INET510', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['INET501'] },
-        { code: 'INET511', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['INET507'] }
+        { code: 'INET306', name: 'Capstone Project II', credits: 3, category: 'major', prerequisites: ['INET303'] },
+        { code: 'INET307', name: 'Advanced Internet Business', credits: 3, category: 'elective', prerequisites: ['INET302'] },
+        { code: 'INET308', name: 'Internet Technology Consulting', credits: 3, category: 'elective', prerequisites: ['INET301'] },
+        { code: 'INET309', name: 'Professional Portfolio', credits: 2, category: 'major', prerequisites: ['INET304'] },
+        { code: 'INET310', name: 'Final Presentation', credits: 1, category: 'major', prerequisites: ['INET306'] },
+        { code: 'INET311', name: 'Ethics in Internet Business', credits: 2, category: 'general' }
       ]
     }
   },
   'ITI': {
-    '61': {
+    '68': {
       '1-1': [
-        { code: 'ITI101', name: 'IT and Communication Fundamentals', credits: 3, category: 'core' },
-        { code: 'ITI102', name: 'Digital Media Basics', credits: 3, category: 'core' },
-        { code: 'MT101', name: 'Mathematics for IT Communication', credits: 3, category: 'core' },
-        { code: 'EN101', name: 'English for Media', credits: 3, category: 'general' },
-        { code: 'TH101', name: 'Thai Language and Culture', credits: 2, category: 'general' },
-        { code: 'PE101', name: 'Physical Wellness', credits: 1, category: 'general' }
+        { code: 'ITI101', name: 'Information Technology Fundamentals', credits: 3, category: 'core' },
+        { code: 'ITI102', name: 'Programming Basics', credits: 3, category: 'core' },
+        { code: 'ITI103', name: 'Computer Hardware', credits: 3, category: 'core' },
+        { code: 'ITI104', name: 'Operating Systems', credits: 3, category: 'core' },
+        { code: 'MT101', name: 'Applied Mathematics', credits: 3, category: 'core' },
+        { code: 'EN101', name: 'Technical English', credits: 3, category: 'general' },
+        { code: 'TH101', name: 'Thai Communication', credits: 2, category: 'general' }
       ],
       '1-2': [
-        { code: 'ITI103', name: 'Multimedia Systems', credits: 3, category: 'core' },
-        { code: 'ITI104', name: 'Communication Networks', credits: 3, category: 'major' },
-        { code: 'MT102', name: 'Statistics for Communication', credits: 3, category: 'core' },
-        { code: 'EN102', name: 'Media English', credits: 3, category: 'general' },
-        { code: 'SC101', name: 'Digital Arts and Science', credits: 2, category: 'general' },
-        { code: 'PE102', name: 'Creative Movement', credits: 1, category: 'general' }
+        { code: 'ITI105', name: 'Database Systems', credits: 3, category: 'core', prerequisites: ['ITI101'] },
+        { code: 'ITI106', name: 'Web Programming', credits: 3, category: 'major', prerequisites: ['ITI102'] },
+        { code: 'ITI107', name: 'Network Fundamentals', credits: 3, category: 'major', prerequisites: ['ITI103'] },
+        { code: 'ITI108', name: 'System Administration', credits: 3, category: 'major', prerequisites: ['ITI104'] },
+        { code: 'MT102', name: 'Statistics', credits: 3, category: 'core', prerequisites: ['MT101'] },
+        { code: 'EN102', name: 'Professional English', credits: 3, category: 'general', prerequisites: ['EN101'] }
       ],
       '2-1': [
-        { code: 'ITI201', name: 'Advanced Multimedia Programming', credits: 3, category: 'major', prerequisites: ['ITI101', 'ITI103'] },
-        { code: 'ITI202', name: 'Digital Media Production', credits: 3, category: 'major', prerequisites: ['ITI102'] },
-        { code: 'ITI203', name: 'Communication Protocol Design', credits: 3, category: 'core', prerequisites: ['ITI104'] },
-        { code: 'MT201', name: 'Applied Mathematics for Media', credits: 3, category: 'core', prerequisites: ['MT102'] },
-        { code: 'EN201', name: 'Technical Communication', credits: 2, category: 'general', prerequisites: ['EN102'] },
-        { code: 'ITI204', name: 'Human-Computer Interaction', credits: 3, category: 'major', prerequisites: ['ITI102'] }
+        { code: 'ITI201', name: 'Advanced Programming', credits: 3, category: 'major', prerequisites: ['ITI105', 'ITI106'] },
+        { code: 'ITI202', name: 'Network Administration', credits: 3, category: 'major', prerequisites: ['ITI107', 'ITI108'] },
+        { code: 'ITI203', name: 'IT Project Management', credits: 3, category: 'major', prerequisites: ['ITI106'] },
+        { code: 'ITI204', name: 'IT Security', credits: 3, category: 'major', prerequisites: ['ITI107'] },
+        { code: 'ITI205', name: 'Professional Development', credits: 2, category: 'general', prerequisites: ['EN102'] },
+        { code: 'ITI206', name: 'Industry Practicum I', credits: 4, category: 'major', prerequisites: ['ITI108'] }
       ],
       '2-2': [
-        { code: 'ITI205', name: 'Interactive Media Systems', credits: 3, category: 'major', prerequisites: ['ITI201', 'ITI202'] },
-        { code: 'ITI206', name: 'Broadcast Systems Design', credits: 3, category: 'major', prerequisites: ['ITI203', 'ITI204'] },
-        { code: 'ITI207', name: 'Digital Signal Processing', credits: 3, category: 'core', prerequisites: ['ITI203', 'MT201'] },
-        { code: 'ITI208', name: 'Media Database Systems', credits: 3, category: 'major', prerequisites: ['ITI205'] },
-        { code: 'MT202', name: 'Media Analytics', credits: 3, category: 'core', prerequisites: ['MT201'] },
-        { code: 'EN202', name: 'Media Writing', credits: 2, category: 'general', prerequisites: ['EN201'] }
-      ],
-      '3-1': [
-        { code: 'ITI301', name: 'Advanced Broadcasting Technology', credits: 3, category: 'major', prerequisites: ['ITI205', 'ITI206'] },
-        { code: 'ITI302', name: 'AI in Media Production', credits: 3, category: 'major', prerequisites: ['ITI207', 'ITI208'] },
-        { code: 'ITI303', name: 'Virtual Reality Systems', credits: 3, category: 'elective', prerequisites: ['ITI206', 'MT202'] },
-        { code: 'ITI304', name: 'Media Security', credits: 3, category: 'elective', prerequisites: ['ITI207'] },
-        { code: 'ITI305', name: 'Media Project Management', credits: 3, category: 'major', prerequisites: ['ITI208'] },
-        { code: 'EN301', name: 'Professional Media Communication', credits: 2, category: 'general', prerequisites: ['EN202'] }
-      ],
-      '3-2': [
-        { code: 'ITI306', name: 'Augmented Reality Development', credits: 3, category: 'elective', prerequisites: ['ITI301', 'ITI303'] },
-        { code: 'ITI307', name: 'Media Innovation Lab', credits: 3, category: 'major', prerequisites: ['ITI302', 'ITI304'] },
-        { code: 'ITI308', name: 'Social Media Technologies', credits: 3, category: 'elective', prerequisites: ['ITI302', 'ITI305'] },
-        { code: 'ITI309', name: 'Media Consulting', credits: 3, category: 'major', prerequisites: ['ITI305'] },
-        { code: 'ITI310', name: 'Advanced Media Management', credits: 3, category: 'major', prerequisites: ['ITI307'] },
-        { code: 'ITI311', name: 'Media Ethics', credits: 2, category: 'general' }
-      ],
-      '4-1': [
-        { code: 'ITI401', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['ITI307', 'ITI310'] },
-        { code: 'ITI402', name: 'Next-Gen Media Technologies', credits: 3, category: 'elective', prerequisites: ['ITI306', 'ITI308'] },
-        { code: 'ITI403', name: 'Media Research Methods', credits: 3, category: 'elective', prerequisites: ['ITI309'] },
-        { code: 'ITI404', name: 'Immersive Media Systems', credits: 3, category: 'elective', prerequisites: ['ITI307'] },
-        { code: 'ITI405', name: 'Media Entrepreneurship', credits: 2, category: 'elective', prerequisites: ['ITI309'] },
-        { code: 'ITI406', name: 'Research Methodology', credits: 2, category: 'general' }
-      ],
-      '4-2': [
-        { code: 'ITI407', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['ITI401'] },
-        { code: 'ITI408', name: 'Advanced Media Solutions', credits: 3, category: 'elective', prerequisites: ['ITI401'] },
-        { code: 'ITI409', name: 'Media Technology Consulting', credits: 2, category: 'elective', prerequisites: ['ITI405'] },
-        { code: 'ITI410', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['ITI401'] },
-        { code: 'ITI411', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['ITI407'] }
-      ]
-    },
-    '66': {
-      '1-1': [
-        { code: 'ITI201', name: 'Digital Communication Theory', credits: 3, category: 'core' },
-        { code: 'ITI202', name: 'Interactive Media Design', credits: 3, category: 'core' },
-        { code: 'MT201', name: 'Applied Mathematics for Media', credits: 3, category: 'core' },
-        { code: 'EN201', name: 'International Communication', credits: 3, category: 'general' },
-        { code: 'TH201', name: 'Thai Media and Literature', credits: 2, category: 'general' },
-        { code: 'PE201', name: 'Health and Movement', credits: 1, category: 'general' },
-        { code: 'SO201', name: 'Media and Society', credits: 2, category: 'general' }
-      ],
-      '1-2': [
-        { code: 'ITI203', name: 'Broadcast Technology', credits: 3, category: 'core' },
-        { code: 'ITI204', name: 'Digital Content Creation', credits: 3, category: 'major' },
-        { code: 'MT202', name: 'Media Statistics', credits: 3, category: 'core' },
-        { code: 'EN202', name: 'Media Production English', credits: 3, category: 'general' },
-        { code: 'SC201', name: 'Technology and Innovation', credits: 2, category: 'general' },
-        { code: 'PE202', name: 'Performance Arts', credits: 1, category: 'general' }
-      ],
-      '2-1': [
-        { code: 'ITI301', name: 'Advanced Digital Communication', credits: 3, category: 'major', prerequisites: ['ITI201', 'ITI203'] },
-        { code: 'ITI302', name: 'Interactive Media Production', credits: 3, category: 'major', prerequisites: ['ITI202', 'ITI204'] },
-        { code: 'ITI303', name: 'Media Technology Integration', credits: 3, category: 'core', prerequisites: ['ITI204', 'MT202'] },
-        { code: 'MT301', name: 'Advanced Media Mathematics', credits: 3, category: 'core', prerequisites: ['MT202'] },
-        { code: 'EN301', name: 'International Media Communication', credits: 2, category: 'general', prerequisites: ['EN202'] },
-        { code: 'ITI304', name: 'Media User Experience Design', credits: 3, category: 'major', prerequisites: ['ITI202'] }
-      ],
-      '2-2': [
-        { code: 'ITI305', name: 'Digital Broadcasting Systems', credits: 3, category: 'major', prerequisites: ['ITI301', 'ITI302'] },
-        { code: 'ITI306', name: 'Content Management Systems', credits: 3, category: 'major', prerequisites: ['ITI302', 'ITI303'] },
-        { code: 'ITI307', name: 'Media Streaming Technologies', credits: 3, category: 'core', prerequisites: ['ITI303', 'ITI304'] },
-        { code: 'ITI308', name: 'Digital Media Analytics', credits: 3, category: 'major', prerequisites: ['ITI304'] },
-        { code: 'MT302', name: 'Media Data Science', credits: 3, category: 'core', prerequisites: ['MT301'] },
-        { code: 'EN302', name: 'Media Business Communication', credits: 2, category: 'general', prerequisites: ['EN301'] }
-      ],
-      '3-1': [
-        { code: 'ITI401', name: 'Advanced Media Technologies', credits: 3, category: 'major', prerequisites: ['ITI305', 'ITI306'] },
-        { code: 'ITI402', name: 'AI in Media and Communication', credits: 3, category: 'major', prerequisites: ['ITI307', 'ITI308'] },
-        { code: 'ITI403', name: 'Virtual Production Systems', credits: 3, category: 'elective', prerequisites: ['ITI305', 'MT302'] },
-        { code: 'ITI404', name: 'Media Cloud Technologies', credits: 3, category: 'elective', prerequisites: ['ITI306'] },
-        { code: 'ITI405', name: 'Media Innovation Management', credits: 3, category: 'major', prerequisites: ['ITI308'] },
-        { code: 'EN401', name: 'Advanced Media Presentation', credits: 2, category: 'general', prerequisites: ['EN302'] }
-      ],
-      '3-2': [
-        { code: 'ITI406', name: 'Next-Gen Broadcasting', credits: 3, category: 'elective', prerequisites: ['ITI401', 'ITI403'] },
-        { code: 'ITI407', name: 'Media Innovation Lab', credits: 3, category: 'major', prerequisites: ['ITI402', 'ITI404'] },
-        { code: 'ITI408', name: 'Immersive Media Experiences', credits: 3, category: 'elective', prerequisites: ['ITI402', 'ITI405'] },
-        { code: 'ITI409', name: 'Media Project Leadership', credits: 3, category: 'major', prerequisites: ['ITI405'] },
-        { code: 'ITI410', name: 'Advanced Media Management', credits: 3, category: 'major', prerequisites: ['ITI407'] },
-        { code: 'ITI411', name: 'Media and Society Ethics', credits: 2, category: 'general' }
-      ],
-      '4-1': [
-        { code: 'ITI501', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['ITI407', 'ITI410'] },
-        { code: 'ITI502', name: 'Future Media Technologies', credits: 3, category: 'elective', prerequisites: ['ITI406', 'ITI408'] }, 
-        { code: 'ITI503', name: 'Media Research Methods', credits: 3, category: 'elective', prerequisites: ['ITI409'] },
-        { code: 'ITI504', name: 'Media Technology Innovation', credits: 3, category: 'elective', prerequisites: ['ITI407'] },
-        { code: 'ITI505', name: 'Media Entrepreneurship', credits: 2, category: 'elective', prerequisites: ['ITI409'] },
-        { code: 'ITI506', name: 'Research Methodology', credits: 2, category: 'general' }
-      ],
-      '4-2': [
-        { code: 'ITI507', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['ITI501'] },
-        { code: 'ITI508', name: 'Advanced Media Solutions', credits: 3, category: 'elective', prerequisites: ['ITI501'] },
-        { code: 'ITI509', name: 'Media Technology Consulting', credits: 2, category: 'elective', prerequisites: ['ITI505'] },
-        { code: 'ITI510', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['ITI501'] },
-        { code: 'ITI511', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['ITI507'] }
+        { code: 'ITI207', name: 'Capstone Project', credits: 4, category: 'major', prerequisites: ['ITI201', 'ITI203'] },
+        { code: 'ITI208', name: 'Advanced IT Solutions', credits: 3, category: 'major', prerequisites: ['ITI202', 'ITI204'] },
+        { code: 'ITI209', name: 'IT Consulting', credits: 3, category: 'elective', prerequisites: ['ITI203'] },
+        { code: 'ITI210', name: 'Industry Practicum II', credits: 6, category: 'major', prerequisites: ['ITI206'] },
+        { code: 'ITI211', name: 'Professional Presentation', credits: 1, category: 'major', prerequisites: ['ITI207'] },
+        { code: 'ITI212', name: 'IT Ethics', credits: 1, category: 'general' }
       ]
     }
   },
   'ITT': {
-    '67': {
+    '68': {
       '1-1': [
-        { code: 'ITT-060243102', name: 'การโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'ITT-060243105', name: 'ความรู้พื้นฐานในการออกแบบกราฟิก', credits: 3, category: 'core' },
-        { code: 'ITT-060243108*', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
-        { code: 'ITT-060243124', name: 'ธุรกิจดิจิทัลเบื้องต้น', credits: 3, category: 'core' },
-        { code: 'ITT-080103063', name: 'การใช้ภาษาอังกฤษ', credits: 3, category: 'core' },
-        { code: 'ITT-xxxxxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'elective' },
-        { code: 'ITT-xxxxxxxxx ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'elective' },                         
-        { code: 'MT101', name: 'Mathematics for Tourism Tech', credits: 3, category: 'core' },
+        { code: 'ITT101', name: 'Tourism Technology Fundamentals', credits: 3, category: 'core' },
+        { code: 'ITT102', name: 'Introduction to Tourism Industry', credits: 3, category: 'core' },
+        { code: 'ITT103', name: 'Digital Marketing for Tourism', credits: 3, category: 'core' },
+        { code: 'ITT104', name: 'Hospitality Management Systems', credits: 3, category: 'core' },
         { code: 'EN101', name: 'English for Tourism', credits: 3, category: 'general' },
         { code: 'TH101', name: 'Thai Culture and Heritage', credits: 2, category: 'general' },
-        { code: 'PE101', name: 'Outdoor Activities', credits: 1, category: 'general' },
-        { code: 'TO101', name: 'Introduction to Tourism', credits: 2, category: 'major' }
+        { code: 'MT101', name: 'Statistics for Tourism', credits: 3, category: 'core' }
       ],
       '1-2': [
-        { code: 'ITT-060243104*', name: 'การเขียนโปรแกรมเชิงวัตถุ', credits: 3, category: 'core' },
-        { code: 'ITT-060243115*', name: 'การออกแบบจากประสบการณ์ผู้ใช้', credits: 3, category: 'major' },
-        { code: 'ITT-060243122', name: 'เว็บแอปพลิเคชัน', credits: 3, category: 'core' },
-        { code: 'ITT-060243112', name: 'การวิเคราะหและออกแบบระบบ', credits: 3, category: 'major' },
-        { code: 'ITT-060243123', name: 'เครือข่ายคอมพิวเตอร์และอินเทอร์เน็ต', credits: 3, category: 'major' },
-        { code: 'ITT-060243119', name: 'การบริหารโครงการเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
-        { code: 'ITT-060243708', name: 'กระบวนการทางธุรกิจเชิงอิเล็กทรอนิกส์', credits: 3, category: 'major' },        
-        { code: 'MT102', name: 'Statistics for Tourism', credits: 3, category: 'core' },
-        { code: 'EN102', name: 'Hospitality English', credits: 3, category: 'general' },
-        { code: 'SC101', name: 'Sustainable Tourism', credits: 2, category: 'general' },
-        { code: 'PE102', name: 'Adventure Sports', credits: 1, category: 'general' }
+        { code: 'ITT105', name: 'Tourism Website Development', credits: 3, category: 'major', prerequisites: ['ITT101'] },
+        { code: 'ITT106', name: 'Travel Booking Systems', credits: 3, category: 'major', prerequisites: ['ITT102'] },
+        { code: 'ITT107', name: 'Social Media Tourism Marketing', credits: 3, category: 'major', prerequisites: ['ITT103'] },
+        { code: 'ITT108', name: 'Hotel Management Technology', credits: 3, category: 'major', prerequisites: ['ITT104'] },
+        { code: 'EN102', name: 'Hospitality English', credits: 3, category: 'general', prerequisites: ['EN101'] },
+        { code: 'ITT109', name: 'Customer Service Technology', credits: 2, category: 'major', prerequisites: ['ITT102'] }
+      ],
+      '2-1': [
+        { code: 'ITT201', name: 'Advanced Tourism Applications', credits: 3, category: 'major', prerequisites: ['ITT105', 'ITT106'] },
+        { code: 'ITT202', name: 'Tourism Analytics', credits: 3, category: 'major', prerequisites: ['ITT107', 'MT101'] },
+        { code: 'ITT203', name: 'Smart Tourism Solutions', credits: 3, category: 'major', prerequisites: ['ITT108', 'ITT109'] },
+        { code: 'ITT204', name: 'Tourism Project Management', credits: 3, category: 'major', prerequisites: ['ITT106'] },
+        { code: 'ITT205', name: 'Professional Communication', credits: 2, category: 'general', prerequisites: ['EN102'] },
+        { code: 'ITT206', name: 'Tourism Practicum I', credits: 4, category: 'major', prerequisites: ['ITT108'] }
+      ],
+      '2-2': [
+        { code: 'ITT207', name: 'Tourism Technology Capstone', credits: 4, category: 'major', prerequisites: ['ITT201', 'ITT204'] },
+        { code: 'ITT208', name: 'Advanced Tourism Marketing', credits: 3, category: 'major', prerequisites: ['ITT202', 'ITT203'] },
+        { code: 'ITT209', name: 'Tourism Innovation Lab', credits: 3, category: 'elective', prerequisites: ['ITT203'] },
+        { code: 'ITT210', name: 'Tourism Practicum II', credits: 6, category: 'major', prerequisites: ['ITT206'] },
+        { code: 'ITT211', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['ITT207'] },
+        { code: 'ITT212', name: 'Tourism Ethics', credits: 1, category: 'general' }
       ]
     }
   }
@@ -649,7 +346,16 @@ export const generateCompleteCurriculum = (
   years: number = 4
 ) => {
   const semesters = [];
-  for (let year = 1; year <= years; year++) {
+  
+  // Determine actual years based on program
+  let actualYears = years;
+  if (programCode === 'INET') {
+    actualYears = 3;
+  } else if (programCode === 'ITI' || programCode === 'ITT') {
+    actualYears = 2;
+  }
+  
+  for (let year = 1; year <= actualYears; year++) {
     for (let semester = 1; semester <= 2; semester++) {
       semesters.push({
         year,
