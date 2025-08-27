@@ -426,36 +426,42 @@ const courseDatabase: ProgramData = {
   'ITI': {
     '61': {
       '1-1': [
-        { code: 'ITI101', name: 'IT and Communication Fundamentals', credits: 3, category: 'core' },
-        { code: 'ITI102', name: 'Digital Media Basics', credits: 3, category: 'core' },
-        { code: 'MT101', name: 'Mathematics for IT Communication', credits: 3, category: 'core' },
-        { code: 'EN101', name: 'English for Media', credits: 3, category: 'general' },
-        { code: 'TH101', name: 'Thai Language and Culture', credits: 2, category: 'general' },
-        { code: 'PE101', name: 'Physical Wellness', credits: 1, category: 'general' }
+        { code: 'ITI-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
+        { code: 'ITI-060223110', name: 'ทักษะคอมพิวเตอร์เบื้องต้น', credits: 2, category: 'core' },
+        { code: 'ITI-060223111', name: 'ดิจิทัลอิเล็กทรอนิกส์', credits: 3, category: 'core' },
+        { code: 'ITI-060223112', name: 'ปฏิบัติการดิจิทัลอิเล็กทรอนิกส์', credits: 1, category: 'general' },
+        { code: 'ITI-060223113', name: 'การโปรแกรมโครงสร้าง', credits: 3, category: 'general' },
+        { code: 'ITI-060223114', name: 'ปฏิบัติการโปรแกรมโครงสร้าง', credits: 1, category: 'general' },        { code: 'TH101', name: 'Thai Language and Culture', credits: 2, category: 'general' },
+        { code: 'ITI-060223115', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'general' },
+        { code: 'ITI-080103061', name: 'การใช้ภาษาอังกฤษ 1', credits: 3, category: 'general' }
       ],
       '1-2': [
-        { code: 'ITI103', name: 'Multimedia Systems', credits: 3, category: 'core' },
-        { code: 'ITI104', name: 'Communication Networks', credits: 3, category: 'major' },
-        { code: 'MT102', name: 'Statistics for Communication', credits: 3, category: 'core' },
-        { code: 'EN102', name: 'Media English', credits: 3, category: 'general' },
-        { code: 'SC101', name: 'Digital Arts and Science', credits: 2, category: 'general' },
-        { code: 'PE102', name: 'Creative Movement', credits: 1, category: 'general' }
+        { code: 'ITI-060223116', name: 'การโปรแกรมเชิงวัตถุ', credits: 3, category: 'core' },
+        { code: 'ITI-060223117', name: 'ปฏิบัติการโปรแกรมเชิงวัตถุ', credits: 1, category: 'major' },
+        { code: 'ITI-060223118', name: 'ปฏิบัติการพัฒนาเว็บแอพพลิเคชั่น', credits: 3, category: 'core' },
+        { code: 'ITI-060223120', name: 'สถาปัตยกรรมคอมพิวเตอร์และองค์ประกอบ', credits: 3, category: 'general' },
+        { code: 'ITI-060223121', name: 'การศึกษาโครงงานเทคโนโลยีสารสนเทศ', credits: 1, category: 'general' },
+        { code: 'ITI-060223123', name: 'ระบบฐานข้อมูล', credits: 3, category: 'general' },
+        { code: 'ITI-060223124', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general' },
+        { code: 'ITI-080103062', name: 'การใช้ภาษาอังกฤษ 2', credits: 3, category: 'general' }
       ],
       '2-1': [
-        { code: 'ITI201', name: 'Advanced Multimedia Programming', credits: 3, category: 'major', prerequisites: ['ITI101', 'ITI103'] },
-        { code: 'ITI202', name: 'Digital Media Production', credits: 3, category: 'major', prerequisites: ['ITI102'] },
-        { code: 'ITI203', name: 'Communication Protocol Design', credits: 3, category: 'core', prerequisites: ['ITI104'] },
-        { code: 'MT201', name: 'Applied Mathematics for Media', credits: 3, category: 'core', prerequisites: ['MT102'] },
-        { code: 'EN201', name: 'Technical Communication', credits: 2, category: 'general', prerequisites: ['EN102'] },
-        { code: 'ITI204', name: 'Human-Computer Interaction', credits: 3, category: 'major', prerequisites: ['ITI102'] }
+        { code: 'ITI-040xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'core' },
+        { code: 'ITI-08xxxxxxx', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'major' },
+        { code: 'ITI-060223122', name: 'โครงงานพิเศษเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
+        { code: 'ITI-060223119', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'general' },
+        { code: 'ITI-060223125', name: 'ระบบปฏิบัติการคอมพิวเตอร์', credits: 3, category: 'general' },
+        { code: 'ITI-060223126', name: 'รสัมมนาเทคโนโลยีสารสนเทศ', credits: 1, category: 'general' },
+        { code: 'ITI-060223127', name: 'การพัฒนาโปรแกรมประยุกต์สำหรับสถาปัตยกรรมแบบโอเพ่นซอร์ส', credits: 3, category: 'general' },
+        { code: 'ITI-060223xxx', name: 'วิชาเลือก 1', credits: 3, category: 'general' }
       ],
       '2-2': [
-        { code: 'ITI205', name: 'Interactive Media Systems', credits: 3, category: 'major', prerequisites: ['ITI201', 'ITI202'] },
-        { code: 'ITI206', name: 'Broadcast Systems Design', credits: 3, category: 'major', prerequisites: ['ITI203', 'ITI204'] },
-        { code: 'ITI207', name: 'Digital Signal Processing', credits: 3, category: 'core', prerequisites: ['ITI203', 'MT201'] },
-        { code: 'ITI208', name: 'Media Database Systems', credits: 3, category: 'major', prerequisites: ['ITI205'] },
-        { code: 'MT202', name: 'Media Analytics', credits: 3, category: 'core', prerequisites: ['MT201'] },
-        { code: 'EN202', name: 'Media Writing', credits: 2, category: 'general', prerequisites: ['EN201'] }
+        { code: 'ITI-060223128', name: 'หัวข้อเฉพาะเรื่องทางเทคโนโลยีสารสนเทศเพื่ออุตสาหกรรม', credits: 3, category: 'major', prerequisites: ['ITI201', 'ITI202'] },
+        { code: 'ITI-060223xxx ', name: 'วิชาเลือก 2', credits: 3, category: 'major', prerequisites: ['ITI203', 'ITI204'] },
+        { code: 'ITI-060223xxx  ', name: 'วิชาเลือก 3', credits: 3, category: 'core', prerequisites: ['ITI203', 'MT201'] },
+        { code: 'ITI-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'major', prerequisites: ['ITI205'] },
+        { code: 'ITI-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core', prerequisites: ['MT201'] },
+        { code: 'ITI-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา', credits: 2, category: 'general', prerequisites: ['EN201'] }
       ],
       '3-1': [
         { code: 'ITI301', name: 'Advanced Broadcasting Technology', credits: 3, category: 'major', prerequisites: ['ITI205', 'ITI206'] },
@@ -565,12 +571,7 @@ const courseDatabase: ProgramData = {
         { code: 'ITT-060243124', name: 'ธุรกิจดิจิทัลเบื้องต้น', credits: 3, category: 'core' },
         { code: 'ITT-080103063', name: 'การใช้ภาษาอังกฤษ', credits: 3, category: 'core' },
         { code: 'ITT-xxxxxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'elective' },
-        { code: 'ITT-xxxxxxxxx ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'elective' },                         
-        { code: 'MT101', name: 'Mathematics for Tourism Tech', credits: 3, category: 'core' },
-        { code: 'EN101', name: 'English for Tourism', credits: 3, category: 'general' },
-        { code: 'TH101', name: 'Thai Culture and Heritage', credits: 2, category: 'general' },
-        { code: 'PE101', name: 'Outdoor Activities', credits: 1, category: 'general' },
-        { code: 'TO101', name: 'Introduction to Tourism', credits: 2, category: 'major' }
+        { code: 'ITT-xxxxxxxxx ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'elective' }                       
       ],
       '1-2': [
         { code: 'ITT-060243104*', name: 'การเขียนโปรแกรมเชิงวัตถุ', credits: 3, category: 'core' },
@@ -579,11 +580,8 @@ const courseDatabase: ProgramData = {
         { code: 'ITT-060243112', name: 'การวิเคราะหและออกแบบระบบ', credits: 3, category: 'major' },
         { code: 'ITT-060243123', name: 'เครือข่ายคอมพิวเตอร์และอินเทอร์เน็ต', credits: 3, category: 'major' },
         { code: 'ITT-060243119', name: 'การบริหารโครงการเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
-        { code: 'ITT-060243708', name: 'กระบวนการทางธุรกิจเชิงอิเล็กทรอนิกส์', credits: 3, category: 'major' },        
-        { code: 'MT102', name: 'Statistics for Tourism', credits: 3, category: 'core' },
-        { code: 'EN102', name: 'Hospitality English', credits: 3, category: 'general' },
-        { code: 'SC101', name: 'Sustainable Tourism', credits: 2, category: 'general' },
-        { code: 'PE102', name: 'Adventure Sports', credits: 1, category: 'general' }
+        { code: 'ITT-060243708', name: 'กระบวนการทางธุรกิจเชิงอิเล็กทรอนิกส์', credits: 3, category: 'major' }       
+
       ],
       '2-1': [
         { code: 'ITT-060243116*', name: 'อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'major', prerequisites: ['ITT-060243104*'] },
