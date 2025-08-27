@@ -207,8 +207,13 @@ const courseDatabase: ProgramData = {
   'ITT': {
     '67': {
       '1-1': [
-        { code: 'ITT101', name: 'IT for Tourism Industry', credits: 3, category: 'core' },
-        { code: 'ITT102', name: 'Tourism Information Systems', credits: 3, category: 'core' },
+        { code: 'ITT-060243102', name: 'การโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'ITT-060243105', name: 'ความรู้พื้นฐานในการออกแบบกราฟิก', credits: 3, category: 'core' },
+        { code: 'ITT-060243108*', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
+        { code: 'ITT-060243124', name: 'ธุรกิจดิจิทัลเบื้องต้น', credits: 3, category: 'core' },
+        { code: 'ITT-080103063', name: 'การใช้ภาษาอังกฤษ', credits: 3, category: 'core' },
+        { code: 'ITT-xxxxxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'elective' },
+        { code: 'ITT-xxxxxxxxx ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'elective' },                         
         { code: 'MT101', name: 'Mathematics for Tourism Tech', credits: 3, category: 'core' },
         { code: 'EN101', name: 'English for Tourism', credits: 3, category: 'general' },
         { code: 'TH101', name: 'Thai Culture and Heritage', credits: 2, category: 'general' },
@@ -216,8 +221,13 @@ const courseDatabase: ProgramData = {
         { code: 'TO101', name: 'Introduction to Tourism', credits: 2, category: 'major' }
       ],
       '1-2': [
-        { code: 'ITT103', name: 'Digital Tourism Marketing', credits: 3, category: 'core' },
-        { code: 'ITT104', name: 'Tourism Database Systems', credits: 3, category: 'major' },
+        { code: 'ITT-060243104*', name: 'การเขียนโปรแกรมเชิงวัตถุ', credits: 3, category: 'core' },
+        { code: 'ITT-060243115*', name: 'การออกแบบจากประสบการณ์ผู้ใช้', credits: 3, category: 'major' },
+        { code: 'ITT-060243122', name: 'เว็บแอปพลิเคชัน', credits: 3, category: 'core' },
+        { code: 'ITT-060243112', name: 'การวิเคราะหและออกแบบระบบ', credits: 3, category: 'major' },
+        { code: 'ITT-060243123', name: 'เครือข่ายคอมพิวเตอร์และอินเทอร์เน็ต', credits: 3, category: 'major' },
+        { code: 'ITT-060243119', name: 'การบริหารโครงการเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
+        { code: 'ITT-060243708', name: 'กระบวนการทางธุรกิจเชิงอิเล็กทรอนิกส์', credits: 3, category: 'major' },        
         { code: 'MT102', name: 'Statistics for Tourism', credits: 3, category: 'core' },
         { code: 'EN102', name: 'Hospitality English', credits: 3, category: 'general' },
         { code: 'SC101', name: 'Sustainable Tourism', credits: 2, category: 'general' },
