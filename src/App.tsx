@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Courses from "./pages/Courses";
+import CurriculumDashboard from "./pages/CurriculumDashboard";
 import DashboardRouter from "./pages/DashboardRouter";
 import NotFound from "./pages/NotFound";
 
@@ -28,6 +29,7 @@ const App = () => (
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/courses" element={<Courses />} />
+              <Route path="/curriculum" element={<CurriculumDashboard />} />
               <Route path="/dashboard/:role" element={<DashboardRouter />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
