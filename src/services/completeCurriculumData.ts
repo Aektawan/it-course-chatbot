@@ -461,7 +461,7 @@ const courseDatabase: ProgramData = {
         { code: 'ITI-060223xxx  ', name: 'วิชาเลือก 3', credits: 3, category: 'core', prerequisites: ['ITI203', 'MT201'] },
         { code: 'ITI-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'major', prerequisites: ['ITI205'] },
         { code: 'ITI-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core', prerequisites: ['MT201'] },
-        { code: 'ITI-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา', credits: 2, category: 'general', prerequisites: ['EN201'] }
+        { code: 'ITI-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา', credits:3, category: 'general', prerequisites: ['EN201'] }
       ],
       '3-1': [
         { code: 'ITI301', name: 'Advanced Broadcasting Technology', credits: 3, category: 'major', prerequisites: ['ITI205', 'ITI206'] },
