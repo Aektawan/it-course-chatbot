@@ -94,7 +94,7 @@ const Home: React.FC = () => {
               <div className="space-y-4">
                 <Badge className="bg-white/20 text-white hover:bg-white/30">
                   <Sparkles className="w-4 h-4 mr-1" />
-                  ระบบแนะนำหลักสูตรอัจฉริยะ
+                  ระบบแนะนำหลักสูตร
                 </Badge>
                 <h1 className="text-4xl lg:text-6xl font-bold leading-tight tracking-tight">
                   IT Assistant
