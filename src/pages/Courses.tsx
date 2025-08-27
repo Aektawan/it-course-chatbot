@@ -173,7 +173,7 @@ const Courses: React.FC = () => {
                 <SelectTrigger>
                   <SelectValue placeholder="สาขาวิชา" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-background border shadow-lg z-50">
                   <SelectItem value="all">ทุกสาขาวิชา</SelectItem>
                   <SelectItem value="IT">เทคโนโลยีสารสนเทศ (IT)</SelectItem>
                   <SelectItem value="INE">วิศวกรรมเครือข่าย (INE)</SelectItem>
@@ -191,7 +191,7 @@ const Courses: React.FC = () => {
                 <SelectTrigger>
                   <SelectValue placeholder="หลักสูตรปีการศึกษา" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-background border shadow-lg z-50">
                   <SelectItem value="all">ทุกหลักสูตร</SelectItem>
                   {getAvailableCurricula().map((curriculum) => (
                     <SelectItem key={curriculum.value} value={curriculum.value}>
@@ -205,7 +205,7 @@ const Courses: React.FC = () => {
                 <SelectTrigger>
                   <SelectValue placeholder="เทอม" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-background border shadow-lg z-50">
                   <SelectItem value="all">ทุกเทอม</SelectItem>
                   <SelectItem value="1-1">ปี 1 – เทอม 1</SelectItem>
                   <SelectItem value="1-2">ปี 1 – เทอม 2</SelectItem>
