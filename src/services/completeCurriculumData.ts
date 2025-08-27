@@ -584,6 +584,22 @@ const courseDatabase: ProgramData = {
         { code: 'EN102', name: 'Hospitality English', credits: 3, category: 'general' },
         { code: 'SC101', name: 'Sustainable Tourism', credits: 2, category: 'general' },
         { code: 'PE102', name: 'Adventure Sports', credits: 1, category: 'general' }
+      ],
+      '2-1': [
+        { code: 'ITT-060243201', name: 'การพัฒนาแอปพลิเคชันมือถือ', credits: 3, category: 'major', prerequisites: ['ITT-060243104*'] },
+        { code: 'ITT-060243202', name: 'การจัดการฐานข้อมูลขั้นสูง', credits: 3, category: 'core', prerequisites: ['ITT-060243108*'] },
+        { code: 'ITT-060243203', name: 'การพัฒนาเกมส์คอมพิวเตอร์', credits: 3, category: 'major' },
+        { code: 'ITT-060243204', name: 'ระบบสารสนเทศทางการท่องเที่ยว', credits: 3, category: 'major' },
+        { code: 'ITT-060243205', name: 'การตลาดดิจิทัล', credits: 3, category: 'major', prerequisites: ['ITT-060243124'] },
+        { code: 'ITT-060243206', name: 'ภาษาอังกฤษเพื่อการท่องเที่ยว', credits: 3, category: 'general', prerequisites: ['ITT-080103063'] }
+      ],
+      '2-2': [
+        { code: 'ITT-060243207', name: 'ปัญญาประดิษฐ์เพื่อการท่องเที่ยว', credits: 3, category: 'major', prerequisites: ['ITT-060243201', 'ITT-060243202'] },
+        { code: 'ITT-060243208', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'major', prerequisites: ['ITT-060243202'] },
+        { code: 'ITT-060243209', name: 'เทคโนโลจีเสมือนจริงและความเป็นจริงเสริม', credits: 3, category: 'elective', prerequisites: ['ITT-060243203'] },
+        { code: 'ITT-060243210', name: 'ระบบชำระเงินดิจิทัล', credits: 3, category: 'major', prerequisites: ['ITT-060243708'] },
+        { code: 'ITT-060243211', name: 'การจัดการประสบการณ์ลูกค้า', credits: 3, category: 'major', prerequisites: ['ITT-060243115*'] },
+        { code: 'ITT-060243212', name: 'โครงการฝึกงาน', credits: 6, category: 'major', prerequisites: ['ITT-060243119'] }
       ]
     }
   }
