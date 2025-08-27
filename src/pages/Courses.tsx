@@ -13,7 +13,6 @@ import {
   Filter,
   GraduationCap,
   Clock,
-  User,
   AlertCircle
 } from 'lucide-react';
 
@@ -23,6 +22,52 @@ const Courses: React.FC = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string>('all');
   const [selectedCurriculum, setSelectedCurriculum] = useState<string>('all');
   const [selectedSemester, setSelectedSemester] = useState<string>('all');
+
+  // Filter curricula based on selected department
+  const getAvailableCurricula = () => {
+    switch (selectedDepartment) {
+      case 'IT': return [
+        { value: 'IT 62', label: 'IT 62' },
+        { value: 'IT 67', label: 'IT 67' }
+      ];
+      case 'INE': return [
+        { value: 'INE 62', label: 'INE 62' },
+        { value: 'INE 67', label: 'INE 67' }
+      ];
+      case 'INET': return [
+        { value: 'INET 62', label: 'INET 62' },
+        { value: 'INET 67', label: 'INET 67' }
+      ];
+      case 'ITI': return [
+        { value: 'ITI 61', label: 'ITI 61' },
+        { value: 'ITI 66', label: 'ITI 66' }
+      ];
+      case 'ITT': return [
+        { value: 'ITT 67', label: 'ITT 67' }
+      ];
+      default: return [
+        { value: 'IT 62', label: 'IT 62' },
+        { value: 'IT 67', label: 'IT 67' },
+        { value: 'INE 62', label: 'INE 62' },
+        { value: 'INE 67', label: 'INE 67' },
+        { value: 'INET 62', label: 'INET 62' },
+        { value: 'INET 67', label: 'INET 67' },
+        { value: 'ITI 61', label: 'ITI 61' },
+        { value: 'ITI 66', label: 'ITI 66' },
+        { value: 'ITT 67', label: 'ITT 67' }
+      ];
+    }
+  };
+
+  // Reset curriculum when department changes
+  React.useEffect(() => {
+    if (selectedDepartment !== 'all') {
+      const availableCurricula = getAvailableCurricula();
+      if (!availableCurricula.some(c => c.value === selectedCurriculum)) {
+        setSelectedCurriculum('all');
+      }
+    }
+  }, [selectedDepartment]);
 
   // Generate courses based on selections
   const generateFilteredCourses = () => {
@@ -110,21 +155,21 @@ const Courses: React.FC = () => {
                 </SelectContent>
               </Select>
 
-              <Select value={selectedCurriculum} onValueChange={setSelectedCurriculum}>
+              <Select 
+                value={selectedCurriculum} 
+                onValueChange={setSelectedCurriculum}
+                disabled={selectedDepartment === 'all'}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="หลักสูตรปีการศึกษา" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">ทุกหลักสูตร</SelectItem>
-                  <SelectItem value="IT 62">IT 62</SelectItem>
-                  <SelectItem value="IT 67">IT 67</SelectItem>
-                  <SelectItem value="INE 62">INE 62</SelectItem>
-                  <SelectItem value="INE 67">INE 67</SelectItem>
-                  <SelectItem value="INET 62">INET 62</SelectItem>
-                  <SelectItem value="INET 67">INET 67</SelectItem>
-                  <SelectItem value="ITI 61">ITI 61</SelectItem>
-                  <SelectItem value="ITI 66">ITI 66</SelectItem>
-                  <SelectItem value="ITT 67">ITT 67</SelectItem>
+                  {getAvailableCurricula().map((curriculum) => (
+                    <SelectItem key={curriculum.value} value={curriculum.value}>
+                      {curriculum.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
 
@@ -188,17 +233,11 @@ const Courses: React.FC = () => {
                   {course.description}
                 </CardDescription>
 
-                <div className="space-y-3">
+                  <div className="space-y-3">
                   {/* Course Info */}
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="flex items-center space-x-1">
-                      <Clock className="w-3 h-3 text-muted-foreground" />
-                      <span>ภาค {course.semester}/ปี {course.year}</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <User className="w-3 h-3 text-muted-foreground" />
-                      <span className="truncate">{course.instructor}</span>
-                    </div>
+                  <div className="flex items-center space-x-1 text-xs">
+                    <Clock className="w-3 h-3 text-muted-foreground" />
+                    <span>ภาค {course.semester}/ปี {course.year}</span>
                   </div>
 
                   {/* Prerequisites */}

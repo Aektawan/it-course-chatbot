@@ -29,7 +29,6 @@ export const generateCoursesForSemester = (
       category: i <= 3 ? 'core' : (i <= 5 ? 'major' : 'elective'),
       semester,
       year,
-      instructor: `Dr. Instructor ${i}`,
       isActive: true
     });
   }
