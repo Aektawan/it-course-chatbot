@@ -6,6 +6,8 @@ interface CourseData {
   name: string;
   credits: number;
   category: 'core' | 'major' | 'elective' | 'general';
+  prerequisites?: string[];
+  corequisites?: string[];
 }
 
 interface SemesterData {
@@ -33,12 +35,28 @@ const courseDatabase: ProgramData = {
         { code: 'PE101', name: 'Physical Education', credits: 1, category: 'general' }
       ],
       '1-2': [
-        { code: 'IT103', name: 'Database Systems', credits: 3, category: 'core' },
-        { code: 'IT104', name: 'Web Development', credits: 3, category: 'major' },
-        { code: 'MT102', name: 'Statistics for IT', credits: 3, category: 'core' },
-        { code: 'EN102', name: 'English for IT', credits: 3, category: 'general' },
+        { code: 'IT103', name: 'Database Systems', credits: 3, category: 'core', prerequisites: ['IT101'] },
+        { code: 'IT104', name: 'Web Development', credits: 3, category: 'major', prerequisites: ['IT102'] },
+        { code: 'MT102', name: 'Statistics for IT', credits: 3, category: 'core', prerequisites: ['MT101'] },
+        { code: 'EN102', name: 'English for IT', credits: 3, category: 'general', prerequisites: ['EN101'] },
         { code: 'SC101', name: 'Science and Technology', credits: 2, category: 'general' },
         { code: 'PE102', name: 'Sports and Recreation', credits: 1, category: 'general' }
+      ],
+      '2-1': [
+        { code: 'IT201', name: 'Advanced Programming', credits: 3, category: 'core', prerequisites: ['IT102', 'IT104'] },
+        { code: 'IT202', name: 'System Analysis and Design', credits: 3, category: 'major', prerequisites: ['IT103'] },
+        { code: 'IT203', name: 'Network Fundamentals', credits: 3, category: 'major' },
+        { code: 'MT201', name: 'Discrete Mathematics', credits: 3, category: 'core', prerequisites: ['MT102'] },
+        { code: 'EN201', name: 'Technical Writing', credits: 2, category: 'general', prerequisites: ['EN102'] },
+        { code: 'IT204', name: 'Software Engineering', credits: 3, category: 'major', prerequisites: ['IT201'] }
+      ],
+      '2-2': [
+        { code: 'IT205', name: 'Advanced Database Systems', credits: 3, category: 'major', prerequisites: ['IT103', 'IT201'] },
+        { code: 'IT206', name: 'Web Application Development', credits: 3, category: 'major', prerequisites: ['IT104', 'IT201'] },
+        { code: 'IT207', name: 'Data Structures and Algorithms', credits: 3, category: 'core', prerequisites: ['IT201', 'MT201'] },
+        { code: 'IT208', name: 'Computer Networks', credits: 3, category: 'major', prerequisites: ['IT203'] },
+        { code: 'MT202', name: 'Linear Algebra', credits: 3, category: 'core', prerequisites: ['MT201'] },
+        { code: 'EN202', name: 'Business Communication', credits: 2, category: 'general', prerequisites: ['EN201'] }
       ]
     },
     '67': {
@@ -52,12 +70,20 @@ const courseDatabase: ProgramData = {
         { code: 'SO201', name: 'Society and Ethics', credits: 2, category: 'general' }
       ],
       '1-2': [
-        { code: 'IT203', name: 'Data Structures', credits: 3, category: 'core' },
-        { code: 'IT204', name: 'Object-Oriented Programming', credits: 3, category: 'major' },
-        { code: 'MT202', name: 'Linear Algebra', credits: 3, category: 'core' },
-        { code: 'EN202', name: 'Technical English', credits: 3, category: 'general' },
+        { code: 'IT203', name: 'Data Structures', credits: 3, category: 'core', prerequisites: ['IT202'] },
+        { code: 'IT204', name: 'Object-Oriented Programming', credits: 3, category: 'major', prerequisites: ['IT202'] },
+        { code: 'MT202', name: 'Linear Algebra', credits: 3, category: 'core', prerequisites: ['MT201'] },
+        { code: 'EN202', name: 'Technical English', credits: 3, category: 'general', prerequisites: ['EN201'] },
         { code: 'SC201', name: 'Environmental Science', credits: 2, category: 'general' },
         { code: 'PE202', name: 'Team Sports', credits: 1, category: 'general' }
+      ],
+      '2-1': [
+        { code: 'IT301', name: 'Advanced Object-Oriented Programming', credits: 3, category: 'major', prerequisites: ['IT203', 'IT204'] },
+        { code: 'IT302', name: 'Database Design and Implementation', credits: 3, category: 'core', prerequisites: ['IT203'] },
+        { code: 'IT303', name: 'Software Architecture', credits: 3, category: 'major', prerequisites: ['IT204'] },
+        { code: 'MT301', name: 'Probability and Statistics', credits: 3, category: 'core', prerequisites: ['MT202'] },
+        { code: 'EN301', name: 'Professional Presentation', credits: 2, category: 'general', prerequisites: ['EN202'] },
+        { code: 'IT304', name: 'Human-Computer Interaction', credits: 3, category: 'elective' }
       ]
     }
   },
@@ -222,8 +248,8 @@ export const generateCoursesForSemester = (
         name: course.name,
         credits: course.credits,
         description: `รายละเอียดของ ${course.name} สำหรับหลักสูตร ${programCode} ${curriculumYear}`,
-        prerequisites: [],
-        corequisites: [],
+        prerequisites: course.prerequisites || [],
+        corequisites: course.corequisites || [],
         category: course.category,
         semester,
         year,
