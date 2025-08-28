@@ -84,10 +84,21 @@ const Courses: React.FC = () => {
     if (selectedCurriculum !== 'all') {
       const [programCode, curriculumYear] = selectedCurriculum.split(' ');
       const allCourses = [];
-      // Generate courses for all 8 semesters
-      for (let year = 1; year <= 4; year++) {
+      const maxYear = programCode === 'INET' ? 3 : programCode === 'ITI' || programCode === 'ITT' ? 2 : 4;
+      // Generate courses for all semesters
+      for (let year = 1; year <= maxYear; year++) {
         for (let semester = 1; semester <= 2; semester++) {
           allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, semester, 7));
+        }
+        // Add semester 3 for specific programs and years
+        if ((programCode === 'IT' || programCode === 'INE') && year === 3) {
+          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
+        }
+        if (programCode === 'INET' && year === 2) {
+          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
+        }
+        if ((programCode === 'ITI' || programCode === 'ITT') && year === 1) {
+          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
         }
       }
       return allCourses;
@@ -99,17 +110,44 @@ const Courses: React.FC = () => {
       const curricula = getAvailableCurricula();
       curricula.forEach(curriculum => {
         const [programCode, curriculumYear] = curriculum.value.split(' ');
-        for (let year = 1; year <= 4; year++) {
+        const maxYear = programCode === 'INET' ? 3 : programCode === 'ITI' || programCode === 'ITT' ? 2 : 4;
+        for (let year = 1; year <= maxYear; year++) {
           for (let semester = 1; semester <= 2; semester++) {
             departmentCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, semester, 4));
+          }
+          // Add semester 3 for specific programs and years
+          if ((programCode === 'IT' || programCode === 'INE') && year === 3) {
+            departmentCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 4));
+          }
+          if (programCode === 'INET' && year === 2) {
+            departmentCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 4));
+          }
+          if ((programCode === 'ITI' || programCode === 'ITT') && year === 1) {
+            departmentCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 4));
           }
         }
       });
       return departmentCourses;
     }
     
-    // Default: show sample courses from mockData
-    return mockCourses;
+    // Default: show all IT and INE courses when no specific filter is selected
+    const allCourses = [];
+    const allPrograms = ['IT', 'INE'];
+    allPrograms.forEach(program => {
+      const curricula = program === 'IT' ? ['62', '67'] : ['62', '67'];
+      curricula.forEach(curriculumYear => {
+        for (let year = 1; year <= 4; year++) {
+          for (let semester = 1; semester <= 2; semester++) {
+            allCourses.push(...generateCoursesForSemester(program, curriculumYear, year, semester, 4));
+          }
+          // Add semester 3 for year 3
+          if (year === 3) {
+            allCourses.push(...generateCoursesForSemester(program, curriculumYear, year, 3, 4));
+          }
+        }
+      });
+    });
+    return allCourses;
   };
 
   const allCourses = generateFilteredCourses();
@@ -176,10 +214,10 @@ const Courses: React.FC = () => {
                 <SelectContent className="bg-background border shadow-lg z-50">
                   <SelectItem value="all">ทุกสาขาวิชา</SelectItem>
                   <SelectItem value="IT">เทคโนโลยีสารสนเทศ (IT)</SelectItem>
-                  <SelectItem value="INE">วิศวกรรมเครือข่าย (INE)</SelectItem>
-                  <SelectItem value="INET">เทคโนโลยีอินเทอร์เน็ต (INET)</SelectItem>
-                  <SelectItem value="ITI">เทคโนโลยีสารสนเทศและการสื่อสาร (ITI)</SelectItem>
-                  <SelectItem value="ITT">เทคโนโลยีสารสนเทศและการท่องเที่ยว (ITT)</SelectItem>
+                  <SelectItem value="INE">วิศวกรรมสารสนเทศและเครือข่าย (INE)</SelectItem>
+                  <SelectItem value="INET">วิศวกรรมสารสนเทศและเครือข่าย (INET)</SelectItem>
+                  <SelectItem value="ITI">เทคโนโลยีสารสนเทศ (ต่อเนื่อง) (ITI)</SelectItem>
+                  <SelectItem value="ITT">เทคโนโลยีสารสนเทศ (ITT)</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -209,10 +247,13 @@ const Courses: React.FC = () => {
                   <SelectItem value="all">ทุกเทอม</SelectItem>
                   <SelectItem value="1-1">ปี 1 – เทอม 1</SelectItem>
                   <SelectItem value="1-2">ปี 1 – เทอม 2</SelectItem>
+                  <SelectItem value="1-3">ปี 1 – เทอม 3 (ฝึกงาน)</SelectItem>
                   <SelectItem value="2-1">ปี 2 – เทอม 1</SelectItem>
                   <SelectItem value="2-2">ปี 2 – เทอม 2</SelectItem>
+                  <SelectItem value="2-3">ปี 2 – เทอม 3 (ฝึกงาน)</SelectItem>
                   <SelectItem value="3-1">ปี 3 – เทอม 1</SelectItem>
                   <SelectItem value="3-2">ปี 3 – เทอม 2</SelectItem>
+                  <SelectItem value="3-3">ปี 3 – เทอม 3 (ฝึกงาน)</SelectItem>
                   <SelectItem value="4-1">ปี 4 – เทอม 1</SelectItem>
                   <SelectItem value="4-2">ปี 4 – เทอม 2</SelectItem>
                 </SelectContent>

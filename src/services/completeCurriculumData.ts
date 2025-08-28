@@ -76,6 +76,9 @@ const courseDatabase: ProgramData = {
         { code: 'IT-060XXXXXX   ', name: 'วิชาเลือก 4', credits: 3, category: 'general' },
         { code: 'IT-080XXXXXX     ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' }
       ],
+      '3-3': [
+        { code: 'IT-060243901', name: 'การฝึกงานทางเทคโนโลยีสารสนเทศ', credits: 6, category: 'core' }
+      ],
       '4-1': [
         { code: 'IT-060243120', name: 'ความปลอดภัยระบบสารสนเทศ', credits: 3, category: 'core' },
         { code: 'IT-060243121', name: 'สัมมนาเทคโนโลยีสารสนเทศ', credits: 1, category: 'core' },
@@ -135,6 +138,9 @@ const courseDatabase: ProgramData = {
         { code: 'IT-060xxxxxx        ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
         { code: 'IT-060xxxxxx         ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
         { code: 'IT-060xxxxxx          ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+      ],
+      '3-3': [
+        { code: 'IT-060243901', name: 'การฝึกงานทางเทคโนโลยีสารสนเทศ', credits: 6, category: 'core' }
       ],
       '4-1': [
         { code: 'IT-060243120*', name: 'ความปลอดภัยระบบสารสนเทศ', credits: 3, category: 'core' },
@@ -332,6 +338,9 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general' },
         { code: 'INET-060433016', name: 'กระบวนกํารคิดเชิงออกแบบ', credits: 3, category: 'general' }
       ],
+      '2-3': [
+        { code: 'INET-060233901', name: 'การฝึกงานทางวิศวกรรมสารสนเทศและเครือข่าย', credits: 6, category: 'core' }
+      ],
       '3-1': [
         { code: 'INET-060233203*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 3', credits: 1, category: 'core' },
         { code: 'INET-060233211*', name: 'สถาปัตยกรรมคลาวด์และการใช้งาน', credits: 3, category: 'core' },
@@ -423,6 +432,9 @@ const courseDatabase: ProgramData = {
         { code: 'ITI-060223123', name: 'ระบบฐานข้อมูล', credits: 3, category: 'general' },
         { code: 'ITI-060223124', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general' },
         { code: 'ITI-080103062', name: 'การใช้ภาษาอังกฤษ 2', credits: 3, category: 'general' }
+      ],
+      '1-3': [
+        { code: 'ITI-060223901', name: 'การฝึกงานทางเทคโนโลยีสารสนเทศ', credits: 6, category: 'core' }
       ],
       '2-1': [
         { code: 'ITI-040xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'core' },
