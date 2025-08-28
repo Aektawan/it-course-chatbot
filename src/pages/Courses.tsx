@@ -87,12 +87,19 @@ const Courses: React.FC = () => {
         // Year 2 semester 3 for INET
         const index = baseSemesters.findIndex(s => s.value === '2-2');
         baseSemesters.splice(index + 1, 0, { value: '2-3', label: 'ปี 2 – เทอม 3 (ฝึกงาน)' });
-      } else if (programCode === 'ITI' || programCode === 'ITT') {
-        // Year 1 semester 3 for ITI and ITT
+      } else if (programCode === 'ITI') {
+        // Year 1 semester 3 for ITI only
         const index = baseSemesters.findIndex(s => s.value === '1-2');
         baseSemesters.splice(index + 1, 0, { value: '1-3', label: 'ปี 1 – เทอม 3 (ฝึกงาน)' });
         
         // Remove year 3 and 4 semesters for 2-year programs
+        return baseSemesters.filter(s => 
+          s.value === 'all' || 
+          s.value.startsWith('1-') || 
+          s.value.startsWith('2-')
+        );
+      } else if (programCode === 'ITT') {
+        // ITT doesn't have internship, just remove year 3 and 4 semesters
         return baseSemesters.filter(s => 
           s.value === 'all' || 
           s.value.startsWith('1-') || 
