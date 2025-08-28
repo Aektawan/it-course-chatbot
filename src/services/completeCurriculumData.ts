@@ -27,266 +27,271 @@ const courseDatabase: ProgramData = {
   'IT': {
     '62': {
       '1-1': [
-        { code: 'IT101', name: 'Introduction to Information Technology', credits: 3, category: 'core' },
-        { code: 'IT102', name: 'Computer Programming Fundamentals', credits: 3, category: 'core' },
-        { code: 'MT101', name: 'Mathematics for IT', credits: 3, category: 'core' },
-        { code: 'EN101', name: 'English for Communication', credits: 3, category: 'general' },
-        { code: 'TH101', name: 'Thai Language', credits: 2, category: 'general' },
-        { code: 'PE101', name: 'Physical Education', credits: 1, category: 'general' }
+        { code: 'IT-060243101', name: 'เทคโนโลยีสารสนเทศเบื้องต้น', credits: 3, category: 'core' },
+        { code: 'IT-060243102', name: 'การโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'IT-060243103', name: 'การแก้ปัญหาทางด้านเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
+        { code: 'IT-080103001', name: 'ภาษาอังกฤษ 1', credits: 3, category: 'general' },
+        { code: 'IT-040XXXXXX', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'general' },
+        { code: 'IT-080XXXXXX', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general' },
+        { code: 'IT-080XXXXXX ', name: 'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ', credits: 1, category: 'general' }
       ],
       '1-2': [
-        { code: 'IT103', name: 'Database Systems', credits: 3, category: 'core', prerequisites: ['IT101'] },
-        { code: 'IT104', name: 'Web Development', credits: 3, category: 'major', prerequisites: ['IT102'] },
-        { code: 'MT102', name: 'Statistics for IT', credits: 3, category: 'core', prerequisites: ['MT101'] },
-        { code: 'EN102', name: 'English for IT', credits: 3, category: 'general', prerequisites: ['EN101'] },
-        { code: 'SC101', name: 'Science and Technology', credits: 2, category: 'general' },
-        { code: 'PE102', name: 'Sports and Recreation', credits: 1, category: 'general' }
+        { code: 'IT-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
+        { code: 'IT-060243104', name: 'การเขียนโปรแกรมเชิงวัตถุ', credits: 3, category: 'core' },
+        { code: 'IT-060243105', name: 'ความรู้พื้นฐานในการออกแบบกราฟิกส์', credits: 3, category: 'core' },
+        { code: 'IT-080103002', name: 'ภาษาอังกฤษ 2', credits: 3, category: 'general' },
+        { code: 'IT-040XXXXXX ', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'general' },
+        { code: 'IT-080XXXXXX  ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 1', credits: 3, category: 'general' },
+
       ],
       '2-1': [
-        { code: 'IT201', name: 'Advanced Programming', credits: 3, category: 'core', prerequisites: ['IT102', 'IT104'] },
-        { code: 'IT202', name: 'System Analysis and Design', credits: 3, category: 'major', prerequisites: ['IT103'] },
-        { code: 'IT203', name: 'Network Fundamentals', credits: 3, category: 'major' },
-        { code: 'MT201', name: 'Discrete Mathematics', credits: 3, category: 'core', prerequisites: ['MT102'] },
-        { code: 'EN201', name: 'Technical Writing', credits: 2, category: 'general', prerequisites: ['EN102'] },
-        { code: 'IT204', name: 'Software Engineering', credits: 3, category: 'major', prerequisites: ['IT201'] }
+        { code: 'IT-060243106', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'core' },
+        { code: 'IT-060243107', name: 'สถาปัตยกรรมคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'IT-060243108', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
+        { code: 'IT-060243109', name: 'เครือข่ายคอมพิวเตอร์และการสื่อสาร', credits: 3, category: 'general' },
+        { code: 'IT-080XXXXXX   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 2', credits: 3, category: 'general' },
+
       ],
       '2-2': [
-        { code: 'IT205', name: 'Advanced Database Systems', credits: 3, category: 'major', prerequisites: ['IT103', 'IT201'] },
-        { code: 'IT206', name: 'Web Application Development', credits: 3, category: 'major', prerequisites: ['IT104', 'IT201'] },
-        { code: 'IT207', name: 'Data Structures and Algorithms', credits: 3, category: 'core', prerequisites: ['IT201', 'MT201'] },
-        { code: 'IT208', name: 'Computer Networks', credits: 3, category: 'major', prerequisites: ['IT203'] },
-        { code: 'MT202', name: 'Linear Algebra', credits: 3, category: 'core', prerequisites: ['MT201'] },
-        { code: 'EN202', name: 'Business Communication', credits: 2, category: 'general', prerequisites: ['EN201'] }
+        { code: 'IT-060243110', name: 'การโปรแกรมภาษาจาวาสคริปต์', credits: 3, category: 'core' },
+        { code: 'IT-060243111', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
+        { code: 'IT-060243112', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'core' },
+        { code: 'IT-060243113', name: 'การโปรแกรมเว็บ', credits: 3, category: 'general' },
+        { code: 'IT-061100001', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general' },
+        { code: 'IT-080XXXXXX    ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 1', credits: 3, category: 'general' }
       ],
       '3-1': [
-        { code: 'IT301', name: 'Software Engineering Project', credits: 3, category: 'major', prerequisites: ['IT204', 'IT205'] },
-        { code: 'IT302', name: 'Mobile Application Development', credits: 3, category: 'major', prerequisites: ['IT206', 'IT207'] },
-        { code: 'IT303', name: 'Artificial Intelligence', credits: 3, category: 'elective', prerequisites: ['IT207', 'MT202'] },
-        { code: 'IT304', name: 'Network Security', credits: 3, category: 'major', prerequisites: ['IT208'] },
-        { code: 'IT305', name: 'Cloud Computing', credits: 3, category: 'elective', prerequisites: ['IT208'] },
-        { code: 'EN301', name: 'Professional Presentation', credits: 2, category: 'general', prerequisites: ['EN202'] }
+        { code: 'IT-060243114', name: 'ระบบปฏิบัติการคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'IT-060243115', name: 'การออกแบบจากประสบการณ์ผู้ใช้', credits: 3, category: 'core' },
+        { code: 'IT-060243116', name: 'อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'core' },
+        { code: 'IT-060XXXXXX', name: 'วิชาเลือก 1', credits: 3, category: 'general' },
+        { code: 'IT-060XXXXXX ', name: 'วิชาเลือก 2', credits: 3, category: 'general' },
+
       ],
       '3-2': [
-        { code: 'IT306', name: 'Machine Learning', credits: 3, category: 'elective', prerequisites: ['IT303', 'MT202'] },
-        { code: 'IT307', name: 'DevOps and Deployment', credits: 3, category: 'major', prerequisites: ['IT301', 'IT305'] },
-        { code: 'IT308', name: 'Data Analytics', credits: 3, category: 'elective', prerequisites: ['IT205', 'MT202'] },
-        { code: 'IT309', name: 'Cybersecurity Management', credits: 3, category: 'major', prerequisites: ['IT304'] },
-        { code: 'IT310', name: 'IT Project Management', credits: 3, category: 'major', prerequisites: ['IT301'] },
-        { code: 'IT311', name: 'Digital Innovation', credits: 2, category: 'elective' }
+        { code: 'IT-060243117', name: 'ระบบปฏิบัติการยูนิกซ์', credits: 3, category: 'core' },
+        { code: 'IT-060243118', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'core' },
+        { code: 'IT-060243119', name: 'การบริหารโครงการเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
+        { code: 'IT-060XXXXXX  ', name: 'วิชาเลือก 3', credits: 3, category: 'general' },
+        { code: 'IT-060XXXXXX   ', name: 'วิชาเลือก 4', credits: 3, category: 'general' },
+        { code: 'IT-080XXXXXX     ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' }
       ],
       '4-1': [
-        { code: 'IT401', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['IT307', 'IT310'] },
-        { code: 'IT402', name: 'Blockchain Technology', credits: 3, category: 'elective', prerequisites: ['IT304', 'IT305'] },
-        { code: 'IT403', name: 'IoT Systems', credits: 3, category: 'elective', prerequisites: ['IT208', 'IT302'] },
-        { code: 'IT404', name: 'Big Data Technologies', credits: 3, category: 'elective', prerequisites: ['IT308'] },
-        { code: 'IT405', name: 'IT Entrepreneurship', credits: 2, category: 'elective', prerequisites: ['IT310'] },
-        { code: 'IT406', name: 'Professional Ethics in IT', credits: 2, category: 'general' }
+        { code: 'IT-060243120', name: 'ความปลอดภัยระบบสารสนเทศ', credits: 3, category: 'core' },
+        { code: 'IT-060243121', name: 'สัมมนาเทคโนโลยีสารสนเทศ', credits: 1, category: 'core' },
+        { code: 'IT-060243202', name: 'โครงงานเทคโนโลยีสารสนเทศ 1', credits: 3, category: 'core' },
+        { code: 'IT-060XXXXXX    ', name: 'วิชาเลือก 5', credits: 3, category: 'general' },
+        { code: 'IT-080XXXXXX      ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 3', credits: 3, category: 'general' }
       ],
       '4-2': [
-        { code: 'IT407', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['IT401'] },
-        { code: 'IT408', name: 'Advanced Software Architecture', credits: 3, category: 'elective', prerequisites: ['IT301', 'IT307'] },
-        { code: 'IT409', name: 'IT Consulting', credits: 2, category: 'elective', prerequisites: ['IT310', 'IT405'] },
-        { code: 'IT410', name: 'Internship', credits: 6, category: 'major', prerequisites: ['IT401'] },
-        { code: 'IT411', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['IT407'] }
+        { code: 'IT-060243203', name: 'โครงงานเทคโนโลยีสารสนเทศ 2', credits: 3, category: 'core' },
+        { code: 'IT-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'core' },
+        { code: 'IT-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core' }
       ]
     },
     '67': {
       '1-1': [
-        { code: 'IT201', name: 'Digital Literacy', credits: 3, category: 'core' },
-        { code: 'IT202', name: 'Programming Logic', credits: 3, category: 'core' },
-        { code: 'MT201', name: 'Discrete Mathematics', credits: 3, category: 'core' },
-        { code: 'EN201', name: 'Communication Skills', credits: 3, category: 'general' },
-        { code: 'TH201', name: 'Thai for Academic Writing', credits: 2, category: 'general' },
-        { code: 'PE201', name: 'Health and Fitness', credits: 1, category: 'general' },
-        { code: 'SO201', name: 'Society and Ethics', credits: 2, category: 'general' }
+        { code: 'IT-060243101', name: 'เทคโนโลยีสารสนเทศเบื้องต้น', credits: 3, category: 'core' },
+        { code: 'IT-060243102', name: 'การโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'IT-080103001', name: 'ภาษาอังกฤษ 1', credits: 3, category: 'core' },
+        { code: 'IT-xxxxxxxxx   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป (ชุดวิชากีฬาและนันทนาการ)', credits: 1, category: 'general' },
+        { code: 'IT-xxxxxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
+        { code: 'IT-xxxxxxxxx     ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
       ],
       '1-2': [
-        { code: 'IT203', name: 'Data Structures', credits: 3, category: 'core', prerequisites: ['IT202'] },
-        { code: 'IT204', name: 'Object-Oriented Programming', credits: 3, category: 'major', prerequisites: ['IT202'] },
-        { code: 'MT202', name: 'Linear Algebra', credits: 3, category: 'core', prerequisites: ['MT201'] },
-        { code: 'EN202', name: 'Technical English', credits: 3, category: 'general', prerequisites: ['EN201'] },
-        { code: 'SC201', name: 'Environmental Science', credits: 2, category: 'general' },
-        { code: 'PE202', name: 'Team Sports', credits: 1, category: 'general' }
+        { code: 'IT-060243104*', name: 'การโปรแกรมเชิงวัตถุ', credits: 3, category: 'core' },
+        { code: 'IT-060243105', name: 'ความรู้พื้นฐานในการออกแบบกราฟิก', credits: 3, category: 'core' },
+        { code: 'IT-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
+        { code: 'IT-080103002', name: 'ภาษาอังกฤษ 2', credits: 3, category: 'general' },
+        { code: 'IT-080303701', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general' },
+        { code: 'IT-xxxxxxxxx      ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
       ],
       '2-1': [
-        { code: 'IT301', name: 'Advanced Object-Oriented Programming', credits: 3, category: 'major', prerequisites: ['IT203', 'IT204'] },
-        { code: 'IT302', name: 'Database Design and Implementation', credits: 3, category: 'core', prerequisites: ['IT203'] },
-        { code: 'IT303', name: 'Software Architecture', credits: 3, category: 'major', prerequisites: ['IT204'] },
-        { code: 'MT301', name: 'Probability and Statistics', credits: 3, category: 'core', prerequisites: ['MT202'] },
-        { code: 'EN301', name: 'Professional Presentation', credits: 2, category: 'general', prerequisites: ['EN202'] },
-        { code: 'IT304', name: 'Human-Computer Interaction', credits: 3, category: 'elective' }
+        { code: 'IT-060243106*', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'core' },
+        { code: 'IT-060243108*', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
+        { code: 'IT-060243123', name: 'เครือข่ายคอมพิวเตอร์และอินเทอร์เน็ต', credits: 3, category: 'core' },
+        { code: 'IT-060243111*', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'general' },
+        { code: 'IT-080203914', name: 'ผู้ประกอบการนวัตกรรม', credits: 3, category: 'general' },
+        { code: 'IT-xxxxxxxxx       ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
       ],
       '2-2': [
-        { code: 'IT305', name: 'Advanced Web Development', credits: 3, category: 'major', prerequisites: ['IT301', 'IT302'] },
-        { code: 'IT306', name: 'Mobile Application Development', credits: 3, category: 'major', prerequisites: ['IT303'] },
-        { code: 'IT307', name: 'Network Programming', credits: 3, category: 'major', prerequisites: ['IT301'] },
-        { code: 'MT302', name: 'Applied Statistics', credits: 3, category: 'core', prerequisites: ['MT301'] },
-        { code: 'EN302', name: 'Technical Documentation', credits: 2, category: 'general', prerequisites: ['EN301'] },
-        { code: 'IT308', name: 'Software Testing', credits: 3, category: 'major', prerequisites: ['IT303'] }
+        { code: 'IT-060243110', name: 'การโปรแกรมภาษาจาวาสคริปต์', credits: 3, category: 'core' },
+        { code: 'IT-060243112', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'core' },
+        { code: 'IT-060243122', name: 'เว็บแอปพลิเคชัน', credits: 3, category: 'core' },
+        { code: 'IT-060243124', name: 'ธุรกิจดิจิทัลเบื้องต้น', credits: 3, category: 'general' },
+        { code: 'IT-060243125*', name: 'สื่อดิจิทัลเบื้องต้น', credits: 3, category: 'general' },
+        { code: 'IT-060243126', name: 'วิทยาการข้อมูลเบื้องต้น', credits: 3, category: 'general' },
       ],
       '3-1': [
-        { code: 'IT401', name: 'System Integration', credits: 3, category: 'major', prerequisites: ['IT305', 'IT307'] },
-        { code: 'IT402', name: 'Machine Learning Fundamentals', credits: 3, category: 'elective', prerequisites: ['MT302'] },
-        { code: 'IT403', name: 'Cloud Computing', credits: 3, category: 'elective', prerequisites: ['IT307'] },
-        { code: 'IT404', name: 'Cybersecurity', credits: 3, category: 'major', prerequisites: ['IT307'] },
-        { code: 'IT405', name: 'DevOps Practices', credits: 3, category: 'elective', prerequisites: ['IT308'] },
-        { code: 'EN401', name: 'Professional Communication', credits: 2, category: 'general', prerequisites: ['EN302'] }
+        { code: 'IT-060243115*', name: 'การออกแบบจากประสบการณ์ผู้ใช้', credits: 3, category: 'core' },
+        { code: 'IT-060243116*', name: 'อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'core' },
+        { code: 'IT-060xxxxxx     ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'core' },
+        { code: 'IT-060xxxxxx      ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+        { code: 'IT-060xxxxxx       ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' }
       ],
       '3-2': [
-        { code: 'IT406', name: 'Advanced Machine Learning', credits: 3, category: 'elective', prerequisites: ['IT402'] },
-        { code: 'IT407', name: 'Distributed Systems', credits: 3, category: 'major', prerequisites: ['IT401', 'IT403'] },
-        { code: 'IT408', name: 'Blockchain Technology', credits: 3, category: 'elective', prerequisites: ['IT404'] },
-        { code: 'IT409', name: 'Data Science', credits: 3, category: 'elective', prerequisites: ['IT402', 'MT302'] },
-        { code: 'IT410', name: 'Project Management', credits: 3, category: 'major', prerequisites: ['IT401'] },
-        { code: 'IT411', name: 'Ethics in Technology', credits: 2, category: 'general' }
+        { code: 'IT-060243118', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'core' },
+        { code: 'IT-060243119', name: 'การบริหารโครงการเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
+        { code: 'IT-060xxxxxx        ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+        { code: 'IT-060xxxxxx         ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+        { code: 'IT-060xxxxxx          ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
       ],
       '4-1': [
-        { code: 'IT501', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['IT407', 'IT410'] },
-        { code: 'IT502', name: 'Advanced Cybersecurity', credits: 3, category: 'elective', prerequisites: ['IT404', 'IT408'] },
-        { code: 'IT503', name: 'AI Applications', credits: 3, category: 'elective', prerequisites: ['IT406'] },
-        { code: 'IT504', name: 'IoT Systems', credits: 3, category: 'elective', prerequisites: ['IT407'] },
-        { code: 'IT505', name: 'IT Entrepreneurship', credits: 2, category: 'elective', prerequisites: ['IT410'] },
-        { code: 'IT506', name: 'Research Methodology', credits: 2, category: 'general' }
+        { code: 'IT-060243120*', name: 'ความปลอดภัยระบบสารสนเทศ', credits: 3, category: 'core' },
+        { code: 'IT-060243121', name: 'สัมมนาเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
+        { code: 'IT-060243202', name: 'โครงงานเทคโนโลยีสารสนเทศ 1', credits: 1, category: 'core' },
+        { code: 'IT-060xxxxxx           ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+
       ],
       '4-2': [
-        { code: 'IT507', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['IT501'] },
-        { code: 'IT508', name: 'Advanced Software Engineering', credits: 3, category: 'elective', prerequisites: ['IT501'] },
-        { code: 'IT509', name: 'IT Consulting', credits: 2, category: 'elective', prerequisites: ['IT505'] },
-        { code: 'IT510', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['IT501'] },
-        { code: 'IT511', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['IT507'] }
+        { code: 'IT-060243203', name: 'โครงงานเทคโนโลยีสารสนเทศ 2', credits: 3, category: 'core' },
+        { code: 'IT-xxxxxxxx        ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' },
+        { code: 'IT-xxxxxxxx         ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' },
+
       ]
     }
   },
   'INE': {
     '62': {
       '1-1': [
-        { code: 'INE101', name: 'Network Engineering Fundamentals', credits: 3, category: 'core' },
-        { code: 'INE102', name: 'Digital Electronics', credits: 3, category: 'core' },
-        { code: 'MT101', name: 'Engineering Mathematics I', credits: 3, category: 'core' },
-        { code: 'EN101', name: 'English Communication', credits: 3, category: 'general' },
-        { code: 'TH101', name: 'Thai Language Skills', credits: 2, category: 'general' },
-        { code: 'PE101', name: 'Physical Fitness', credits: 1, category: 'general' }
+        { code: 'INE-040203111', name: 'คณิตศาสตร์วิศวกรรม 1', credits: 3, category: 'core' },
+        { code: 'INE-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' },
+        { code: 'INE-060233104', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'INE-060233105', name: 'ปฏิบัติการการเขียนโปรแกรมคอมพิวเตอร์', credits: 1, category: 'general' },
+        { code: 'INE-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา 1', credits: 3, category: 'general' },
+        { code: 'INE-080303xxx', name: 'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ', credits: 1, category: 'general' },
+        { code: 'INE-080xxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 1', credits: 3, category: 'general' }
       ],
       '1-2': [
-        { code: 'INE103', name: 'Computer Networks', credits: 3, category: 'core' },
-        { code: 'INE104', name: 'Network Protocols', credits: 3, category: 'major' },
-        { code: 'MT102', name: 'Engineering Mathematics II', credits: 3, category: 'core' },
-        { code: 'EN102', name: 'Technical Communication', credits: 3, category: 'general' },
-        { code: 'SC101', name: 'Physics for Engineers', credits: 3, category: 'general' },
-        { code: 'PE102', name: 'Recreation Activities', credits: 1, category: 'general' }
+        { code: 'INE-040203112', name: 'คณิตศาสตร์วิศวกรรม 2', credits: 3, category: 'core' ,prerequisites: ['040203111']},
+        { code: 'INE-0405xxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'core' },
+        { code: 'INE-060233102', name: 'อิเล็กทรอนิกส์และดิจิทัล', credits: 3, category: 'core' },
+        { code: 'INE-060233103', name: 'ปฏิบัติการอิเล็กทรอนิกส์และดิจิทัล', credits: 1, category: 'general' },
+        { code: 'INE-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general' },
+        { code: 'INE-060233110', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general' },
+        { code: 'INE-080103xxx ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' }
       ],
       '2-1': [
-        { code: 'INE201', name: 'Advanced Network Protocols', credits: 3, category: 'major', prerequisites: ['INE103', 'INE104'] },
-        { code: 'INE202', name: 'Network Security Fundamentals', credits: 3, category: 'major', prerequisites: ['INE103'] },
-        { code: 'INE203', name: 'Routing and Switching', credits: 3, category: 'core', prerequisites: ['INE104'] },
-        { code: 'MT201', name: 'Signal Processing', credits: 3, category: 'core', prerequisites: ['MT102'] },
-        { code: 'EN201', name: 'Engineering Communication', credits: 2, category: 'general', prerequisites: ['EN102'] },
-        { code: 'INE204', name: 'Network Design Principles', credits: 3, category: 'major', prerequisites: ['INE103'] }
+        { code: 'INE-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
+        { code: 'INE-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'core' },
+        { code: 'INE-060233113', name: 'การเขียนโปรแกรมคอมพิวเตอร์ขั้นสูง', credits: 3, category: 'core' },
+        { code: 'INE-060233201*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 1', credits: 1, category: 'general' },
+        { code: 'INE-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'general' },
+        { code: 'INE-080303xxx  ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 3', credits: 3, category: 'general' },
+        { code: 'INE-xxxxxxxxx', name: 'วิชาเลือกเสรี1', credits: 3, category: 'general' }
       ],
       '2-2': [
-        { code: 'INE205', name: 'Wireless Communication Systems', credits: 3, category: 'major', prerequisites: ['INE201', 'INE202'] },
-        { code: 'INE206', name: 'Network Management', credits: 3, category: 'major', prerequisites: ['INE203', 'INE204'] },
-        { code: 'INE207', name: 'Fiber Optic Communications', credits: 3, category: 'core', prerequisites: ['INE203', 'MT201'] },
-        { code: 'INE208', name: 'Network Troubleshooting', credits: 3, category: 'major', prerequisites: ['INE206'] },
-        { code: 'MT202', name: 'Digital Signal Processing', credits: 3, category: 'core', prerequisites: ['MT201'] },
-        { code: 'EN202', name: 'Technical Documentation', credits: 2, category: 'general', prerequisites: ['EN201'] }
+        { code: 'INE-060233106', name: 'การเขียนแบบวิศวกรรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' },
+        { code: 'INE-060233107', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
+        { code: 'INE-060233111*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 1, category: 'core' },
+        { code: 'INE-060233202*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 2', credits: 3, category: 'general' },
+        { code: 'INE-061100001', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general' },
+        { code: 'INE-080103xxx   ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 4', credits: 3, category: 'general' },
+        { code: 'INE-080xxxxxx ', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general' }
       ],
       '3-1': [
-        { code: 'INE301', name: 'Advanced Network Security', credits: 3, category: 'major', prerequisites: ['INE202', 'INE205'] },
-        { code: 'INE302', name: 'VoIP Systems', credits: 3, category: 'major', prerequisites: ['INE205', 'INE207'] },
-        { code: 'INE303', name: 'Network Performance Analysis', credits: 3, category: 'elective', prerequisites: ['INE206', 'MT202'] },
-        { code: 'INE304', name: 'Cloud Networking', credits: 3, category: 'elective', prerequisites: ['INE206'] },
-        { code: 'INE305', name: 'Mobile Networks', credits: 3, category: 'major', prerequisites: ['INE205'] },
-        { code: 'EN301', name: 'Professional Presentation', credits: 2, category: 'general', prerequisites: ['EN202'] }
+        { code: 'INE-060233109', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
+        { code: 'INE-060233114', name: 'สถิติสำหรับวิศวกรและนักวิทยาศาสตร์', credits: 3, category: 'core' },
+        { code: 'INE-060233203*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 3', credits: 1, category: 'core' },
+        { code: 'INE-060233204', name: 'การออกแบบและการจัดทำเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general' },
+        { code: 'INE-060233213*', name: 'การออกแบบและการประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' },
+        { code: 'INE-0602333xx', name: 'วิชาเลือกกลุ่มวิชาชีพ 1', credits: 3, category: 'general' },
+        { code: 'INE-080xxxxxx  ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 2', credits: 3, category: 'general' }
       ],
       '3-2': [
-        { code: 'INE306', name: 'Network Virtualization', credits: 3, category: 'elective', prerequisites: ['INE301', 'INE304'] },
-        { code: 'INE307', name: 'Enterprise Network Design', credits: 3, category: 'major', prerequisites: ['INE301', 'INE303'] },
-        { code: 'INE308', name: 'IoT Networks', credits: 3, category: 'elective', prerequisites: ['INE302', 'INE305'] },
-        { code: 'INE309', name: 'Network Automation', credits: 3, category: 'major', prerequisites: ['INE304'] },
-        { code: 'INE310', name: 'Project Management for Engineers', credits: 3, category: 'major', prerequisites: ['INE307'] },
-        { code: 'INE311', name: 'Engineering Ethics', credits: 2, category: 'general' }
+        { code: 'INE-060233206*', name: 'การจัดการเครือข่ายเบื้องต้นและเครื่องมือ', credits: 3, category: 'core' },
+        { code: 'INE-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'core' },
+        { code: 'INE-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' },
+        { code: 'INE-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general' },
+        { code: 'INE-060233210', name: 'หลักการโทรคมนาคม', credits: 3, category: 'general' },
+        { code: 'INE-0602333xx ', name: 'วิชาเลือกกลุ่มวิชาชีพ 2', credits: 3, category: 'general' },
+
       ],
       '4-1': [
-        { code: 'INE401', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['INE307', 'INE310'] },
-        { code: 'INE402', name: 'Advanced Cybersecurity', credits: 3, category: 'elective', prerequisites: ['INE301', 'INE306'] },
-        { code: 'INE403', name: '5G Network Technologies', credits: 3, category: 'elective', prerequisites: ['INE305', 'INE308'] },
-        { code: 'INE404', name: 'Software-Defined Networking', credits: 3, category: 'elective', prerequisites: ['INE306', 'INE309'] },
-        { code: 'INE405', name: 'Network Consulting', credits: 2, category: 'elective', prerequisites: ['INE310'] },
-        { code: 'INE406', name: 'Research Methodology', credits: 2, category: 'general' }
+        { code: 'INE-060233211*', name: 'สถาปัตยกรรมคลาวด์และการใช้งาน', credits: 3, category: 'core' },
+        { code: 'INE-060233212', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core' },
+        { code: 'INE-060233214', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' },
+        { code: 'INE-060233401', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 1, category: 'general' },
+        { code: 'INE-0602333xx  ', name: 'วิชาเลือกกลุ่มวิชาชีพ 3', credits: 3, category: 'general' },
+        { code: 'INE-080xxxxxx   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 3', credits: 3, category: 'general' },
+        
       ],
       '4-2': [
-        { code: 'INE407', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['INE401'] },
-        { code: 'INE408', name: 'Advanced Network Solutions', credits: 3, category: 'elective', prerequisites: ['INE401'] },
-        { code: 'INE409', name: 'Network Engineering Entrepreneurship', credits: 2, category: 'elective', prerequisites: ['INE405'] },
-        { code: 'INE410', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['INE401'] },
-        { code: 'INE411', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['INE407'] }
+        { code: 'INE-060233402', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 3, category: 'core' },
+        { code: 'INE-xxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core' },
+
       ]
     },
     '67': {
       '1-1': [
-        { code: 'INE201', name: 'Modern Network Infrastructure', credits: 3, category: 'core' },
-        { code: 'INE202', name: 'Network Security Basics', credits: 3, category: 'core' },
-        { code: 'MT201', name: 'Applied Mathematics', credits: 3, category: 'core' },
-        { code: 'EN201', name: 'Professional English', credits: 3, category: 'general' },
-        { code: 'TH201', name: 'Academic Thai', credits: 2, category: 'general' },
-        { code: 'PE201', name: 'Wellness and Health', credits: 1, category: 'general' },
-        { code: 'SO201', name: 'Engineering Ethics', credits: 2, category: 'general' }
+        { code: 'INE-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' },
+        { code: 'INE-060233115', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'INE-080103001', name: 'ภาษาอังกฤษ 1', credits: 3, category: 'core' },
+        { code: 'INE-xxxxxxxxx  ', name: 'วิชาเลือกในชุดวิชากีฬาและนันทนาการ', credits: 1, category: 'general' },
+        { code: 'INE-080303701', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general' },
+        { code: 'INE-080xxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
+
       ],
       '1-2': [
-        { code: 'INE203', name: 'Wireless Networks', credits: 3, category: 'core' },
-        { code: 'INE204', name: 'Network Design', credits: 3, category: 'major' },
-        { code: 'MT202', name: 'Probability and Statistics', credits: 3, category: 'core' },
-        { code: 'EN202', name: 'Engineering English', credits: 3, category: 'general' },
-        { code: 'SC201', name: 'Applied Physics', credits: 3, category: 'general' },
-        { code: 'PE202', name: 'Competitive Sports', credits: 1, category: 'general' }
+        { code: 'INE-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
+        { code: 'INE-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'INE-060233116', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'core' },
+        { code: 'INE-060233117', name: 'อิเล็กทรอนิกส์และวงจรดิจิทัล', credits: 3, category: 'general' },
+        { code: 'INE-080xxxxxx     ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 2, category: 'general' },
+        { code: 'INE-080103002', name: 'ภาษาอังกฤษ 2', credits: 3, category: 'general' },
+
       ],
       '2-1': [
-        { code: 'INE301', name: 'Advanced Wireless Systems', credits: 3, category: 'major', prerequisites: ['INE201', 'INE203'] },
-        { code: 'INE302', name: 'Network Security Management', credits: 3, category: 'major', prerequisites: ['INE202'] },
-        { code: 'INE303', name: 'Enterprise Network Solutions', credits: 3, category: 'core', prerequisites: ['INE204'] },
-        { code: 'MT301', name: 'Advanced Signal Processing', credits: 3, category: 'core', prerequisites: ['MT202'] },
-        { code: 'EN301', name: 'Technical Presentation', credits: 2, category: 'general', prerequisites: ['EN202'] },
-        { code: 'INE304', name: 'Network Optimization', credits: 3, category: 'major', prerequisites: ['INE203'] }
+        { code: 'INE-040203111', name: 'คณิตศาสตร์วิศวกรรม 1', credits: 3, category: 'core' },
+        { code: 'INE-060233120', name: 'การพัฒนาระบบสารสนเทศแบบครบองค์ประกอบ', credits: 3, category: 'core' },
+        { code: 'INE-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'core' },
+        { code: 'INE-060233215*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 1, category: 'general' },
+        { code: 'INE-080xxxxxx      ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
+        { code: 'INE-xxxxxxxxx   ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' },
+
       ],
       '2-2': [
-        { code: 'INE305', name: 'Software-Defined Networks', credits: 3, category: 'major', prerequisites: ['INE301', 'INE302'] },
-        { code: 'INE306', name: 'Cloud Network Architecture', credits: 3, category: 'major', prerequisites: ['INE303', 'INE304'] },
-        { code: 'INE307', name: 'IoT Network Infrastructure', credits: 3, category: 'core', prerequisites: ['INE301', 'MT301'] },
-        { code: 'INE308', name: 'Network Automation Tools', credits: 3, category: 'major', prerequisites: ['INE305'] },
-        { code: 'MT302', name: 'Network Analytics', credits: 3, category: 'core', prerequisites: ['MT301'] },
-        { code: 'EN302', name: 'Professional Communication', credits: 2, category: 'general', prerequisites: ['EN301'] }
+        { code: 'INE-040203112', name: 'คณิตศาสตร์วิศวกรรม 2', credits: 3, category: 'core' },
+        { code: 'INE-060233106', name: 'การเขียนแบบวิศวกรรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' },
+        { code: 'INE-060233111*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 3, category: 'core' },
+        { code: 'INE-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'general' },
+        { code: 'INE-060233119', name: 'ระบบฐานข้อมูล', credits: 3, category: 'general' },
+        { code: 'INE-060233216*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 1, category: 'general' },
+        { code: 'INE-060233219*', name: 'การออกแบบและการประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' },
       ],
       '3-1': [
-        { code: 'INE401', name: 'Advanced Network Security', credits: 3, category: 'major', prerequisites: ['INE305', 'INE306'] },
-        { code: 'INE402', name: '5G Network Technologies', credits: 3, category: 'major', prerequisites: ['INE307', 'INE308'] },
-        { code: 'INE403', name: 'Network AI and ML', credits: 3, category: 'elective', prerequisites: ['INE306', 'MT302'] },
-        { code: 'INE404', name: 'Edge Computing Networks', credits: 3, category: 'elective', prerequisites: ['INE307'] },
-        { code: 'INE405', name: 'Network Project Management', credits: 3, category: 'major', prerequisites: ['INE308'] },
-        { code: 'EN401', name: 'Advanced Technical Communication', credits: 2, category: 'general', prerequisites: ['EN302'] }
+        { code: 'INE-060233118', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
+        { code: 'INE-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'core' },
+        { code: 'INE-060233217*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 3', credits: 1, category: 'core' },
+        { code: 'INE-060233218*', name: 'โครงสร้างพื้นฐานคลาวด์สําหรับซอฟต์แวร์และบริการ', credits: 3, category: 'general' },
+        { code: 'INE-060233221*', name: 'ความปลอดภัยและความเป็นส่วนตัวของข้อมูล', credits: 3, category: 'general' },
+        { code: 'INE-0602333xx   ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+
       ],
       '3-2': [
-        { code: 'INE406', name: 'Cybersecurity in Networks', credits: 3, category: 'elective', prerequisites: ['INE401', 'INE403'] },
-        { code: 'INE407', name: 'Network Innovation Lab', credits: 3, category: 'major', prerequisites: ['INE402', 'INE404'] },
-        { code: 'INE408', name: 'Smart City Networks', credits: 3, category: 'elective', prerequisites: ['INE402', 'INE405'] },
-        { code: 'INE409', name: 'Network Consulting', credits: 3, category: 'major', prerequisites: ['INE405'] },
-        { code: 'INE410', name: 'Advanced Project Management', credits: 3, category: 'major', prerequisites: ['INE407'] },
-        { code: 'INE411', name: 'Ethics in Network Engineering', credits: 2, category: 'general' }
+        { code: 'INE-060233114', name: 'สถิติสําหรับวิศวกรข้อมูลและนักวิทยาศาสตร์ข้อมูล', credits: 3, category: 'core' },
+        { code: 'INE-060233204', name: 'การออกแบบและการจัดทําเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
+        { code: 'INE-060233206', name: 'การจัดการเครือข่ายเบื้องต้นและเครื่องมือ', credits: 3, category: 'core' },
+        { code: 'INE-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'core' },        
+        { code: 'INE-060233212*', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'general' },
+        { code: 'INE-060233214*', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general' },
+        { code: 'INE-080203914', name: 'ผู้ประกอบการนวัตกรรม', credits: 3, category: 'general' },
+
       ],
       '4-1': [
-        { code: 'INE501', name: 'Senior Project I', credits: 3, category: 'major', prerequisites: ['INE407', 'INE410'] },
-        { code: 'INE502', name: 'Next-Gen Network Technologies', credits: 3, category: 'elective', prerequisites: ['INE406', 'INE408'] },
-        { code: 'INE503', name: 'Network Research Methods', credits: 3, category: 'elective', prerequisites: ['INE409'] },
-        { code: 'INE504', name: 'Quantum Networks', credits: 3, category: 'elective', prerequisites: ['INE407'] },
-        { code: 'INE505', name: 'Network Entrepreneurship', credits: 2, category: 'elective', prerequisites: ['INE409'] },
-        { code: 'INE506', name: 'Research Methodology', credits: 2, category: 'general' }
+        { code: 'INE-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' },
+        { code: 'INE-060233220', name: 'การประมวลภาษาธรรมชาติ', credits: 3, category: 'core' },
+        { code: 'INE-060233401', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 3, category: 'core' },
+        { code: 'INE-0602333xx    ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+        { code: 'INE-080xxxxxx       ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
+
+
       ],
       '4-2': [
-        { code: 'INE507', name: 'Senior Project II', credits: 3, category: 'major', prerequisites: ['INE501'] },
-        { code: 'INE508', name: 'Advanced Network Engineering', credits: 3, category: 'elective', prerequisites: ['INE501'] },
-        { code: 'INE509', name: 'Network Innovation Consulting', credits: 2, category: 'elective', prerequisites: ['INE505'] },
-        { code: 'INE510', name: 'Professional Internship', credits: 6, category: 'major', prerequisites: ['INE501'] },
-        { code: 'INE511', name: 'Capstone Presentation', credits: 1, category: 'major', prerequisites: ['INE507'] }
+        { code: 'INE-060233402', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 3, category: 'core' },
+        { code: 'INE-xxxxxxxxx    ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' },
+
+
       ]
     }
   },
