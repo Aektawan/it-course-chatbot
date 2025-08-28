@@ -84,34 +84,32 @@ const Courses: React.FC = () => {
         const index = baseSemesters.findIndex(s => s.value === '3-2');
         baseSemesters.splice(index + 1, 0, { value: '3-3', label: 'ปี 3 – เทอม 3 (ฝึกงาน)' });
       } else if (programCode === 'INET') {
-        // Year 2 semester 3 for INET
+        // INET: 3 years, 7 semesters (Year 2 has semester 3 internship)
         const index = baseSemesters.findIndex(s => s.value === '2-2');
         baseSemesters.splice(index + 1, 0, { value: '2-3', label: 'ปี 2 – เทอม 3 (ฝึกงาน)' });
+        
+        // Remove year 4 semesters for INET (3-year program, 7 semesters)
+        return baseSemesters.filter(s => 
+          s.value === 'all' || 
+          !s.value.startsWith('4-')
+        );
       } else if (programCode === 'ITI') {
-        // Year 1 semester 3 for ITI only
+        // ITI: 2 years, 5 semesters (Year 1 has semester 3 internship)
         const index = baseSemesters.findIndex(s => s.value === '1-2');
         baseSemesters.splice(index + 1, 0, { value: '1-3', label: 'ปี 1 – เทอม 3 (ฝึกงาน)' });
         
-        // Remove year 3 and 4 semesters for 2-year programs
+        // Remove year 3 and 4 semesters for ITI (2-year program, 5 semesters)
         return baseSemesters.filter(s => 
           s.value === 'all' || 
           s.value.startsWith('1-') || 
           s.value.startsWith('2-')
         );
       } else if (programCode === 'ITT') {
-        // ITT doesn't have internship, just remove year 3 and 4 semesters
+        // ITT: 2 years, 4 semesters (no internship)
         return baseSemesters.filter(s => 
           s.value === 'all' || 
           s.value.startsWith('1-') || 
           s.value.startsWith('2-')
-        );
-      }
-      
-      // Remove year 4 semesters for INET (3-year program)
-      if (programCode === 'INET') {
-        return baseSemesters.filter(s => 
-          s.value === 'all' || 
-          !s.value.startsWith('4-')
         );
       }
     }
@@ -165,9 +163,9 @@ const Courses: React.FC = () => {
         if (programCode === 'INET' && year === 2) {
           allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
         }
-        if ((programCode === 'ITI' || programCode === 'ITT') && year === 1) {
-          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
-        }
+          if ((programCode === 'ITI') && year === 1) {
+            allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
+          }
       }
       return allCourses;
     }
@@ -190,7 +188,7 @@ const Courses: React.FC = () => {
           if (programCode === 'INET' && year === 2) {
             departmentCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 4));
           }
-          if ((programCode === 'ITI' || programCode === 'ITT') && year === 1) {
+          if ((programCode === 'ITI') && year === 1) {
             departmentCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 4));
           }
         }
