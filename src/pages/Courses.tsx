@@ -61,6 +61,57 @@ const Courses: React.FC = () => {
     }
   };
 
+  // Get available semesters based on selected curriculum
+  const getAvailableSemesters = () => {
+    const baseSemesters = [
+      { value: 'all', label: 'ทุกเทอม' },
+      { value: '1-1', label: 'ปี 1 – เทอม 1' },
+      { value: '1-2', label: 'ปี 1 – เทอม 2' },
+      { value: '2-1', label: 'ปี 2 – เทอม 1' },
+      { value: '2-2', label: 'ปี 2 – เทอม 2' },
+      { value: '3-1', label: 'ปี 3 – เทอม 1' },
+      { value: '3-2', label: 'ปี 3 – เทอม 2' },
+      { value: '4-1', label: 'ปี 4 – เทอม 1' },
+      { value: '4-2', label: 'ปี 4 – เทอม 2' }
+    ];
+
+    if (selectedCurriculum !== 'all') {
+      const [programCode] = selectedCurriculum.split(' ');
+      
+      // Add semester 3 based on program
+      if (programCode === 'IT' || programCode === 'INE') {
+        // Year 3 semester 3 for IT and INE
+        const index = baseSemesters.findIndex(s => s.value === '3-2');
+        baseSemesters.splice(index + 1, 0, { value: '3-3', label: 'ปี 3 – เทอม 3 (ฝึกงาน)' });
+      } else if (programCode === 'INET') {
+        // Year 2 semester 3 for INET
+        const index = baseSemesters.findIndex(s => s.value === '2-2');
+        baseSemesters.splice(index + 1, 0, { value: '2-3', label: 'ปี 2 – เทอม 3 (ฝึกงาน)' });
+      } else if (programCode === 'ITI' || programCode === 'ITT') {
+        // Year 1 semester 3 for ITI and ITT
+        const index = baseSemesters.findIndex(s => s.value === '1-2');
+        baseSemesters.splice(index + 1, 0, { value: '1-3', label: 'ปี 1 – เทอม 3 (ฝึกงาน)' });
+        
+        // Remove year 3 and 4 semesters for 2-year programs
+        return baseSemesters.filter(s => 
+          s.value === 'all' || 
+          s.value.startsWith('1-') || 
+          s.value.startsWith('2-')
+        );
+      }
+      
+      // Remove year 4 semesters for INET (3-year program)
+      if (programCode === 'INET') {
+        return baseSemesters.filter(s => 
+          s.value === 'all' || 
+          !s.value.startsWith('4-')
+        );
+      }
+    }
+
+    return baseSemesters;
+  };
+
   // Reset curriculum when department changes
   React.useEffect(() => {
     if (selectedDepartment !== 'all') {
@@ -70,6 +121,16 @@ const Courses: React.FC = () => {
       }
     }
   }, [selectedDepartment]);
+
+  // Reset semester when curriculum changes
+  React.useEffect(() => {
+    if (selectedCurriculum !== 'all') {
+      const availableSemesters = getAvailableSemesters();
+      if (!availableSemesters.some(s => s.value === selectedSemester)) {
+        setSelectedSemester('all');
+      }
+    }
+  }, [selectedCurriculum]);
 
   // Generate courses based on selections
   const generateFilteredCourses = () => {
@@ -244,18 +305,11 @@ const Courses: React.FC = () => {
                   <SelectValue placeholder="เทอม" />
                 </SelectTrigger>
                 <SelectContent className="bg-background border shadow-lg z-50">
-                  <SelectItem value="all">ทุกเทอม</SelectItem>
-                  <SelectItem value="1-1">ปี 1 – เทอม 1</SelectItem>
-                  <SelectItem value="1-2">ปี 1 – เทอม 2</SelectItem>
-                  <SelectItem value="1-3">ปี 1 – เทอม 3 (ฝึกงาน)</SelectItem>
-                  <SelectItem value="2-1">ปี 2 – เทอม 1</SelectItem>
-                  <SelectItem value="2-2">ปี 2 – เทอม 2</SelectItem>
-                  <SelectItem value="2-3">ปี 2 – เทอม 3 (ฝึกงาน)</SelectItem>
-                  <SelectItem value="3-1">ปี 3 – เทอม 1</SelectItem>
-                  <SelectItem value="3-2">ปี 3 – เทอม 2</SelectItem>
-                  <SelectItem value="3-3">ปี 3 – เทอม 3 (ฝึกงาน)</SelectItem>
-                  <SelectItem value="4-1">ปี 4 – เทอม 1</SelectItem>
-                  <SelectItem value="4-2">ปี 4 – เทอม 2</SelectItem>
+                  {getAvailableSemesters().map((semester) => (
+                    <SelectItem key={semester.value} value={semester.value}>
+                      {semester.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
 
