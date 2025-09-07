@@ -475,19 +475,24 @@ const Courses: React.FC = () => {
               </div>
               <div>
                 <div className="text-2xl font-bold text-success">
-                  {filteredCourses.filter(c => c.category === 'major').length}
+                  {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาเฉพาะ').length}
                 </div>
                 <div className="text-sm text-muted-foreground">วิชาเฉพาะ</div>
+                <div className="text-xs text-muted-foreground mt-1 space-y-1">
+                  <div>วิชาแกน: {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาแกน').length}</div>
+                  <div>วิชาชีพ: {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาชีพ').length}</div>
+                  <div>วิชาฝึกงาน: {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาฝึกงาน/สหกิจศึกษา').length}</div>
+                </div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-warning">
-                  {filteredCourses.filter(c => c.category === 'general').length}
+                  {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาศึกษาทั่วไป').length}
                 </div>
                 <div className="text-sm text-muted-foreground">วิชาทั่วไป</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-blue-600">
-                  {filteredCourses.filter(c => c.category === 'elective').length}
+                  {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาเลือกเสรี').length}
                 </div>
                 <div className="text-sm text-muted-foreground">วิชาเลือกเสรี</div>
               </div>
