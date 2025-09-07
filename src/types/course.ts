@@ -35,6 +35,9 @@ export interface Course {
   year: number;
   instructor?: string;
   isActive: boolean;
+  // New optional categorization placeholders
+  mainCategory?: string;
+  subCategory?: string;
 }
 
 export interface StudentCourse {

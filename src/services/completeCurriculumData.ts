@@ -46,128 +46,128 @@ const courseDatabase: ProgramData = {
         { code: 'IT-060243102', name: 'การโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', description: 'ภาษาที่ใช้ในการพัฒนาโปรแกรมในเชิงโครงสร้าง คำสั่ง ประเภทข้อมูล ตัวแปร ตัวดำเนินการ โครงสร้างการตัดสินใจ โครงสร้างการวนรอบ ฟังก์ชันและฟังก์ชันแบบกำหนดเอง อาร์เรย์ แฟ้มข้อมูล และการฝึกปฏิบัติเขียนโปรแกรมคอมพิวเตอร์'},
         { code: 'IT-060243103', name: 'การแก้ปัญหาทางด้านเทคโนโลยีสารสนเทศ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', description: 'กลยุทธ์และหลักการแก้ปัญหา การคิดแบบขั้นตอนวิธี ผังงาน การใช้เหตุผลและการแก้ปัญหาด้วยตรรกศาสตร์ การแก้ปัญหาเชิงโครงสร้าง ฟังก์ชัน เรคคอร์ด การประมวลผลอาร์เรย์และแฟ้มข้อมูล และการฝึกปฏิบัติเขียนโปรแกรมคอมพิวเตอร์'},
         { code: 'IT-080103001', name: 'ภาษาอังกฤษ 1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาภาษา', description: 'การบูรณาการทักษะการฟัง การพูด การอ่าน และการเขียนในระดับพื้นฐาน เพื่อประยุกต์ใช้ในชีวิตประจำวันโดยคำนึงถึงความหลากหลายทางวัฒนธรรมของการใช้ภาษา ผ่านการเรียนรู้คำศัพท์และไวยากรณ์จากบทสนทนา บทความเชิงวิชาการและบทความทั่วไป การเขียนประโยคและย่อหน้าที่มีโครงสร้างไม่ซับซ้อน และการฝึกทักษะเพิ่มเติมที่ศูนย์การเรียนรู้แบบพึ่งตนเองผ่านสื่ออิเล็กทรอนิกส์'},
-        { code: 'IT-040XXXXXX', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์' },
-        { code: 'IT-080XXXXXX', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์' },
-        { code: 'IT-080XXXXXX ', name: 'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ', credits: 1, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชากีฬาและนันทนาการ' }
+        { code: 'IT-040XXXXXX', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์' , description:'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์'},
+        { code: 'IT-080XXXXXX', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์' , description:'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์'},
+        { code: 'IT-080XXXXXX ', name: 'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ', credits: 1, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชากีฬาและนันทนาการ',description:'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ' }
       ],
       '1-2': [
-        { code: 'IT-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
-        { code: 'IT-060243104', name: 'การเขียนโปรแกรมเชิงวัตถุ', credits: 3, category: 'core' },
-        { code: 'IT-060243105', name: 'ความรู้พื้นฐานในการออกแบบกราฟิกส์', credits: 3, category: 'core' },
-        { code: 'IT-080103002', name: 'ภาษาอังกฤษ 2', credits: 3, category: 'general' },
-        { code: 'IT-040XXXXXX ', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'general' },
-        { code: 'IT-080XXXXXX  ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 1', credits: 3, category: 'general' },
+        { code: 'IT-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',description: 'เซตและตรรกศาสตร์ ขั้นตอนวิธี ทฤษฎีจำนวนเบื้องต้น การอ้างเหตุผลทางคณิตศาสตร์ การนับและการประยุกต์ ฟังก์ชันก่อกำเนิด ความสัมพันธ์ กราฟและการประยุกต์ กราฟต้นไม้และการประยุกต์ พีชคณิตบูลีนและการประยุกต์ และการคำนวณตัวแบบ'},
+        { code: 'IT-060243104', name: 'การเขียนโปรแกรมเชิงวัตถุ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' ,description: 'ภาษาที่ใช้ในการพัฒนาโปรแกรมในเชิงวัตถุ หลักการเบื้องต้นของแนวคิดเชิงวัตถุ หลักการของคลาส วัตถุ ตัวดำเนินการ ฟังก์ชัน ฟังก์ชันที่เรียกได้ทันทีและที่เรียกผ่านวัตถุ ฟังก์ชันที่มีชื่อซ้ำกัน การจัดการความผิดพลาด การห่อหุ้มและการซ่อนข้อมูล การสืบทอด การพ้องรูป และการฝึกปฏิบัติเขียนโปรแกรมเชิงวัตถุ',prerequisites: ['060243103 การแก้ปัญหาทางด้านเทคโนโลยีสารสนเทศ']},
+        { code: 'IT-060243105', name: 'ความรู้พื้นฐานในการออกแบบกราฟิกส์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',description: 'ความหมายและความสำคัญของการออกแบบงานกราฟิกส์ โดยเน้นหลักการพื้นฐานทฤษฎีการออกแบบ ทฤษฎีสุนทรียภาพทางศิลปะ ทฤษฎีสี หลักการจัดวางองค์ประกอบในงานออกแบบ การจัดรูปแบบตัวอักษร การออกแบบสารสนเทศและทำให้เป็นภาพเชิงสร้างสรรค์ในรูปแบบดิจิทัล และการออกแบบงานกราฟิกส์ด้วยโปรแกรมประยุกต์'},
+        { code: 'IT-080103002', name: 'ภาษาอังกฤษ 2', credits: 3, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาภาษา' ,description: 'การบูรณาการทักษะการฟัง การพูด การอ่าน และการเขียนในระดับที่สูงขึ้น เพื่อประยุกต์ใช้ในชีวิตประจำวัน โดยคำนึงถึงความหลากหลายทางวัฒนธรรมของการใช้ภาษา ผ่านการเรียนรู้คำศัพท์และไวยากรณ์จากบทสนทนา บทความเชิงวิชาการและบทความทั่วไป การเขียนประโยคที่มีโครงสร้างซับซ้อนและย่อหน้าขนาดสั้น การฝึกทักษะเพิ่มเติมที่ศูนย์การเรียนรู้แบบพึ่งตนเองและการเรียนรู้ด้วยตนเองผ่านสื่ออิเล็กทรอนิกส์ เพื่อส่งเสริมการเรียนรู้ตลอดชีวิต',prerequisites: ['080103001 ภาษาอังกฤษ 1']},
+        { code: 'IT-040XXXXXX ', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์',description:'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์'},
+        { code: 'IT-080XXXXXX  ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 1', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาเลือกในหมวดศึกษาทั่วไป',description:'วิชาเลือกในหมวดวิชาศึกษาทั่วไป'},
 
       ],
       '2-1': [
-        { code: 'IT-060243106', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'core' },
-        { code: 'IT-060243107', name: 'สถาปัตยกรรมคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'IT-060243108', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
-        { code: 'IT-060243109', name: 'เครือข่ายคอมพิวเตอร์และการสื่อสาร', credits: 3, category: 'general' },
-        { code: 'IT-080XXXXXX   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 2', credits: 3, category: 'general' },
+        { code: 'IT-060243106', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',description: 'ข้อมูลแบบนามธรรม โครงสร้างข้อมูลเชิงวัตถุ ประสิทธิภาพการทำงานของโปรแกรม การประมวลผลกับข้อมูลนามธรรม ลิงค์ลิสต์ สแตก คิว ทรี แฮช ฮีพ การประมวลผลในโครงสร้างไบนารีเสิร์ชทรี การประมวลผลในโครงสร้างทรีที่มีความสมดุล ขั้นตอนวิธีการเรียงลำดับข้อมูล การเปรียบเทียบขั้นตอนวิธีการประมวลผล โครงสร้างข้อมูลกราฟ กราฟแบบมีค่าน้ำหนักและไม่มีค่าน้ำหนัก กราฟมีทิศทางและไม่มีทิศทาง ขั้นตอนวิธีการประมวลผลกราฟ และขั้นตอนวิธีระยะทางที่สั้นที่สุด',prerequisites: ['060243102 การโปรแกรมคอมพิวเตอร์']},
+        { code: 'IT-060243107', name: 'สถาปัตยกรรมคอมพิวเตอร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060243108', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060243109', name: 'เครือข่ายคอมพิวเตอร์และการสื่อสาร', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-080XXXXXX   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
       ],
       '2-2': [
-        { code: 'IT-060243110', name: 'การโปรแกรมภาษาจาวาสคริปต์', credits: 3, category: 'core' },
-        { code: 'IT-060243111', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
-        { code: 'IT-060243112', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'core' },
-        { code: 'IT-060243113', name: 'การโปรแกรมเว็บ', credits: 3, category: 'general' },
-        { code: 'IT-061100001', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general' },
-        { code: 'IT-080XXXXXX    ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 1', credits: 3, category: 'general' }
+        { code: 'IT-060243110', name: 'การโปรแกรมภาษาจาวาสคริปต์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243111', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060243112', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060243113', name: 'การโปรแกรมเว็บ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-061100001', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-080XXXXXX    ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 1', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '3-1': [
-        { code: 'IT-060243114', name: 'ระบบปฏิบัติการคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'IT-060243115', name: 'การออกแบบจากประสบการณ์ผู้ใช้', credits: 3, category: 'core' },
-        { code: 'IT-060243116', name: 'อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'core' },
-        { code: 'IT-060XXXXXX', name: 'วิชาเลือก 1', credits: 3, category: 'general' },
-        { code: 'IT-060XXXXXX ', name: 'วิชาเลือก 2', credits: 3, category: 'general' },
+        { code: 'IT-060243114', name: 'ระบบปฏิบัติการคอมพิวเตอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243115', name: 'การออกแบบจากประสบการณ์ผู้ใช้', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243116', name: 'อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060XXXXXX', name: 'วิชาเลือก 1', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060XXXXXX ', name: 'วิชาเลือก 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
       ],
       '3-2': [
-        { code: 'IT-060243117', name: 'ระบบปฏิบัติการยูนิกซ์', credits: 3, category: 'core' },
-        { code: 'IT-060243118', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'core' },
-        { code: 'IT-060243119', name: 'การบริหารโครงการเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
-        { code: 'IT-060XXXXXX  ', name: 'วิชาเลือก 3', credits: 3, category: 'general' },
-        { code: 'IT-060XXXXXX   ', name: 'วิชาเลือก 4', credits: 3, category: 'general' },
-        { code: 'IT-080XXXXXX     ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' }
+          { code: 'IT-060243117', name: 'ระบบปฏิบัติการยูนิกซ์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243118', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243119', name: 'การบริหารโครงการเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060XXXXXX  ', name: 'วิชาเลือก 3', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060XXXXXX   ', name: 'วิชาเลือก 4', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-080XXXXXX     ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '3-3': [
-        { code: 'IT-060243201', name: 'การฝึกงาน', credits: 2, category: 'core' }
+        { code: 'IT-060243201', name: 'การฝึกงาน', credits: 2, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
       '4-1': [
-        { code: 'IT-060243120', name: 'ความปลอดภัยระบบสารสนเทศ', credits: 3, category: 'core' },
-        { code: 'IT-060243121', name: 'สัมมนาเทคโนโลยีสารสนเทศ', credits: 1, category: 'core' },
-        { code: 'IT-060243202', name: 'โครงงานเทคโนโลยีสารสนเทศ 1', credits: 3, category: 'core' },
-        { code: 'IT-060XXXXXX    ', name: 'วิชาเลือก 5', credits: 3, category: 'general' },
-        { code: 'IT-080XXXXXX      ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 3', credits: 3, category: 'general' }
+        { code: 'IT-060243120', name: 'ความปลอดภัยระบบสารสนเทศ', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243121', name: 'สัมมนาเทคโนโลยีสารสนเทศ', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243202', name: 'โครงงานเทคโนโลยีสารสนเทศ 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060XXXXXX    ', name: 'วิชาเลือก 5', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-080XXXXXX      ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 3', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '4-2': [
-        { code: 'IT-060243203', name: 'โครงงานเทคโนโลยีสารสนเทศ 2', credits: 3, category: 'core' },
-        { code: 'IT-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'core' },
-        { code: 'IT-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core' }
+        { code: 'IT-060243203', name: 'โครงงานเทคโนโลยีสารสนเทศ 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ]
     },
     '67': {
       '1-1': [
-        { code: 'IT-060243101', name: 'เทคโนโลยีสารสนเทศเบื้องต้น', credits: 3, category: 'core' },
-        { code: 'IT-060243102', name: 'การโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'IT-080103001', name: 'ภาษาอังกฤษ 1', credits: 3, category: 'core' },
-        { code: 'IT-xxxxxxxxx   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป (ชุดวิชากีฬาและนันทนาการ)', credits: 1, category: 'general' },
-        { code: 'IT-xxxxxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
-        { code: 'IT-xxxxxxxxx     ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
+        { code: 'IT-060243101', name: 'เทคโนโลยีสารสนเทศเบื้องต้น', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243102', name: 'การโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-080103001', name: 'ภาษาอังกฤษ 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-xxxxxxxxx   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป (ชุดวิชากีฬาและนันทนาการ)', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-xxxxxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-xxxxxxxxx     ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
       ],
       '1-2': [
-        { code: 'IT-060243104*', name: 'การโปรแกรมเชิงวัตถุ', credits: 3, category: 'core' },
-        { code: 'IT-060243105', name: 'ความรู้พื้นฐานในการออกแบบกราฟิก', credits: 3, category: 'core' },
-        { code: 'IT-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
-        { code: 'IT-080103002', name: 'ภาษาอังกฤษ 2', credits: 3, category: 'general' },
-        { code: 'IT-080303701', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general' },
-        { code: 'IT-xxxxxxxxx      ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
+        { code: 'IT-060243104*', name: 'การโปรแกรมเชิงวัตถุ', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243105', name: 'ความรู้พื้นฐานในการออกแบบกราฟิก', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-080103002', name: 'ภาษาอังกฤษ 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-080303701', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-xxxxxxxxx      ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
       ],
       '2-1': [
-        { code: 'IT-060243106*', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'core' },
-        { code: 'IT-060243108*', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
-        { code: 'IT-060243123', name: 'เครือข่ายคอมพิวเตอร์และอินเทอร์เน็ต', credits: 3, category: 'core' },
-        { code: 'IT-060243111*', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'general' },
-        { code: 'IT-080203914', name: 'ผู้ประกอบการนวัตกรรม', credits: 3, category: 'general' },
-        { code: 'IT-xxxxxxxxx       ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
+        { code: 'IT-060243106*', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060243108*', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243123', name: 'เครือข่ายคอมพิวเตอร์และอินเทอร์เน็ต', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243111*', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-080203914', name: 'ผู้ประกอบการนวัตกรรม', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-xxxxxxxxx       ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
       ],
       '2-2': [
-        { code: 'IT-060243110', name: 'การโปรแกรมภาษาจาวาสคริปต์', credits: 3, category: 'core' },
-        { code: 'IT-060243112', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'core' },
-        { code: 'IT-060243122', name: 'เว็บแอปพลิเคชัน', credits: 3, category: 'core' },
-        { code: 'IT-060243124', name: 'ธุรกิจดิจิทัลเบื้องต้น', credits: 3, category: 'general' },
-        { code: 'IT-060243125*', name: 'สื่อดิจิทัลเบื้องต้น', credits: 3, category: 'general' },
-        { code: 'IT-060243126', name: 'วิทยาการข้อมูลเบื้องต้น', credits: 3, category: 'general' },
+        { code: 'IT-060243110', name: 'การโปรแกรมภาษาจาวาสคริปต์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243112', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060243122', name: 'เว็บแอปพลิเคชัน', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243124', name: 'ธุรกิจดิจิทัลเบื้องต้น', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243125*', name: 'สื่อดิจิทัลเบื้องต้น', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060243126', name: 'วิทยาการข้อมูลเบื้องต้น', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
       ],
       '3-1': [
-        { code: 'IT-060243115*', name: 'การออกแบบจากประสบการณ์ผู้ใช้', credits: 3, category: 'core' },
-        { code: 'IT-060243116*', name: 'อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'core' },
-        { code: 'IT-060xxxxxx     ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'core' },
-        { code: 'IT-060xxxxxx      ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
-        { code: 'IT-060xxxxxx       ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' }
+        { code: 'IT-060243115*', name: 'การออกแบบจากประสบการณ์ผู้ใช้', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060243116*', name: 'อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060xxxxxx     ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060xxxxxx      ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060xxxxxx       ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '3-2': [
-        { code: 'IT-060243118', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'core' },
-        { code: 'IT-060243119', name: 'การบริหารโครงการเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
-        { code: 'IT-060xxxxxx        ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
-        { code: 'IT-060xxxxxx         ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
-        { code: 'IT-060xxxxxx          ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+        { code: 'IT-060243118', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060243119', name: 'การบริหารโครงการเทคโนโลยีสารสนเทศ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060xxxxxx        ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060xxxxxx         ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060xxxxxx          ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
       ],
       '3-3': [
-        { code: 'IT-060243204', name: 'การฝึกงาน', credits: 2, category: 'core' }
+        { code: 'IT-060243204', name: 'การฝึกงาน', credits: 2, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '4-1': [
-        { code: 'IT-060243120*', name: 'ความปลอดภัยระบบสารสนเทศ', credits: 3, category: 'core' },
-        { code: 'IT-060243121', name: 'สัมมนาเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
-        { code: 'IT-060243202', name: 'โครงงานเทคโนโลยีสารสนเทศ 1', credits: 1, category: 'core' },
-        { code: 'IT-060xxxxxx           ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+        { code: 'IT-060243120*', name: 'ความปลอดภัยระบบสารสนเทศ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060243121', name: 'สัมมนาเทคโนโลยีสารสนเทศ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-060243202', name: 'โครงงานเทคโนโลยีสารสนเทศ 1', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-060xxxxxx           ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
       ],
       '4-2': [
-        { code: 'IT-060243203', name: 'โครงงานเทคโนโลยีสารสนเทศ 2', credits: 3, category: 'core' },
-        { code: 'IT-xxxxxxxx        ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' },
-        { code: 'IT-xxxxxxxx         ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' },
+        { code: 'IT-060243203', name: 'โครงงานเทคโนโลยีสารสนเทศ 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'IT-xxxxxxxx        ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-xxxxxxxx         ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
       ]
     }
@@ -175,148 +175,148 @@ const courseDatabase: ProgramData = {
   'INE': {
     '62': {
       '1-1': [
-        { code: 'INE-040203111', name: 'คณิตศาสตร์วิศวกรรม 1', credits: 3, category: 'core' },
-        { code: 'INE-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' },
-        { code: 'INE-060233104', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'INE-060233105', name: 'ปฏิบัติการการเขียนโปรแกรมคอมพิวเตอร์', credits: 1, category: 'general' },
-        { code: 'INE-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา 1', credits: 3, category: 'general' },
-        { code: 'INE-080303xxx', name: 'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ', credits: 1, category: 'general' },
-        { code: 'INE-080xxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 1', credits: 3, category: 'general' }
+        { code: 'INE-040203111', name: 'คณิตศาสตร์วิศวกรรม 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233104', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233105', name: 'ปฏิบัติการการเขียนโปรแกรมคอมพิวเตอร์', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา 1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-080303xxx', name: 'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-080xxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 1', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '1-2': [
-        { code: 'INE-040203112', name: 'คณิตศาสตร์วิศวกรรม 2', credits: 3, category: 'core' ,prerequisites: ['040203111']},
-        { code: 'INE-0405xxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'core' },
-        { code: 'INE-060233102', name: 'อิเล็กทรอนิกส์และดิจิทัล', credits: 3, category: 'core' },
-        { code: 'INE-060233103', name: 'ปฏิบัติการอิเล็กทรอนิกส์และดิจิทัล', credits: 1, category: 'general' },
-        { code: 'INE-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general' },
-        { code: 'INE-060233110', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general' },
-        { code: 'INE-080103xxx ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' }
+        { code: 'INE-040203112', name: 'คณิตศาสตร์วิศวกรรม 2', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',prerequisites: ['040203111']},
+        { code: 'INE-0405xxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233102', name: 'อิเล็กทรอนิกส์และดิจิทัล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233103', name: 'ปฏิบัติการอิเล็กทรอนิกส์และดิจิทัล', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233110', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-080103xxx ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '2-1': [
-        { code: 'INE-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
-        { code: 'INE-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'core' },
-        { code: 'INE-060233113', name: 'การเขียนโปรแกรมคอมพิวเตอร์ขั้นสูง', credits: 3, category: 'core' },
-        { code: 'INE-060233201*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 1', credits: 1, category: 'general' },
-        { code: 'INE-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'general' },
-        { code: 'INE-080303xxx  ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 3', credits: 3, category: 'general' },
-        { code: 'INE-xxxxxxxxx', name: 'วิชาเลือกเสรี1', credits: 3, category: 'general' }
+        { code: 'INE-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233113', name: 'การเขียนโปรแกรมคอมพิวเตอร์ขั้นสูง', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233201*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 1', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-080303xxx  ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 3', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-xxxxxxxxx', name: 'วิชาเลือกเสรี1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
       '2-2': [
-        { code: 'INE-060233106', name: 'การเขียนแบบวิศวกรรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' },
-        { code: 'INE-060233107', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
-        { code: 'INE-060233111*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 1, category: 'core' },
-        { code: 'INE-060233202*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 2', credits: 3, category: 'general' },
-        { code: 'INE-061100001', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general' },
-        { code: 'INE-080103xxx   ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 4', credits: 3, category: 'general' },
-        { code: 'INE-080xxxxxx ', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general' }
+        { code: 'INE-060233106', name: 'การเขียนแบบวิศวกรรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233107', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233111*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233202*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 2', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-061100001', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-080103xxx   ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 4', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-080xxxxxx ', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
       '3-1': [
-        { code: 'INE-060233109', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
-        { code: 'INE-060233114', name: 'สถิติสำหรับวิศวกรและนักวิทยาศาสตร์', credits: 3, category: 'core' },
-        { code: 'INE-060233203*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 3', credits: 1, category: 'core' },
-        { code: 'INE-060233204', name: 'การออกแบบและการจัดทำเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general' },
-        { code: 'INE-060233213*', name: 'การออกแบบและการประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' },
-        { code: 'INE-0602333xx', name: 'วิชาเลือกกลุ่มวิชาชีพ 1', credits: 3, category: 'general' },
-        { code: 'INE-080xxxxxx  ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 2', credits: 3, category: 'general' }
+        { code: 'INE-060233109', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233114', name: 'สถิติสำหรับวิศวกรและนักวิทยาศาสตร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233203*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 3', credits: 1, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233204', name: 'การออกแบบและการจัดทำเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233213*', name: 'การออกแบบและการประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-0602333xx', name: 'วิชาเลือกกลุ่มวิชาชีพ 1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-080xxxxxx  ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '3-2': [
-        { code: 'INE-060233206*', name: 'การจัดการเครือข่ายเบื้องต้นและเครื่องมือ', credits: 3, category: 'core' },
-        { code: 'INE-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'core' },
-        { code: 'INE-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' },
-        { code: 'INE-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general' },
-        { code: 'INE-060233210', name: 'หลักการโทรคมนาคม', credits: 3, category: 'general' },
-        { code: 'INE-0602333xx ', name: 'วิชาเลือกกลุ่มวิชาชีพ 2', credits: 3, category: 'general' },
+        { code: 'INE-060233206*', name: 'การจัดการเครือข่ายเบื้องต้นและเครื่องมือ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233210', name: 'หลักการโทรคมนาคม', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-0602333xx ', name: 'วิชาเลือกกลุ่มวิชาชีพ 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
       ],
       '3-3': [
-        { code: 'INE-060233403', name: 'การฝึกงาน', credits: 2, category: 'core' },
+        { code: 'INE-060233403', name: 'การฝึกงาน', credits: 2, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
       ],
       '4-1': [
-        { code: 'INE-060233211*', name: 'สถาปัตยกรรมคลาวด์และการใช้งาน', credits: 3, category: 'core' },
-        { code: 'INE-060233212', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core' },
-        { code: 'INE-060233214', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' },
-        { code: 'INE-060233401', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 1, category: 'general' },
-        { code: 'INE-0602333xx  ', name: 'วิชาเลือกกลุ่มวิชาชีพ 3', credits: 3, category: 'general' },
-        { code: 'INE-080xxxxxx   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 3', credits: 3, category: 'general' },
+        { code: 'INE-060233211*', name: 'สถาปัตยกรรมคลาวด์และการใช้งาน', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233212', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233214', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233401', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-0602333xx  ', name: 'วิชาเลือกกลุ่มวิชาชีพ 3', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-080xxxxxx   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 3', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
         
       ],
       '4-2': [
-        { code: 'INE-060233402', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 3, category: 'core' },
-        { code: 'INE-xxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core' },
+        { code: 'INE-060233402', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-xxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
 
       ]
     },
     '67': {
       '1-1': [
-        { code: 'INE-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' },
-        { code: 'INE-060233115', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'INE-080103001', name: 'ภาษาอังกฤษ 1', credits: 3, category: 'core' },
-        { code: 'INE-xxxxxxxxx  ', name: 'วิชาเลือกในชุดวิชากีฬาและนันทนาการ', credits: 1, category: 'general' },
-        { code: 'INE-080303701', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general' },
-        { code: 'INE-080xxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
+        { code: 'INE-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233115', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-080103001', name: 'ภาษาอังกฤษ 1', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-xxxxxxxxx  ', name: 'วิชาเลือกในชุดวิชากีฬาและนันทนาการ', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-080303701', name: 'กระบวนการคิดเชิงออกแบบ', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-080xxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
       ],
       '1-2': [
-        { code: 'INE-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
-        { code: 'INE-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'INE-060233116', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'core' },
-        { code: 'INE-060233117', name: 'อิเล็กทรอนิกส์และวงจรดิจิทัล', credits: 3, category: 'general' },
-        { code: 'INE-080xxxxxx     ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 2, category: 'general' },
-        { code: 'INE-080103002', name: 'ภาษาอังกฤษ 2', credits: 3, category: 'general' },
+        { code: 'INE-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233116', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233117', name: 'อิเล็กทรอนิกส์และวงจรดิจิทัล', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-080xxxxxx     ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 2, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-080103002', name: 'ภาษาอังกฤษ 2', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
 
       ],
       '2-1': [
-        { code: 'INE-040203111', name: 'คณิตศาสตร์วิศวกรรม 1', credits: 3, category: 'core' },
-        { code: 'INE-060233120', name: 'การพัฒนาระบบสารสนเทศแบบครบองค์ประกอบ', credits: 3, category: 'core' },
+        { code: 'INE-040203111', name: 'คณิตศาสตร์วิศวกรรม 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233120', name: 'การพัฒนาระบบสารสนเทศแบบครบองค์ประกอบ', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
         { code: 'INE-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'core' },
-        { code: 'INE-060233215*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 1, category: 'general' },
-        { code: 'INE-080xxxxxx      ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
-        { code: 'INE-xxxxxxxxx   ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' },
+        { code: 'INE-060233215*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-080xxxxxx      ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-xxxxxxxxx   ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
       ],
       '2-2': [
-        { code: 'INE-040203112', name: 'คณิตศาสตร์วิศวกรรม 2', credits: 3, category: 'core' },
-        { code: 'INE-060233106', name: 'การเขียนแบบวิศวกรรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' },
-        { code: 'INE-060233111*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 3, category: 'core' },
-        { code: 'INE-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'general' },
-        { code: 'INE-060233119', name: 'ระบบฐานข้อมูล', credits: 3, category: 'general' },
-        { code: 'INE-060233216*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 1, category: 'general' },
-        { code: 'INE-060233219*', name: 'การออกแบบและการประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' },
+        { code: 'INE-040203112', name: 'คณิตศาสตร์วิศวกรรม 2', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233106', name: 'การเขียนแบบวิศวกรรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233111*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233119', name: 'ระบบฐานข้อมูล', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233216*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233219*', name: 'การออกแบบและการประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
       ],
       '3-1': [
-        { code: 'INE-060233118', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
-        { code: 'INE-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'core' },
-        { code: 'INE-060233217*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 3', credits: 1, category: 'core' },
-        { code: 'INE-060233218*', name: 'โครงสร้างพื้นฐานคลาวด์สําหรับซอฟต์แวร์และบริการ', credits: 3, category: 'general' },
-        { code: 'INE-060233221*', name: 'ความปลอดภัยและความเป็นส่วนตัวของข้อมูล', credits: 3, category: 'general' },
-        { code: 'INE-0602333xx   ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+        { code: 'INE-060233118', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233217*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 3', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233218*', name: 'โครงสร้างพื้นฐานคลาวด์สําหรับซอฟต์แวร์และบริการ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233221*', name: 'ความปลอดภัยและความเป็นส่วนตัวของข้อมูล', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-0602333xx   ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
       ],
       '3-2': [
-        { code: 'INE-060233114', name: 'สถิติสําหรับวิศวกรข้อมูลและนักวิทยาศาสตร์ข้อมูล', credits: 3, category: 'core' },
-        { code: 'INE-060233204', name: 'การออกแบบและการจัดทําเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'INE-060233206', name: 'การจัดการเครือข่ายเบื้องต้นและเครื่องมือ', credits: 3, category: 'core' },
-        { code: 'INE-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'core' },        
-        { code: 'INE-060233212*', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'general' },
-        { code: 'INE-060233214*', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general' },
-        { code: 'INE-080203914', name: 'ผู้ประกอบการนวัตกรรม', credits: 3, category: 'general' },
+        { code: 'INE-060233114', name: 'สถิติสําหรับวิศวกรข้อมูลและนักวิทยาศาสตร์ข้อมูล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233204', name: 'การออกแบบและการจัดทําเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233206', name: 'การจัดการเครือข่ายเบื้องต้นและเครื่องมือ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},        
+        { code: 'INE-060233212*', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233214*', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-080203914', name: 'ผู้ประกอบการนวัตกรรม', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
       ],
       '3-3': [
-        { code: 'INE-060233403', name: 'การฝึกงาน', credits: 1, category: 'core' },
+        { code: 'INE-060233403', name: 'การฝึกงาน', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
       ],
       '4-1': [
-        { code: 'INE-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' },
-        { code: 'INE-060233220', name: 'การประมวลภาษาธรรมชาติ', credits: 3, category: 'core' },
-        { code: 'INE-060233401', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 3, category: 'core' },
-        { code: 'INE-0602333xx    ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' },
-        { code: 'INE-080xxxxxx       ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
+        { code: 'INE-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-060233220', name: 'การประมวลภาษาธรรมชาติ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-060233401', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-0602333xx    ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-080xxxxxx       ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
 
       ],
       '4-2': [
-        { code: 'INE-060233402', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 3, category: 'core' },
-        { code: 'INE-xxxxxxxxx    ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' },
+        { code: 'INE-060233402', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-xxxxxxxxx    ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
 
       ]
@@ -325,112 +325,112 @@ const courseDatabase: ProgramData = {
   'INET': {
     '62': {
       '1-1': [
-        { code: 'INET-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
-        { code: 'INET-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' },
-        { code: 'INET-060233104', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'INET-060233105', name: 'ปฏิบัติการการเขียนโปรแกรมคอมพิวเตอร์', credits: 1, category: 'general' },
-        { code: 'INET-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา 1', credits: 3, category: 'general' },
-        { code: 'INET-080xxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 1', credits: 3, category: 'general' },
-        { code: 'INET-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'general' }
+        { code: 'INET-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233104', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233105', name: 'ปฏิบัติการการเขียนโปรแกรมคอมพิวเตอร์', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา 1', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-080xxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 1', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
       '1-2': [
-        { code: 'INET-040503001', name: 'สถิติในชีวิตประจำวัน', credits: 3, category: 'core' },
-        { code: 'INET-060233106', name: 'การเขียนแบบวิศวกรรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' },
+        { code: 'INET-040503001', name: 'สถิติในชีวิตประจำวัน', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233106', name: 'การเขียนแบบวิศวกรรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
         { code: 'INET-060233107', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
-        { code: 'INET-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general' },
-        { code: 'INET-060233110', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general' },
-        { code: 'INET-080103xxx ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' }
+        { code: 'INET-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233110', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-080103xxx ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
       '2-1': [
-        { code: 'INET-060233109', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
-        { code: 'INET-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'core' },
-        { code: 'INET-060233113', name: 'การเขียนโปรแกรมคอมพิวเตอร์ขั้นสูง', credits: 3, category: 'core' },
-        { code: 'INET-060233201*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 1', credits: 1, category: 'general' },
-        { code: 'INET-060233204*', name: 'การออกแบบและการจัดทำเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general' },
-        { code: 'INET-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'general' },
-        { code: 'INET-0602333xx', name: 'วิชาเลือกกลุ่มวิชาชีพ 1', credits: 3, category: 'general' }
+        { code: 'INET-060233109', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233113', name: 'การเขียนโปรแกรมคอมพิวเตอร์ขั้นสูง', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233201*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 1', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233204*', name: 'การออกแบบและการจัดทำเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-0602333xx', name: 'วิชาเลือกกลุ่มวิชาชีพ 1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
       '2-2': [
-        { code: 'INET-060233111*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 3, category: 'core' },
-        { code: 'INET-060233114', name: 'สถิติสำหรับวิศวกรและนักวิทยาศาสตร์ข้อมูล', credits: 3, category: 'core' },
-        { code: 'INET-060233202*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 2', credits: 1, category: 'core' },
-        { code: 'INET-060233206*', name: 'การจัดการเครือข่ายเบื้องต้นและเครื่องมือ', credits: 3, category: 'general' },
-        { code: 'INET-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'general' },
-        { code: 'INET-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general' },
-        { code: 'INET-060433016', name: 'กระบวนกํารคิดเชิงออกแบบ', credits: 3, category: 'general' }
+        { code: 'INET-060233111*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233114', name: 'สถิติสำหรับวิศวกรและนักวิทยาศาสตร์ข้อมูล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233202*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 2', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233206*', name: 'การจัดการเครือข่ายเบื้องต้นและเครื่องมือ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060433016', name: 'กระบวนกํารคิดเชิงออกแบบ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '2-3': [
-        { code: 'INET-060233403', name: 'การฝึกงาน', credits: 2, category: 'core' }
+        { code: 'INET-060233403', name: 'การฝึกงาน', credits: 2, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
       '3-1': [
-        { code: 'INET-060233203*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 3', credits: 1, category: 'core' },
-        { code: 'INET-060233211*', name: 'สถาปัตยกรรมคลาวด์และการใช้งาน', credits: 3, category: 'core' },
-        { code: 'INET-060233212*', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core' },
-        { code: 'INET-060233213*', name: 'กํารออกแบบและกํารประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' },
-        { code: 'INET-060233214', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general' },
-        { code: 'INET-080xxxxxx ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 2', credits: 3, category: 'general' },
-        { code: 'INET-xxxxxxxxx                 ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'general' }
+        { code: 'INET-060233203*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 3', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233211*', name: 'สถาปัตยกรรมคลาวด์และการใช้งาน', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233212*', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233213*', name: 'กํารออกแบบและกํารประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233214', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-080xxxxxx ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 2', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-xxxxxxxxx                 ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '3-2': [
-        { code: 'INET-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' },
-        { code: 'INET-060233401', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 3, category: 'core' },
-        { code: 'INET-0602333xx ', name: 'วิชาเลือกกลุ่มวิชาชีพ 2', credits: 3, category: 'core' }
+        { code: 'INET-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233401', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-0602333xx ', name: 'วิชาเลือกกลุ่มวิชาชีพ 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
 
     },
     '67': {
       '1-1': [
-        { code: 'INET-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
-        { code: 'INET-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' },
-        { code: 'INET-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'INET-060233115', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'general' },
-        { code: 'INET-080103063', name: 'การใช้ภาษาอังกฤษ', credits: 3, category: 'general' },
-        { code: 'INET-080xxxxxx   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' }
+        { code: 'INET-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233115', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-080103063', name: 'การใช้ภาษาอังกฤษ', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-080xxxxxx   ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
       '1-2': [
-        { code: 'INET-060233106', name: 'การเขียนแบบวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' },
-        { code: 'INET-060233111*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 3, category: 'core' },
-        { code: 'INET-060233114', name: 'สถิติสําหรับวิศวกรข้อมูลและนักวิทยาศาสตร์ข้อมูล', credits: 3, category: 'core' },
-        { code: 'INET-060233116', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general' },
-        { code: 'INET-080xxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' },
-        { code: 'INET-xxxxxxxxx    ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' }
+        { code: 'INET-060233106', name: 'การเขียนแบบวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233111*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233114', name: 'สถิติสําหรับวิศวกรข้อมูลและนักวิทยาศาสตร์ข้อมูล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233116', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-080xxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-xxxxxxxxx    ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '2-1': [
-        { code: 'INET-060233120', name: 'การพัฒนาระบบสารสนเทศแบบครบองค์ประกอบ', credits: 3, category: 'core' },
-        { code: 'INET-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'core' },
-        { code: 'INET-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'core' },
-        { code: 'INET-060233215*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 1, category: 'general' },
-        { code: 'INET-060233218*', name: 'โครงสร้างพื้นฐานคลาวด์สําหรับซอฟต์แวร์และบริการ', credits: 3, category: 'general' },
-        { code: 'INET-0602333xx    ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' },
+        { code: 'INET-060233120', name: 'การพัฒนาระบบสารสนเทศแบบครบองค์ประกอบ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233207', name: 'การประยุกต์ใช้การเรียนรู้ของเครื่องจักร', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233215*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233218*', name: 'โครงสร้างพื้นฐานคลาวด์สําหรับซอฟต์แวร์และบริการ', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-0602333xx    ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
 
       ],
       '2-2': [
-        { code: 'INET-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'core' },
-        { code: 'INET-060233119', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
-        { code: 'INET-060233204', name: 'การออกแบบและการจัดทําเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'INET-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general' },
-        { code: 'INET-060233214*', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general' },
-        { code: 'INET-060233216* ', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 1, category: 'general' },
-        { code: 'INET-080xxxxxx     ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' }
+        { code: 'INET-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233119', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233204', name: 'การออกแบบและการจัดทําเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233209', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233214*', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233216* ', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-080xxxxxx     ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '2-3': [
-        { code: 'INET-060233403', name: 'การฝึกงาน', credits: 1, category: 'core' }
+        { code: 'INET-060233403', name: 'การฝึกงาน', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '3-1': [
-        { code: 'INET-060233118', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
-        { code: 'INET-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' },
-        { code: 'INET-060233217*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 3', credits: 1, category: 'core' },
-        { code: 'INET-060233220', name: 'การประมวลผลภาษาธรรมชาติ', credits: 3, category: 'general' },
-        { code: 'INET-060233221*', name: 'ความปลอดภัยและความเป็นส่วนตัวของข้อมูล', credits: 3, category: 'general' },
-        { code: 'INET-0602333xx     ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' },
-        { code: 'INET-060233404   ', name: 'การเตรียมโครงงานพิเศษวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general' }
+        { code: 'INET-060233118', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233217*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 3', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233220', name: 'การประมวลผลภาษาธรรมชาติ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233221*', name: 'ความปลอดภัยและความเป็นส่วนตัวของข้อมูล', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-0602333xx     ', name: 'วิชาเลือกกลุ่มวิชาชีพ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233404   ', name: 'การเตรียมโครงงานพิเศษวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '3-2': [
-        { code: 'INET-060233206', name: 'การจัดการเครือข่ายเบื้องต้นและเครื่องมือ', credits: 3, category: 'core' },
-        { code: 'INET-060233212*', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core' },
-        { code: 'INET-060233219*', name: 'การออกแบบและการประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'core' },
-        { code: 'INET-060233405', name: 'โครงงานพิเศษวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'general' },
-        { code: 'INET-xxxxxxxxx     ', name: 'วิชาเลือกเสรี ', credits: 3, category: 'general' }
+        { code: 'INET-060233206', name: 'การจัดการเครือข่ายเบื้องต้นและเครื่องมือ', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233212*', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-060233219*', name: 'การออกแบบและการประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INET-060233405', name: 'โครงงานพิเศษวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INET-xxxxxxxxx     ', name: 'วิชาเลือกเสรี ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
 
     }
@@ -438,131 +438,131 @@ const courseDatabase: ProgramData = {
   'ITI': {
     '61': {
       '1-1': [
-        { code: 'ITI-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
-        { code: 'ITI-060223110', name: 'ทักษะคอมพิวเตอร์เบื้องต้น', credits: 2, category: 'core' },
-        { code: 'ITI-060223111', name: 'ดิจิทัลอิเล็กทรอนิกส์', credits: 3, category: 'core' },
-        { code: 'ITI-060223112', name: 'ปฏิบัติการดิจิทัลอิเล็กทรอนิกส์', credits: 1, category: 'general' },
-        { code: 'ITI-060223113', name: 'การโปรแกรมโครงสร้าง', credits: 3, category: 'general' },
-        { code: 'ITI-060223114', name: 'ปฏิบัติการโปรแกรมโครงสร้าง', credits: 1, category: 'general' },        { code: 'TH101', name: 'Thai Language and Culture', credits: 2, category: 'general' },
-        { code: 'ITI-060223115', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'general' },
-        { code: 'ITI-080103061', name: 'การใช้ภาษาอังกฤษ 1', credits: 3, category: 'general' }
+        { code: 'ITI-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-060223110', name: 'ทักษะคอมพิวเตอร์เบื้องต้น', credits: 2, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223111', name: 'ดิจิทัลอิเล็กทรอนิกส์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223112', name: 'ปฏิบัติการดิจิทัลอิเล็กทรอนิกส์', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223113', name: 'การโปรแกรมโครงสร้าง', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-060223114', name: 'ปฏิบัติการโปรแกรมโครงสร้าง', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},        { code: 'TH101', name: 'Thai Language and Culture', credits: 2, category: 'general' },
+        { code: 'ITI-060223115', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-080103061', name: 'การใช้ภาษาอังกฤษ 1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
       '1-2': [
-        { code: 'ITI-060223116', name: 'การโปรแกรมเชิงวัตถุ', credits: 3, category: 'core' },
-        { code: 'ITI-060223117', name: 'ปฏิบัติการโปรแกรมเชิงวัตถุ', credits: 1, category: 'major' },
-        { code: 'ITI-060223118', name: 'ปฏิบัติการพัฒนาเว็บแอพพลิเคชั่น', credits: 3, category: 'core' },
-        { code: 'ITI-060223120', name: 'สถาปัตยกรรมคอมพิวเตอร์และองค์ประกอบ', credits: 3, category: 'general' },
-        { code: 'ITI-060223121', name: 'การศึกษาโครงงานเทคโนโลยีสารสนเทศ', credits: 1, category: 'general' },
-        { code: 'ITI-060223123', name: 'ระบบฐานข้อมูล', credits: 3, category: 'general' },
-        { code: 'ITI-060223124', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general' },
-        { code: 'ITI-080103062', name: 'การใช้ภาษาอังกฤษ 2', credits: 3, category: 'general' }
+        { code: 'ITI-060223116', name: 'การโปรแกรมเชิงวัตถุ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-060223117', name: 'ปฏิบัติการโปรแกรมเชิงวัตถุ', credits: 1, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223118', name: 'ปฏิบัติการพัฒนาเว็บแอพพลิเคชั่น', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223120', name: 'สถาปัตยกรรมคอมพิวเตอร์และองค์ประกอบ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223121', name: 'การศึกษาโครงงานเทคโนโลยีสารสนเทศ', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223123', name: 'ระบบฐานข้อมูล', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223124', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-080103062', name: 'การใช้ภาษาอังกฤษ 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '1-3': [
-        { code: 'ITI-060223129', name: 'การฝึกปฏิบัติงาน', credits: 2, category: 'core' }
+        { code: 'ITI-060223129', name: 'การฝึกปฏิบัติงาน', credits: 2, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
       '2-1': [
-        { code: 'ITI-040xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'core' },
-        { code: 'ITI-08xxxxxxx', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'major' },
-        { code: 'ITI-060223122', name: 'โครงงานพิเศษเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
-        { code: 'ITI-060223119', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'general' },
-        { code: 'ITI-060223125', name: 'ระบบปฏิบัติการคอมพิวเตอร์', credits: 3, category: 'general' },
-        { code: 'ITI-060223126', name: 'รสัมมนาเทคโนโลยีสารสนเทศ', credits: 1, category: 'general' },
-        { code: 'ITI-060223127', name: 'การพัฒนาโปรแกรมประยุกต์สำหรับสถาปัตยกรรมแบบโอเพ่นซอร์ส', credits: 3, category: 'general' },
-        { code: 'ITI-060223xxx', name: 'วิชาเลือก 1', credits: 3, category: 'general' }
+        { code: 'ITI-040xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-08xxxxxxx', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'major' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223122', name: 'โครงงานพิเศษเทคโนโลยีสารสนเทศ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-060223119', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-060223125', name: 'ระบบปฏิบัติการคอมพิวเตอร์', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223126', name: 'รสัมมนาเทคโนโลยีสารสนเทศ', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223127', name: 'การพัฒนาโปรแกรมประยุกต์สำหรับสถาปัตยกรรมแบบโอเพ่นซอร์ส', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223xxx', name: 'วิชาเลือก 1', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '2-2': [
-        { code: 'ITI-060223128', name: 'หัวข้อเฉพาะเรื่องทางเทคโนโลยีสารสนเทศเพื่ออุตสาหกรรม', credits: 3, category: 'major', prerequisites: ['ITI201', 'ITI202'] },
-        { code: 'ITI-060223xxx ', name: 'วิชาเลือก 2', credits: 3, category: 'major', prerequisites: ['ITI203', 'ITI204'] },
-        { code: 'ITI-060223xxx  ', name: 'วิชาเลือก 3', credits: 3, category: 'core', prerequisites: ['ITI203', 'MT201'] },
-        { code: 'ITI-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'major', prerequisites: ['ITI205'] },
-        { code: 'ITI-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core', prerequisites: ['MT201'] },
-        { code: 'ITI-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา', credits:3, category: 'general', prerequisites: ['EN201'] }
+        { code: 'ITI-060223128', name: 'หัวข้อเฉพาะเรื่องทางเทคโนโลยีสารสนเทศเพื่ออุตสาหกรรม', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITI201', 'ITI202'] },
+        { code: 'ITI-060223xxx ', name: 'วิชาเลือก 2', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITI203', 'ITI204'] },
+        { code: 'ITI-060223xxx  ', name: 'วิชาเลือก 3', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITI203', 'MT201'] },
+        { code: 'ITI-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITI205'] },
+        { code: 'ITI-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['MT201'] },
+        { code: 'ITI-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา', credits:3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['EN201'] }
       ],
 
     },
     '66': {
       '1-1': [
-        { code: 'ITI-060223130', name: 'ทักษะคอมพิวเตอร์เบื้องตอน', credits: 1, category: 'core' },
-        { code: 'ITI-060223111*', name: 'ดิจิทัลอิเล็กทรอนิกส์', credits: 3, category: 'core' },
-        { code: 'ITI-060223112', name: 'ปฏิบัติการดิจิทัลอิเล็กทรอนิกส์', credits: 1, category: 'core' },
-        { code: 'ITI-060223131*', name: 'การโปรแกรมโครงสร้าง', credits: 2, category: 'general' },
-        { code: 'ITI-060223114', name: 'ปฏิบัติการโปรแกรมโครงสร้าง', credits: 1, category: 'general' },
-        { code: 'ITI-060223123*', name: 'ระบบฐานข้อมูล', credits: 3, category: 'general' },
-        { code: 'ITI-080103061', name: 'การใช้ภาษาอังกฤษ 1', credits: 3, category: 'general' },
-        { code: 'ITI-040xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'general' }
+        { code: 'ITI-060223130', name: 'ทักษะคอมพิวเตอร์เบื้องตอน', credits: 1, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-060223111*', name: 'ดิจิทัลอิเล็กทรอนิกส์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223112', name: 'ปฏิบัติการดิจิทัลอิเล็กทรอนิกส์', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223131*', name: 'การโปรแกรมโครงสร้าง', credits: 2, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223114', name: 'ปฏิบัติการโปรแกรมโครงสร้าง', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223123*', name: 'ระบบฐานข้อมูล', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-080103061', name: 'การใช้ภาษาอังกฤษ 1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-040xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '1-2': [
-        { code: 'ITI-060223115', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'core' },
-        { code: 'ITI-060223132', name: 'การโปรแกรมเชิงวัตถุ', credits: 2, category: 'core' },
-        { code: 'ITI-060223117', name: 'ปฏิบัติการโปรแกรมเชิงวัตถุ', credits: 1, category: 'core' },
-        { code: 'ITI-060223119', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'general' },
-        { code: 'ITI-060223135*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 3, category: 'general' },
-        { code: 'ITI-060223136', name: 'การศึกษาโครงงานเทคโนโลยีสารสนเทศ', credits: 2, category: 'general' },
-        { code: 'ITI-080103062', name: 'การใชภาษาอังกฤษ 2', credits: 3, category: 'general' },
-        { code: 'ITI-080xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาบูรณาการ', credits: 3, category: 'general' }
+        { code: 'ITI-060223115', name: 'การวิเคราะห์และออกแบบระบบ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-060223132', name: 'การโปรแกรมเชิงวัตถุ', credits: 2, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223117', name: 'ปฏิบัติการโปรแกรมเชิงวัตถุ', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223119', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223135*', name: 'สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223136', name: 'การศึกษาโครงงานเทคโนโลยีสารสนเทศ', credits: 2, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-080103062', name: 'การใชภาษาอังกฤษ 2', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-080xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาบูรณาการ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '1-3': [
-        { code: 'ITI-060223129', name: 'การฝึกปฏิบัติงาน', credits: 2, category: 'core' }
+        { code: 'ITI-060223129', name: 'การฝึกปฏิบัติงาน', credits: 2, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
       ],
       '2-1': [
-        { code: 'ITI-060223124', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'ITI-060223133*', name: 'การพัฒนาเว็บแอปพลิเคชัน', credits: 2, category: 'core' },
-        { code: 'ITI-060223134', name: 'ปฏิบัติการพัฒนาเว็บแอปพลิเคชัน', credits: 1, category: 'core' },
-        { code: 'ITI-060223137', name: 'โครงงานพิเศษเทคโนโลยีสารสนเทศ', credits: 4, category: 'general' },
-        { code: 'ITI-08xxxxxxx', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general' },
-        { code: 'ITI-0602232xx', name: 'วิชาเลือก', credits: 3, category: 'general' },
-        { code: 'ITI-xxxxxxxxx', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' }
+        { code: 'ITI-060223124', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223133*', name: 'การพัฒนาเว็บแอปพลิเคชัน', credits: 2, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223134', name: 'ปฏิบัติการพัฒนาเว็บแอปพลิเคชัน', credits: 1, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-060223137', name: 'โครงงานพิเศษเทคโนโลยีสารสนเทศ', credits: 4, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-08xxxxxxx', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-0602232xx', name: 'วิชาเลือก', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-xxxxxxxxx', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
       '2-2': [
-        { code: 'ITI-060223126', name: 'สัมมนาเทคโนโลยีสารสนเทศ', credits: 1, category: 'core' },
-        { code: 'ITI-060223127', name: 'การพัฒนาโปรแกรมประยุกต์สําหรับสถาปัตยกรรมแบบโอเพ่นซอร์ส', credits: 3, category: 'core' },
-        { code: 'ITI-060223128', name: 'หัวข้อเฉพาะเรื่องทางเทคโนโลยีสารสนเทศเพื่ออุตสาหกรรม', credits: 3, category: 'core' },
-        { code: 'ITI-060223138*', name: 'อินเทอร์เน็ตในทุกสิ่งและระบบอัจฉริยะ', credits: 3, category: 'general' },
-        { code: 'ITI-060223139', name: 'ปฏิบัติการอินเทอร์เน็ตในทุกสิ่งและระบบอัจฉริยะ', credits: 1, category: 'general' },
-        { code: 'ITI-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา', credits: 3, category: 'general' },
-        { code: 'ITI-0602232xx  ', name: 'วิชาเลือก', credits: 3, category: 'general' },
-        { code: 'ITI-xxxxxxxxx      ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' }
+        { code: 'ITI-060223126', name: 'สัมมนาเทคโนโลยีสารสนเทศ', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223127', name: 'การพัฒนาโปรแกรมประยุกต์สําหรับสถาปัตยกรรมแบบโอเพ่นซอร์ส', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223128', name: 'หัวข้อเฉพาะเรื่องทางเทคโนโลยีสารสนเทศเพื่ออุตสาหกรรม', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-060223138*', name: 'อินเทอร์เน็ตในทุกสิ่งและระบบอัจฉริยะ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-060223139', name: 'ปฏิบัติการอินเทอร์เน็ตในทุกสิ่งและระบบอัจฉริยะ', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITI-0602232xx  ', name: 'วิชาเลือก', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITI-xxxxxxxxx      ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
       ],
     }
   },
   'ITT': {
     '67': {
       '1-1': [
-        { code: 'ITT-060243102', name: 'การโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'ITT-060243105', name: 'ความรู้พื้นฐานในการออกแบบกราฟิก', credits: 3, category: 'core' },
-        { code: 'ITT-060243108*', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core' },
-        { code: 'ITT-060243124', name: 'ธุรกิจดิจิทัลเบื้องต้น', credits: 3, category: 'core' },
-        { code: 'ITT-080103063', name: 'การใช้ภาษาอังกฤษ', credits: 3, category: 'core' },
-        { code: 'ITT-xxxxxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'elective' },
-        { code: 'ITT-xxxxxxxxx ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'elective' }                       
+        { code: 'ITT-060243102', name: 'การโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITT-060243105', name: 'ความรู้พื้นฐานในการออกแบบกราฟิก', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITT-060243108*', name: 'ระบบฐานข้อมูล', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITT-060243124', name: 'ธุรกิจดิจิทัลเบื้องต้น', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITT-080103063', name: 'การใช้ภาษาอังกฤษ', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITT-xxxxxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'elective', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITT-xxxxxxxxx ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'elective', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }                       
       ],
       '1-2': [
-        { code: 'ITT-060243104*', name: 'การเขียนโปรแกรมเชิงวัตถุ', credits: 3, category: 'core' },
-        { code: 'ITT-060243115*', name: 'การออกแบบจากประสบการณ์ผู้ใช้', credits: 3, category: 'major' },
-        { code: 'ITT-060243122', name: 'เว็บแอปพลิเคชัน', credits: 3, category: 'core' },
-        { code: 'ITT-060243112', name: 'การวิเคราะหและออกแบบระบบ', credits: 3, category: 'major' },
-        { code: 'ITT-060243123', name: 'เครือข่ายคอมพิวเตอร์และอินเทอร์เน็ต', credits: 3, category: 'major' },
-        { code: 'ITT-060243119', name: 'การบริหารโครงการเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
-        { code: 'ITT-060243708', name: 'กระบวนการทางธุรกิจเชิงอิเล็กทรอนิกส์', credits: 3, category: 'major' }       
+        { code: 'ITT-060243104*', name: 'การเขียนโปรแกรมเชิงวัตถุ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITT-060243115*', name: 'การออกแบบจากประสบการณ์ผู้ใช้', credits: 3, category: 'major' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITT-060243122', name: 'เว็บแอปพลิเคชัน', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITT-060243112', name: 'การวิเคราะหและออกแบบระบบ', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITT-060243123', name: 'เครือข่ายคอมพิวเตอร์และอินเทอร์เน็ต', credits: 3, category: 'major' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITT-060243119', name: 'การบริหารโครงการเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'ITT-060243708', name: 'กระบวนการทางธุรกิจเชิงอิเล็กทรอนิกส์', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }       
 
       ],
       '2-1': [
-        { code: 'ITT-060243116*', name: 'อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'major', prerequisites: ['ITT-060243104*'] },
-        { code: 'ITT-060243106*', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'core', prerequisites: ['ITT-060243108*'] },
-        { code: 'ITT-060243707', name: 'การโปรแกรมคอมพิวเตอร์ทางธุรกิจ', credits: 3, category: 'major' },
-        { code: 'ITT-060243718', name: 'การวิเคราะห์ธุรกิจ', credits: 3, category: 'major' },
-        { code: 'ITT-060243706', name: 'โปรแกรมประยุกต์การวางแผนทรัพยากรองค์กร', credits: 3, category: 'major', prerequisites: ['ITT-060243124'] },
-        { code: 'ITT-060243118', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general', prerequisites: ['ITT-080103063'] },
-        { code: 'ITT-060243111*', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'general', prerequisites: ['ITT-080103063'] }
+        { code: 'ITT-060243116*', name: 'อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243104*'] },
+        { code: 'ITT-060243106*', name: 'โครงสร้างข้อมูลและขั้นตอนวิธี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243108*'] },
+        { code: 'ITT-060243707', name: 'การโปรแกรมคอมพิวเตอร์ทางธุรกิจ', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITT-060243718', name: 'การวิเคราะห์ธุรกิจ', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'ITT-060243706', name: 'โปรแกรมประยุกต์การวางแผนทรัพยากรองค์กร', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243124'] },
+        { code: 'ITT-060243118', name: 'การพัฒนาโปรแกรมประยุกต์บนอุปกรณ์เคลื่อนที่', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-080103063'] },
+        { code: 'ITT-060243111*', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-080103063'] }
       ],
       '2-2': [
-        { code: 'ITT-060243716', name: 'หัวข้อเฉพาะเรื่องทางธุรกิจดิจิทัล', credits: 3, category: 'major', prerequisites: ['ITT-060243201', 'ITT-060243202'] },
-        { code: 'ITT-060243717', name: 'การประยุกต์คอมพิวเตอร์เพื่องานธุรกิจ', credits: 3, category: 'major', prerequisites: ['ITT-060243202'] },
-        { code: 'ITT-060243705', name: 'ระบบอัจฉริยะเชิงธุรกิจ', credits: 3, category: 'elective', prerequisites: ['ITT-060243203'] },
-        { code: 'ITT-060243202', name: 'โครงงานเทคโนโลยีสารสนเทศ 1', credits: 3, category: 'major', prerequisites: ['ITT-060243708'] },
-        { code: 'ITT-xxxxxxxxx  ', name: 'วิชาเลือกเสรี', credits: 3, category: 'major', prerequisites: ['ITT-060243115*'] },
-        { code: 'ITT-xxxxxxxxx   ', name: 'วิชาเลือกเสรี', credits: 3, category: 'major', prerequisites: ['ITT-060243119'] },
-        { code: 'ITT-xxxxxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'major', prerequisites: ['ITT-060243119'] }
+        { code: 'ITT-060243716', name: 'หัวข้อเฉพาะเรื่องทางธุรกิจดิจิทัล', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243201', 'ITT-060243202'] },
+        { code: 'ITT-060243717', name: 'การประยุกต์คอมพิวเตอร์เพื่องานธุรกิจ', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243202'] },
+        { code: 'ITT-060243705', name: 'ระบบอัจฉริยะเชิงธุรกิจ', credits: 3, category: 'elective', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243203'] },
+        { code: 'ITT-060243202', name: 'โครงงานเทคโนโลยีสารสนเทศ 1', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243708'] },
+        { code: 'ITT-xxxxxxxxx  ', name: 'วิชาเลือกเสรี', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243115*'] },
+        { code: 'ITT-xxxxxxxxx   ', name: 'วิชาเลือกเสรี', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243119'] },
+        { code: 'ITT-xxxxxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243119'] }
       ]
     }
   }
@@ -584,13 +584,10 @@ export const generateCoursesForSemester = (
     
     if (semesterCourses && Array.isArray(semesterCourses)) {
       return semesterCourses.map((course) => {
-        const baseDescription = course.description ?? `รายละเอียดของ ${course.name} สำหรับหลักสูตร ${programCode} ${curriculumYear}`;
-        const categoryNoteParts: string[] = [];
-        if (course.mainCategory) categoryNoteParts.push(`หมวด: ${course.mainCategory}`);
-        if (course.subCategory) categoryNoteParts.push(`กลุ่ม: ${course.subCategory}`);
-        const finalDescription = categoryNoteParts.length
-          ? `${baseDescription} (${categoryNoteParts.join(' / ')})`
-          : baseDescription;
+        const baseDescription = course.description ?? '';
+        const mainCategory = course.mainCategory ?? '';
+        const subCategory = course.subCategory ?? '';
+        const finalDescription = baseDescription;
 
         return {
           id: `${course.code}-${curriculumYear}`,
@@ -601,8 +598,8 @@ export const generateCoursesForSemester = (
           prerequisites: course.prerequisites || [],
           corequisites: course.corequisites || [],
           category: course.category,
-          mainCategory: course.mainCategory,
-          subCategory: course.subCategory,
+          mainCategory,
+          subCategory,
           semester,
           year,
           isActive: true
@@ -620,10 +617,12 @@ export const generateCoursesForSemester = (
       code: `${programCode}${courseNumber}`,
       name: `Course ${i} - Year ${year} Semester ${semester}`,
       credits: Math.floor(Math.random() * 3) + 1,
-      description: `Description for ${programCode} course in Year ${year}, Semester ${semester}`,
+      description: '',
       prerequisites: [],
       corequisites: [],
       category: (i <= 3 ? 'core' : (i <= 5 ? 'major' : 'elective')) as 'core' | 'major' | 'elective' | 'general',
+      mainCategory: '',
+      subCategory: '',
       semester,
       year,
       isActive: true

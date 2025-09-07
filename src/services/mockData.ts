@@ -368,6 +368,19 @@ export const mockDepartments: Department[] = [
   }
 ];
 
+// Normalize: set description, mainCategory, subCategory to empty strings for every course
+for (const department of mockDepartments) {
+  for (const curriculum of department.curricula) {
+    for (const semester of curriculum.semesters) {
+      for (const course of semester.courses as Array<Course & { mainCategory?: string; subCategory?: string }>) {
+        course.description = '';
+        (course as any).mainCategory = '';
+        (course as any).subCategory = '';
+      }
+    }
+  }
+}
+
 // Legacy Mock Courses for backward compatibility
 export const mockCourses: Course[] = mockDepartments.flatMap(dept => 
   dept.curricula.flatMap(curr => 
