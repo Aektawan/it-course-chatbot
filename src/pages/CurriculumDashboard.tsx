@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { mockDepartments } from '@/services/mockData';
 import { 
   BookOpen, 
@@ -20,6 +21,8 @@ const CurriculumDashboard: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCurriculum, setSelectedCurriculum] = useState<string>('');
   const [selectedSemester, setSelectedSemester] = useState<string>('');
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
 
   // Create curriculum options with fixed order
   const curriculumOptions = useMemo(() => {
@@ -89,6 +92,17 @@ const CurriculumDashboard: React.FC = () => {
     );
   }, [selectedSemesterCourses, searchTerm]);
 
+  // Summary stats based on currently displayed (filtered) courses
+  const summaryStats = useMemo(() => {
+    const displayed = filteredCourses as any[];
+    const displayedCount = displayed.length;
+    const totalCredits = displayed.reduce((sum, c) => sum + (c.credits || 0), 0);
+    const specialized = displayed.filter((c) => c.mainCategory === 'หมวดวิชาเฉพาะ').length;
+    const general = displayed.filter((c) => c.mainCategory === 'หมวดวิชาศึกษาทั่วไป').length;
+    const freeElective = displayed.filter((c) => c.mainCategory === 'หมวดวิชาเลือกเสรี').length;
+    return { displayedCount, totalCredits, specialized, general, freeElective };
+  }, [filteredCourses]);
+
   const getCategoryBadge = (category: string) => {
     switch (category) {
       case 'core': return <Badge variant="default">วิชาแกน</Badge>;
@@ -98,6 +112,7 @@ const CurriculumDashboard: React.FC = () => {
       default: return <Badge variant="outline">{category}</Badge>;
     }
   };
+
 
   return (
     <div className="min-h-screen p-6 gradient-subtle">
@@ -191,32 +206,36 @@ const CurriculumDashboard: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-4 gap-4 text-center">
+              <div className="grid md:grid-cols-5 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-primary">
-                    {selectedCurriculumData.curriculum.duration}
+                    {summaryStats.displayedCount}
                   </div>
-                  <div className="text-sm text-muted-foreground">ปีการศึกษา</div>
+                  <div className="text-sm text-muted-foreground">รายวิชาที่แสดง</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-secondary">
-                    {selectedCurriculumData.curriculum.totalCredits}
+                    {summaryStats.totalCredits}
                   </div>
                   <div className="text-sm text-muted-foreground">หน่วยกิตรวม</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-success">
-                    {selectedCurriculumData.curriculum.semesters.length}
+                    {summaryStats.specialized}
                   </div>
-                  <div className="text-sm text-muted-foreground">เทอมทั้งหมด</div>
+                  <div className="text-sm text-muted-foreground">วิชาเฉพาะ</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-warning">
-                    {selectedCurriculumData.curriculum.semesters.reduce(
-                      (total, sem) => total + sem.courses.length, 0
-                    )}
+                    {summaryStats.general}
                   </div>
-                  <div className="text-sm text-muted-foreground">รายวิชาทั้งหมด</div>
+                  <div className="text-sm text-muted-foreground">วิชาศึกษาทั่วไป</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold">
+                    {summaryStats.freeElective}
+                  </div>
+                  <div className="text-sm text-muted-foreground">วิชาเลือกเสรี</div>
                 </div>
               </div>
             </CardContent>
@@ -319,7 +338,7 @@ const CurriculumDashboard: React.FC = () => {
                         {course.isActive ? 'เปิดสอน' : 'ปิดสอน'}
                       </Badge>
                       
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" onClick={() => { setSelectedCourse(course); setDetailOpen(true); }}>
                         ดูรายละเอียด
                       </Button>
                     </div>
@@ -369,6 +388,24 @@ const CurriculumDashboard: React.FC = () => {
           </Card>
         )}
       </div>
+      {/* Detail Modal */}
+      <Dialog open={detailOpen} onOpenChange={setDetailOpen}>
+        <DialogContent>
+          {selectedCourse && (
+            <>
+              <DialogHeader>
+                <DialogTitle>{selectedCourse.code} - {selectedCourse.name}</DialogTitle>
+                <DialogDescription>
+                  {(selectedCourse as any).subCategory && (
+                    <p className="font-medium text-foreground">{(selectedCourse as any).subCategory}</p>
+                  )}
+                  <p className="mt-2 whitespace-pre-line">{selectedCourse.description}</p>
+                </DialogDescription>
+              </DialogHeader>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

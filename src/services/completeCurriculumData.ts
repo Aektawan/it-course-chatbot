@@ -6,8 +6,23 @@ interface CourseData {
   name: string;
   credits: number;
   category: 'core' | 'major' | 'elective' | 'general';
+  mainCategory?:
+    | 'หมวดวิชาศึกษาทั่วไป'
+    | 'หมวดวิชาเฉพาะ'
+    | 'หมวดวิชาเลือกเสรี';
+  subCategory?:
+    | 'กลุ่มวิชาภาษา'
+    | 'กลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์'
+    | 'กลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์'
+    | 'กลุ่มวิชากีฬาและนันทนาการ'
+    | 'กลุ่มวิชาบูรณาการ'
+    | 'กลุ่มวิชาเลือกในหมวดศึกษาทั่วไป'
+    | 'กลุ่มวิชาแกน'
+    | 'กลุ่มวิชาชีพ'
+    | 'กลุ่มวิชาฝึกงาน/สหกิจศึกษา';
   prerequisites?: string[];
   corequisites?: string[];
+  description?: string;
 }
 
 interface SemesterData {
@@ -27,13 +42,13 @@ const courseDatabase: ProgramData = {
   'IT': {
     '62': {
       '1-1': [
-        { code: 'IT-060243101', name: 'เทคโนโลยีสารสนเทศเบื้องต้น', credits: 3, category: 'core' },
-        { code: 'IT-060243102', name: 'การโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' },
-        { code: 'IT-060243103', name: 'การแก้ปัญหาทางด้านเทคโนโลยีสารสนเทศ', credits: 3, category: 'core' },
-        { code: 'IT-080103001', name: 'ภาษาอังกฤษ 1', credits: 3, category: 'general' },
-        { code: 'IT-040XXXXXX', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'general' },
-        { code: 'IT-080XXXXXX', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general' },
-        { code: 'IT-080XXXXXX ', name: 'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ', credits: 1, category: 'general' }
+        { code: 'IT-060243101', name: 'เทคโนโลยีสารสนเทศเบื้องต้น', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', description: 'วิวัฒนาการของเทคโนโลยีสารสนเทศ องค์ประกอบของระบบคอมพิวเตอร์ ระบบประมวลผลข้อมูล ฮาร์ดแวร์และซอฟต์แวร์ ภาพรวมการทำงานของระบบปฏิบัติการ ข้อมูลและการแทนค่าข้อมูล การจัดการข้อมูล แนวคิดพื้นฐานสำหรับการเขียนโปรแกรม เทคโนโลยีฐานข้อมูล การสื่อสารข้อมูล ระบบเครือข่ายคอมพิวเตอร์และอินเทอร์เน็ต ประเด็นทางด้านจริยธรรมและสังคมด้านเทคโนโลยีสารสนเทศ' },
+        { code: 'IT-060243102', name: 'การโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', description: 'ภาษาที่ใช้ในการพัฒนาโปรแกรมในเชิงโครงสร้าง คำสั่ง ประเภทข้อมูล ตัวแปร ตัวดำเนินการ โครงสร้างการตัดสินใจ โครงสร้างการวนรอบ ฟังก์ชันและฟังก์ชันแบบกำหนดเอง อาร์เรย์ แฟ้มข้อมูล และการฝึกปฏิบัติเขียนโปรแกรมคอมพิวเตอร์'},
+        { code: 'IT-060243103', name: 'การแก้ปัญหาทางด้านเทคโนโลยีสารสนเทศ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', description: 'กลยุทธ์และหลักการแก้ปัญหา การคิดแบบขั้นตอนวิธี ผังงาน การใช้เหตุผลและการแก้ปัญหาด้วยตรรกศาสตร์ การแก้ปัญหาเชิงโครงสร้าง ฟังก์ชัน เรคคอร์ด การประมวลผลอาร์เรย์และแฟ้มข้อมูล และการฝึกปฏิบัติเขียนโปรแกรมคอมพิวเตอร์'},
+        { code: 'IT-080103001', name: 'ภาษาอังกฤษ 1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาภาษา', description: 'การบูรณาการทักษะการฟัง การพูด การอ่าน และการเขียนในระดับพื้นฐาน เพื่อประยุกต์ใช้ในชีวิตประจำวันโดยคำนึงถึงความหลากหลายทางวัฒนธรรมของการใช้ภาษา ผ่านการเรียนรู้คำศัพท์และไวยากรณ์จากบทสนทนา บทความเชิงวิชาการและบทความทั่วไป การเขียนประโยคและย่อหน้าที่มีโครงสร้างไม่ซับซ้อน และการฝึกทักษะเพิ่มเติมที่ศูนย์การเรียนรู้แบบพึ่งตนเองผ่านสื่ออิเล็กทรอนิกส์'},
+        { code: 'IT-040XXXXXX', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์' },
+        { code: 'IT-080XXXXXX', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์' },
+        { code: 'IT-080XXXXXX ', name: 'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ', credits: 1, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชากีฬาและนันทนาการ' }
       ],
       '1-2': [
         { code: 'IT-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' },
@@ -77,7 +92,7 @@ const courseDatabase: ProgramData = {
         { code: 'IT-080XXXXXX     ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' }
       ],
       '3-3': [
-        { code: 'IT-060243901', name: 'การฝึกงานทางเทคโนโลยีสารสนเทศ', credits: 6, category: 'core' }
+        { code: 'IT-060243201', name: 'การฝึกงาน', credits: 2, category: 'core' }
       ],
       '4-1': [
         { code: 'IT-060243120', name: 'ความปลอดภัยระบบสารสนเทศ', credits: 3, category: 'core' },
@@ -140,7 +155,7 @@ const courseDatabase: ProgramData = {
         { code: 'IT-060xxxxxx          ', name: 'วิชาเลือกในกลุ่มวิชาชีพ', credits: 3, category: 'general' },
       ],
       '3-3': [
-        { code: 'IT-060243901', name: 'การฝึกงานทางเทคโนโลยีสารสนเทศ', credits: 6, category: 'core' }
+        { code: 'IT-060243204', name: 'การฝึกงาน', credits: 2, category: 'core' }
       ],
       '4-1': [
         { code: 'IT-060243120*', name: 'ความปลอดภัยระบบสารสนเทศ', credits: 3, category: 'core' },
@@ -213,6 +228,9 @@ const courseDatabase: ProgramData = {
         { code: 'INE-0602333xx ', name: 'วิชาเลือกกลุ่มวิชาชีพ 2', credits: 3, category: 'general' },
 
       ],
+      '3-3': [
+        { code: 'INE-060233403', name: 'การฝึกงาน', credits: 2, category: 'core' },
+      ],
       '4-1': [
         { code: 'INE-060233211*', name: 'สถาปัตยกรรมคลาวด์และการใช้งาน', credits: 3, category: 'core' },
         { code: 'INE-060233212', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core' },
@@ -284,6 +302,9 @@ const courseDatabase: ProgramData = {
         { code: 'INE-080203914', name: 'ผู้ประกอบการนวัตกรรม', credits: 3, category: 'general' },
 
       ],
+      '3-3': [
+        { code: 'INE-060233403', name: 'การฝึกงาน', credits: 1, category: 'core' },
+      ],
       '4-1': [
         { code: 'INE-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' },
         { code: 'INE-060233220', name: 'การประมวลภาษาธรรมชาติ', credits: 3, category: 'core' },
@@ -339,7 +360,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060433016', name: 'กระบวนกํารคิดเชิงออกแบบ', credits: 3, category: 'general' }
       ],
       '2-3': [
-        { code: 'INET-060233901', name: 'การฝึกงานทางวิศวกรรมสารสนเทศและเครือข่าย', credits: 6, category: 'core' }
+        { code: 'INET-060233403', name: 'การฝึกงาน', credits: 2, category: 'core' }
       ],
       '3-1': [
         { code: 'INET-060233203*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 3', credits: 1, category: 'core' },
@@ -392,6 +413,9 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233216* ', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 1, category: 'general' },
         { code: 'INET-080xxxxxx     ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' }
       ],
+      '2-3': [
+        { code: 'INET-060233403', name: 'การฝึกงาน', credits: 1, category: 'core' }
+      ],
       '3-1': [
         { code: 'INET-060233118', name: 'วิศวกรรมซอฟต์แวร์', credits: 3, category: 'core' },
         { code: 'INET-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' },
@@ -434,7 +458,7 @@ const courseDatabase: ProgramData = {
         { code: 'ITI-080103062', name: 'การใช้ภาษาอังกฤษ 2', credits: 3, category: 'general' }
       ],
       '1-3': [
-        { code: 'ITI-060223901', name: 'การฝึกงานทางเทคโนโลยีสารสนเทศ', credits: 6, category: 'core' }
+        { code: 'ITI-060223129', name: 'การฝึกปฏิบัติงาน', credits: 2, category: 'core' }
       ],
       '2-1': [
         { code: 'ITI-040xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'core' },
@@ -476,6 +500,9 @@ const courseDatabase: ProgramData = {
         { code: 'ITI-060223136', name: 'การศึกษาโครงงานเทคโนโลยีสารสนเทศ', credits: 2, category: 'general' },
         { code: 'ITI-080103062', name: 'การใชภาษาอังกฤษ 2', credits: 3, category: 'general' },
         { code: 'ITI-080xxxxxx', name: 'วิชาเลือกในกลุ่มวิชาบูรณาการ', credits: 3, category: 'general' }
+      ],
+      '1-3': [
+        { code: 'ITI-060223129', name: 'การฝึกปฏิบัติงาน', credits: 2, category: 'core' }
       ],
       '2-1': [
         { code: 'ITI-060223124', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'core' },
@@ -556,19 +583,31 @@ export const generateCoursesForSemester = (
     const semesterCourses = curriculumData[semesterKey];
     
     if (semesterCourses && Array.isArray(semesterCourses)) {
-      return semesterCourses.map((course) => ({
-        id: `${course.code}-${curriculumYear}`,
-        code: course.code,
-        name: course.name,
-        credits: course.credits,
-        description: `รายละเอียดของ ${course.name} สำหรับหลักสูตร ${programCode} ${curriculumYear}`,
-        prerequisites: course.prerequisites || [],
-        corequisites: course.corequisites || [],
-        category: course.category,
-        semester,
-        year,
-        isActive: true
-      }));
+      return semesterCourses.map((course) => {
+        const baseDescription = course.description ?? `รายละเอียดของ ${course.name} สำหรับหลักสูตร ${programCode} ${curriculumYear}`;
+        const categoryNoteParts: string[] = [];
+        if (course.mainCategory) categoryNoteParts.push(`หมวด: ${course.mainCategory}`);
+        if (course.subCategory) categoryNoteParts.push(`กลุ่ม: ${course.subCategory}`);
+        const finalDescription = categoryNoteParts.length
+          ? `${baseDescription} (${categoryNoteParts.join(' / ')})`
+          : baseDescription;
+
+        return {
+          id: `${course.code}-${curriculumYear}`,
+          code: course.code,
+          name: course.name,
+          credits: course.credits,
+          description: finalDescription,
+          prerequisites: course.prerequisites || [],
+          corequisites: course.corequisites || [],
+          category: course.category,
+          mainCategory: course.mainCategory,
+          subCategory: course.subCategory,
+          semester,
+          year,
+          isActive: true
+        };
+      });
     }
   }
   
