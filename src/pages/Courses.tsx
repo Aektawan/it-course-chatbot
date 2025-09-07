@@ -462,39 +462,32 @@ const Courses: React.FC = () => {
             <CardTitle>สรุปหลักสูตร</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-5 gap-4 text-center">
-              <div>
-                <div className="text-2xl font-bold text-primary">{filteredCourses.length}</div>
-                <div className="text-sm text-muted-foreground">รายวิชา</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-foreground">
-                  {filteredCourses.reduce((sum, course) => sum + course.credits, 0)}
-                </div>
-                <div className="text-sm text-muted-foreground">หน่วยกิตรวม</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-success">
+            <div className="flex justify-center">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-success mb-2">
                   {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาเฉพาะ').length}
                 </div>
-                <div className="text-sm text-muted-foreground">วิชาเฉพาะ</div>
-                <div className="text-xs text-muted-foreground mt-1 space-y-1">
-                  <div>วิชาแกน: {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาแกน').length}</div>
-                  <div>วิชาชีพ: {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาชีพ').length}</div>
-                  <div>วิชาฝึกงาน: {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาฝึกงาน/สหกิจศึกษา').length}</div>
+                <div className="text-lg text-muted-foreground mb-4">วิชาเฉพาะ</div>
+                <div className="grid grid-cols-3 gap-6 text-sm">
+                  <div className="text-center">
+                    <div className="text-xl font-semibold text-primary">
+                      {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาแกน').length}
+                    </div>
+                    <div className="text-muted-foreground">วิชาแกน</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-semibold text-secondary">
+                      {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาชีพ').length}
+                    </div>
+                    <div className="text-muted-foreground">วิชาชีพ</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-semibold text-accent">
+                      {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาฝึกงาน/สหกิจศึกษา').length}
+                    </div>
+                    <div className="text-muted-foreground">วิชาฝึกงาน</div>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-warning">
-                  {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาศึกษาทั่วไป').length}
-                </div>
-                <div className="text-sm text-muted-foreground">วิชาทั่วไป</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-blue-600">
-                  {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาเลือกเสรี').length}
-                </div>
-                <div className="text-sm text-muted-foreground">วิชาเลือกเสรี</div>
               </div>
             </div>
           </CardContent>
