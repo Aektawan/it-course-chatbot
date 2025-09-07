@@ -462,10 +462,10 @@ const Courses: React.FC = () => {
             <CardTitle>สรุปหลักสูตร</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-4 gap-4 text-center">
+            <div className="grid md:grid-cols-5 gap-4 text-center">
               <div>
                 <div className="text-2xl font-bold text-primary">{filteredCourses.length}</div>
-                <div className="text-sm text-muted-foreground">รายวิชาที่แสดง</div>
+                <div className="text-sm text-muted-foreground">รายวิชา</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">
@@ -475,15 +475,21 @@ const Courses: React.FC = () => {
               </div>
               <div>
                 <div className="text-2xl font-bold text-success">
-                  {filteredCourses.filter(c => c.category === 'core').length}
+                  {filteredCourses.filter(c => c.category === 'major').length}
                 </div>
-                <div className="text-sm text-muted-foreground">วิชาแกน</div>
+                <div className="text-sm text-muted-foreground">วิชาเฉพาะ</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-warning">
-                  {filteredCourses.filter(c => c.category === 'major').length}
+                  {filteredCourses.filter(c => c.category === 'general').length}
                 </div>
-                <div className="text-sm text-muted-foreground">วิชาเอก</div>
+                <div className="text-sm text-muted-foreground">วิชาทั่วไป</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-secondary">
+                  {filteredCourses.filter(c => c.category === 'elective').length}
+                </div>
+                <div className="text-sm text-muted-foreground">วิชาเลือกเสรี</div>
               </div>
             </div>
           </CardContent>
