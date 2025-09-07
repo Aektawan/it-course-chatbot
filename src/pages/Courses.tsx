@@ -478,11 +478,6 @@ const Courses: React.FC = () => {
                   {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาเฉพาะ').length}
                 </div>
                 <div className="text-sm text-muted-foreground">วิชาเฉพาะ</div>
-                <div className="text-xs text-muted-foreground mt-1 space-y-1">
-                  <div>วิชาแกน: {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาแกน').length}</div>
-                  <div>วิชาชีพ: {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาชีพ').length}</div>
-                  <div>วิชาฝึกงาน: {filteredCourses.filter(c => c.subCategory === 'กลุ่มวิชาฝึกงาน/สหกิจศึกษา').length}</div>
-                </div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-warning">
