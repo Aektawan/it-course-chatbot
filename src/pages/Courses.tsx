@@ -486,7 +486,7 @@ const Courses: React.FC = () => {
                 <div className="text-sm text-muted-foreground">วิชาทั่วไป</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-secondary">
+                <div className="text-2xl font-bold text-blue-600">
                   {filteredCourses.filter(c => c.category === 'elective').length}
                 </div>
                 <div className="text-sm text-muted-foreground">วิชาเลือกเสรี</div>
