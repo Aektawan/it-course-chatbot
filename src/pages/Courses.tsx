@@ -501,7 +501,7 @@ const Courses: React.FC = () => {
                     <div className="text-sm text-muted-foreground">รายวิชาทั้งหมด</div>
                   </div>
                   <div className="text-center space-y-2 min-h-[80px] bg-secondary/10 rounded-lg flex flex-col justify-center p-4">
-                    <div className="text-2xl font-bold text-secondary">
+                    <div className="text-2xl font-bold text-emerald-600">
                       {filteredCourses.reduce((sum, course) => sum + course.credits, 0)}
                     </div>
                     <div className="text-sm text-muted-foreground">หน่วยกิตรวม</div>
