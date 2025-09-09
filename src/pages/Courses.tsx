@@ -5,9 +5,11 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { mockCourses } from '@/services/mockData';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { mockCourses, mockDepartments } from '@/services/mockData';
 import { useAuth } from '@/contexts/AuthContext';
 import { generateCoursesForSemester } from '@/services/completeCurriculumData';
+import { CurriculumFlowchart } from '@/components/curriculum/CurriculumFlowchart';
 import { 
   BookOpen, 
   Search, 
@@ -15,7 +17,8 @@ import {
   GraduationCap,
   Clock,
   AlertCircle,
-  Info
+  Info,
+  Network
 } from 'lucide-react';
 
 const Courses: React.FC = () => {
@@ -24,6 +27,7 @@ const Courses: React.FC = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string>('all');
   const [selectedCurriculum, setSelectedCurriculum] = useState<string>('all');
   const [selectedSemester, setSelectedSemester] = useState<string>('all');
+  const [activeTab, setActiveTab] = useState<string>('courses');
 
   // Filter curricula based on selected department
   const getAvailableCurricula = () => {
@@ -240,6 +244,23 @@ const Courses: React.FC = () => {
     }
   };
 
+  // Get current curriculum for flowchart
+  const getCurrentCurriculum = () => {
+    if (selectedDepartment === 'all' || selectedCurriculum === 'all') {
+      return null;
+    }
+    
+    const department = mockDepartments.find(dept => dept.code === selectedDepartment);
+    if (!department) return null;
+    
+    const curriculum = department.curricula.find(curr => 
+      curr.name.includes(selectedCurriculum.split(' ')[1])
+    );
+    return curriculum || null;
+  };
+
+  const currentCurriculum = getCurrentCurriculum();
+
   return (
     <div className="min-h-screen p-6 gradient-subtle">
       <div className="container mx-auto space-y-6">
@@ -334,167 +355,201 @@ const Courses: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* Course Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCourses.map((course) => (
-            <Card key={course.id} className="shadow-soft hover:shadow-medium transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <BookOpen className="w-5 h-5 text-primary" />
-                      <span className="font-mono font-bold text-lg">{course.code}</span>
-                    </div>
-                    <CardTitle className="text-lg leading-tight">
-                      {course.name}
-                    </CardTitle>
-                  </div>
-                  <div className="text-right space-y-1">
-                    {getCategoryBadge(course.category)}
-                    <div className="text-sm text-muted-foreground">
-                      {course.credits} หน่วยกิต
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center space-x-1 text-xs text-muted-foreground">
-                  <Clock className="w-3 h-3" />
-                  <span>ภาค {course.semester}/ปี {course.year}</span>
-                </div>
+        {/* Main Content Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="courses" className="flex items-center space-x-2">
+              <BookOpen className="w-4 h-4" />
+              <span>รายวิชา</span>
+            </TabsTrigger>
+            <TabsTrigger value="flowchart" className="flex items-center space-x-2">
+              <Network className="w-4 h-4" />
+              <span>แผนผังหลักสูตร</span>
+            </TabsTrigger>
+          </TabsList>
 
-                {/* Actions */}
-                <div className="flex items-center justify-between pt-2">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button size="sm" variant="outline" className="flex items-center space-x-2">
-                        <Info className="w-4 h-4" />
-                        <span>รายละเอียด</span>
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                      <DialogHeader>
-                        <DialogTitle className="flex items-center space-x-2">
+          <TabsContent value="courses" className="space-y-6">
+            {/* Course Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredCourses.map((course) => (
+                <Card key={course.id} className="shadow-soft hover:shadow-medium transition-all duration-300 hover:-translate-y-1">
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
                           <BookOpen className="w-5 h-5 text-primary" />
-                          <span>{course.code} - {course.name}</span>
-                        </DialogTitle>
-                      </DialogHeader>
-                      <div className="space-y-4">
-                        <div className="flex items-center space-x-4">
-                          {getCategoryBadge(course.category)}
-                          <span className="text-sm text-muted-foreground">{course.credits} หน่วยกิต</span>
-                          <span className="text-sm text-muted-foreground">ภาค {course.semester}/ปี {course.year}</span>
+                          <span className="font-mono font-bold text-lg">{course.code}</span>
                         </div>
-                        
-                        <div>
-                          <h4 className="font-medium mb-2">คำอธิบายรายวิชา</h4>
-                          <p className="text-sm text-muted-foreground leading-relaxed">{course.description}</p>
-                        </div>
-
-                        {course.prerequisites.length > 0 && (
-                          <div>
-                            <h4 className="font-medium mb-2 flex items-center space-x-2">
-                              <AlertCircle className="w-4 h-4" />
-                              <span>วิชาที่ต้องเรียนก่อน</span>
-                            </h4>
-                            <div className="flex flex-wrap gap-2">
-                              {course.prerequisites.map((prereq, index) => (
-                                <Badge key={index} variant="outline">
-                                  {prereq}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {course.corequisites.length > 0 && (
-                          <div>
-                            <h4 className="font-medium mb-2 flex items-center space-x-2">
-                              <AlertCircle className="w-4 h-4" />
-                              <span>วิชาที่ต้องเรียนพร้อมกัน</span>
-                            </h4>
-                            <div className="flex flex-wrap gap-2">
-                              {course.corequisites.map((coreq, index) => (
-                                <Badge key={index} variant="outline">
-                                  {coreq}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {course.instructor && (
-                          <div>
-                            <h4 className="font-medium mb-2">อาจารย์ผู้สอน</h4>
-                            <p className="text-sm text-muted-foreground">{course.instructor}</p>
-                          </div>
-                        )}
+                        <CardTitle className="text-lg leading-tight">
+                          {course.name}
+                        </CardTitle>
                       </div>
-                    </DialogContent>
-                  </Dialog>
-                  
-                  {isAuthenticated && (
-                    <Button size="sm">
-                      เพิ่มในแผน
-                    </Button>
-                  )}
+                      <div className="text-right space-y-1">
+                        {getCategoryBadge(course.category)}
+                        <div className="text-sm text-muted-foreground">
+                          {course.credits} หน่วยกิต
+                        </div>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center space-x-1 text-xs text-muted-foreground">
+                      <Clock className="w-3 h-3" />
+                      <span>ภาค {course.semester}/ปี {course.year}</span>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex items-center justify-between pt-2">
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button size="sm" variant="outline" className="flex items-center space-x-2">
+                            <Info className="w-4 h-4" />
+                            <span>รายละเอียด</span>
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                          <DialogHeader>
+                            <DialogTitle className="flex items-center space-x-2">
+                              <BookOpen className="w-5 h-5 text-primary" />
+                              <span>{course.code} - {course.name}</span>
+                            </DialogTitle>
+                          </DialogHeader>
+                          <div className="space-y-4">
+                            <div className="flex items-center space-x-4">
+                              {getCategoryBadge(course.category)}
+                              <span className="text-sm text-muted-foreground">{course.credits} หน่วยกิต</span>
+                              <span className="text-sm text-muted-foreground">ภาค {course.semester}/ปี {course.year}</span>
+                            </div>
+                            
+                            <div>
+                              <h4 className="font-medium mb-2">คำอธิบายรายวิชา</h4>
+                              <p className="text-sm text-muted-foreground leading-relaxed">{course.description}</p>
+                            </div>
+
+                            {course.prerequisites.length > 0 && (
+                              <div>
+                                <h4 className="font-medium mb-2 flex items-center space-x-2">
+                                  <AlertCircle className="w-4 h-4" />
+                                  <span>วิชาที่ต้องเรียนก่อน</span>
+                                </h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {course.prerequisites.map((prereq, index) => (
+                                    <Badge key={index} variant="outline">
+                                      {prereq}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {course.corequisites.length > 0 && (
+                              <div>
+                                <h4 className="font-medium mb-2 flex items-center space-x-2">
+                                  <AlertCircle className="w-4 h-4" />
+                                  <span>วิชาที่ต้องเรียนพร้อมกัน</span>
+                                </h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {course.corequisites.map((coreq, index) => (
+                                    <Badge key={index} variant="outline">
+                                      {coreq}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {course.instructor && (
+                              <div>
+                                <h4 className="font-medium mb-2">อาจารย์ผู้สอน</h4>
+                                <p className="text-sm text-muted-foreground">{course.instructor}</p>
+                              </div>
+                            )}
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                      
+                      {isAuthenticated && (
+                        <Button size="sm">
+                          เพิ่มในแผน
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* No Results */}
+            {filteredCourses.length === 0 && (
+              <Card className="shadow-medium">
+                <CardContent className="text-center py-12">
+                  <BookOpen className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-lg font-medium mb-2">ไม่พบรายวิชา</h3>
+                  <p className="text-muted-foreground">
+                    ลองเปลี่ยนเงื่อนไขการค้นหาหรือล้างตัวกรอง
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Summary Statistics */}
+            <Card className="shadow-medium">
+              <CardContent className="p-6">
+                <div className="grid grid-cols-5 gap-4">
+                  <div className="text-center space-y-2 min-h-[80px] bg-primary/5 rounded-lg flex flex-col justify-center p-4">
+                    <div className="text-2xl font-bold text-primary">{filteredCourses.length}</div>
+                    <div className="text-sm text-muted-foreground">รายวิชาทั้งหมด</div>
+                  </div>
+                  <div className="text-center space-y-2 min-h-[80px] bg-secondary/10 rounded-lg flex flex-col justify-center p-4">
+                    <div className="text-2xl font-bold text-secondary">
+                      {filteredCourses.reduce((sum, course) => sum + course.credits, 0)}
+                    </div>
+                    <div className="text-sm text-muted-foreground">หน่วยกิตรวม</div>
+                  </div>
+                  <div className="text-center space-y-2 min-h-[80px] bg-blue-50 rounded-lg flex flex-col justify-center p-4">
+                    <div className="text-2xl font-bold text-blue-600">
+                      {filteredCourses.filter(course => course.category === 'major').length}
+                    </div>
+                    <div className="text-sm text-muted-foreground">วิชาเอก</div>
+                  </div>
+                  <div className="text-center space-y-2 min-h-[80px] bg-green-50 rounded-lg flex flex-col justify-center p-4">
+                    <div className="text-2xl font-bold text-green-600">
+                      {filteredCourses.filter(course => course.category === 'general').length}
+                    </div>
+                    <div className="text-sm text-muted-foreground">ศึกษาทั่วไป</div>
+                  </div>
+                  <div className="text-center space-y-2 min-h-[80px] bg-warning/10 rounded-lg flex flex-col justify-center p-4">
+                    <div className="text-2xl font-bold text-warning">
+                      {filteredCourses.filter(course => course.category === 'elective').length}
+                    </div>
+                    <div className="text-sm text-muted-foreground">วิชาเลือก</div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+          </TabsContent>
 
-        {/* No Results */}
-        {filteredCourses.length === 0 && (
-          <Card className="shadow-medium">
-            <CardContent className="text-center py-12">
-              <BookOpen className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-medium mb-2">ไม่พบรายวิชา</h3>
-              <p className="text-muted-foreground">
-                ลองเปลี่ยนเงื่อนไขการค้นหาหรือล้างตัวกรอง
-              </p>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Course Summary */}
-        <Card className="shadow-medium">
-          <CardHeader>
-            <CardTitle>สรุปหลักสูตร</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-5 gap-4 text-center">
-              <div className="flex flex-col items-center justify-center p-4 min-h-[80px]">
-                <div className="text-2xl font-bold text-primary">{filteredCourses.length}</div>
-                <div className="text-sm text-muted-foreground">รายวิชา</div>
-              </div>
-              <div className="flex flex-col items-center justify-center p-4 min-h-[80px]">
-                <div className="text-2xl font-bold text-foreground">
-                  {filteredCourses.reduce((sum, course) => sum + course.credits, 0)}
-                </div>
-                <div className="text-sm text-muted-foreground">หน่วยกิตรวม</div>
-              </div>
-              <div className="flex flex-col items-center justify-center p-4 min-h-[80px]">
-                <div className="text-2xl font-bold text-success">
-                  {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาเฉพาะ').length}
-                </div>
-                <div className="text-sm text-muted-foreground">วิชาเฉพาะ</div>
-              </div>
-              <div className="flex flex-col items-center justify-center p-4 min-h-[80px]">
-                <div className="text-2xl font-bold text-warning">
-                  {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาศึกษาทั่วไป').length}
-                </div>
-                <div className="text-sm text-muted-foreground">วิชาทั่วไป</div>
-              </div>
-              <div className="flex flex-col items-center justify-center p-4 min-h-[80px]">
-                <div className="text-2xl font-bold text-blue-600">
-                  {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาเลือกเสรี').length}
-                </div>
-                <div className="text-sm text-muted-foreground">วิชาเลือกเสรี</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+          <TabsContent value="flowchart" className="space-y-6">
+            {currentCurriculum ? (
+              <CurriculumFlowchart 
+                curriculum={currentCurriculum} 
+                departmentName={mockDepartments.find(dept => dept.code === selectedDepartment)?.nameThai || 'หลักสูตร'}
+              />
+            ) : (
+              <Card className="shadow-medium">
+                <CardContent className="p-12 text-center space-y-4">
+                  <Network className="w-16 h-16 text-muted-foreground mx-auto" />
+                  <h3 className="text-xl font-semibold text-muted-foreground">
+                    เลือกสาขาวิชาและหลักสูตรเพื่อดูแผนผัง
+                  </h3>
+                  <p className="text-muted-foreground">
+                    กรุณาเลือกสาขาวิชาและหลักสูตรปีการศึกษาที่ต้องการดูแผนผังหลักสูตรจากตัวกรองด้านบน
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
