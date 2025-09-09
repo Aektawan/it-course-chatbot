@@ -508,19 +508,19 @@ const Courses: React.FC = () => {
                   </div>
                   <div className="text-center space-y-2 min-h-[80px] bg-blue-50 rounded-lg flex flex-col justify-center p-4">
                     <div className="text-2xl font-bold text-blue-600">
-                      {filteredCourses.filter(course => course.category === 'major').length}
+                      {filteredCourses.filter(course => course.mainCategory === 'หมวดวิชาเฉพาะ').length}
                     </div>
-                    <div className="text-sm text-muted-foreground">วิชาเอก</div>
+                    <div className="text-sm text-muted-foreground">วิชาเฉพาะ</div>
                   </div>
                   <div className="text-center space-y-2 min-h-[80px] bg-green-50 rounded-lg flex flex-col justify-center p-4">
                     <div className="text-2xl font-bold text-green-600">
-                      {filteredCourses.filter(course => course.category === 'general').length}
+                      {filteredCourses.filter(course => course.mainCategory === 'หมวดวิชาศึกษาทั่วไป').length}
                     </div>
-                    <div className="text-sm text-muted-foreground">ศึกษาทั่วไป</div>
+                    <div className="text-sm text-muted-foreground">วิชาทั่วไป</div>
                   </div>
                   <div className="text-center space-y-2 min-h-[80px] bg-warning/10 rounded-lg flex flex-col justify-center p-4">
                     <div className="text-2xl font-bold text-warning">
-                      {filteredCourses.filter(course => course.category === 'elective').length}
+                      {filteredCourses.filter(course => course.mainCategory === 'หมวดวิชาเลือกเสรี').length}
                     </div>
                     <div className="text-sm text-muted-foreground">วิชาเลือกเสรี</div>
                   </div>
