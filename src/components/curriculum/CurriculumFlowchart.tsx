@@ -206,14 +206,14 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
                                           <span>วิชาบังคับก่อน:</span>
                                         </div>
                                         <div className="flex flex-wrap gap-1">
-                                          {prerequisites.slice(0, 2).map((prereq) => (
-                                            <Badge key={prereq.id} variant="outline" className="text-xs px-1 py-0.5">
-                                              {prereq.code.split('-')[1] || prereq.code}
+                                          {prerequisites.slice(0, 1).map((prereq) => (
+                                            <Badge key={prereq.id} variant="outline" className="text-xs px-1 py-0.5 max-w-full truncate">
+                                              <span className="truncate">{prereq.name}</span>
                                             </Badge>
                                           ))}
-                                          {prerequisites.length > 2 && (
+                                          {prerequisites.length > 1 && (
                                             <Badge variant="outline" className="text-xs px-1 py-0.5">
-                                              +{prerequisites.length - 2}
+                                              +{prerequisites.length - 1}
                                             </Badge>
                                           )}
                                         </div>
