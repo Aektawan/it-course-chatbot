@@ -230,12 +230,13 @@ const Courses: React.FC = () => {
   });
 
   const getCategoryBadge = (category: string) => {
+    const baseClasses = "min-w-[90px] text-center whitespace-nowrap text-xs px-3 py-1";
     switch (category) {
-      case 'core': return <Badge variant="default">วิชาแกน</Badge>;
-      case 'major': return <Badge className="bg-secondary text-secondary-foreground">วิชาเอก</Badge>;
-      case 'elective': return <Badge className="bg-warning text-warning-foreground">วิชาเลือก</Badge>;
-      case 'general': return <Badge variant="outline">ศึกษาทั่วไป</Badge>;
-      default: return <Badge variant="outline">{category}</Badge>;
+      case 'core': return <Badge variant="default" className={baseClasses}>วิชาแกน</Badge>;
+      case 'major': return <Badge className={`bg-secondary text-secondary-foreground ${baseClasses}`}>วิชาเอก</Badge>;
+      case 'elective': return <Badge className={`bg-warning text-warning-foreground ${baseClasses}`}>วิชาเลือก</Badge>;
+      case 'general': return <Badge variant="outline" className={baseClasses}>ศึกษาทั่วไป</Badge>;
+      default: return <Badge variant="outline" className={baseClasses}>{category}</Badge>;
     }
   };
 
