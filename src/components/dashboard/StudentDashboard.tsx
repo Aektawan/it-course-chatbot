@@ -333,7 +333,8 @@ const StudentDashboard: React.FC = () => {
                                   <div className="text-sm text-muted-foreground">
                                     {course.credits} หน่วยกิต • {course.category === 'core' ? 'วิชาหลัก' : 
                                      course.category === 'major' ? 'วิชาเฉพาะ' : 
-                                     course.category === 'elective' ? 'วิชาเลือก' : 'วิชาศึกษาทั่วไป'}
+                                     course.category === 'elective' ? 'วิชาเลือก' : 
+                                     course.category === 'free' ? 'วิชาเสรี' : 'วิชาศึกษาทั่วไป'}
                                   </div>
                                   {course.prerequisites.length > 0 && (
                                     <div className="text-xs text-warning mt-1">
@@ -344,6 +345,11 @@ const StudentDashboard: React.FC = () => {
                               </div>
                               <div className="flex flex-col items-end space-y-1">
                                 <Badge 
+                                  className={
+                                    course.category === 'free' 
+                                      ? 'bg-orange-500/90 hover:bg-orange-500/80 text-white' 
+                                      : undefined
+                                  }
                                   variant={
                                     course.category === 'core' ? 'default' :
                                     course.category === 'major' ? 'secondary' : 'outline'
@@ -351,7 +357,8 @@ const StudentDashboard: React.FC = () => {
                                 >
                                   {course.category === 'core' ? 'หลัก' : 
                                    course.category === 'major' ? 'เฉพาะ' : 
-                                   course.category === 'elective' ? 'เลือก' : 'ทั่วไป'}
+                                   course.category === 'elective' ? 'เลือก' : 
+                                   course.category === 'free' ? 'เสรี' : 'ทั่วไป'}
                                 </Badge>
                                 {course.instructor && (
                                   <div className="text-xs text-muted-foreground">

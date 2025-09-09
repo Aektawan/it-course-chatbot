@@ -5,7 +5,7 @@ interface CourseData {
   code: string;
   name: string;
   credits: number;
-  category: 'core' | 'major' | 'elective' | 'general';
+  category: 'core' | 'major' | 'elective' | 'general' |'free';
   mainCategory?:
     | 'หมวดวิชาศึกษาทั่วไป'
     | 'หมวดวิชาเฉพาะ'
@@ -103,8 +103,8 @@ const courseDatabase: ProgramData = {
       ],
       '4-2': [
         { code: 'IT-060243203', name: 'โครงงานเทคโนโลยีสารสนเทศ 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาฝึกงาน/สหกิจศึกษา' ,description: 'โครงงานที่ให้นักศึกษาได้ฝึกการออกแบบ พัฒนาระบบงานใหม่ ๆ ที่เป็นการประยุกต์ใช้เทคโนโลยีสารสนเทศอย่างเหมาะสม หรืออาจจะเป็นการพัฒนางานต่อจากโครงงานเทคโนโลยีสารสนเทศ 1 ในกรณีที่งานมีปริมาณมาก และนักศึกษาจะต้องจัดทำรายงานปริญญานิพนธ์พร้อมผ่านการสอบ',prerequisites: ['060243202 โครงงานเทคโนโลยีสารสนเทศ 1']},
-        { code: 'IT-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' },
-        { code: 'IT-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเลือกเสรี',description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' }
+        { code: 'IT-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'free', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' },
+        { code: 'IT-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'free' , mainCategory: 'หมวดวิชาเลือกเสรี',description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' }
       ]
     },
     '67': {
@@ -166,8 +166,8 @@ const courseDatabase: ProgramData = {
       ],
       '4-2': [
         { code: 'IT-060243203', name: 'โครงงานเทคโนโลยีสารสนเทศ 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' ,description: 'โครงงานเทคโนโลยีสารสนเทศ การค้นคว้า การแก้ปัญหา และการประยุกต์ใช้เทคโนโลยีสารสนเทศกับงานด้านต่าง ๆ ในภาคราชการ ธุรกิจ และอุตสาหกรรม การจัดทำรายงานปริญญานิพนธ์และผ่านการสอบ',prerequisites:['060243202 โครงงานเทคโนโลยีสารสนเทศ 1']},
-        { code: 'IT-xxxxxxxx        ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' },
-        { code: 'IT-xxxxxxxx         ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' },
+        { code: 'IT-xxxxxxxx        ', name: 'วิชาเลือกเสรี', credits: 3, category: 'free', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' },
+        { code: 'IT-xxxxxxxx         ', name: 'วิชาเลือกเสรี', credits: 3, category: 'free', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' },
 
       ]
     }
@@ -175,30 +175,30 @@ const courseDatabase: ProgramData = {
   'INE': {
     '62': {
       '1-1': [
-        { code: 'INE-040203111', name: 'คณิตศาสตร์วิศวกรรม 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
-        { code: 'INE-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-060233104', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-060233105', name: 'ปฏิบัติการการเขียนโปรแกรมคอมพิวเตอร์', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
-        { code: 'INE-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา 1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
-        { code: 'INE-080303xxx', name: 'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-080xxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 1', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
+        { code: 'INE-040203111', name: 'คณิตศาสตร์วิศวกรรม 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',description: 'ฟังก์ชัน สมการอิงตัวแปรเสริม พิกัดเชิงขั้ว ลิมิตและความต่อเนื่อง อนุพันธ์ การหาอนุพันธ์ของฟังก์ชันค่าจริงของตัวแปรจริง การประยุกต์ของอนุพันธ์ รูปแบบไม่กำหนด ปริพันธ์ เทคนิคการหาปริพันธ์ การประยุกต์ของปริพันธ์ และการหาปริพันธ์เชิงตัวเลข' },
+        { code: 'INE-060233101', name: 'วิศวกรรมสารสนเทศและเครือข่ายเบื้องต้น', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',description: 'ระบบคอมพิวเตอร์เบื้องต้น ภาษาคอมพิวเตอร์ ลอจิกที่ใช้ในระบบคอมพิวเตอร์ อุปกรณ์รับ-ส่งข้อมูล แหล่งข้อมูล การเก็บและดูแลข้อมูล โมเดลข้อมูลเบื้องต้น การรวบรวมข้อมูลและความสามารถในการนำเสนอข้อมูลเบื้องต้น การออกแบบและการวิเคราะห์ข้อมูลขนาดใหญ่เบื้องต้น การสื่อสารข้อมูลและระบบประมวลผลบนกลุ่มเมฆเบื้องต้น ระบบปฏิบัติการเบื้องต้น แนวโน้มของเทคโนโลยีคอมพิวเตอร์ในอนาคต การใช้โปรแกรมประยุกต์สำหรับองค์กร การจัดรูปแบบเอกสารขั้นสูง การใช้งานโปรแกรมสเปรดชีตขั้นสูง และการสร้างงานนำเสนอขั้นสูง'},
+        { code: 'INE-060233104', name: 'การเขียนโปรแกรมคอมพิวเตอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',description: 'การแทนข้อมูลในคอมพิวเตอร์ การออกแบบและพัฒนาโปรแกรม ขั้นตอนวิธีในการแก้ปัญหา ชนิดข้อมูล การแทนข้อมูล ตัวแปร นิพจน์ ข้อความสั่งการรับข้อมูลเข้าและส่งข้อมูลออก ข้อความสั่งการตัดสินใจ การวนซ้ำ แถวลำดับ ฟังก์ชัน โปรแกรมย่อย และการส่งพารามิเตอร์'},
+        { code: 'INE-060233105', name: 'ปฏิบัติการการเขียนโปรแกรมคอมพิวเตอร์', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' ,description: 'ปฏิบัติการเกี่ยวกับการออกแบบและพัฒนาโปรแกรมคอมพิวเตอร์ด้วยภาษาระดับสูง เพื่อฝึกการเขียนโปรแกรม ขั้นตอนวิธีในการแก้ปัญหา การกำหนดชนิดข้อมูล การแทนค่าข้อมูล การสร้างตัวแปรเพื่อใช้งานและการนำไปใช้ การกำหนดข้อความสั่งการรับข้อมูลเข้าและส่งข้อมูลออก การกำหนดเงื่อนไขการตัดสินใจ การวนซ้ำ การใช้งานอาร์เรย์ ฟังก์ชัน การสร้างโปรแกรมย่อย และการส่งพารามิเตอร์'},
+        { code: 'INE-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา 1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาภาษา', description:'วิชาเลือกในกลุ่มวิชาภาษา'},
+        { code: 'INE-080303xxx', name: 'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชากีฬาและนันทนาการ',description:'วิชาเลือกในกลุ่มวิชากีฬาและนันทนาการ'},
+        { code: 'INE-080xxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 1', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาศึกษาทั่วไป', subCategory: 'กลุ่มวิชาเลือกในหมวดศึกษาทั่วไป',description:'วิชาเลือกในหมวดวิชาศึกษาทั่วไป'}
       ],
       '1-2': [
         { code: 'INE-040203112', name: 'คณิตศาสตร์วิศวกรรม 2', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',prerequisites: ['040203111']},
-        { code: 'INE-0405xxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
-        { code: 'INE-060233102', name: 'อิเล็กทรอนิกส์และดิจิทัล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-060233103', name: 'ปฏิบัติการอิเล็กทรอนิกส์และดิจิทัล', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
-        { code: 'INE-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
-        { code: 'INE-060233110', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-080103xxx ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
+        { code: 'INE-0405xxxxx', name: 'วิชาเลือกในกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' ,},
+        { code: 'INE-060233102', name: 'อิเล็กทรอนิกส์และดิจิทัล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',},
+        { code: 'INE-060233103', name: 'ปฏิบัติการอิเล็กทรอนิกส์และดิจิทัล', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', },
+        { code: 'INE-060233108', name: 'การสื่อสารข้อมูลและเครือข่ายคอมพิวเตอร์', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',},
+        { code: 'INE-060233110', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',},
+        { code: 'INE-080103xxx ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',}
       ],
       '2-1': [
-        { code: 'INE-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-060233113', name: 'การเขียนโปรแกรมคอมพิวเตอร์ขั้นสูง', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-060233201*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 1', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
-        { code: 'INE-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-080303xxx  ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 3', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-040203123', name: 'คณิตศาสตร์เต็มหน่วยและการประยุกต์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',},
+        { code: 'INE-060233112', name: 'วิศวกรรมข้อมูล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',},
+        { code: 'INE-060233113', name: 'การเขียนโปรแกรมคอมพิวเตอร์ขั้นสูง', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',},
+        { code: 'INE-060233201*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 1', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' ,},
+        { code: 'INE-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน',},
+        { code: 'INE-080303xxx  ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 3', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' ,},
         { code: 'INE-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' }
       ],
       '2-2': [

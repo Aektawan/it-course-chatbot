@@ -108,6 +108,7 @@ const CurriculumDashboard: React.FC = () => {
       case 'core': return <Badge variant="default">วิชาแกน</Badge>;
       case 'major': return <Badge className="bg-secondary text-secondary-foreground">วิชาเอก</Badge>;
       case 'elective': return <Badge className="bg-warning text-warning-foreground">วิชาเลือก</Badge>;
+      case 'free': return <Badge className="bg-orange-500/90 hover:bg-orange-500/80 text-white">วิชาเสรี</Badge>;
       case 'general': return <Badge variant="outline">ศึกษาทั่วไป</Badge>;
       default: return <Badge variant="outline">{category}</Badge>;
     }

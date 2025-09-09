@@ -30,7 +30,7 @@ export interface Course {
   description: string;
   prerequisites: string[];
   corequisites: string[];
-  category: 'core' | 'major' | 'elective' | 'general';
+  category: 'core' | 'major' | 'elective' | 'general' | 'free';
   semester: number;
   year: number;
   instructor?: string;

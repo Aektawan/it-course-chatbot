@@ -22,6 +22,7 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
       case 'core': return <Badge variant="default" className={baseClasses}>วิชาแกน</Badge>;
       case 'major': return <Badge className={`bg-secondary text-secondary-foreground ${baseClasses}`}>วิชาเอก</Badge>;
       case 'elective': return <Badge className={`bg-warning text-warning-foreground ${baseClasses}`}>วิชาเลือก</Badge>;
+      case 'free': return <Badge className={`bg-orange-500/90 hover:bg-orange-500/80 text-white ${baseClasses}`}>วิชาเสรี</Badge>;
       case 'general': return <Badge variant="outline" className={baseClasses}>ศึกษาทั่วไป</Badge>;
       default: return <Badge variant="outline" className={baseClasses}>{category}</Badge>;
     }
