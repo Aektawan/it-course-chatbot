@@ -166,8 +166,8 @@ const courseDatabase: ProgramData = {
       ],
       '4-2': [
         { code: 'IT-060243203', name: 'โครงงานเทคโนโลยีสารสนเทศ 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
-        { code: 'IT-xxxxxxxx        ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'IT-xxxxxxxx         ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'IT-xxxxxxxx        ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' },
+        { code: 'IT-xxxxxxxx         ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' },
 
       ]
     }
@@ -199,7 +199,7 @@ const courseDatabase: ProgramData = {
         { code: 'INE-060233201*', name: 'ปฏิบัติการวิศวกรรมเครือข่าย 1', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
         { code: 'INE-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
         { code: 'INE-080303xxx  ', name: 'วิชาเลือกในกลุ่มวิชาภาษา 3', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
-        { code: 'INE-xxxxxxxxx', name: 'วิชาเลือกเสรี1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
+        { code: 'INE-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' }
       ],
       '2-2': [
         { code: 'INE-060233106', name: 'การเขียนแบบวิศวกรรรมสารสนเทศและเครือข่าย', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
@@ -242,7 +242,7 @@ const courseDatabase: ProgramData = {
       ],
       '4-2': [
         { code: 'INE-060233402', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-xxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
+        { code: 'INE-xxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' },
 
       ]
     },
@@ -271,7 +271,7 @@ const courseDatabase: ProgramData = {
         { code: 'INE-060233205*', name: 'เครือข่ายขั้นสูงและโปรโตคอล', credits: 3, category: 'core' },
         { code: 'INE-060233215*', name: 'ปฏิบัติการวิศวกรรมสารสนเทศและเครือข่าย 1', credits: 1, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
         { code: 'INE-080xxxxxx      ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-xxxxxxxxx   ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-xxxxxxxxx   ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' },
 
       ],
       '2-2': [
@@ -316,7 +316,7 @@ const courseDatabase: ProgramData = {
       ],
       '4-2': [
         { code: 'INE-060233402', name: 'โครงงานวิศวกรรมสารสนเทศและเครือข่าย 2', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INE-xxxxxxxxx    ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
+        { code: 'INE-xxxxxxxxx    ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' },
 
 
       ]
@@ -331,7 +331,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233105', name: 'ปฏิบัติการการเขียนโปรแกรมคอมพิวเตอร์', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
         { code: 'INET-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา 1', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
         { code: 'INET-080xxxxxx', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 1', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INET-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' }
+        { code: 'INET-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' }
       ],
       '1-2': [
         { code: 'INET-040503001', name: 'สถิติในชีวิตประจำวัน', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
@@ -369,7 +369,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233213*', name: 'กํารออกแบบและกํารประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
         { code: 'INET-060233214', name: 'สัมมนาวิศวกรรมสารสนเทศและเครือข่าย', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
         { code: 'INET-080xxxxxx ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป 2', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
-        { code: 'INET-xxxxxxxxx                 ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
+        { code: 'INET-xxxxxxxxx                 ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' }
       ],
       '3-2': [
         { code: 'INET-060233208*', name: 'ความมั่นคงปลอดภัยไซเบอร์', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
@@ -393,7 +393,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233114', name: 'สถิติสําหรับวิศวกรข้อมูลและนักวิทยาศาสตร์ข้อมูล', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
         { code: 'INET-060233116', name: 'การแก้ปัญหาและขั้นตอนวิธี', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
         { code: 'INET-080xxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INET-xxxxxxxxx    ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
+        { code: 'INET-xxxxxxxxx    ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' }
       ],
       '2-1': [
         { code: 'INET-060233120', name: 'การพัฒนาระบบสารสนเทศแบบครบองค์ประกอบ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
@@ -430,7 +430,7 @@ const courseDatabase: ProgramData = {
         { code: 'INET-060233212*', name: 'การวิเคราะห์ข้อมูลขนาดใหญ่', credits: 3, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
         { code: 'INET-060233219*', name: 'การออกแบบและการประยุกต์อินเทอร์เน็ตในทุกสรรพสิ่ง', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
         { code: 'INET-060233405', name: 'โครงงานพิเศษวิศวกรรมสารสนเทศและเครือข่าย', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'INET-xxxxxxxxx     ', name: 'วิชาเลือกเสรี ', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
+        { code: 'INET-xxxxxxxxx     ', name: 'วิชาเลือกเสรี ', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' }
       ],
 
     }
@@ -474,8 +474,8 @@ const courseDatabase: ProgramData = {
         { code: 'ITI-060223128', name: 'หัวข้อเฉพาะเรื่องทางเทคโนโลยีสารสนเทศเพื่ออุตสาหกรรม', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITI201', 'ITI202'] },
         { code: 'ITI-060223xxx ', name: 'วิชาเลือก 2', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITI203', 'ITI204'] },
         { code: 'ITI-060223xxx  ', name: 'วิชาเลือก 3', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITI203', 'MT201'] },
-        { code: 'ITI-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITI205'] },
-        { code: 'ITI-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['MT201'] },
+        { code: 'ITI-xxxxxxxxx', name: 'วิชาเลือกเสรี 1', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน', prerequisites: ['ITI205'] },
+        { code: 'ITI-xxxxxxxxx ', name: 'วิชาเลือกเสรี 2', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน', prerequisites: ['MT201'] },
         { code: 'ITI-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา', credits:3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['EN201'] }
       ],
 
@@ -511,7 +511,7 @@ const courseDatabase: ProgramData = {
         { code: 'ITI-060223137', name: 'โครงงานพิเศษเทคโนโลยีสารสนเทศ', credits: 4, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
         { code: 'ITI-08xxxxxxx', name: 'วิชาเลือกในกลุ่มวิชาสังคมศาสตร์และมนุษยศาสตร์', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
         { code: 'ITI-0602232xx', name: 'วิชาเลือก', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'ITI-xxxxxxxxx', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
+        { code: 'ITI-xxxxxxxxx', name: 'วิชาเลือกเสรี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' }
       ],
       '2-2': [
         { code: 'ITI-060223126', name: 'สัมมนาเทคโนโลยีสารสนเทศ', credits: 1, category: 'core' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
@@ -521,7 +521,7 @@ const courseDatabase: ProgramData = {
         { code: 'ITI-060223139', name: 'ปฏิบัติการอินเทอร์เน็ตในทุกสิ่งและระบบอัจฉริยะ', credits: 1, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
         { code: 'ITI-080103xxx', name: 'วิชาเลือกในกลุ่มวิชาภาษา', credits: 3, category: 'general', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน' },
         { code: 'ITI-0602232xx  ', name: 'วิชาเลือก', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'},
-        { code: 'ITI-xxxxxxxxx      ', name: 'วิชาเลือกเสรี', credits: 3, category: 'general' , mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน'}
+        { code: 'ITI-xxxxxxxxx      ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน' }
       ],
     }
   },
@@ -560,8 +560,8 @@ const courseDatabase: ProgramData = {
         { code: 'ITT-060243717', name: 'การประยุกต์คอมพิวเตอร์เพื่องานธุรกิจ', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243202'] },
         { code: 'ITT-060243705', name: 'ระบบอัจฉริยะเชิงธุรกิจ', credits: 3, category: 'elective', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243203'] },
         { code: 'ITT-060243202', name: 'โครงงานเทคโนโลยีสารสนเทศ 1', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243708'] },
-        { code: 'ITT-xxxxxxxxx  ', name: 'วิชาเลือกเสรี', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243115*'] },
-        { code: 'ITT-xxxxxxxxx   ', name: 'วิชาเลือกเสรี', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243119'] },
+        { code: 'ITT-xxxxxxxxx  ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน', prerequisites: ['ITT-060243115*'] },
+        { code: 'ITT-xxxxxxxxx   ', name: 'วิชาเลือกเสรี', credits: 3, category: 'core', mainCategory: 'หมวดวิชาเลือกเสรี', description:'ให้เลือกเรียนจากรายวิชาในหลักสูตร ระดับปริญญาตรีที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือเปิดสอน', prerequisites: ['ITT-060243119'] },
         { code: 'ITT-xxxxxxxxx    ', name: 'วิชาเลือกในหมวดวิชาศึกษาทั่วไป', credits: 3, category: 'major', mainCategory: 'หมวดวิชาเฉพาะ', subCategory: 'กลุ่มวิชาแกน', prerequisites: ['ITT-060243119'] }
       ]
     }
