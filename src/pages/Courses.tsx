@@ -230,7 +230,7 @@ const Courses: React.FC = () => {
   });
 
   const getCategoryBadge = (category: string) => {
-    const baseClasses = "min-w-[90px] text-center whitespace-nowrap text-xs px-3 py-1";
+    const baseClasses = "min-w-[80px] text-center whitespace-nowrap text-xs px-2 py-1 flex items-center justify-center";
     switch (category) {
       case 'core': return <Badge variant="default" className={baseClasses}>วิชาแกน</Badge>;
       case 'major': return <Badge className={`bg-secondary text-secondary-foreground ${baseClasses}`}>วิชาเอก</Badge>;
