@@ -530,9 +530,10 @@ const Courses: React.FC = () => {
           </TabsContent>
 
           <TabsContent value="flowchart" className="space-y-6">
-            {currentCurriculum ? (
+            {selectedDepartment !== 'all' && selectedCurriculum !== 'all' ? (
               <CurriculumFlowchart 
-                curriculum={currentCurriculum} 
+                selectedDepartment={selectedDepartment}
+                selectedCurriculum={selectedCurriculum}
                 departmentName={mockDepartments.find(dept => dept.code === selectedDepartment)?.nameThai || 'หลักสูตร'}
               />
             ) : (

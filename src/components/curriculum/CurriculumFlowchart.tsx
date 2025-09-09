@@ -2,14 +2,20 @@ import React, { useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Department, Curriculum, Course } from '@/types/course';
+import { generateCoursesForSemester } from '@/services/completeCurriculumData';
 import { ArrowDown, BookOpen } from 'lucide-react';
 
 interface CurriculumFlowchartProps {
-  curriculum: Curriculum;
+  selectedDepartment: string;
+  selectedCurriculum: string;
   departmentName: string;
 }
 
-export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({ curriculum, departmentName }) => {
+export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({ 
+  selectedDepartment, 
+  selectedCurriculum, 
+  departmentName 
+}) => {
   const getCategoryBadge = (category: string) => {
     const baseClasses = "text-xs px-2 py-1 rounded-full";
     switch (category) {
@@ -21,34 +27,96 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({ curric
     }
   };
 
-  // Group courses by year and semester
+  // Generate real course data based on selected curriculum
   const coursesByYear = useMemo(() => {
+    const [programCode, curriculumYear] = selectedCurriculum.split(' ');
     const grouped: { [key: number]: { [key: number]: Course[] } } = {};
     
-    curriculum.semesters.forEach(semesterData => {
-      if (!grouped[semesterData.year]) {
-        grouped[semesterData.year] = {};
+    // Determine max year based on program
+    const maxYear = programCode === 'INET' ? 3 : programCode === 'ITI' || programCode === 'ITT' ? 2 : 4;
+    
+    for (let year = 1; year <= maxYear; year++) {
+      grouped[year] = {};
+      
+      // Regular semesters (1 and 2)
+      for (let semester = 1; semester <= 2; semester++) {
+        const courses = generateCoursesForSemester(programCode, curriculumYear, year, semester, 15);
+        if (courses.length > 0) {
+          grouped[year][semester] = courses;
+        }
       }
-      grouped[semesterData.year][semesterData.semester] = semesterData.courses;
-    });
+      
+      // Special semester 3 for specific programs
+      if ((programCode === 'IT' || programCode === 'INE') && year === 3) {
+        const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 15);
+        if (courses.length > 0) {
+          grouped[year][3] = courses;
+        }
+      }
+      
+      if (programCode === 'INET' && year === 2) {
+        const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 15);
+        if (courses.length > 0) {
+          grouped[year][3] = courses;
+        }
+      }
+      
+      if (programCode === 'ITI' && year === 1) {
+        const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 15);
+        if (courses.length > 0) {
+          grouped[year][3] = courses;
+        }
+      }
+    }
     
     return grouped;
-  }, [curriculum]);
+  }, [selectedCurriculum]);
 
   // Calculate credits for each semester
   const calculateSemesterCredits = (courses: Course[]) => {
     return courses.reduce((sum, course) => sum + course.credits, 0);
   };
 
+  // Calculate total credits and course count
+  const totalCredits = useMemo(() => {
+    let total = 0;
+    Object.values(coursesByYear).forEach(yearData => {
+      Object.values(yearData).forEach(courses => {
+        total += courses.reduce((sum, course) => sum + course.credits, 0);
+      });
+    });
+    return total;
+  }, [coursesByYear]);
+
+  const totalCourses = useMemo(() => {
+    let total = 0;
+    Object.values(coursesByYear).forEach(yearData => {
+      Object.values(yearData).forEach(courses => {
+        total += courses.length;
+      });
+    });
+    return total;
+  }, [coursesByYear]);
+
+  const totalSemesters = useMemo(() => {
+    let total = 0;
+    Object.values(coursesByYear).forEach(yearData => {
+      total += Object.keys(yearData).length;
+    });
+    return total;
+  }, [coursesByYear]);
+
   // Find prerequisites within the curriculum
   const findPrerequisiteConnections = (course: Course) => {
     const connections: Course[] = [];
     if (course.prerequisites && course.prerequisites.length > 0) {
-      curriculum.semesters.forEach(semesterData => {
-        semesterData.courses.forEach(prereqCourse => {
-          if (course.prerequisites.includes(prereqCourse.code)) {
-            connections.push(prereqCourse);
-          }
+      Object.values(coursesByYear).forEach(yearData => {
+        Object.values(yearData).forEach(courses => {
+          courses.forEach(prereqCourse => {
+            if (course.prerequisites.some(prereq => prereqCourse.code.includes(prereq.split(' ')[0]))) {
+              connections.push(prereqCourse);
+            }
+          });
         });
       });
     }
@@ -62,10 +130,10 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({ curric
         <h2 className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
           แผนผังหลักสูตร {departmentName}
         </h2>
-        <p className="text-lg text-muted-foreground">{curriculum.name}</p>
+        <p className="text-lg text-muted-foreground">หลักสูตร {selectedCurriculum}</p>
         <div className="flex justify-center space-x-4 text-sm text-muted-foreground">
-          <span>ระยะเวลา: {curriculum.duration} ปี</span>
-          <span>หน่วยกิต: {curriculum.totalCredits} หน่วยกิต</span>
+          <span>ระยะเวลา: {Object.keys(coursesByYear).length} ปี</span>
+          <span>หน่วยกิต: {totalCredits} หน่วยกิต</span>
         </div>
       </div>
 
@@ -154,24 +222,28 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({ curric
       </div>
 
       {/* Summary */}
-      <Card className="shadow-medium bg-primary/5">
+      <Card className="shadow-medium bg-gradient-to-r from-emerald-50 to-blue-50 border-emerald-200">
         <CardContent className="p-6">
           <div className="text-center space-y-4">
-            <h3 className="text-xl font-bold">สรุปหลักสูตร</h3>
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <div className="text-2xl font-bold text-primary">{curriculum.totalCredits}</div>
+            <h3 className="text-xl font-bold gradient-primary bg-clip-text text-transparent">
+              สรุปหลักสูตร
+            </h3>
+            <div className="grid md:grid-cols-4 gap-4">
+              <div className="space-y-2 bg-white/80 rounded-lg p-4 shadow-soft">
+                <div className="text-3xl font-bold text-emerald-600">{totalCredits}</div>
                 <div className="text-sm text-muted-foreground">หน่วยกิตรวม</div>
               </div>
-              <div className="space-y-2">
-                <div className="text-2xl font-bold text-primary">{curriculum.duration}</div>
+              <div className="space-y-2 bg-white/80 rounded-lg p-4 shadow-soft">
+                <div className="text-3xl font-bold text-blue-600">{Object.keys(coursesByYear).length}</div>
                 <div className="text-sm text-muted-foreground">ปี</div>
               </div>
-              <div className="space-y-2">
-                <div className="text-2xl font-bold text-primary">
-                  {curriculum.semesters.length}
-                </div>
+              <div className="space-y-2 bg-white/80 rounded-lg p-4 shadow-soft">
+                <div className="text-3xl font-bold text-purple-600">{totalSemesters}</div>
                 <div className="text-sm text-muted-foreground">เทอม</div>
+              </div>
+              <div className="space-y-2 bg-white/80 rounded-lg p-4 shadow-soft">
+                <div className="text-3xl font-bold text-orange-600">{totalCourses}</div>
+                <div className="text-sm text-muted-foreground">รายวิชา</div>
               </div>
             </div>
           </div>
