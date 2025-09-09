@@ -175,7 +175,7 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
                               <div key={course.id} className="relative">
                                 <Card 
                                   id={courseId}
-                                  className="shadow-soft hover:shadow-medium transition-all duration-300 border-l-4 border-l-primary/30 h-48 flex flex-col"
+                                  className="shadow-soft hover:shadow-medium transition-all duration-300 border-l-4 border-l-primary/30 h-40 flex flex-col"
                                 >
                                   <CardContent className="p-4 space-y-3 flex-1 flex flex-col">
                                     <div className="flex items-start justify-between flex-1">
