@@ -463,29 +463,29 @@ const Courses: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-5 gap-4 text-center">
-              <div>
+              <div className="flex flex-col items-center justify-center p-4 min-h-[80px]">
                 <div className="text-2xl font-bold text-primary">{filteredCourses.length}</div>
                 <div className="text-sm text-muted-foreground">รายวิชา</div>
               </div>
-              <div>
+              <div className="flex flex-col items-center justify-center p-4 min-h-[80px]">
                 <div className="text-2xl font-bold text-foreground">
                   {filteredCourses.reduce((sum, course) => sum + course.credits, 0)}
                 </div>
                 <div className="text-sm text-muted-foreground">หน่วยกิตรวม</div>
               </div>
-              <div>
+              <div className="flex flex-col items-center justify-center p-4 min-h-[80px]">
                 <div className="text-2xl font-bold text-success">
                   {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาเฉพาะ').length}
                 </div>
                 <div className="text-sm text-muted-foreground">วิชาเฉพาะ</div>
               </div>
-              <div>
+              <div className="flex flex-col items-center justify-center p-4 min-h-[80px]">
                 <div className="text-2xl font-bold text-warning">
                   {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาศึกษาทั่วไป').length}
                 </div>
                 <div className="text-sm text-muted-foreground">วิชาทั่วไป</div>
               </div>
-              <div>
+              <div className="flex flex-col items-center justify-center p-4 min-h-[80px]">
                 <div className="text-2xl font-bold text-blue-600">
                   {filteredCourses.filter(c => c.mainCategory === 'หมวดวิชาเลือกเสรี').length}
                 </div>
