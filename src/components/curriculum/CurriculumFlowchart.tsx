@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Department, Curriculum, Course } from '@/types/course';
 import { generateCoursesForSemester } from '@/services/completeCurriculumData';
-import { ArrowConnector } from './ArrowConnector';
 import { ArrowDown, BookOpen } from 'lucide-react';
 
 interface CurriculumFlowchartProps {
@@ -124,58 +123,6 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
     return connections;
   };
 
-  // Update arrow positions after render
-  useEffect(() => {
-    const updateAllArrows = () => {
-      Object.values(coursesByYear).forEach(yearData => {
-        Object.values(yearData).forEach(courses => {
-          courses.forEach(course => {
-            const prerequisites = findPrerequisiteConnections(course);
-            prerequisites.forEach(prereq => {
-              const sourceId = `course-${prereq.code.replace(/[^a-zA-Z0-9]/g, '')}`;
-              const targetId = `course-${course.code.replace(/[^a-zA-Z0-9]/g, '')}`;
-              const sourceElement = document.getElementById(sourceId);
-              const targetElement = document.getElementById(targetId);
-              const arrow = document.querySelector(`[data-source="${sourceId}"][data-target="${targetId}"]`) as SVGLineElement;
-              
-              if (sourceElement && targetElement && arrow) {
-                const sourceRect = sourceElement.getBoundingClientRect();
-                const targetRect = targetElement.getBoundingClientRect();
-                const container = arrow.closest('svg')?.getBoundingClientRect();
-                
-                if (container) {
-                  const sourceX = sourceRect.right - container.left;
-                  const sourceY = sourceRect.top + sourceRect.height / 2 - container.top;
-                  const targetX = targetRect.left - container.left;
-                  const targetY = targetRect.top + targetRect.height / 2 - container.top;
-                  
-                  // Only draw arrow if target is in a later position
-                  if (targetY > sourceY + 50 || (Math.abs(targetY - sourceY) < 100 && targetX > sourceX + 100)) {
-                    arrow.setAttribute('x1', sourceX.toString());
-                    arrow.setAttribute('y1', sourceY.toString());
-                    arrow.setAttribute('x2', (targetX - 10).toString());
-                    arrow.setAttribute('y2', targetY.toString());
-                    arrow.style.display = 'block';
-                  } else {
-                    arrow.style.display = 'none';
-                  }
-                }
-              }
-            });
-          });
-        });
-      });
-    };
-
-    const timeoutId = setTimeout(updateAllArrows, 500);
-    window.addEventListener('resize', updateAllArrows);
-    
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('resize', updateAllArrows);
-    };
-  }, [coursesByYear]);
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -219,115 +166,64 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
                         </div>
 
                         {/* Courses Grid */}
-                        <div className="relative">
-                          {/* SVG for arrows */}
-                          <svg 
-                            className="absolute inset-0 w-full h-full pointer-events-none z-10" 
-                            style={{ overflow: 'visible' }}
-                          >
-                            {courses.map((course) => {
-                              const prerequisites = findPrerequisiteConnections(course);
-                              return prerequisites.map((prereq) => {
-                                // Create arrow from prerequisite to current course
-                                const sourceId = `course-${prereq.code.replace(/[^a-zA-Z0-9]/g, '')}`;
-                                const targetId = `course-${course.code.replace(/[^a-zA-Z0-9]/g, '')}`;
-                                
-                                return (
-                                  <g key={`${prereq.id}-${course.id}`}>
-                                    <defs>
-                                      <marker
-                                        id={`arrowhead-${sourceId}-${targetId}`}
-                                        markerWidth="10"
-                                        markerHeight="7"
-                                        refX="9"
-                                        refY="3.5"
-                                        orient="auto"
-                                      >
-                                        <polygon
-                                          points="0 0, 10 3.5, 0 7"
-                                          fill="#3b82f6"
-                                          className="opacity-70"
-                                        />
-                                      </marker>
-                                    </defs>
-                                    <line
-                                      x1="0"
-                                      y1="0"
-                                      x2="0"
-                                      y2="0"
-                                      stroke="#3b82f6"
-                                      strokeWidth="2"
-                                      strokeDasharray="5,5"
-                                      markerEnd={`url(#arrowhead-${sourceId}-${targetId})`}
-                                      className="opacity-70"
-                                      data-source={sourceId}
-                                      data-target={targetId}
-                                    />
-                                  </g>
-                                );
-                              });
-                            })}
-                          </svg>
-
-                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 relative z-20">
-                            {courses.map((course) => {
-                              const prerequisites = findPrerequisiteConnections(course);
-                              const courseId = `course-${course.code.replace(/[^a-zA-Z0-9]/g, '')}`;
-                              
-                              return (
-                                <div key={course.id} className="relative">
-                                  <Card 
-                                    id={courseId}
-                                    className="shadow-soft hover:shadow-medium transition-all duration-300 border-l-4 border-l-primary/30 h-48 flex flex-col"
-                                  >
-                                    <CardContent className="p-4 space-y-3 flex-1 flex flex-col">
-                                      <div className="flex items-start justify-between flex-1">
-                                        <div className="space-y-1 flex-1 min-w-0">
-                                          <div className="flex items-center space-x-2">
-                                            <BookOpen className="w-4 h-4 text-primary flex-shrink-0" />
-                                            <span className="font-mono font-bold text-xs truncate">
-                                              {course.code.split('-')[1] || course.code}
-                                            </span>
-                                          </div>
-                                          <h4 className="font-medium text-sm leading-tight line-clamp-3 flex-1">
-                                            {course.name}
-                                          </h4>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {courses.map((course) => {
+                            const prerequisites = findPrerequisiteConnections(course);
+                            const courseId = `course-${course.code.replace(/[^a-zA-Z0-9]/g, '')}`;
+                            
+                            return (
+                              <div key={course.id} className="relative">
+                                <Card 
+                                  id={courseId}
+                                  className="shadow-soft hover:shadow-medium transition-all duration-300 border-l-4 border-l-primary/30 h-48 flex flex-col"
+                                >
+                                  <CardContent className="p-4 space-y-3 flex-1 flex flex-col">
+                                    <div className="flex items-start justify-between flex-1">
+                                      <div className="space-y-1 flex-1 min-w-0">
+                                        <div className="flex items-center space-x-2">
+                                          <BookOpen className="w-4 h-4 text-primary flex-shrink-0" />
+                                          <span className="font-mono font-bold text-xs truncate">
+                                            {course.code.split('-')[1] || course.code}
+                                          </span>
                                         </div>
-                                        <div className="text-right space-y-1 ml-2 flex-shrink-0">
-                                          {getCategoryBadge(course.category)}
-                                          <div className="text-xs text-muted-foreground">
-                                            {course.credits} หน่วยกิต
-                                          </div>
+                                        <h4 className="font-medium text-sm leading-tight line-clamp-3 flex-1">
+                                          {course.name}
+                                        </h4>
+                                      </div>
+                                      <div className="text-right space-y-1 ml-2 flex-shrink-0">
+                                        {getCategoryBadge(course.category)}
+                                        <div className="text-xs text-muted-foreground">
+                                          {course.credits} หน่วยกิต
                                         </div>
                                       </div>
+                                    </div>
 
-                                      {/* Prerequisites indicator */}
-                                      {prerequisites.length > 0 && (
-                                        <div className="space-y-2 mt-auto">
-                                          <div className="flex items-center space-x-1 text-xs text-muted-foreground">
-                                            <ArrowDown className="w-3 h-3" />
-                                            <span>วิชาบังคับก่อน:</span>
-                                          </div>
-                                          <div className="flex flex-wrap gap-1">
-                                            {prerequisites.slice(0, 2).map((prereq) => (
-                                              <Badge key={prereq.id} variant="outline" className="text-xs px-1 py-0.5">
-                                                {prereq.code.split('-')[1] || prereq.code}
-                                              </Badge>
-                                            ))}
-                                            {prerequisites.length > 2 && (
-                                              <Badge variant="outline" className="text-xs px-1 py-0.5">
-                                                +{prerequisites.length - 2}
-                                              </Badge>
-                                            )}
-                                          </div>
+                                    {/* Prerequisites indicator */}
+                                    {prerequisites.length > 0 && (
+                                      <div className="space-y-2 mt-auto">
+                                        <div className="flex items-center space-x-1 text-xs text-muted-foreground">
+                                          <ArrowDown className="w-3 h-3" />
+                                          <span>วิชาบังคับก่อน:</span>
                                         </div>
-                                      )}
-                                    </CardContent>
-                                  </Card>
-                                </div>
-                              );
-                            })}
-                          </div>
+                                        <div className="flex flex-wrap gap-1">
+                                          {prerequisites.slice(0, 2).map((prereq) => (
+                                            <Badge key={prereq.id} variant="outline" className="text-xs px-1 py-0.5">
+                                              {prereq.code.split('-')[1] || prereq.code}
+                                            </Badge>
+                                          ))}
+                                          {prerequisites.length > 2 && (
+                                            <Badge variant="outline" className="text-xs px-1 py-0.5">
+                                              +{prerequisites.length - 2}
+                                            </Badge>
+                                          )}
+                                        </div>
+                                      </div>
+                                    )}
+                                  </CardContent>
+                                </Card>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     ))}
