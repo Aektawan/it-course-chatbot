@@ -105,6 +105,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   const findPrerequisites = (course: Course) => {
     const prereqIds: string[] = [];
     if (course.prerequisites && course.prerequisites.length > 0) {
+      console.log(`Finding prerequisites for ${course.code}:`, course.prerequisites);
+      
       // Find courses in previous semesters that match prerequisites
       semesterLayout.forEach((semData) => {
         semData.courses.forEach((c) => {
@@ -113,11 +115,13 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
             c.name.includes(prereq) ||
             prereq.includes(c.code.split('-')[1] || c.code)
           )) {
+            console.log(`Found prerequisite match: ${c.code} for ${course.code}`);
             prereqIds.push(c.id);
           }
         });
       });
     }
+    console.log(`Prerequisites found for ${course.code}:`, prereqIds.length);
     return prereqIds;
   };
 
@@ -166,11 +170,15 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     const startPos = getCoursePosition(startSemIndex, startCourseIndex);
     const endPos = getCoursePosition(endSemIndex, endCourseIndex);
     
-    // Connection points
+    console.log(`Generating path from sem ${startSemIndex} course ${startCourseIndex} to sem ${endSemIndex} course ${endCourseIndex}`);
+    
+    // Connection points - use absolute pixel positions
     const startX = startPos.right;
     const startY = startPos.centerY;
     const endX = endPos.left;
     const endY = endPos.centerY;
+    
+    console.log(`Path coordinates: (${startX}%, ${startY}px) to (${endX}%, ${endY}px)`);
     
     // Calculate routing channels between columns
     const channelSpacing = 15;
@@ -231,6 +239,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               {semesterLayout.map((semData, semIndex) =>
                 semData.courses.map((course, courseIndex) => {
                   const prereqIds = findPrerequisites(course);
+                  console.log(`Course ${course.code} has ${prereqIds.length} prerequisites`);
+                  
                   return prereqIds.map((prereqId, arrowIndex) => {
                     // Find prerequisite course position
                     let prereqSemIndex = -1;
@@ -245,6 +255,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                     });
 
                     if (prereqSemIndex >= 0) {
+                      console.log(`Drawing arrow from ${prereqSemIndex},${prereqCourseIndex} to ${semIndex},${courseIndex}`);
+                      
                       // Generate orthogonal path
                       const pathPoints = generateOrthogonalPath(
                         prereqSemIndex, prereqCourseIndex,
@@ -256,6 +268,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                       const pathString = pathPoints.map((point, index) => 
                         `${index === 0 ? 'M' : 'L'} ${point.x}% ${point.y}px`
                       ).join(' ');
+
+                      console.log(`Generated path: ${pathString}`);
 
                       return (
                         <g key={`${course.id}-${prereqId}-${arrowIndex}`}>
