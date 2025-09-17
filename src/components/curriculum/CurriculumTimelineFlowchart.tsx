@@ -234,6 +234,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
             <svg 
               className="absolute inset-0 w-full h-full pointer-events-none z-10"
               style={{ minHeight: '600px' }}
+              viewBox="0 0 100 600"
+              preserveAspectRatio="none"
             >
               {/* Draw orthogonal arrows between prerequisites */}
               {semesterLayout.map((semData, semIndex) =>
@@ -264,9 +266,9 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                         arrowIndex
                       );
 
-                      // Create SVG path string
+                      // Create SVG path string - convert to viewBox coordinates
                       const pathString = pathPoints.map((point, index) => 
-                        `${index === 0 ? 'M' : 'L'} ${point.x}% ${point.y}px`
+                        `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y * 100 / 600}`
                       ).join(' ');
 
                       console.log(`Generated path: ${pathString}`);
@@ -315,21 +317,23 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                       <div
                         key={course.id}
                         id={`course-${course.id}`}
-                        className="border-2 border-black bg-white p-2 text-xs relative"
-                        style={{ height: '80px' }}
+                        className="border-2 border-black bg-white p-1 text-xs relative flex flex-col justify-between"
+                        style={{ height: '80px', minWidth: '120px' }}
                       >
                         {/* Course Code */}
-                        <div className="font-bold text-center mb-1">
+                        <div className="font-bold text-center text-[10px] leading-tight">
                           {course.code}
                         </div>
                         
                         {/* Course Name */}
-                        <div className="text-center leading-tight mb-1" style={{ fontSize: '10px' }}>
-                          {course.name}
+                        <div className="text-center leading-tight flex-1 flex items-center justify-center px-1" style={{ fontSize: '8px' }}>
+                          <span className="line-clamp-3 overflow-hidden text-ellipsis">
+                            {course.name}
+                          </span>
                         </div>
                         
                         {/* Credits */}
-                        <div className="text-center font-bold">
+                        <div className="text-center font-bold text-[9px]">
                           {formatCredits(course.credits)}
                         </div>
                       </div>
