@@ -165,33 +165,47 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
         if (excludeBoxes.includes(`${semIdx}-${courseIdx}`)) return false;
         
         const courseRect = getCourseRect(semIdx, courseIdx);
-        return !(x > courseRect.right + CLEARANCE || 
-                x + width < courseRect.left - CLEARANCE ||
-                y > courseRect.bottom + CLEARANCE || 
-                y + height < courseRect.top - CLEARANCE);
+        return !(x >= courseRect.right + CLEARANCE || 
+                x + width <= courseRect.left - CLEARANCE ||
+                y >= courseRect.bottom + CLEARANCE || 
+                y + height <= courseRect.top - CLEARANCE);
       })
     );
   };
 
-  // Find available lanes in gutters for routing
-  const findAvailableLanes = (startX: number, endX: number, y: number, usedLanes: Set<string>) => {
-    const lanes: number[] = [];
-    const laneY = Math.floor(y / LANE_WIDTH) * LANE_WIDTH;
+  // Find available horizontal lanes in the gutter space
+  const findHorizontalLane = (startRect: any, endRect: any, usedLanes: Set<string>) => {
+    // Try direct horizontal connection first (same Y level)
+    const directY = startRect.centerY;
+    const laneKey = `h-${Math.round(directY)}`;
     
-    // Check multiple lane positions above and below
-    for (let offset = 0; offset <= GUTTER_HEIGHT / 2; offset += LANE_WIDTH) {
-      for (const sign of [1, -1]) {
-        const testY = laneY + (sign * offset);
-        const laneKey = `${testY}`;
-        
-        if (!usedLanes.has(laneKey) && 
-            !overlapsWithCourses(startX, testY, Math.abs(endX - startX), LANE_WIDTH)) {
-          lanes.push(testY);
-        }
+    if (!usedLanes.has(laneKey) && 
+        !overlapsWithCourses(startRect.right, directY - 2, endRect.left - startRect.right, 4)) {
+      usedLanes.add(laneKey);
+      return directY;
+    }
+    
+    // Try lanes above and below the course centers
+    const testYPositions = [
+      startRect.centerY - GUTTER_HEIGHT / 4,
+      startRect.centerY + GUTTER_HEIGHT / 4,
+      startRect.top - CLEARANCE,
+      startRect.bottom + CLEARANCE,
+      endRect.top - CLEARANCE,
+      endRect.bottom + CLEARANCE
+    ];
+    
+    for (const testY of testYPositions) {
+      const testLaneKey = `h-${Math.round(testY)}`;
+      if (!usedLanes.has(testLaneKey) && 
+          !overlapsWithCourses(startRect.right, testY - 2, endRect.left - startRect.right, 4)) {
+        usedLanes.add(testLaneKey);
+        return testY;
       }
     }
     
-    return lanes.sort((a, b) => Math.abs(a - y) - Math.abs(b - y));
+    // Fallback to original Y
+    return directY;
   };
 
   // Generate orthogonal path through white gutters
@@ -212,33 +226,19 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     const pathPoints = [startPort];
 
     if (startSemIndex === endSemIndex) {
-      // Direct horizontal connection for same column
+      // Same column - direct connection
+      pathPoints.push(endPort);
+    } else if (Math.abs(startPort.y - endPort.y) < CLEARANCE) {
+      // Same horizontal level - direct horizontal line
       pathPoints.push(endPort);
     } else {
-      // Find routing lane through gutters
-      const midY = (startPort.y + endPort.y) / 2;
-      const availableLanes = findAvailableLanes(
-        Math.min(startPort.x, endPort.x),
-        Math.max(startPort.x, endPort.x),
-        midY,
-        usedLanes
-      );
-
-      const routingY = availableLanes[0] || midY;
-      usedLanes.add(`${routingY}`);
-
-      // Create orthogonal path that ends precisely at target
-      if (startPort.y !== routingY) {
-        pathPoints.push({ x: startPort.x, y: routingY }); // Vertical from start
-      }
+      // Different levels - need routing through gutter
+      const routingY = findHorizontalLane(startRect, endRect, usedLanes);
       
-      if (routingY !== endPort.y) {
-        pathPoints.push({ x: endPort.x, y: routingY }); // Horizontal to target column
-        pathPoints.push(endPort); // Final vertical down to target
-      } else {
-        // Direct horizontal at same level
-        pathPoints.push(endPort);
-      }
+      // Create L-shaped path through gutter space
+      pathPoints.push({ x: startPort.x, y: routingY }); // Horizontal from start
+      pathPoints.push({ x: endPort.x, y: routingY });   // Vertical to target column  
+      pathPoints.push(endPort);                         // Into target
     }
 
     return pathPoints;
