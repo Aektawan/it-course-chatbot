@@ -173,73 +173,62 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     );
   };
 
-  // Gutter center rail routing constants
-  const SAFE_CLEARANCE = 8;     // Minimum clearance from nodes
-  const STUB_LENGTH = 12;       // Vertical stub before turning
-  const LANE_STEP = GUTTER_HEIGHT / 3; // Spacing between parallel rails
-
-  // Calculate gutter center rail Y position between two course rows
-  const getGutterCenterY = (upperRowIndex: number, lowerRowIndex: number) => {
-    const upperY = upperRowIndex * (COURSE_HEIGHT + GUTTER_HEIGHT) + 60; // Header offset
-    const lowerY = lowerRowIndex * (COURSE_HEIGHT + GUTTER_HEIGHT) + 60;
-    const upperBottom = upperY + COURSE_HEIGHT;
-    const lowerTop = lowerY;
-    return (upperBottom + lowerTop) / 2;
+  // Find available horizontal lanes in the gutter space
+  const findHorizontalLane = (startRect: any, endRect: any, usedLanes: Set<string>) => {
+    // Try direct horizontal connection first (same Y level)
+    const directY = startRect.centerY;
+    const laneKey = `h-${Math.round(directY)}`;
+    
+    if (!usedLanes.has(laneKey) && 
+        !overlapsWithCourses(startRect.right, directY - 2, endRect.left - startRect.right, 4)) {
+      usedLanes.add(laneKey);
+      return directY;
+    }
+    
+    // Try lanes above and below the course centers
+    const testYPositions = [
+      startRect.centerY - GUTTER_HEIGHT / 4,
+      startRect.centerY + GUTTER_HEIGHT / 4,
+      startRect.top - CLEARANCE,
+      startRect.bottom + CLEARANCE,
+      endRect.top - CLEARANCE,
+      endRect.bottom + CLEARANCE
+    ];
+    
+    for (const testY of testYPositions) {
+      const testLaneKey = `h-${Math.round(testY)}`;
+      if (!usedLanes.has(testLaneKey) && 
+          !overlapsWithCourses(startRect.right, testY - 2, endRect.left - startRect.right, 4)) {
+        usedLanes.add(testLaneKey);
+        return testY;
+      }
+    }
+    
+    // Fallback to original Y
+    return directY;
   };
 
-  // Find available horizontal rail in gutter space using center rail + lane shifting
-  const findHorizontalRail = (
-    startRowIndex: number, 
-    endRowIndex: number, 
-    usedLanes: Set<string>
-  ) => {
-    // Determine which rows this connection passes between
-    const minRow = Math.min(startRowIndex, endRowIndex);
-    const maxRow = Math.max(startRowIndex, endRowIndex);
-    
-    // For same-row connections, use gutter below that row
-    let gutterRowIndex;
-    if (startRowIndex === endRowIndex) {
-      gutterRowIndex = startRowIndex;
-    } else {
-      // Use the gutter between the rows or below the lower row
-      gutterRowIndex = Math.max(minRow, maxRow - 1);
-    }
-    
-    // Calculate center rail Y position
-    const centerY = getGutterCenterY(gutterRowIndex, gutterRowIndex + 1);
-    
-    // Try center rail first
-    const centerLaneKey = `rail-${gutterRowIndex}-0`;
-    if (!usedLanes.has(centerLaneKey)) {
-      usedLanes.add(centerLaneKey);
-      return centerY;
-    }
-    
-    // Try shifted rails above and below center
-    for (let k = 1; k <= 3; k++) {
-      // Try rail above center
-      const aboveY = centerY - k * LANE_STEP;
-      const aboveLaneKey = `rail-${gutterRowIndex}-${-k}`;
-      if (!usedLanes.has(aboveLaneKey) && aboveY > 60 + SAFE_CLEARANCE) { // Above header
-        usedLanes.add(aboveLaneKey);
-        return aboveY;
-      }
+  // Check if there are blocking courses between start and end points
+  const hasBlockingCourses = (startX: number, endX: number, y: number, startSemIndex: number, endSemIndex: number) => {
+    for (let semIdx = startSemIndex + 1; semIdx < endSemIndex; semIdx++) {
+      const semData = semesterLayout[semIdx];
+      if (!semData) continue;
       
-      // Try rail below center
-      const belowY = centerY + k * LANE_STEP;
-      const belowLaneKey = `rail-${gutterRowIndex}-${k}`;
-      if (!usedLanes.has(belowLaneKey)) {
-        usedLanes.add(belowLaneKey);
-        return belowY;
+      for (let courseIdx = 0; courseIdx < semData.courses.length; courseIdx++) {
+        const courseRect = getCourseRect(semIdx, courseIdx);
+        // Check if the horizontal line at y intersects this course box
+        const linePassesThroughCourse = y >= courseRect.top - CLEARANCE && y <= courseRect.bottom + CLEARANCE;
+        const lineIsInHorizontalRange = startX < courseRect.right && endX > courseRect.left;
+        
+        if (linePassesThroughCourse && lineIsInHorizontalRange) {
+          return true;
+        }
       }
     }
-    
-    // Fallback to center rail
-    return centerY;
+    return false;
   };
 
-  // Generate orthogonal path using gutter center rails with stub connections
+  // Generate strict orthogonal path with 90-degree turns through gutters
   const generateOrthogonalPath = (
     startSemIndex: number, startCourseIndex: number,
     endSemIndex: number, endCourseIndex: number,
@@ -247,75 +236,86 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   ) => {
     const startRect = getCourseRect(startSemIndex, startCourseIndex);
     const endRect = getCourseRect(endSemIndex, endCourseIndex);
-    
-    // Connection ports
     const startPorts = getConnectionPorts(startRect);
     const endPorts = getConnectionPorts(endRect);
-    
-    const pathPoints = [];
-    
+
+    // Always use right-center to left-center connections
+    let startPort = startPorts.rightCenter;
+    let endPort = endPorts.leftCenter;
+
+    const pathPoints = [startPort];
+
     if (startSemIndex === endSemIndex) {
-      // Same column - use bottom-center to top-center with gutter routing
-      const startPort = startPorts.bottomCenter;
-      const endPort = endPorts.topCenter;
-      
-      pathPoints.push(startPort);
-      
-      // Stub down into gutter
-      const stubDownY = startPort.y + STUB_LENGTH;
-      pathPoints.push({ x: startPort.x, y: stubDownY });
-      
-      // Find horizontal rail in gutter below this row
-      const railY = findHorizontalRail(startCourseIndex, endCourseIndex, usedLanes);
-      
-      // Go to rail level
-      pathPoints.push({ x: startPort.x, y: railY });
-      
-      // Move horizontally to target X
-      pathPoints.push({ x: endPort.x, y: railY });
-      
-      // Stub up to target (if different Y levels)
-      if (Math.abs(railY - endPort.y) > STUB_LENGTH) {
-        const stubUpY = endPort.y - STUB_LENGTH;
-        pathPoints.push({ x: endPort.x, y: stubUpY });
-      }
-      
+      // Same column - direct horizontal connection
       pathPoints.push(endPort);
-      
     } else {
-      // Different columns - use right-center to left-center
-      const startPort = startPorts.rightCenter;
-      const endPort = endPorts.leftCenter;
-      
-      pathPoints.push(startPort);
-      
-      // Find horizontal rail between the course rows
-      const railY = findHorizontalRail(startCourseIndex, endCourseIndex, usedLanes);
-      
-      // Stub from start port to rail level
-      if (Math.abs(startPort.y - railY) > CLEARANCE) {
-        // Small horizontal stub to enter gutter
-        const stubX = startPort.x + STUB_LENGTH;
-        pathPoints.push({ x: stubX, y: startPort.y });
-        
-        // Vertical to rail level
-        pathPoints.push({ x: stubX, y: railY });
-        
-        // Horizontal across on rail
-        const targetStubX = endPort.x - STUB_LENGTH;
-        pathPoints.push({ x: targetStubX, y: railY });
-        
-        // Vertical stub to target level
-        pathPoints.push({ x: targetStubX, y: endPort.y });
+      // Check if direct horizontal path is blocked
+      const isDirectPathBlocked = hasBlockingCourses(
+        startPort.x, 
+        endPort.x, 
+        startPort.y, 
+        startSemIndex, 
+        endSemIndex
+      );
+
+      const verticalDistance = endPort.y - startPort.y;
+      const isApproximatelySameLevel = Math.abs(verticalDistance) < CLEARANCE;
+
+      if (isApproximatelySameLevel && !isDirectPathBlocked) {
+        // Same level, no obstacles - direct horizontal line
+        pathPoints.push(endPort);
       } else {
-        // Direct horizontal at approximately same level
-        pathPoints.push({ x: endPort.x - STUB_LENGTH, y: railY });
-        pathPoints.push({ x: endPort.x - STUB_LENGTH, y: endPort.y });
+        // Need to route around obstacles with 90-degree turns
+        
+        // Step 1: Move horizontally into gutter space
+        const gutterX = startPort.x + GUTTER_WIDTH / 2;
+        pathPoints.push({ x: gutterX, y: startPort.y });
+        
+        // Step 2: Find safe vertical routing lane
+        let routingY = endPort.y;
+        
+        if (isDirectPathBlocked || !isApproximatelySameLevel) {
+          // Route above or below the blocking courses
+          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT;
+          const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT;
+          
+          // Choose the route with less vertical distance
+          if (Math.abs(aboveY - startPort.y) <= Math.abs(belowY - startPort.y)) {
+            routingY = aboveY;
+          } else {
+            routingY = belowY;
+          }
+          
+          // Ensure minimum clearance from course boxes
+          routingY = Math.max(routingY, 30); // Minimum distance from top
+          
+          // Vertical segment to routing lane
+          pathPoints.push({ x: gutterX, y: routingY });
+          
+          // Horizontal segment across to target column
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+          pathPoints.push({ x: targetGutterX, y: routingY });
+          
+          // Vertical segment down to target level
+          if (Math.abs(routingY - endPort.y) > CLEARANCE) {
+            pathPoints.push({ x: targetGutterX, y: endPort.y });
+          }
+        } else {
+          // Direct horizontal at same level
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+          pathPoints.push({ x: targetGutterX, y: startPort.y });
+          
+          // Vertical adjustment if needed
+          if (Math.abs(verticalDistance) > CLEARANCE) {
+            pathPoints.push({ x: targetGutterX, y: endPort.y });
+          }
+        }
+        
+        // Final connection to target
+        pathPoints.push(endPort);
       }
-      
-      pathPoints.push(endPort);
     }
-    
+
     return pathPoints;
   };
 
