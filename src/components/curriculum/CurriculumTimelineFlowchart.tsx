@@ -129,7 +129,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   const getCoursePosition = (semIndex: number, courseIndex: number) => {
     const colWidth = 100 / semesterLayout.length;
     const courseHeight = 90; // 80px height + 10px gap
-    const startY = 60; // Header offset
+    const startY = 10; // Header offset
 
     return {
       left: semIndex * colWidth,
@@ -172,26 +172,30 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     
     console.log(`Generating path from sem ${startSemIndex} course ${startCourseIndex} to sem ${endSemIndex} course ${endCourseIndex}`);
     
-    // Connection points - use absolute pixel positions
-    const startX = startPos.right;
+    // Connection points - exit from right of source, enter from left of target
+    const startX = startPos.right - 1; // Small offset to avoid border
     const startY = startPos.centerY;
-    const endX = endPos.left;
+    const endX = endPos.left + 1; // Small offset to avoid border
     const endY = endPos.centerY;
     
-    console.log(`Path coordinates: (${startX}%, ${startY}px) to (${endX}%, ${endY}px)`);
+    console.log(`Path coordinates: (${startX}%, ${startY}) to (${endX}%, ${endY})`);
     
-    // Calculate routing channels between columns
-    const channelSpacing = 15;
-    const baseChannelY = Math.min(startY, endY) - 40 - (arrowIndex * channelSpacing);
+    // Calculate intermediate routing points to avoid course blocks
+    const midX1 = startX + (colWidth * 0.2); // Move right from source
+    const midX2 = endX - (colWidth * 0.2); // Move left to target
     
-    // Create orthogonal path: right -> down/up -> right -> down/up -> left
+    // Use different Y channels to avoid arrow overlaps
+    const channelOffset = arrowIndex * 5; // Vertical separation for multiple arrows
+    const routingY = Math.min(startY, endY) - 20 - channelOffset;
+    
+    // Create clean orthogonal path through white spaces
     const pathPoints = [
-      { x: startX, y: startY },
-      { x: startX + colWidth * 0.3, y: startY },
-      { x: startX + colWidth * 0.3, y: baseChannelY },
-      { x: endX - colWidth * 0.3, y: baseChannelY },
-      { x: endX - colWidth * 0.3, y: endY },
-      { x: endX, y: endY }
+      { x: startX, y: startY }, // Start from right edge of source
+      { x: midX1, y: startY }, // Move horizontally right
+      { x: midX1, y: routingY }, // Move vertically to routing channel
+      { x: midX2, y: routingY }, // Move horizontally across
+      { x: midX2, y: endY }, // Move vertically to target level
+      { x: endX, y: endY } // Enter left edge of target
     ];
 
     return pathPoints;
@@ -234,7 +238,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
             <svg 
               className="absolute inset-0 w-full h-full pointer-events-none z-10"
               style={{ minHeight: '600px' }}
-              viewBox="0 0 100 600"
+              viewBox="0 0 100 100"
               preserveAspectRatio="none"
             >
               {/* Draw orthogonal arrows between prerequisites */}
@@ -266,10 +270,12 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                         arrowIndex
                       );
 
-                      // Create SVG path string - convert to viewBox coordinates
-                      const pathString = pathPoints.map((point, index) => 
-                        `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y * 100 / 600}`
-                      ).join(' ');
+                      // Create SVG path string using viewBox coordinates
+                      const pathString = pathPoints.map((point, index) => {
+                        const x = point.x;
+                        const y = (point.y / 600) * 100; // Convert pixel position to viewBox percentage
+                        return `${index === 0 ? 'M' : 'L'} ${x} ${y}`;
+                      }).join(' ');
 
                       console.log(`Generated path: ${pathString}`);
 
@@ -278,14 +284,15 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                           <defs>
                             <marker
                               id={`arrowhead-${course.id}-${arrowIndex}`}
-                              markerWidth="8"
-                              markerHeight="6"
-                              refX="7"
-                              refY="3"
+                              markerWidth="2"
+                              markerHeight="1.5"
+                              refX="1.8"
+                              refY="0.75"
                               orient="auto"
+                              markerUnits="strokeWidth"
                             >
                               <polygon
-                                points="0 0, 8 3, 0 6"
+                                points="0 0, 2 0.75, 0 1.5"
                                 fill="black"
                               />
                             </marker>
@@ -294,7 +301,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                           <path
                             d={pathString}
                             stroke="black"
-                            strokeWidth="2"
+                            strokeWidth="0.3"
                             fill="none"
                             markerEnd={`url(#arrowhead-${course.id}-${arrowIndex})`}
                           />
