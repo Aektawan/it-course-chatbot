@@ -177,33 +177,41 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                     });
 
                     if (prereqSemIndex >= 0) {
-                      const startX = (prereqSemIndex + 0.8) * (100 / semesterLayout.length);
-                      const endX = (semIndex + 0.2) * (100 / semesterLayout.length);
-                      const startY = 60 + prereqCourseIndex * 90;
-                      const endY = 60 + courseIndex * 90;
+                      // Calculate positions for straight line arrows
+                      const colWidth = 100 / semesterLayout.length;
+                      const startX = (prereqSemIndex * colWidth) + (colWidth * 0.9); // Right edge of prereq box
+                      const endX = (semIndex * colWidth) + (colWidth * 0.1); // Left edge of target box
+                      const startY = 60 + prereqCourseIndex * 90 + 40; // Center of prereq box
+                      const endY = 60 + courseIndex * 90 + 40; // Center of target box
+                      
+                      // Add slight vertical offset to avoid overlapping arrows
+                      const arrowOffset = arrowIndex * 3;
 
                       return (
                         <g key={`${course.id}-${prereqId}-${arrowIndex}`}>
                           <defs>
                             <marker
                               id={`arrowhead-${course.id}-${arrowIndex}`}
-                              markerWidth="10"
-                              markerHeight="7"
-                              refX="9"
-                              refY="3.5"
+                              markerWidth="8"
+                              markerHeight="6"
+                              refX="7"
+                              refY="3"
                               orient="auto"
                             >
                               <polygon
-                                points="0 0, 10 3.5, 0 7"
+                                points="0 0, 8 3, 0 6"
                                 fill="black"
                               />
                             </marker>
                           </defs>
-                          <path
-                            d={`M ${startX}% ${startY}px Q ${(startX + endX) / 2}% ${startY}px ${endX}% ${endY}px`}
+                          {/* Straight line arrow */}
+                          <line
+                            x1={`${startX}%`}
+                            y1={`${startY + arrowOffset}px`}
+                            x2={`${endX}%`}
+                            y2={`${endY + arrowOffset}px`}
                             stroke="black"
-                            strokeWidth="1.5"
-                            fill="none"
+                            strokeWidth="2"
                             markerEnd={`url(#arrowhead-${course.id}-${arrowIndex})`}
                           />
                         </g>
