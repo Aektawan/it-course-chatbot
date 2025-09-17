@@ -121,6 +121,74 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     return prereqIds;
   };
 
+  // Calculate course positions for arrow routing
+  const getCoursePosition = (semIndex: number, courseIndex: number) => {
+    const colWidth = 100 / semesterLayout.length;
+    const courseHeight = 90; // 80px height + 10px gap
+    const startY = 60; // Header offset
+
+    return {
+      left: semIndex * colWidth,
+      right: (semIndex + 1) * colWidth,
+      top: startY + courseIndex * courseHeight,
+      bottom: startY + courseIndex * courseHeight + 80,
+      centerX: semIndex * colWidth + colWidth / 2,
+      centerY: startY + courseIndex * courseHeight + 40
+    };
+  };
+
+  // Check if a point is inside any course box
+  const isPointInCourseBox = (x: number, y: number, excludeSemester?: number, excludeCourse?: number) => {
+    for (let semIndex = 0; semIndex < semesterLayout.length; semIndex++) {
+      if (semIndex === excludeSemester) continue;
+      
+      for (let courseIndex = 0; courseIndex < semesterLayout[semIndex].courses.length; courseIndex++) {
+        if (semIndex === excludeSemester && courseIndex === excludeCourse) continue;
+        
+        const pos = getCoursePosition(semIndex, courseIndex);
+        const colWidth = 100 / semesterLayout.length;
+        
+        if (x >= pos.left && x <= pos.right && y >= pos.top && y <= pos.bottom) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  // Generate orthogonal path from source to target avoiding obstacles
+  const generateOrthogonalPath = (
+    startSemIndex: number, startCourseIndex: number,
+    endSemIndex: number, endCourseIndex: number,
+    arrowIndex: number
+  ) => {
+    const colWidth = 100 / semesterLayout.length;
+    const startPos = getCoursePosition(startSemIndex, startCourseIndex);
+    const endPos = getCoursePosition(endSemIndex, endCourseIndex);
+    
+    // Connection points
+    const startX = startPos.right;
+    const startY = startPos.centerY;
+    const endX = endPos.left;
+    const endY = endPos.centerY;
+    
+    // Calculate routing channels between columns
+    const channelSpacing = 15;
+    const baseChannelY = Math.min(startY, endY) - 40 - (arrowIndex * channelSpacing);
+    
+    // Create orthogonal path: right -> down/up -> right -> down/up -> left
+    const pathPoints = [
+      { x: startX, y: startY },
+      { x: startX + colWidth * 0.3, y: startY },
+      { x: startX + colWidth * 0.3, y: baseChannelY },
+      { x: endX - colWidth * 0.3, y: baseChannelY },
+      { x: endX - colWidth * 0.3, y: endY },
+      { x: endX, y: endY }
+    ];
+
+    return pathPoints;
+  };
+
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -159,7 +227,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               className="absolute inset-0 w-full h-full pointer-events-none z-10"
               style={{ minHeight: '600px' }}
             >
-              {/* Draw arrows between prerequisites */}
+              {/* Draw orthogonal arrows between prerequisites */}
               {semesterLayout.map((semData, semIndex) =>
                 semData.courses.map((course, courseIndex) => {
                   const prereqIds = findPrerequisites(course);
@@ -177,15 +245,17 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                     });
 
                     if (prereqSemIndex >= 0) {
-                      // Calculate positions for straight line arrows
-                      const colWidth = 100 / semesterLayout.length;
-                      const startX = (prereqSemIndex * colWidth) + (colWidth * 0.9); // Right edge of prereq box
-                      const endX = (semIndex * colWidth) + (colWidth * 0.1); // Left edge of target box
-                      const startY = 60 + prereqCourseIndex * 90 + 40; // Center of prereq box
-                      const endY = 60 + courseIndex * 90 + 40; // Center of target box
-                      
-                      // Add slight vertical offset to avoid overlapping arrows
-                      const arrowOffset = arrowIndex * 3;
+                      // Generate orthogonal path
+                      const pathPoints = generateOrthogonalPath(
+                        prereqSemIndex, prereqCourseIndex,
+                        semIndex, courseIndex,
+                        arrowIndex
+                      );
+
+                      // Create SVG path string
+                      const pathString = pathPoints.map((point, index) => 
+                        `${index === 0 ? 'M' : 'L'} ${point.x}% ${point.y}px`
+                      ).join(' ');
 
                       return (
                         <g key={`${course.id}-${prereqId}-${arrowIndex}`}>
@@ -204,14 +274,12 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                               />
                             </marker>
                           </defs>
-                          {/* Straight line arrow */}
-                          <line
-                            x1={`${startX}%`}
-                            y1={`${startY + arrowOffset}px`}
-                            x2={`${endX}%`}
-                            y2={`${endY + arrowOffset}px`}
+                          {/* Orthogonal path */}
+                          <path
+                            d={pathString}
                             stroke="black"
                             strokeWidth="2"
+                            fill="none"
                             markerEnd={`url(#arrowhead-${course.id}-${arrowIndex})`}
                           />
                         </g>
