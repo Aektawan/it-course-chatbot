@@ -175,37 +175,32 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
 
   // Find available horizontal lanes in the gutter space
   const findHorizontalLane = (startRect: any, endRect: any, usedLanes: Set<string>) => {
-    // Try direct horizontal connection first (same Y level)
-    const directY = startRect.centerY;
-    const laneKey = `h-${Math.round(directY)}`;
-    
-    if (!usedLanes.has(laneKey) && 
-        !overlapsWithCourses(startRect.right, directY - 2, endRect.left - startRect.right, 4)) {
-      usedLanes.add(laneKey);
-      return directY;
-    }
-    
-    // Try lanes above and below the course centers
+    // Try lanes in the gutter space between course blocks
     const testYPositions = [
-      startRect.centerY - GUTTER_HEIGHT / 4,
-      startRect.centerY + GUTTER_HEIGHT / 4,
-      startRect.top - CLEARANCE,
-      startRect.bottom + CLEARANCE,
-      endRect.top - CLEARANCE,
-      endRect.bottom + CLEARANCE
+      // Primary gutter lanes - center of gutter space
+      startRect.top - GUTTER_HEIGHT / 2,
+      startRect.bottom + GUTTER_HEIGHT / 2,
+      endRect.top - GUTTER_HEIGHT / 2,
+      endRect.bottom + GUTTER_HEIGHT / 2,
+      // Secondary lanes with more clearance
+      startRect.top - GUTTER_HEIGHT / 3,
+      startRect.bottom + GUTTER_HEIGHT / 3,
+      endRect.top - GUTTER_HEIGHT / 3,
+      endRect.bottom + GUTTER_HEIGHT / 3,
     ];
     
     for (const testY of testYPositions) {
       const testLaneKey = `h-${Math.round(testY)}`;
       if (!usedLanes.has(testLaneKey) && 
-          !overlapsWithCourses(startRect.right, testY - 2, endRect.left - startRect.right, 4)) {
+          !overlapsWithCourses(startRect.right + CLEARANCE, testY - 2, endRect.left - startRect.right - CLEARANCE * 2, 4)) {
         usedLanes.add(testLaneKey);
         return testY;
       }
     }
     
-    // Fallback to original Y
-    return directY;
+    // Fallback to center between start and end with clearance
+    const midY = (startRect.centerY + endRect.centerY) / 2;
+    return midY;
   };
 
   // Check if there are blocking courses between start and end points
@@ -262,38 +257,44 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       const isApproximatelySameLevel = Math.abs(verticalDistance) < CLEARANCE;
 
       if (isApproximatelySameLevel && !isDirectPathBlocked) {
-        // Same level, no obstacles - direct horizontal line
+        // Same level, no obstacles - direct horizontal line in gutter
+        const safeY = findHorizontalLane(startRect, endRect, usedLanes);
+        if (Math.abs(safeY - startPort.y) > CLEARANCE) {
+          // Move to safe horizontal lane
+          const gutterX = startPort.x + GUTTER_WIDTH / 3;
+          pathPoints.push({ x: gutterX, y: startPort.y });
+          pathPoints.push({ x: gutterX, y: safeY });
+          pathPoints.push({ x: endPort.x - GUTTER_WIDTH / 3, y: safeY });
+          pathPoints.push({ x: endPort.x - GUTTER_WIDTH / 3, y: endPort.y });
+        }
         pathPoints.push(endPort);
       } else {
         // Need to route around obstacles with 90-degree turns
         
-        // Step 1: Move horizontally into gutter space
-        const gutterX = startPort.x + GUTTER_WIDTH / 2;
+        // Step 1: Move horizontally into gutter space with clearance
+        const gutterX = startPort.x + GUTTER_WIDTH / 3;
         pathPoints.push({ x: gutterX, y: startPort.y });
         
-        // Step 2: Find safe vertical routing lane
+        // Step 2: Find safe vertical routing lane in gutter space
         let routingY = endPort.y;
         
         if (isDirectPathBlocked || !isApproximatelySameLevel) {
-          // Route above or below the blocking courses
-          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT;
-          const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT;
+          // Route in gutter space above or below the blocking courses
+          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT / 2;
+          const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT / 2;
           
-          // Choose the route with less vertical distance
+          // Choose the route with less vertical distance and ensure it's in gutter space
           if (Math.abs(aboveY - startPort.y) <= Math.abs(belowY - startPort.y)) {
-            routingY = aboveY;
+            routingY = Math.max(aboveY, 40); // Ensure minimum clearance from top
           } else {
             routingY = belowY;
           }
           
-          // Ensure minimum clearance from course boxes
-          routingY = Math.max(routingY, 30); // Minimum distance from top
-          
           // Vertical segment to routing lane
           pathPoints.push({ x: gutterX, y: routingY });
           
-          // Horizontal segment across to target column
-          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+          // Horizontal segment across to target column in gutter space
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 3;
           pathPoints.push({ x: targetGutterX, y: routingY });
           
           // Vertical segment down to target level
@@ -301,12 +302,19 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
             pathPoints.push({ x: targetGutterX, y: endPort.y });
           }
         } else {
-          // Direct horizontal at same level
-          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
-          pathPoints.push({ x: targetGutterX, y: startPort.y });
+          // Direct horizontal at same level in gutter space
+          const safeY = findHorizontalLane(startRect, endRect, usedLanes);
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 3;
+          
+          if (Math.abs(safeY - startPort.y) > CLEARANCE) {
+            pathPoints.push({ x: gutterX, y: safeY });
+            pathPoints.push({ x: targetGutterX, y: safeY });
+          } else {
+            pathPoints.push({ x: targetGutterX, y: startPort.y });
+          }
           
           // Vertical adjustment if needed
-          if (Math.abs(verticalDistance) > CLEARANCE) {
+          if (Math.abs(startPort.y - endPort.y) > CLEARANCE) {
             pathPoints.push({ x: targetGutterX, y: endPort.y });
           }
         }
