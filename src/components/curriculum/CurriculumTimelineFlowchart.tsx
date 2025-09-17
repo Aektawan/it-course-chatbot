@@ -177,15 +177,27 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                     });
 
                     if (prereqSemIndex >= 0) {
-                      // Calculate positions for straight line arrows
+                      // Calculate positions for curved arrows that flow through white spaces
                       const colWidth = 100 / semesterLayout.length;
-                      const startX = (prereqSemIndex * colWidth) + (colWidth * 0.9); // Right edge of prereq box
-                      const endX = (semIndex * colWidth) + (colWidth * 0.1); // Left edge of target box
+                      const startX = (prereqSemIndex * colWidth) + (colWidth * 0.95); // Right edge of prereq box
+                      const endX = (semIndex * colWidth) + (colWidth * 0.05); // Left edge of target box
                       const startY = 60 + prereqCourseIndex * 90 + 40; // Center of prereq box
                       const endY = 60 + courseIndex * 90 + 40; // Center of target box
                       
-                      // Add slight vertical offset to avoid overlapping arrows
-                      const arrowOffset = arrowIndex * 3;
+                      // Create vertical offset for multiple arrows to avoid overlapping
+                      const baseOffset = 20; // Base offset from course boxes
+                      const arrowSpacing = 15; // Space between multiple arrows
+                      const verticalOffset = baseOffset + (arrowIndex * arrowSpacing);
+                      
+                      // Determine if arrow should go above or below based on target position
+                      const shouldGoAbove = endY < startY;
+                      const finalOffset = shouldGoAbove ? -verticalOffset : verticalOffset;
+                      
+                      // Calculate control points for smooth curves that avoid course boxes
+                      const midX = (startX + endX) / 2;
+                      const routingY = shouldGoAbove ? 
+                        Math.min(startY, endY) + finalOffset : 
+                        Math.max(startY, endY) + finalOffset;
 
                       return (
                         <g key={`${course.id}-${prereqId}-${arrowIndex}`}>
@@ -204,14 +216,17 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                               />
                             </marker>
                           </defs>
-                          {/* Straight line arrow */}
-                          <line
-                            x1={`${startX}%`}
-                            y1={`${startY + arrowOffset}px`}
-                            x2={`${endX}%`}
-                            y2={`${endY + arrowOffset}px`}
+                          {/* Curved path that flows through white spaces */}
+                          <path
+                            d={`M ${startX}% ${startY}px 
+                                L ${startX + 2}% ${startY}px 
+                                Q ${startX + 4}% ${startY}px ${startX + 4}% ${routingY}px
+                                L ${endX - 4}% ${routingY}px
+                                Q ${endX - 4}% ${endY}px ${endX - 2}% ${endY}px
+                                L ${endX}% ${endY}px`}
                             stroke="black"
-                            strokeWidth="2"
+                            strokeWidth="1.5"
+                            fill="none"
                             markerEnd={`url(#arrowhead-${course.id}-${arrowIndex})`}
                           />
                         </g>
