@@ -101,13 +101,21 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     return layout;
   }, [timelineData]);
 
-  // Find prerequisite relationships for drawing arrows
+  // DIAGRAM ENGINE - Curriculum flowchart with prerequisite arrows
+  // Following strict orthogonal routing rules through white gutters
+
+  // Course layout constants
+  const COURSE_WIDTH = 120;
+  const COURSE_HEIGHT = 80;
+  const GUTTER_WIDTH = 32;
+  const GUTTER_HEIGHT = 24;
+  const CLEARANCE = 8;
+  const LANE_WIDTH = 4;
+
+  // Find prerequisite relationships
   const findPrerequisites = (course: Course) => {
     const prereqIds: string[] = [];
     if (course.prerequisites && course.prerequisites.length > 0) {
-      console.log(`Finding prerequisites for ${course.code}:`, course.prerequisites);
-      
-      // Find courses in previous semesters that match prerequisites
       semesterLayout.forEach((semData) => {
         semData.courses.forEach((c) => {
           if (course.prerequisites.some(prereq => 
@@ -115,103 +123,176 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
             c.name.includes(prereq) ||
             prereq.includes(c.code.split('-')[1] || c.code)
           )) {
-            console.log(`Found prerequisite match: ${c.code} for ${course.code}`);
             prereqIds.push(c.id);
           }
         });
       });
     }
-    console.log(`Prerequisites found for ${course.code}:`, prereqIds.length);
     return prereqIds;
   };
 
-  // Calculate course positions for arrow routing
-  const getCoursePosition = (semIndex: number, courseIndex: number) => {
-    const colWidth = 100 / semesterLayout.length;
-    const courseHeight = 90; // 80px height + 10px gap
-    const startY = 10; // Header offset
-
+  // Calculate precise course positions in the grid
+  const getCourseRect = (semIndex: number, courseIndex: number) => {
+    const x = semIndex * (COURSE_WIDTH + GUTTER_WIDTH);
+    const y = courseIndex * (COURSE_HEIGHT + GUTTER_HEIGHT) + 60; // Header offset
+    
     return {
-      left: semIndex * colWidth,
-      right: (semIndex + 1) * colWidth,
-      top: startY + courseIndex * courseHeight,
-      bottom: startY + courseIndex * courseHeight + 80,
-      centerX: semIndex * colWidth + colWidth / 2,
-      centerY: startY + courseIndex * courseHeight + 40
+      x,
+      y,
+      width: COURSE_WIDTH,
+      height: COURSE_HEIGHT,
+      centerX: x + COURSE_WIDTH / 2,
+      centerY: y + COURSE_HEIGHT / 2,
+      left: x,
+      right: x + COURSE_WIDTH,
+      top: y,
+      bottom: y + COURSE_HEIGHT
     };
   };
 
-  // Check if a point is inside any course box
-  const isPointInCourseBox = (x: number, y: number, excludeSemester?: number, excludeCourse?: number) => {
-    for (let semIndex = 0; semIndex < semesterLayout.length; semIndex++) {
-      if (semIndex === excludeSemester) continue;
-      
-      for (let courseIndex = 0; courseIndex < semesterLayout[semIndex].courses.length; courseIndex++) {
-        if (semIndex === excludeSemester && courseIndex === excludeCourse) continue;
+  // Get connection ports for courses
+  const getConnectionPorts = (rect: any) => ({
+    topCenter: { x: rect.centerX, y: rect.top },
+    bottomCenter: { x: rect.centerX, y: rect.bottom },
+    rightCenter: { x: rect.right, y: rect.centerY },
+    leftCenter: { x: rect.left, y: rect.centerY }
+  });
+
+  // Check if a rectangular area overlaps with any course box
+  const overlapsWithCourses = (x: number, y: number, width: number, height: number, excludeBoxes: string[] = []) => {
+    return semesterLayout.some((semData, semIdx) =>
+      semData.courses.some((course, courseIdx) => {
+        if (excludeBoxes.includes(`${semIdx}-${courseIdx}`)) return false;
         
-        const pos = getCoursePosition(semIndex, courseIndex);
-        const colWidth = 100 / semesterLayout.length;
+        const courseRect = getCourseRect(semIdx, courseIdx);
+        return !(x > courseRect.right + CLEARANCE || 
+                x + width < courseRect.left - CLEARANCE ||
+                y > courseRect.bottom + CLEARANCE || 
+                y + height < courseRect.top - CLEARANCE);
+      })
+    );
+  };
+
+  // Find available lanes in gutters for routing
+  const findAvailableLanes = (startX: number, endX: number, y: number, usedLanes: Set<string>) => {
+    const lanes: number[] = [];
+    const laneY = Math.floor(y / LANE_WIDTH) * LANE_WIDTH;
+    
+    // Check multiple lane positions above and below
+    for (let offset = 0; offset <= GUTTER_HEIGHT / 2; offset += LANE_WIDTH) {
+      for (const sign of [1, -1]) {
+        const testY = laneY + (sign * offset);
+        const laneKey = `${testY}`;
         
-        if (x >= pos.left && x <= pos.right && y >= pos.top && y <= pos.bottom) {
-          return true;
+        if (!usedLanes.has(laneKey) && 
+            !overlapsWithCourses(startX, testY, Math.abs(endX - startX), LANE_WIDTH)) {
+          lanes.push(testY);
         }
       }
     }
-    return false;
+    
+    return lanes.sort((a, b) => Math.abs(a - y) - Math.abs(b - y));
   };
 
-  // Generate simple orthogonal path avoiding course blocks
+  // Generate orthogonal path through white gutters
   const generateOrthogonalPath = (
     startSemIndex: number, startCourseIndex: number,
     endSemIndex: number, endCourseIndex: number,
-    arrowIndex: number
+    usedLanes: Set<string>
   ) => {
-    const colWidth = 100 / semesterLayout.length;
-    const startPos = getCoursePosition(startSemIndex, startCourseIndex);
-    const endPos = getCoursePosition(endSemIndex, endCourseIndex);
-    
-    // Exit from right edge of source course
-    const startX = startPos.right - 0.5;
-    const startY = startPos.centerY;
-    
-    // Enter from left edge of target course  
-    const endX = endPos.left + 0.5;
-    const endY = endPos.centerY;
-    
-    // Check if direct horizontal line would intersect any course blocks
-    const needsRouting = semesterLayout.some((semData, semIdx) => {
-      if (semIdx <= startSemIndex || semIdx >= endSemIndex) return false;
+    const startRect = getCourseRect(startSemIndex, startCourseIndex);
+    const endRect = getCourseRect(endSemIndex, endCourseIndex);
+    const startPorts = getConnectionPorts(startRect);
+    const endPorts = getConnectionPorts(endRect);
+
+    // Default: bottom-center to top-center
+    let startPort = startPorts.bottomCenter;
+    let endPort = endPorts.topCenter;
+
+    // Same column: use side ports
+    if (startSemIndex === endSemIndex) {
+      startPort = startPorts.rightCenter;
+      endPort = endPorts.leftCenter;
+    }
+
+    const pathPoints = [startPort];
+
+    if (startSemIndex === endSemIndex) {
+      // Direct horizontal connection for same column
+      pathPoints.push(endPort);
+    } else {
+      // Find routing lane through gutters
+      const midY = (startPort.y + endPort.y) / 2;
+      const availableLanes = findAvailableLanes(
+        Math.min(startPort.x, endPort.x),
+        Math.max(startPort.x, endPort.x),
+        midY,
+        usedLanes
+      );
+
+      const routingY = availableLanes[0] || midY;
+      usedLanes.add(`${routingY}`);
+
+      // Create L-shaped orthogonal path
+      if (Math.abs(routingY - startPort.y) > CLEARANCE) {
+        pathPoints.push({ x: startPort.x, y: routingY }); // Vertical segment
+      }
       
-      return semData.courses.some((_, courseIdx) => {
-        const coursePos = getCoursePosition(semIdx, courseIdx);
-        // Check if horizontal line at startY intersects this course
-        return startY >= coursePos.top && startY <= coursePos.bottom;
+      if (Math.abs(endPort.x - startPort.x) > CLEARANCE) {
+        pathPoints.push({ x: endPort.x, y: routingY }); // Horizontal segment
+      }
+      
+      if (Math.abs(routingY - endPort.y) > CLEARANCE) {
+        pathPoints.push(endPort); // Final vertical to target
+      }
+    }
+
+    return pathPoints;
+  };
+
+  // Collect all arrow data with collision-free routing
+  const arrowData = useMemo(() => {
+    const arrows: Array<{
+      id: string;
+      pathPoints: Array<{ x: number; y: number }>;
+    }> = [];
+    const usedLanes = new Set<string>();
+
+    semesterLayout.forEach((semData, semIndex) => {
+      semData.courses.forEach((course, courseIndex) => {
+        const prereqIds = findPrerequisites(course);
+        
+        prereqIds.forEach((prereqId) => {
+          // Find prerequisite position
+          let prereqSemIndex = -1;
+          let prereqCourseIndex = -1;
+          
+          semesterLayout.forEach((prevSem, prevSemIndex) => {
+            const courseIdx = prevSem.courses.findIndex(c => c.id === prereqId);
+            if (courseIdx !== -1 && prevSemIndex < semIndex) {
+              prereqSemIndex = prevSemIndex;
+              prereqCourseIndex = courseIdx;
+            }
+          });
+
+          if (prereqSemIndex >= 0) {
+            const pathPoints = generateOrthogonalPath(
+              prereqSemIndex, prereqCourseIndex,
+              semIndex, courseIndex,
+              usedLanes
+            );
+
+            arrows.push({
+              id: `${prereqId}-${course.id}`,
+              pathPoints
+            });
+          }
+        });
       });
     });
-    
-    if (!needsRouting && startY === endY) {
-      // Simple direct horizontal line
-      return [
-        { x: startX, y: startY },
-        { x: endX, y: endY }
-      ];
-    }
-    
-    // Route through white space above/below courses
-    const routingY = startY < endY ? 
-      Math.min(startPos.top, endPos.top) - 3 : // Route above
-      Math.max(startPos.bottom, endPos.bottom) + 3; // Route below
-    
-    // Create L-shaped path through white space
-    return [
-      { x: startX, y: startY }, // Start from source
-      { x: startX + colWidth * 0.15, y: startY }, // Move right
-      { x: startX + colWidth * 0.15, y: routingY }, // Move to routing channel
-      { x: endX - colWidth * 0.15, y: routingY }, // Move across
-      { x: endX - colWidth * 0.15, y: endY }, // Move to target level
-      { x: endX, y: endY } // Enter target
-    ];
-  };
+
+    return arrows;
+  }, [semesterLayout]);
 
   return (
     <div className="space-y-4">
@@ -249,122 +330,111 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
           <div className="relative">
             <svg 
               className="absolute inset-0 w-full h-full pointer-events-none z-10"
-              style={{ minHeight: '600px' }}
-              viewBox="0 0 100 100"
-              preserveAspectRatio="none"
+              style={{ 
+                minHeight: '600px',
+                width: `${semesterLayout.length * (COURSE_WIDTH + GUTTER_WIDTH)}px`,
+                height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + 200}px`
+              }}
             >
-              {/* Draw orthogonal arrows between prerequisites */}
-              {semesterLayout.map((semData, semIndex) =>
-                semData.courses.map((course, courseIndex) => {
-                  const prereqIds = findPrerequisites(course);
-                  console.log(`Course ${course.code} has ${prereqIds.length} prerequisites`);
-                  
-                  return prereqIds.map((prereqId, arrowIndex) => {
-                    // Find prerequisite course position
-                    let prereqSemIndex = -1;
-                    let prereqCourseIndex = -1;
-                    
-                    semesterLayout.forEach((prevSem, prevSemIndex) => {
-                      const courseIdx = prevSem.courses.findIndex(c => c.id === prereqId);
-                      if (courseIdx !== -1 && prevSemIndex < semIndex) {
-                        prereqSemIndex = prevSemIndex;
-                        prereqCourseIndex = courseIdx;
-                      }
-                    });
+              <defs>
+                <marker
+                  id="arrowhead"
+                  markerWidth="8"
+                  markerHeight="6"
+                  refX="6"
+                  refY="3"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <polygon
+                    points="0 0, 8 3, 0 6"
+                    fill="#000"
+                  />
+                </marker>
+              </defs>
+              
+              {/* Render orthogonal prerequisite arrows */}
+              {arrowData.map((arrow) => {
+                const pathString = arrow.pathPoints.map((point, index) => 
+                  `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
+                ).join(' ');
 
-                    if (prereqSemIndex >= 0) {
-                      console.log(`Drawing arrow from ${prereqSemIndex},${prereqCourseIndex} to ${semIndex},${courseIndex}`);
-                      
-                      // Generate orthogonal path
-                      const pathPoints = generateOrthogonalPath(
-                        prereqSemIndex, prereqCourseIndex,
-                        semIndex, courseIndex,
-                        arrowIndex
-                      );
-
-                      // Create simple SVG path
-                      const pathString = pathPoints.map((point, index) => {
-                        const x = point.x;
-                        const y = (point.y / 600) * 100;
-                        return `${index === 0 ? 'M' : 'L'} ${x} ${y}`;
-                      }).join(' ');
-
-                      console.log(`Generated path: ${pathString}`);
-
-                      return (
-                        <g key={`${course.id}-${prereqId}-${arrowIndex}`}>
-                          <defs>
-                            <marker
-                              id={`arrowhead-${course.id}-${arrowIndex}`}
-                              markerWidth="3"
-                              markerHeight="2"
-                              refX="2.5"
-                              refY="1"
-                              orient="auto"
-                              markerUnits="strokeWidth"
-                            >
-                              <polygon
-                                points="0 0, 3 1, 0 2"
-                                fill="#333"
-                              />
-                            </marker>
-                          </defs>
-                          {/* Orthogonal path */}
-                          <path
-                            d={pathString}
-                            stroke="#333"
-                            strokeWidth="0.4"
-                            fill="none"
-                            markerEnd={`url(#arrowhead-${course.id}-${arrowIndex})`}
-                          />
-                        </g>
-                      );
-                    }
-                    return null;
-                  });
-                })
-              )}
+                return (
+                  <path
+                    key={arrow.id}
+                    d={pathString}
+                    stroke="#000"
+                    strokeWidth="2"
+                    fill="none"
+                    markerEnd="url(#arrowhead)"
+                    style={{
+                      filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
+                    }}
+                  />
+                );
+              })}
             </svg>
 
-            {/* Course Boxes Grid */}
-            <div className="grid grid-flow-col auto-cols-fr gap-4 relative z-20">
-              {semesterLayout.map((semData, semIndex) => (
-                <div key={semIndex} className="space-y-3">
-                  {/* Course boxes */}
-                  <div className="space-y-3" style={{ minHeight: '500px' }}>
-                    {semData.courses.map((course, courseIndex) => (
-                      <div
-                        key={course.id}
-                        id={`course-${course.id}`}
-                        className="border-2 border-black bg-white p-1 text-xs relative flex flex-col justify-between"
-                        style={{ height: '80px', minWidth: '120px' }}
-                      >
-                        {/* Course Code */}
-                        <div className="font-bold text-center text-[10px] leading-tight">
-                          {course.code}
-                        </div>
-                        
-                        {/* Course Name */}
-                        <div className="text-center leading-tight flex-1 flex items-center justify-center px-1" style={{ fontSize: '8px' }}>
-                          <span className="line-clamp-3 overflow-hidden text-ellipsis">
-                            {course.name}
-                          </span>
-                        </div>
-                        
-                        {/* Credits */}
-                        <div className="text-center font-bold text-[9px]">
-                          {formatCredits(course.credits)}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+            {/* Course Boxes Grid - Fixed positioning to match arrow coordinates */}
+            <div className="relative" style={{ 
+              height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + 200}px`,
+              width: `${semesterLayout.length * (COURSE_WIDTH + GUTTER_WIDTH)}px`
+            }}>
+              {semesterLayout.map((semData, semIndex) => 
+                semData.courses.map((course, courseIndex) => {
+                  const rect = getCourseRect(semIndex, courseIndex);
                   
-                  {/* Credits Summary */}
-                  <div className="text-center text-sm font-bold border-t-2 border-black pt-2">
+                  return (
+                    <div
+                      key={course.id}
+                      id={`course-${course.id}`}
+                      className="absolute border-2 border-black bg-white p-2 text-xs flex flex-col justify-between shadow-sm"
+                      style={{ 
+                        left: `${rect.x}px`,
+                        top: `${rect.y}px`,
+                        width: `${COURSE_WIDTH}px`,
+                        height: `${COURSE_HEIGHT}px`
+                      }}
+                    >
+                      {/* Course Code */}
+                      <div className="font-bold text-center text-[10px] leading-tight">
+                        {course.code}
+                      </div>
+                      
+                      {/* Course Name */}
+                      <div className="text-center leading-tight flex-1 flex items-center justify-center px-1" style={{ fontSize: '8px' }}>
+                        <span className="line-clamp-3 overflow-hidden text-ellipsis">
+                          {course.name}
+                        </span>
+                      </div>
+                      
+                      {/* Credits */}
+                      <div className="text-center font-bold text-[9px]">
+                        {formatCredits(course.credits)}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+              
+              {/* Credits Summary for each semester */}
+              {semesterLayout.map((semData, semIndex) => {
+                const rect = getCourseRect(semIndex, semData.courses.length);
+                
+                return (
+                  <div
+                    key={`summary-${semIndex}`}
+                    className="absolute text-center text-sm font-bold border-t-2 border-black pt-2 bg-white"
+                    style={{
+                      left: `${rect.x}px`,
+                      top: `${rect.y + 10}px`,
+                      width: `${COURSE_WIDTH}px`
+                    }}
+                  >
                     {calculateSemesterCredits(semData.courses)} หน่วยกิต
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
