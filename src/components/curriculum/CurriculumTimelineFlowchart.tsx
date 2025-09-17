@@ -309,20 +309,62 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     return pathPoints;
   };
 
-  // Function to check if two line segments intersect
-  const lineSegmentsIntersect = (
-    line1Start: { x: number; y: number }, 
-    line1End: { x: number; y: number },
-    line2Start: { x: number; y: number }, 
-    line2End: { x: number; y: number }
+  // Detect line intersections and create visual bridges
+  const detectIntersections = (allPaths: Array<{ id: string; pathPoints: Array<{ x: number; y: number }> }>) => {
+    const intersections: Array<{
+      path1Id: string;
+      path2Id: string;
+      point: { x: number; y: number };
+      segment1: { start: { x: number; y: number }; end: { x: number; y: number } };
+      segment2: { start: { x: number; y: number }; end: { x: number; y: number } };
+    }> = [];
+
+    // Check each path against every other path
+    for (let i = 0; i < allPaths.length; i++) {
+      for (let j = i + 1; j < allPaths.length; j++) {
+        const path1 = allPaths[i];
+        const path2 = allPaths[j];
+
+        // Check each segment of path1 against each segment of path2
+        for (let s1 = 0; s1 < path1.pathPoints.length - 1; s1++) {
+          for (let s2 = 0; s2 < path2.pathPoints.length - 1; s2++) {
+            const seg1Start = path1.pathPoints[s1];
+            const seg1End = path1.pathPoints[s1 + 1];
+            const seg2Start = path2.pathPoints[s2];
+            const seg2End = path2.pathPoints[s2 + 1];
+
+            const intersection = lineIntersection(seg1Start, seg1End, seg2Start, seg2End);
+            if (intersection) {
+              intersections.push({
+                path1Id: path1.id,
+                path2Id: path2.id,
+                point: intersection,
+                segment1: { start: seg1Start, end: seg1End },
+                segment2: { start: seg2Start, end: seg2End }
+              });
+            }
+          }
+        }
+      }
+    }
+
+    return intersections;
+  };
+
+  // Calculate line segment intersection
+  const lineIntersection = (
+    p1: { x: number; y: number },
+    p2: { x: number; y: number },
+    p3: { x: number; y: number },
+    p4: { x: number; y: number }
   ) => {
-    const x1 = line1Start.x, y1 = line1Start.y;
-    const x2 = line1End.x, y2 = line1End.y;
-    const x3 = line2Start.x, y3 = line2Start.y;
-    const x4 = line2End.x, y4 = line2End.y;
+    const x1 = p1.x, y1 = p1.y;
+    const x2 = p2.x, y2 = p2.y;
+    const x3 = p3.x, y3 = p3.y;
+    const x4 = p4.x, y4 = p4.y;
 
     const denom = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
-    if (Math.abs(denom) < 0.0001) return null; // Lines are parallel
+    if (Math.abs(denom) < 0.001) return null; // Lines are parallel
 
     const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denom;
     const u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / denom;
@@ -333,40 +375,70 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
         y: y1 + t * (y2 - y1)
       };
     }
+
     return null;
   };
 
-  // Find all intersection points between arrow paths
-  const findIntersections = (arrows: Array<{ id: string; pathPoints: Array<{ x: number; y: number }> }>) => {
-    const intersections: Array<{ x: number; y: number; arrows: string[] }> = [];
+  // Create path with bridges at intersections
+  const createPathWithBridges = (
+    pathPoints: Array<{ x: number; y: number }>,
+    pathId: string,
+    intersections: Array<any>
+  ) => {
+    const bridgeRadius = 6;
+    const segments = [];
 
-    for (let i = 0; i < arrows.length; i++) {
-      for (let j = i + 1; j < arrows.length; j++) {
-        const arrow1 = arrows[i];
-        const arrow2 = arrows[j];
+    for (let i = 0; i < pathPoints.length - 1; i++) {
+      const segStart = pathPoints[i];
+      const segEnd = pathPoints[i + 1];
+      
+      // Find intersections on this segment
+      const segmentIntersections = intersections
+        .filter(int => 
+          (int.path1Id === pathId && 
+           Math.abs(int.segment1.start.x - segStart.x) < 1 && 
+           Math.abs(int.segment1.start.y - segStart.y) < 1) ||
+          (int.path2Id === pathId && 
+           Math.abs(int.segment2.start.x - segStart.x) < 1 && 
+           Math.abs(int.segment2.start.y - segStart.y) < 1)
+        )
+        .map(int => int.point);
 
-        // Check each segment of arrow1 against each segment of arrow2
-        for (let seg1 = 0; seg1 < arrow1.pathPoints.length - 1; seg1++) {
-          for (let seg2 = 0; seg2 < arrow2.pathPoints.length - 1; seg2++) {
-            const intersection = lineSegmentsIntersect(
-              arrow1.pathPoints[seg1],
-              arrow1.pathPoints[seg1 + 1],
-              arrow2.pathPoints[seg2],
-              arrow2.pathPoints[seg2 + 1]
-            );
+      if (segmentIntersections.length === 0) {
+        // No intersections - draw normal segment
+        segments.push(`${i === 0 ? 'M' : 'L'} ${segStart.x} ${segStart.y} L ${segEnd.x} ${segEnd.y}`);
+      } else {
+        // Has intersections - create bridges
+        let currentPoint = segStart;
+        
+        segmentIntersections.forEach(intersection => {
+          const dx = segEnd.x - segStart.x;
+          const dy = segEnd.y - segStart.y;
+          const length = Math.sqrt(dx * dx + dy * dy);
+          const unitX = dx / length;
+          const unitY = dy / length;
 
-            if (intersection) {
-              intersections.push({
-                ...intersection,
-                arrows: [arrow1.id, arrow2.id]
-              });
-            }
-          }
+          // Draw to just before intersection
+          const beforeX = intersection.x - unitX * bridgeRadius;
+          const beforeY = intersection.y - unitY * bridgeRadius;
+          segments.push(`${i === 0 && currentPoint === segStart ? 'M' : 'L'} ${currentPoint.x} ${currentPoint.y} L ${beforeX} ${beforeY}`);
+
+          // Create bridge arc
+          const afterX = intersection.x + unitX * bridgeRadius;
+          const afterY = intersection.y + unitY * bridgeRadius;
+          segments.push(`M ${beforeX} ${beforeY} A ${bridgeRadius} ${bridgeRadius} 0 0 1 ${afterX} ${afterY}`);
+          
+          currentPoint = { x: afterX, y: afterY };
+        });
+
+        // Draw remaining segment
+        if (currentPoint !== segEnd) {
+          segments.push(`M ${currentPoint.x} ${currentPoint.y} L ${segEnd.x} ${segEnd.y}`);
         }
       }
     }
 
-    return intersections;
+    return segments.join(' ');
   };
 
   // Collect all arrow data with collision-free routing
@@ -413,9 +485,14 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     return arrows;
   }, [semesterLayout]);
 
-  // Calculate intersections for bridge effects
-  const intersections = useMemo(() => {
-    return findIntersections(arrowData);
+  // Calculate intersections and create paths with bridges
+  const arrowPathsWithBridges = useMemo(() => {
+    const intersections = detectIntersections(arrowData);
+    
+    return arrowData.map(arrow => ({
+      id: arrow.id,
+      pathString: createPathWithBridges(arrow.pathPoints, arrow.id, intersections)
+    }));
   }, [arrowData]);
 
   return (
@@ -463,181 +540,34 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               <defs>
                 <marker
                   id="arrowhead"
-                  markerWidth="6.4"
-                  markerHeight="4.8"
-                  refX="5.6"
-                  refY="2.4"
+                  markerWidth="8"
+                  markerHeight="6"
+                  refX="7"
+                  refY="3"
                   orient="auto"
                   markerUnits="strokeWidth"
                 >
                   <polygon
-                    points="0 0, 6.4 2.4, 0 4.8"
+                    points="0 0, 8 3, 0 6"
                     fill="#000"
                   />
                 </marker>
               </defs>
               
-              {/* Render orthogonal prerequisite arrows with bridge crossings */}
-              {arrowData.map((arrow) => {
-                // Find intersections that affect this arrow
-                const arrowIntersections = intersections.filter(int => 
-                  int.arrows.includes(arrow.id)
-                );
-
-                // If no intersections, render normal path
-                if (arrowIntersections.length === 0) {
-                  const pathString = arrow.pathPoints.map((point, index) => 
-                    `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
-                  ).join(' ');
-
-                  return (
-                    <path
-                      key={arrow.id}
-                      d={pathString}
-                      stroke="#000"
-                      strokeWidth="2"
-                      fill="none"
-                      markerEnd="url(#arrowhead)"
-                      style={{
-                        filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
-                      }}
-                    />
-                  );
-                }
-
-                // Create path with bridges at intersections
-                const segments: JSX.Element[] = [];
-                let segmentIndex = 0;
-
-                for (let i = 0; i < arrow.pathPoints.length - 1; i++) {
-                  const segStart = arrow.pathPoints[i];
-                  const segEnd = arrow.pathPoints[i + 1];
-                  
-                  // Check if this segment has intersections
-                  const segmentIntersections = arrowIntersections.filter(int => {
-                    // Check if intersection lies on this segment
-                    const minX = Math.min(segStart.x, segEnd.x);
-                    const maxX = Math.max(segStart.x, segEnd.x);
-                    const minY = Math.min(segStart.y, segEnd.y);
-                    const maxY = Math.max(segStart.y, segEnd.y);
-                    
-                    return int.x >= minX - 1 && int.x <= maxX + 1 && 
-                           int.y >= minY - 1 && int.y <= maxY + 1;
-                  }).sort((a, b) => {
-                    // Sort intersections by distance from segment start
-                    const distA = Math.sqrt((a.x - segStart.x) ** 2 + (a.y - segStart.y) ** 2);
-                    const distB = Math.sqrt((b.x - segStart.x) ** 2 + (b.y - segStart.y) ** 2);
-                    return distA - distB;
-                  });
-
-                  if (segmentIntersections.length === 0) {
-                    // No intersections, normal segment
-                    segments.push(
-                      <path
-                        key={`${arrow.id}-seg-${segmentIndex++}`}
-                        d={`M ${segStart.x} ${segStart.y} L ${segEnd.x} ${segEnd.y}`}
-                        stroke="#000"
-                        strokeWidth="2"
-                        fill="none"
-                        markerEnd={i === arrow.pathPoints.length - 2 ? "url(#arrowhead)" : undefined}
-                        style={{
-                          filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
-                        }}
-                      />
-                    );
-                  } else {
-                    // Create segments with bridges
-                    let currentPoint = segStart;
-                    
-                    segmentIntersections.forEach((intersection, intIdx) => {
-                      const bridgeRadius = 6;
-                      
-                      // Segment before bridge
-                      if (Math.sqrt((intersection.x - currentPoint.x) ** 2 + (intersection.y - currentPoint.y) ** 2) > 1) {
-                        segments.push(
-                          <path
-                            key={`${arrow.id}-seg-${segmentIndex++}`}
-                            d={`M ${currentPoint.x} ${currentPoint.y} L ${intersection.x - bridgeRadius} ${intersection.y}`}
-                            stroke="#000"
-                            strokeWidth="2"
-                            fill="none"
-                            style={{
-                              filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
-                            }}
-                          />
-                        );
-                      }
-                      
-                      // Bridge arc (decide which arrow goes over)
-                      const isFirstArrow = intersection.arrows[0] === arrow.id;
-                      if (isFirstArrow) {
-                        // This arrow goes over - create small arc
-                        const arcPath = `M ${intersection.x - bridgeRadius} ${intersection.y} 
-                                       Q ${intersection.x} ${intersection.y - bridgeRadius} 
-                                         ${intersection.x + bridgeRadius} ${intersection.y}`;
-                        segments.push(
-                          <path
-                            key={`${arrow.id}-bridge-${segmentIndex++}`}
-                            d={arcPath}
-                            stroke="#000"
-                            strokeWidth="2"
-                            fill="none"
-                            style={{
-                              filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
-                            }}
-                          />
-                        );
-                      } else {
-                        // This arrow goes under - create gap
-                        segments.push(
-                          <path
-                            key={`${arrow.id}-gap-${segmentIndex++}`}
-                            d={`M ${intersection.x - bridgeRadius} ${intersection.y} 
-                               L ${intersection.x + bridgeRadius} ${intersection.y}`}
-                            stroke="white"
-                            strokeWidth="4"
-                            fill="none"
-                          />
-                        );
-                        segments.push(
-                          <path
-                            key={`${arrow.id}-under-${segmentIndex++}`}
-                            d={`M ${intersection.x - bridgeRadius} ${intersection.y} 
-                               L ${intersection.x + bridgeRadius} ${intersection.y}`}
-                            stroke="#000"
-                            strokeWidth="2"
-                            fill="none"
-                            style={{
-                              filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
-                            }}
-                          />
-                        );
-                      }
-                      
-                      currentPoint = { x: intersection.x + bridgeRadius, y: intersection.y };
-                    });
-                    
-                    // Final segment after last intersection
-                    if (Math.sqrt((segEnd.x - currentPoint.x) ** 2 + (segEnd.y - currentPoint.y) ** 2) > 1) {
-                      segments.push(
-                        <path
-                          key={`${arrow.id}-seg-${segmentIndex++}`}
-                          d={`M ${currentPoint.x} ${currentPoint.y} L ${segEnd.x} ${segEnd.y}`}
-                          stroke="#000"
-                          strokeWidth="2"
-                          fill="none"
-                          markerEnd={i === arrow.pathPoints.length - 2 ? "url(#arrowhead)" : undefined}
-                          style={{
-                            filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
-                          }}
-                        />
-                      );
-                    }
-                  }
-                }
-
-                return <g key={arrow.id}>{segments}</g>;
-              })}
+              {/* Render orthogonal prerequisite arrows with bridges */}
+              {arrowPathsWithBridges.map((arrow) => (
+                <path
+                  key={arrow.id}
+                  d={arrow.pathString}
+                  stroke="#000"
+                  strokeWidth="2"
+                  fill="none"
+                  markerEnd="url(#arrowhead)"
+                  style={{
+                    filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
+                  }}
+                />
+              ))}
             </svg>
 
             {/* Course Boxes Grid - Fixed positioning to match arrow coordinates */}
