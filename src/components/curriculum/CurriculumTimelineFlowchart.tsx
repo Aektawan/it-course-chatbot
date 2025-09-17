@@ -212,10 +212,15 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   const hasBlockingCourses = (startX: number, endX: number, y: number, startSemIndex: number, endSemIndex: number) => {
     for (let semIdx = startSemIndex + 1; semIdx < endSemIndex; semIdx++) {
       const semData = semesterLayout[semIdx];
+      if (!semData) continue;
+      
       for (let courseIdx = 0; courseIdx < semData.courses.length; courseIdx++) {
         const courseRect = getCourseRect(semIdx, courseIdx);
-        // Check if the horizontal line at y intersects this course
-        if (y >= courseRect.top - CLEARANCE && y <= courseRect.bottom + CLEARANCE) {
+        // Check if the horizontal line at y intersects this course box
+        const linePassesThroughCourse = y >= courseRect.top - CLEARANCE && y <= courseRect.bottom + CLEARANCE;
+        const lineIsInHorizontalRange = startX < courseRect.right && endX > courseRect.left;
+        
+        if (linePassesThroughCourse && lineIsInHorizontalRange) {
           return true;
         }
       }
@@ -271,15 +276,18 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
         
         if (isDirectPathBlocked || !isApproximatelySameLevel) {
           // Route above or below the blocking courses
-          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT / 2;
-          const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT / 2;
+          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT;
+          const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT;
           
-          // Choose the closer route (above or below)
-          if (Math.abs(aboveY - startPort.y) < Math.abs(belowY - startPort.y)) {
+          // Choose the route with less vertical distance
+          if (Math.abs(aboveY - startPort.y) <= Math.abs(belowY - startPort.y)) {
             routingY = aboveY;
           } else {
             routingY = belowY;
           }
+          
+          // Ensure minimum clearance from course boxes
+          routingY = Math.max(routingY, 30); // Minimum distance from top
           
           // Vertical segment to routing lane
           pathPoints.push({ x: gutterX, y: routingY });
@@ -289,7 +297,9 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
           pathPoints.push({ x: targetGutterX, y: routingY });
           
           // Vertical segment down to target level
-          pathPoints.push({ x: targetGutterX, y: endPort.y });
+          if (Math.abs(routingY - endPort.y) > CLEARANCE) {
+            pathPoints.push({ x: targetGutterX, y: endPort.y });
+          }
         } else {
           // Direct horizontal at same level
           const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
@@ -398,15 +408,15 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               <defs>
                 <marker
                   id="arrowhead"
-                  markerWidth="8"
-                  markerHeight="6"
-                  refX="7"
-                  refY="3"
+                  markerWidth="6"
+                  markerHeight="5"
+                  refX="5.5"
+                  refY="2.5"
                   orient="auto"
                   markerUnits="strokeWidth"
                 >
                   <polygon
-                    points="0 0, 8 3, 0 6"
+                    points="0 0, 6 2.5, 0 5"
                     fill="#000"
                   />
                 </marker>
