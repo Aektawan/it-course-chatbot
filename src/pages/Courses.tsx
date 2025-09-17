@@ -10,6 +10,7 @@ import { mockCourses, mockDepartments } from '@/services/mockData';
 import { useAuth } from '@/contexts/AuthContext';
 import { generateCoursesForSemester } from '@/services/completeCurriculumData';
 import { CurriculumFlowchart } from '@/components/curriculum/CurriculumFlowchart';
+import { CurriculumTimelineFlowchart } from '@/components/curriculum/CurriculumTimelineFlowchart';
 import { 
   BookOpen, 
   Search, 
@@ -537,7 +538,7 @@ const Courses: React.FC = () => {
 
           <TabsContent value="flowchart" className="space-y-6">
             {selectedDepartment !== 'all' && selectedCurriculum !== 'all' ? (
-              <CurriculumFlowchart 
+              <CurriculumTimelineFlowchart 
                 selectedDepartment={selectedDepartment}
                 selectedCurriculum={selectedCurriculum}
                 departmentName={mockDepartments.find(dept => dept.code === selectedDepartment)?.nameThai || 'หลักสูตร'}
