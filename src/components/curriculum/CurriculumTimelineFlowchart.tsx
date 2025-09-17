@@ -208,7 +208,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     return directY;
   };
 
-  // Generate orthogonal path through white gutters
+  // Generate strict orthogonal path with 90-degree turns through gutters
   const generateOrthogonalPath = (
     startSemIndex: number, startCourseIndex: number,
     endSemIndex: number, endCourseIndex: number,
@@ -226,19 +226,75 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     const pathPoints = [startPort];
 
     if (startSemIndex === endSemIndex) {
-      // Same column - direct connection
-      pathPoints.push(endPort);
-    } else if (Math.abs(startPort.y - endPort.y) < CLEARANCE) {
-      // Same horizontal level - direct horizontal line
+      // Same column - direct horizontal connection
       pathPoints.push(endPort);
     } else {
-      // Different levels - need routing through gutter
-      const routingY = findHorizontalLane(startRect, endRect, usedLanes);
+      // Different columns - create orthogonal L or U-shaped path
+      const horizontalDistance = endPort.x - startPort.x;
+      const verticalDistance = endPort.y - startPort.y;
       
-      // Create L-shaped path through gutter space
-      pathPoints.push({ x: startPort.x, y: routingY }); // Horizontal from start
-      pathPoints.push({ x: endPort.x, y: routingY });   // Vertical to target column  
-      pathPoints.push(endPort);                         // Into target
+      // Step 1: Move horizontally into the gutter between columns
+      const gutterX = startPort.x + GUTTER_WIDTH / 2;
+      pathPoints.push({ x: gutterX, y: startPort.y });
+      
+      // Step 2: Check if we need vertical routing to avoid obstacles
+      if (Math.abs(verticalDistance) > CLEARANCE) {
+        // Find safe vertical lane in the gutter
+        let routingY = endPort.y;
+        
+        // Try to route above or below course blocks
+        const obstacleCheck = (testY: number) => {
+          for (let semIdx = startSemIndex + 1; semIdx < endSemIndex; semIdx++) {
+            const semData = semesterLayout[semIdx];
+            for (const course of semData.courses) {
+              const courseRect = getCourseRect(semIdx, semData.courses.indexOf(course));
+              if (testY >= courseRect.top - CLEARANCE && testY <= courseRect.bottom + CLEARANCE) {
+                return true; // Collision detected
+              }
+            }
+          }
+          return false;
+        };
+        
+        // If direct horizontal path would hit obstacles, route around
+        if (obstacleCheck(startPort.y)) {
+          // Try routing above all courses first
+          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT;
+          if (!obstacleCheck(aboveY)) {
+            routingY = aboveY;
+          } else {
+            // Route below all courses
+            const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT;
+            routingY = belowY;
+          }
+          
+          // Vertical segment up/down to routing lane
+          pathPoints.push({ x: gutterX, y: routingY });
+          
+          // Horizontal segment to target column
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+          pathPoints.push({ x: targetGutterX, y: routingY });
+          
+          // Vertical segment down/up to target
+          pathPoints.push({ x: targetGutterX, y: endPort.y });
+        } else {
+          // Direct horizontal at same level possible
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+          pathPoints.push({ x: targetGutterX, y: startPort.y });
+          
+          // Vertical to target level if needed
+          if (Math.abs(verticalDistance) > CLEARANCE) {
+            pathPoints.push({ x: targetGutterX, y: endPort.y });
+          }
+        }
+      } else {
+        // Same vertical level - direct horizontal through gutter
+        const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+        pathPoints.push({ x: targetGutterX, y: startPort.y });
+      }
+      
+      // Final connection to target
+      pathPoints.push(endPort);
     }
 
     return pathPoints;
