@@ -4,8 +4,6 @@ import { Course } from '@/types/course';
 import { generateCoursesForSemester } from '@/services/completeCurriculumData';
 import { Download } from 'lucide-react';
 import { exportToPDF } from '@/utils/pdfExport';
-import { PathOptimizer } from './arrow-routing/path-optimizer';
-import { RoutingConfig } from './arrow-routing/types';
 
 interface CurriculumTimelineFlowchartProps {
   selectedDepartment: string;
@@ -113,19 +111,6 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   const GUTTER_HEIGHT = 24;
   const CLEARANCE = 8;
   const LANE_WIDTH = 4;
-
-  // Arrow routing configuration
-  const routingConfig: RoutingConfig = {
-    jumpRadius: 7,
-    minDistanceFromNode: 12,
-    minDistanceBetweenJumps: 14,
-    gapUnderBridge: 3,
-    courseWidth: COURSE_WIDTH,
-    courseHeight: COURSE_HEIGHT,
-    gutterWidth: GUTTER_WIDTH,
-    gutterHeight: GUTTER_HEIGHT,
-    clearance: CLEARANCE
-  };
 
   // Find prerequisite relationships
   const findPrerequisites = (course: Course) => {
@@ -334,18 +319,13 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     return pathPoints;
   };
 
-  // Collect all arrow data with advanced bridge routing
+  // Collect all arrow data with collision-free routing
   const arrowData = useMemo(() => {
-    const pathOptimizer = new PathOptimizer(routingConfig);
     const arrows: Array<{
       id: string;
-      pathString: string;
-      bridges: any[];
+      pathPoints: Array<{ x: number; y: number }>;
     }> = [];
     const usedLanes = new Set<string>();
-
-    // Reset optimizer for new calculation
-    pathOptimizer.reset();
 
     semesterLayout.forEach((semData, semIndex) => {
       semData.courses.forEach((course, courseIndex) => {
@@ -371,14 +351,9 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               usedLanes
             );
 
-            // Use path optimizer to handle bridges
-            const arrowId = `${prereqId}-${course.id}`;
-            const optimizedPath = pathOptimizer.optimizePath(pathPoints, arrowId);
-
             arrows.push({
-              id: arrowId,
-              pathString: optimizedPath.pathString,
-              bridges: optimizedPath.bridges
+              id: `${prereqId}-${course.id}`,
+              pathPoints
             });
           }
         });
@@ -447,12 +422,16 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                 </marker>
               </defs>
               
-              {/* Render orthogonal prerequisite arrows with bridges */}
+              {/* Render orthogonal prerequisite arrows */}
               {arrowData.map((arrow) => {
+                const pathString = arrow.pathPoints.map((point, index) => 
+                  `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
+                ).join(' ');
+
                 return (
                   <path
                     key={arrow.id}
-                    d={arrow.pathString}
+                    d={pathString}
                     stroke="#000"
                     strokeWidth="2"
                     fill="none"
