@@ -103,46 +103,22 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
 
   // Find prerequisite relationships for drawing arrows
   const findPrerequisites = (course: Course) => {
-    const prereqConnections: Array<{ prereqId: string; prereqCourse: Course }> = [];
-    
+    const prereqIds: string[] = [];
     if (course.prerequisites && course.prerequisites.length > 0) {
-      // Search through all semesters to find matching prerequisite courses
+      // Find courses in previous semesters that match prerequisites
       semesterLayout.forEach((semData) => {
-        semData.courses.forEach((potentialPrereq) => {
-          // Check if this course matches any of the prerequisites
-          course.prerequisites.forEach(prereqString => {
-            // Extract course code from prerequisite string (e.g., "060243101" from "060243101 วัสดุศาสตร์เบื้องต้น")
-            const prereqCode = prereqString.split(' ')[0];
-            const potentialCode = potentialPrereq.code.split('-')[1] || potentialPrereq.code;
-            
-            // Match by code or by name similarity
-            if (
-              potentialCode.includes(prereqCode) ||
-              prereqCode.includes(potentialCode) ||
-              potentialPrereq.code === prereqString ||
-              potentialPrereq.name.includes(prereqString) ||
-              prereqString.includes(potentialPrereq.name.substring(0, 10)) // Partial name match
-            ) {
-              // Make sure it's from an earlier semester
-              const potentialSemIndex = semesterLayout.findIndex(s => s.courses.some(c => c.id === potentialPrereq.id));
-              const currentSemIndex = semesterLayout.findIndex(s => s.courses.some(c => c.id === course.id));
-              
-              if (potentialSemIndex >= 0 && currentSemIndex >= 0 && potentialSemIndex < currentSemIndex) {
-                // Avoid duplicates
-                if (!prereqConnections.some(conn => conn.prereqId === potentialPrereq.id)) {
-                  prereqConnections.push({
-                    prereqId: potentialPrereq.id,
-                    prereqCourse: potentialPrereq
-                  });
-                }
-              }
-            }
-          });
+        semData.courses.forEach((c) => {
+          if (course.prerequisites.some(prereq => 
+            c.code.includes(prereq.split(' ')[0]) || 
+            c.name.includes(prereq) ||
+            prereq.includes(c.code.split('-')[1] || c.code)
+          )) {
+            prereqIds.push(c.id);
+          }
         });
       });
     }
-    
-    return prereqConnections;
+    return prereqIds;
   };
 
   return (
@@ -186,75 +162,50 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               {/* Draw arrows between prerequisites */}
               {semesterLayout.map((semData, semIndex) =>
                 semData.courses.map((course, courseIndex) => {
-                  const prereqConnections = findPrerequisites(course);
-                  
-                  return prereqConnections.map((connection, arrowIndex) => {
+                  const prereqIds = findPrerequisites(course);
+                  return prereqIds.map((prereqId, arrowIndex) => {
                     // Find prerequisite course position
                     let prereqSemIndex = -1;
                     let prereqCourseIndex = -1;
                     
                     semesterLayout.forEach((prevSem, prevSemIndex) => {
-                      const courseIdx = prevSem.courses.findIndex(c => c.id === connection.prereqId);
-                      if (courseIdx !== -1) {
+                      const courseIdx = prevSem.courses.findIndex(c => c.id === prereqId);
+                      if (courseIdx !== -1 && prevSemIndex < semIndex) {
                         prereqSemIndex = prevSemIndex;
                         prereqCourseIndex = courseIdx;
                       }
                     });
 
-                    if (prereqSemIndex >= 0 && prereqSemIndex < semIndex) {
-                      // Calculate positions
-                      const colWidth = 100 / semesterLayout.length;
-                      const startX = (prereqSemIndex + 0.85) * colWidth;
-                      const endX = (semIndex + 0.15) * colWidth;
-                      const startY = 100 + prereqCourseIndex * 90;
-                      const endY = 100 + courseIndex * 90;
-                      
-                      // Calculate control points for curved arrow
-                      const midX = (startX + endX) / 2;
-                      const curveOffset = Math.abs(endY - startY) * 0.3;
+                    if (prereqSemIndex >= 0) {
+                      const startX = (prereqSemIndex + 0.8) * (100 / semesterLayout.length);
+                      const endX = (semIndex + 0.2) * (100 / semesterLayout.length);
+                      const startY = 60 + prereqCourseIndex * 90;
+                      const endY = 60 + courseIndex * 90;
 
                       return (
-                        <g key={`${course.id}-${connection.prereqId}-${arrowIndex}`}>
+                        <g key={`${course.id}-${prereqId}-${arrowIndex}`}>
                           <defs>
                             <marker
-                              id={`arrowhead-${course.id}-${connection.prereqId}`}
-                              markerWidth="8"
-                              markerHeight="6"
-                              refX="7"
-                              refY="3"
+                              id={`arrowhead-${course.id}-${arrowIndex}`}
+                              markerWidth="10"
+                              markerHeight="7"
+                              refX="9"
+                              refY="3.5"
                               orient="auto"
-                              markerUnits="strokeWidth"
                             >
-                              <path
-                                d="M0,0 L0,6 L8,3 z"
-                                fill="#dc2626"
+                              <polygon
+                                points="0 0, 10 3.5, 0 7"
+                                fill="black"
                               />
                             </marker>
                           </defs>
-                          
-                          {/* Curved arrow path */}
                           <path
-                            d={`M ${startX}% ${startY}px 
-                                Q ${midX}% ${startY - curveOffset}px 
-                                ${endX}% ${endY}px`}
-                            stroke="#dc2626"
-                            strokeWidth="2"
+                            d={`M ${startX}% ${startY}px Q ${(startX + endX) / 2}% ${startY}px ${endX}% ${endY}px`}
+                            stroke="black"
+                            strokeWidth="1.5"
                             fill="none"
-                            markerEnd={`url(#arrowhead-${course.id}-${connection.prereqId})`}
-                            opacity="0.8"
+                            markerEnd={`url(#arrowhead-${course.id}-${arrowIndex})`}
                           />
-                          
-                          {/* Optional: Add prerequisite course code near the arrow */}
-                          <text
-                            x={`${midX}%`}
-                            y={startY - curveOffset - 5}
-                            textAnchor="middle"
-                            fontSize="8"
-                            fill="#dc2626"
-                            className="pointer-events-none"
-                          >
-                            {connection.prereqCourse.code.split('-')[1] || connection.prereqCourse.code}
-                          </text>
                         </g>
                       );
                     }
@@ -291,13 +242,6 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                         <div className="text-center font-bold">
                           {formatCredits(course.credits)}
                         </div>
-
-                        {/* Prerequisites indicator */}
-                        {course.prerequisites && course.prerequisites.length > 0 && (
-                          <div className="absolute top-0 right-0 bg-red-600 text-white text-xs px-1 rounded-bl">
-                            ต้องเรียนก่อน
-                          </div>
-                        )}
                       </div>
                     ))}
                   </div>
