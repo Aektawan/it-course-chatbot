@@ -4,6 +4,9 @@ import { Course } from '@/types/course';
 import { generateCoursesForSemester } from '@/services/completeCurriculumData';
 import { Download } from 'lucide-react';
 import { exportToPDF } from '@/utils/pdfExport';
+import { pathToSegments, detectIntersections } from './arrow-routing/intersection-detector';
+import { generateBridgedPaths } from './arrow-routing/bridge-generator';
+import type { Point } from './arrow-routing/types';
 
 interface CurriculumTimelineFlowchartProps {
   selectedDepartment: string;
@@ -327,14 +330,15 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     return pathPoints;
   };
 
-  // Collect all arrow data with collision-free routing
+  // Collect all arrow data with collision-free routing and bridges
   const arrowData = useMemo(() => {
-    const arrows: Array<{
+    const initialArrows: Array<{
       id: string;
-      pathPoints: Array<{ x: number; y: number }>;
+      pathPoints: Point[];
     }> = [];
     const usedLanes = new Set<string>();
 
+    // Generate initial paths
     semesterLayout.forEach((semData, semIndex) => {
       semData.courses.forEach((course, courseIndex) => {
         const prereqIds = findPrerequisites(course);
@@ -359,7 +363,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               usedLanes
             );
 
-            arrows.push({
+            initialArrows.push({
               id: `${prereqId}-${course.id}`,
               pathPoints
             });
@@ -368,7 +372,31 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       });
     });
 
-    return arrows;
+    // Convert paths to segments for intersection detection
+    const allSegments = initialArrows.flatMap(arrow => 
+      pathToSegments(arrow.pathPoints, arrow.id)
+    );
+
+    // Get course rectangles for intersection detection
+    const courseRects = semesterLayout.flatMap((semData, semIndex) =>
+      semData.courses.map((_, courseIndex) => {
+        const rect = getCourseRect(semIndex, courseIndex);
+        return {
+          x: rect.x,
+          y: rect.y,
+          width: rect.width,
+          height: rect.height
+        };
+      })
+    );
+
+    // Detect intersections and generate bridges
+    const intersections = detectIntersections(allSegments, courseRects);
+    
+    // Generate final paths with bridges
+    const bridgedPaths = generateBridgedPaths(initialArrows, intersections, courseRects);
+
+    return bridgedPaths;
   }, [semesterLayout]);
 
   return (
@@ -416,23 +444,23 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               <defs>
                 <marker
                   id="arrowhead"
-                  markerWidth="6"
-                  markerHeight="5"
-                  refX="5.5"
-                  refY="2.5"
+                  markerWidth="4.8"
+                  markerHeight="4"
+                  refX="4.4"
+                  refY="2"
                   orient="auto"
                   markerUnits="strokeWidth"
                 >
                   <polygon
-                    points="0 0, 6 2.5, 0 5"
+                    points="0 0, 4.8 2, 0 4"
                     fill="#000"
                   />
                 </marker>
               </defs>
               
-              {/* Render orthogonal prerequisite arrows */}
+              {/* Render orthogonal prerequisite arrows with bridges */}
               {arrowData.map((arrow) => {
-                const pathString = arrow.pathPoints.map((point, index) => 
+                const pathString = arrow.finalPoints.map((point, index) => 
                   `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
                 ).join(' ');
 
