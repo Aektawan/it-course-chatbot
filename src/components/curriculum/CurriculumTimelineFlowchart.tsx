@@ -101,18 +101,16 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     return layout;
   }, [timelineData]);
 
-  // DIAGRAM ENGINE - Layered DAG with orthogonal routing
-  // Strict rules: gutters, stubs, bridges, fan-in/out, minimal bends
+  // DIAGRAM ENGINE - Curriculum flowchart with prerequisite arrows
+  // Following strict orthogonal routing rules through white gutters
 
-  // DAG Layout Constants
+  // Course layout constants
   const COURSE_WIDTH = 120;
   const COURSE_HEIGHT = 80;
-  const GUTTER_WIDTH = 40;  // Wider for multiple lanes
-  const ROW_GAP = 24;       // Vertical distance between course rows
-  const SAFE = 8;           // Minimum clearance from nodes/ports
-  const STUB = 12;          // Vertical stub length before turning
-  const LANE_STEP = ROW_GAP / 3;  // Spacing between parallel rails
-  const BRIDGE_HEIGHT = 7;  // Height of intersection bridges
+  const GUTTER_WIDTH = 32;
+  const GUTTER_HEIGHT = 24;
+  const CLEARANCE = 8;
+  const LANE_WIDTH = 4;
 
   // Find prerequisite relationships
   const findPrerequisites = (course: Course) => {
@@ -136,7 +134,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   // Calculate precise course positions in the grid
   const getCourseRect = (semIndex: number, courseIndex: number) => {
     const x = semIndex * (COURSE_WIDTH + GUTTER_WIDTH);
-    const y = courseIndex * (COURSE_HEIGHT + ROW_GAP) + 60; // Header offset
+    const y = courseIndex * (COURSE_HEIGHT + GUTTER_HEIGHT) + 60; // Header offset
     
     return {
       x,
@@ -152,7 +150,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     };
   };
 
-  // Get connection ports for DAG routing
+  // Get connection ports for courses
   const getConnectionPorts = (rect: any) => ({
     topCenter: { x: rect.centerX, y: rect.top },
     bottomCenter: { x: rect.centerX, y: rect.bottom },
@@ -160,174 +158,174 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     leftCenter: { x: rect.left, y: rect.centerY }
   });
 
-  // Calculate gutter center Y between two course rows
-  const getGutterCenterY = (upperRowY: number, lowerRowY: number) => {
-    return (upperRowY + COURSE_HEIGHT + lowerRowY) / 2;
+  // Check if a rectangular area overlaps with any course box
+  const overlapsWithCourses = (x: number, y: number, width: number, height: number, excludeBoxes: string[] = []) => {
+    return semesterLayout.some((semData, semIdx) =>
+      semData.courses.some((course, courseIdx) => {
+        if (excludeBoxes.includes(`${semIdx}-${courseIdx}`)) return false;
+        
+        const courseRect = getCourseRect(semIdx, courseIdx);
+        return !(x >= courseRect.right + CLEARANCE || 
+                x + width <= courseRect.left - CLEARANCE ||
+                y >= courseRect.bottom + CLEARANCE || 
+                y + height <= courseRect.top - CLEARANCE);
+      })
+    );
   };
 
-  // Find available lane in gutter (center ± k * laneStep)
-  const findAvailableLane = (centerY: number, usedLanes: Set<string>, gutterTop: number, gutterBottom: number) => {
-    // Try center first
-    const centerKey = `lane-${Math.round(centerY)}`;
-    if (!usedLanes.has(centerKey)) {
-      usedLanes.add(centerKey);
-      return centerY;
+  // Find available horizontal lanes in the gutter space
+  const findHorizontalLane = (startRect: any, endRect: any, usedLanes: Set<string>) => {
+    // Try direct horizontal connection first (same Y level)
+    const directY = startRect.centerY;
+    const laneKey = `h-${Math.round(directY)}`;
+    
+    if (!usedLanes.has(laneKey) && 
+        !overlapsWithCourses(startRect.right, directY - 2, endRect.left - startRect.right, 4)) {
+      usedLanes.add(laneKey);
+      return directY;
     }
     
-    // Try lanes above and below center
-    for (let k = 1; k <= 3; k++) {
-      // Try above
-      const aboveY = centerY - k * LANE_STEP;
-      if (aboveY >= gutterTop + SAFE) {
-        const aboveKey = `lane-${Math.round(aboveY)}`;
-        if (!usedLanes.has(aboveKey)) {
-          usedLanes.add(aboveKey);
-          return aboveY;
-        }
+    // Try lanes above and below the course centers
+    const testYPositions = [
+      startRect.centerY - GUTTER_HEIGHT / 4,
+      startRect.centerY + GUTTER_HEIGHT / 4,
+      startRect.top - CLEARANCE,
+      startRect.bottom + CLEARANCE,
+      endRect.top - CLEARANCE,
+      endRect.bottom + CLEARANCE
+    ];
+    
+    for (const testY of testYPositions) {
+      const testLaneKey = `h-${Math.round(testY)}`;
+      if (!usedLanes.has(testLaneKey) && 
+          !overlapsWithCourses(startRect.right, testY - 2, endRect.left - startRect.right, 4)) {
+        usedLanes.add(testLaneKey);
+        return testY;
       }
+    }
+    
+    // Fallback to original Y
+    return directY;
+  };
+
+  // Check if there are blocking courses between start and end points
+  const hasBlockingCourses = (startX: number, endX: number, y: number, startSemIndex: number, endSemIndex: number) => {
+    for (let semIdx = startSemIndex + 1; semIdx < endSemIndex; semIdx++) {
+      const semData = semesterLayout[semIdx];
+      if (!semData) continue;
       
-      // Try below  
-      const belowY = centerY + k * LANE_STEP;
-      if (belowY <= gutterBottom - SAFE) {
-        const belowKey = `lane-${Math.round(belowY)}`;
-        if (!usedLanes.has(belowKey)) {
-          usedLanes.add(belowKey);
-          return belowY;
+      for (let courseIdx = 0; courseIdx < semData.courses.length; courseIdx++) {
+        const courseRect = getCourseRect(semIdx, courseIdx);
+        // Check if the horizontal line at y intersects this course box
+        const linePassesThroughCourse = y >= courseRect.top - CLEARANCE && y <= courseRect.bottom + CLEARANCE;
+        const lineIsInHorizontalRange = startX < courseRect.right && endX > courseRect.left;
+        
+        if (linePassesThroughCourse && lineIsInHorizontalRange) {
+          return true;
         }
       }
     }
-    
-    return centerY; // Fallback to center
+    return false;
   };
 
-  // Check if two horizontal segments intersect
-  const segmentsIntersect = (
-    seg1: {x1: number, x2: number, y: number},
-    seg2: {x1: number, x2: number, y: number}
-  ) => {
-    if (Math.abs(seg1.y - seg2.y) > 1) return false; // Different Y levels
-    
-    const left1 = Math.min(seg1.x1, seg1.x2);
-    const right1 = Math.max(seg1.x1, seg1.x2);
-    const left2 = Math.min(seg2.x1, seg2.x2);
-    const right2 = Math.max(seg2.x1, seg2.x2);
-    
-    return !(right1 <= left2 || right2 <= left1);
-  };
-
-  // Generate DAG path with gutter routing, stubs, and bridges
-  const generateDAGPath = (
+  // Generate strict orthogonal path with 90-degree turns through gutters
+  const generateOrthogonalPath = (
     startSemIndex: number, startCourseIndex: number,
     endSemIndex: number, endCourseIndex: number,
-    usedLanes: Set<string>,
-    existingPaths: Array<{x1: number, x2: number, y: number, id: string}>
+    usedLanes: Set<string>
   ) => {
     const startRect = getCourseRect(startSemIndex, startCourseIndex);
     const endRect = getCourseRect(endSemIndex, endCourseIndex);
     const startPorts = getConnectionPorts(startRect);
     const endPorts = getConnectionPorts(endRect);
 
-    // Port selection: same row = right→left, different rows = bottom→top
-    const sameRow = startSemIndex === endSemIndex;
-    const startPort = sameRow ? startPorts.rightCenter : startPorts.bottomCenter;
-    const endPort = sameRow ? endPorts.leftCenter : endPorts.topCenter;
+    // Always use right-center to left-center connections
+    let startPort = startPorts.rightCenter;
+    let endPort = endPorts.leftCenter;
 
     const pathPoints = [startPort];
 
-    if (sameRow) {
-      // Same row: stub down, horizontal in gutter, stub up
-      const gutterY = startRect.bottom + STUB + ROW_GAP / 2;
-      
-      // Stub down
-      pathPoints.push({ x: startPort.x, y: gutterY });
-      
-      // Horizontal segment
-      pathPoints.push({ x: endPort.x, y: gutterY });
-      
-      // Stub up
+    if (startSemIndex === endSemIndex) {
+      // Same column - direct horizontal connection
       pathPoints.push(endPort);
     } else {
-      // Cross-term: stub down, horizontal on gutter center, stub up
-      const stubDownY = startPort.y + STUB;
-      pathPoints.push({ x: startPort.x, y: stubDownY });
-      
-      // Find gutter center between rows
-      let gutterCenterY: number;
-      if (startSemIndex < endSemIndex) {
-        // Find lowest course in start semester and highest in end
-        const startRowMax = Math.max(...semesterLayout[startSemIndex].courses.map((_, idx) => 
-          getCourseRect(startSemIndex, idx).bottom));
-        const endRowMin = Math.min(...semesterLayout[endSemIndex].courses.map((_, idx) => 
-          getCourseRect(endSemIndex, idx).top));
-        gutterCenterY = getGutterCenterY(startRowMax - COURSE_HEIGHT, endRowMin);
-      } else {
-        gutterCenterY = (startRect.bottom + endRect.top) / 2;
-      }
-      
-      // Find available lane
-      const routingY = findAvailableLane(
-        gutterCenterY, 
-        usedLanes, 
-        Math.min(startRect.bottom, endRect.bottom) + SAFE,
-        Math.max(startRect.top, endRect.top) - SAFE
+      // Check if direct horizontal path is blocked
+      const isDirectPathBlocked = hasBlockingCourses(
+        startPort.x, 
+        endPort.x, 
+        startPort.y, 
+        startSemIndex, 
+        endSemIndex
       );
-      
-      // Check for intersections with existing paths
-      const horizontalSeg = {
-        x1: startPort.x,
-        x2: endPort.x, 
-        y: routingY,
-        id: `${startSemIndex}-${startCourseIndex}-${endSemIndex}-${endCourseIndex}`
-      };
-      
-      let finalRoutingY = routingY;
-      let needsBridge = false;
-      
-      // Check intersections
-      for (const existing of existingPaths) {
-        if (existing.id !== horizontalSeg.id && segmentsIntersect(horizontalSeg, existing)) {
-          // Check if bridge is safe (not within 12px of nodes)
-          const minX = Math.min(horizontalSeg.x1, horizontalSeg.x2);
-          const maxX = Math.max(horizontalSeg.x1, horizontalSeg.x2);
-          const intersectionSafe = true; // Simplified - would need more complex check
+
+      const verticalDistance = endPort.y - startPort.y;
+      const isApproximatelySameLevel = Math.abs(verticalDistance) < CLEARANCE;
+
+      if (isApproximatelySameLevel && !isDirectPathBlocked) {
+        // Same level, no obstacles - direct horizontal line
+        pathPoints.push(endPort);
+      } else {
+        // Need to route around obstacles with 90-degree turns
+        
+        // Step 1: Move horizontally into gutter space
+        const gutterX = startPort.x + GUTTER_WIDTH / 2;
+        pathPoints.push({ x: gutterX, y: startPort.y });
+        
+        // Step 2: Find safe vertical routing lane
+        let routingY = endPort.y;
+        
+        if (isDirectPathBlocked || !isApproximatelySameLevel) {
+          // Route above or below the blocking courses
+          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT;
+          const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT;
           
-          if (intersectionSafe) {
-            finalRoutingY = existing.y + BRIDGE_HEIGHT;
-            needsBridge = true;
-            break;
+          // Choose the route with less vertical distance
+          if (Math.abs(aboveY - startPort.y) <= Math.abs(belowY - startPort.y)) {
+            routingY = aboveY;
+          } else {
+            routingY = belowY;
+          }
+          
+          // Ensure minimum clearance from course boxes
+          routingY = Math.max(routingY, 30); // Minimum distance from top
+          
+          // Vertical segment to routing lane
+          pathPoints.push({ x: gutterX, y: routingY });
+          
+          // Horizontal segment across to target column
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+          pathPoints.push({ x: targetGutterX, y: routingY });
+          
+          // Vertical segment down to target level
+          if (Math.abs(routingY - endPort.y) > CLEARANCE) {
+            pathPoints.push({ x: targetGutterX, y: endPort.y });
+          }
+        } else {
+          // Direct horizontal at same level
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+          pathPoints.push({ x: targetGutterX, y: startPort.y });
+          
+          // Vertical adjustment if needed
+          if (Math.abs(verticalDistance) > CLEARANCE) {
+            pathPoints.push({ x: targetGutterX, y: endPort.y });
           }
         }
+        
+        // Final connection to target
+        pathPoints.push(endPort);
       }
-      
-      // Horizontal segment in gutter
-      pathPoints.push({ x: startPort.x, y: finalRoutingY });
-      pathPoints.push({ x: endPort.x, y: finalRoutingY });
-      
-      // Stub up to target
-      const stubUpY = endPort.y - STUB;
-      pathPoints.push({ x: endPort.x, y: stubUpY });
-      pathPoints.push(endPort);
-      
-      // Record this path for intersection checking
-      existingPaths.push({
-        x1: startPort.x,
-        x2: endPort.x,
-        y: finalRoutingY,
-        id: horizontalSeg.id
-      });
     }
 
     return pathPoints;
   };
 
-  // Collect all arrow data with DAG routing
+  // Collect all arrow data with collision-free routing
   const arrowData = useMemo(() => {
     const arrows: Array<{
       id: string;
       pathPoints: Array<{ x: number; y: number }>;
     }> = [];
     const usedLanes = new Set<string>();
-    const existingPaths: Array<{x1: number, x2: number, y: number, id: string}> = [];
 
     semesterLayout.forEach((semData, semIndex) => {
       semData.courses.forEach((course, courseIndex) => {
@@ -347,10 +345,10 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
           });
 
           if (prereqSemIndex >= 0) {
-            const pathPoints = generateDAGPath(
+            const pathPoints = generateOrthogonalPath(
               prereqSemIndex, prereqCourseIndex,
               semIndex, courseIndex,
-              usedLanes, existingPaths
+              usedLanes
             );
 
             arrows.push({
@@ -387,20 +385,9 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       <div ref={flowchartRef} className="bg-white overflow-x-auto">
         <div className="inline-block min-w-full p-4">
           {/* Semester Headers */}
-          <div className="relative mb-2" style={{ 
-            height: '40px',
-            width: `${semesterLayout.length * (COURSE_WIDTH + GUTTER_WIDTH)}px`
-          }}>
+          <div className="grid grid-flow-col auto-cols-fr gap-4 mb-2">
             {semesterLayout.map((semData, index) => (
-              <div 
-                key={index} 
-                className="absolute text-center"
-                style={{
-                  left: `${index * (COURSE_WIDTH + GUTTER_WIDTH)}px`,
-                  width: `${COURSE_WIDTH}px`,
-                  top: '0px'
-                }}
-              >
+              <div key={index} className="text-center">
                 <div className="font-bold text-sm mb-1">
                   ปีที่ {semData.year} {semData.label}
                 </div>
@@ -415,7 +402,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               style={{ 
                 minHeight: '600px',
                 width: `${semesterLayout.length * (COURSE_WIDTH + GUTTER_WIDTH)}px`,
-                height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + ROW_GAP) + 200}px`
+                height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + 200}px`
               }}
             >
               <defs>
@@ -459,7 +446,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
 
             {/* Course Boxes Grid - Fixed positioning to match arrow coordinates */}
             <div className="relative" style={{ 
-              height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + ROW_GAP) + 200}px`,
+              height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + 200}px`,
               width: `${semesterLayout.length * (COURSE_WIDTH + GUTTER_WIDTH)}px`
             }}>
               {semesterLayout.map((semData, semIndex) => 
