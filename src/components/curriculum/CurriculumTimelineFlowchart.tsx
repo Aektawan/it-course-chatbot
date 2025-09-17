@@ -4,8 +4,6 @@ import { Course } from '@/types/course';
 import { generateCoursesForSemester } from '@/services/completeCurriculumData';
 import { Download } from 'lucide-react';
 import { exportToPDF } from '@/utils/pdfExport';
-import { PathOptimizer } from './arrow-routing/path-optimizer';
-import { RoutingConfig } from './arrow-routing/types';
 
 interface CurriculumTimelineFlowchartProps {
   selectedDepartment: string;
@@ -114,19 +112,6 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   const CLEARANCE = 8;
   const LANE_WIDTH = 4;
 
-  // Arrow routing configuration
-  const routingConfig: RoutingConfig = {
-    jumpRadius: 7,
-    minDistanceFromNode: 12,
-    minDistanceBetweenJumps: 14,
-    gapUnderBridge: 3,
-    courseWidth: COURSE_WIDTH,
-    courseHeight: COURSE_HEIGHT,
-    gutterWidth: GUTTER_WIDTH,
-    gutterHeight: GUTTER_HEIGHT,
-    clearance: CLEARANCE
-  };
-
   // Find prerequisite relationships
   const findPrerequisites = (course: Course) => {
     const prereqIds: string[] = [];
@@ -188,17 +173,28 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     );
   };
 
-  // Find available horizontal lanes in the gutter space between course rows
+  // Find available horizontal lanes in the gutter space
   const findHorizontalLane = (startRect: any, endRect: any, usedLanes: Set<string>) => {
-    // Always prioritize gutter lanes that are between course rows, not at course centers
+    // Try direct horizontal connection first (same Y level)
+    const directY = startRect.centerY;
+    const laneKey = `h-${Math.round(directY)}`;
+    
+    if (!usedLanes.has(laneKey) && 
+        !overlapsWithCourses(startRect.right, directY - 2, endRect.left - startRect.right, 4)) {
+      usedLanes.add(laneKey);
+      return directY;
+    }
+    
+    // Try lanes above and below the course centers
     const testYPositions = [
-      startRect.bottom + GUTTER_HEIGHT / 2,  // Middle of gutter below start course
-      startRect.top - GUTTER_HEIGHT / 2,     // Middle of gutter above start course  
-      endRect.bottom + GUTTER_HEIGHT / 2,    // Middle of gutter below end course
-      endRect.top - GUTTER_HEIGHT / 2,       // Middle of gutter above end course
+      startRect.centerY - GUTTER_HEIGHT / 4,
+      startRect.centerY + GUTTER_HEIGHT / 4,
+      startRect.top - CLEARANCE,
+      startRect.bottom + CLEARANCE,
+      endRect.top - CLEARANCE,
+      endRect.bottom + CLEARANCE
     ];
     
-    // Test each gutter lane position
     for (const testY of testYPositions) {
       const testLaneKey = `h-${Math.round(testY)}`;
       if (!usedLanes.has(testLaneKey) && 
@@ -208,24 +204,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       }
     }
     
-    // If all preferred lanes are taken, try offset lanes in gutters
-    for (let offset = LANE_WIDTH; offset <= GUTTER_HEIGHT/2; offset += LANE_WIDTH) {
-      for (const baseY of testYPositions) {
-        for (const direction of [-1, 1]) {
-          const testY = baseY + (offset * direction);
-          const testLaneKey = `h-${Math.round(testY)}`;
-          if (!usedLanes.has(testLaneKey) && 
-              !overlapsWithCourses(startRect.right, testY - 2, endRect.left - startRect.right, 4)) {
-            usedLanes.add(testLaneKey);
-            return testY;
-          }
-        }
-      }
-    }
-    
-    // Last fallback - use gutter space below the lower course
-    const fallbackY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT / 2;
-    return fallbackY;
+    // Fallback to original Y
+    return directY;
   };
 
   // Check if there are blocking courses between start and end points
@@ -288,20 +268,32 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
         // Need to route around obstacles with 90-degree turns
         
         // Step 1: Move horizontally into gutter space
-        const gutterX = startPort.x + GUTTER_WIDTH / 3;  // Smaller gutter offset to stay in gutters
+        const gutterX = startPort.x + GUTTER_WIDTH / 2;
         pathPoints.push({ x: gutterX, y: startPort.y });
         
-        // Step 2: Find safe horizontal routing lane in gutter space
-        let routingY = findHorizontalLane(startRect, endRect, usedLanes);
+        // Step 2: Find safe vertical routing lane
+        let routingY = endPort.y;
         
         if (isDirectPathBlocked || !isApproximatelySameLevel) {
-          // Make sure we route in proper gutter space, not touching courses
+          // Route above or below the blocking courses
+          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT;
+          const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT;
           
-          // Vertical segment to gutter routing lane
+          // Choose the route with less vertical distance
+          if (Math.abs(aboveY - startPort.y) <= Math.abs(belowY - startPort.y)) {
+            routingY = aboveY;
+          } else {
+            routingY = belowY;
+          }
+          
+          // Ensure minimum clearance from course boxes
+          routingY = Math.max(routingY, 30); // Minimum distance from top
+          
+          // Vertical segment to routing lane
           pathPoints.push({ x: gutterX, y: routingY });
           
-          // Horizontal segment across to target column in gutter lane
-          const targetGutterX = endPort.x - GUTTER_WIDTH / 3;  // Smaller offset
+          // Horizontal segment across to target column
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
           pathPoints.push({ x: targetGutterX, y: routingY });
           
           // Vertical segment down to target level
@@ -309,12 +301,12 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
             pathPoints.push({ x: targetGutterX, y: endPort.y });
           }
         } else {
-          // Horizontal routing in gutter lane
-          const targetGutterX = endPort.x - GUTTER_WIDTH / 3;
-          pathPoints.push({ x: targetGutterX, y: routingY });
+          // Direct horizontal at same level
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+          pathPoints.push({ x: targetGutterX, y: startPort.y });
           
           // Vertical adjustment if needed
-          if (Math.abs(routingY - endPort.y) > CLEARANCE) {
+          if (Math.abs(verticalDistance) > CLEARANCE) {
             pathPoints.push({ x: targetGutterX, y: endPort.y });
           }
         }
@@ -327,18 +319,13 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     return pathPoints;
   };
 
-  // Collect all arrow data with advanced bridge routing
+  // Collect all arrow data with collision-free routing
   const arrowData = useMemo(() => {
-    const pathOptimizer = new PathOptimizer(routingConfig);
     const arrows: Array<{
       id: string;
-      pathString: string;
-      bridges: any[];
+      pathPoints: Array<{ x: number; y: number }>;
     }> = [];
     const usedLanes = new Set<string>();
-
-    // Reset optimizer for new calculation
-    pathOptimizer.reset();
 
     semesterLayout.forEach((semData, semIndex) => {
       semData.courses.forEach((course, courseIndex) => {
@@ -364,14 +351,9 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               usedLanes
             );
 
-            // Use path optimizer to handle bridges
-            const arrowId = `${prereqId}-${course.id}`;
-            const optimizedPath = pathOptimizer.optimizePath(pathPoints, arrowId);
-
             arrows.push({
-              id: arrowId,
-              pathString: optimizedPath.pathString,
-              bridges: optimizedPath.bridges
+              id: `${prereqId}-${course.id}`,
+              pathPoints
             });
           }
         });
@@ -440,12 +422,16 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                 </marker>
               </defs>
               
-              {/* Render orthogonal prerequisite arrows with bridges */}
+              {/* Render orthogonal prerequisite arrows */}
               {arrowData.map((arrow) => {
+                const pathString = arrow.pathPoints.map((point, index) => 
+                  `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
+                ).join(' ');
+
                 return (
                   <path
                     key={arrow.id}
-                    d={arrow.pathString}
+                    d={pathString}
                     stroke="#000"
                     strokeWidth="2"
                     fill="none"
