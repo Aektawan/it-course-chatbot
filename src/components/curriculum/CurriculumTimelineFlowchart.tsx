@@ -132,102 +132,84 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     const startY = 10; // Header offset
 
     return {
-      left: semIndex * colWidth + 1, // Add small margin
-      right: (semIndex + 1) * colWidth - 1, // Add small margin
+      left: semIndex * colWidth,
+      right: (semIndex + 1) * colWidth,
       top: startY + courseIndex * courseHeight,
       bottom: startY + courseIndex * courseHeight + 80,
       centerX: semIndex * colWidth + colWidth / 2,
-      centerY: startY + courseIndex * courseHeight + 40,
-      bottomCenterX: semIndex * colWidth + colWidth / 2,
-      bottomCenterY: startY + courseIndex * courseHeight + 80,
-      topCenterX: semIndex * colWidth + colWidth / 2,
-      topCenterY: startY + courseIndex * courseHeight
+      centerY: startY + courseIndex * courseHeight + 40
     };
   };
 
-  // Check if a path segment intersects with any course block
-  const pathIntersectsBlock = (x1: number, y1: number, x2: number, y2: number, excludeSem?: number, excludeCourse?: number) => {
+  // Check if a point is inside any course box
+  const isPointInCourseBox = (x: number, y: number, excludeSemester?: number, excludeCourse?: number) => {
     for (let semIndex = 0; semIndex < semesterLayout.length; semIndex++) {
+      if (semIndex === excludeSemester) continue;
+      
       for (let courseIndex = 0; courseIndex < semesterLayout[semIndex].courses.length; courseIndex++) {
-        if (semIndex === excludeSem && courseIndex === excludeCourse) continue;
+        if (semIndex === excludeSemester && courseIndex === excludeCourse) continue;
         
         const pos = getCoursePosition(semIndex, courseIndex);
+        const colWidth = 100 / semesterLayout.length;
         
-        // Check if horizontal line intersects block
-        if (y1 === y2 && y1 >= pos.top && y1 <= pos.bottom) {
-          const lineLeft = Math.min(x1, x2);
-          const lineRight = Math.max(x1, x2);
-          if (lineRight >= pos.left && lineLeft <= pos.right) {
-            return true;
-          }
-        }
-        
-        // Check if vertical line intersects block
-        if (x1 === x2 && x1 >= pos.left && x1 <= pos.right) {
-          const lineTop = Math.min(y1, y2);
-          const lineBottom = Math.max(y1, y2);
-          if (lineBottom >= pos.top && lineTop <= pos.bottom) {
-            return true;
-          }
+        if (x >= pos.left && x <= pos.right && y >= pos.top && y <= pos.bottom) {
+          return true;
         }
       }
     }
     return false;
   };
 
-  // Generate orthogonal path from bottom center of source to top center of target
+  // Generate simple orthogonal path avoiding course blocks
   const generateOrthogonalPath = (
     startSemIndex: number, startCourseIndex: number,
     endSemIndex: number, endCourseIndex: number,
     arrowIndex: number
   ) => {
+    const colWidth = 100 / semesterLayout.length;
     const startPos = getCoursePosition(startSemIndex, startCourseIndex);
     const endPos = getCoursePosition(endSemIndex, endCourseIndex);
     
-    // Start from bottom center of source block
-    const startX = startPos.bottomCenterX;
-    const startY = startPos.bottomCenterY;
+    // Exit from right edge of source course
+    const startX = startPos.right - 0.5;
+    const startY = startPos.centerY;
     
-    // End at top center of target block
-    const endX = endPos.topCenterX;
-    const endY = endPos.topCenterY;
+    // Enter from left edge of target course  
+    const endX = endPos.left + 0.5;
+    const endY = endPos.centerY;
     
-    // Try direct path first
-    if (!pathIntersectsBlock(startX, startY, endX, endY, startSemIndex, startCourseIndex)) {
+    // Check if direct horizontal line would intersect any course blocks
+    const needsRouting = semesterLayout.some((semData, semIdx) => {
+      if (semIdx <= startSemIndex || semIdx >= endSemIndex) return false;
+      
+      return semData.courses.some((_, courseIdx) => {
+        const coursePos = getCoursePosition(semIdx, courseIdx);
+        // Check if horizontal line at startY intersects this course
+        return startY >= coursePos.top && startY <= coursePos.bottom;
+      });
+    });
+    
+    if (!needsRouting && startY === endY) {
+      // Simple direct horizontal line
       return [
         { x: startX, y: startY },
         { x: endX, y: endY }
       ];
     }
     
-    // Find routing path through white spaces
-    const colWidth = 100 / semesterLayout.length;
-    const routingOffset = 3 + (arrowIndex * 2); // Offset for multiple arrows
+    // Route through white space above/below courses
+    const routingY = startY < endY ? 
+      Math.min(startPos.top, endPos.top) - 3 : // Route above
+      Math.max(startPos.bottom, endPos.bottom) + 3; // Route below
     
-    // Route down from source, across, then up to target
-    const routingY1 = startY + routingOffset; // Go down from source
-    const routingY2 = endY - routingOffset; // Come up to target
-    
-    // Check if we can route directly across
-    if (!pathIntersectsBlock(startX, routingY1, endX, routingY1)) {
-      return [
-        { x: startX, y: startY }, // Start from bottom of source
-        { x: startX, y: routingY1 }, // Go down
-        { x: endX, y: routingY1 }, // Go across
-        { x: endX, y: endY } // Go up to target
-      ];
-    }
-    
-    // Find intermediate routing points in white spaces
-    const midX = startX + (endX - startX) / 2;
-    
+    // Create L-shaped path through white space
     return [
-      { x: startX, y: startY }, // Start from bottom of source
-      { x: startX, y: routingY1 }, // Go down
-      { x: midX, y: routingY1 }, // Go to middle
-      { x: midX, y: routingY2 }, // Change level
-      { x: endX, y: routingY2 }, // Go across to target column
-      { x: endX, y: endY } // Go up to target
+      { x: startX, y: startY }, // Start from source
+      { x: startX + colWidth * 0.15, y: startY }, // Move right
+      { x: startX + colWidth * 0.15, y: routingY }, // Move to routing channel
+      { x: endX - colWidth * 0.15, y: routingY }, // Move across
+      { x: endX - colWidth * 0.15, y: endY }, // Move to target level
+      { x: endX, y: endY } // Enter target
     ];
   };
 
