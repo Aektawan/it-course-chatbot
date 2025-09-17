@@ -227,17 +227,17 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       const routingY = availableLanes[0] || midY;
       usedLanes.add(`${routingY}`);
 
-      // Create L-shaped orthogonal path
-      if (Math.abs(routingY - startPort.y) > CLEARANCE) {
-        pathPoints.push({ x: startPort.x, y: routingY }); // Vertical segment
+      // Create orthogonal path that ends precisely at target
+      if (startPort.y !== routingY) {
+        pathPoints.push({ x: startPort.x, y: routingY }); // Vertical from start
       }
       
-      if (Math.abs(endPort.x - startPort.x) > CLEARANCE) {
-        pathPoints.push({ x: endPort.x, y: routingY }); // Horizontal segment
-      }
-      
-      if (Math.abs(routingY - endPort.y) > CLEARANCE) {
-        pathPoints.push(endPort); // Final vertical to target
+      if (routingY !== endPort.y) {
+        pathPoints.push({ x: endPort.x, y: routingY }); // Horizontal to target column
+        pathPoints.push(endPort); // Final vertical down to target
+      } else {
+        // Direct horizontal at same level
+        pathPoints.push(endPort);
       }
     }
 
@@ -335,7 +335,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                   id="arrowhead"
                   markerWidth="8"
                   markerHeight="6"
-                  refX="6"
+                  refX="7"
                   refY="3"
                   orient="auto"
                   markerUnits="strokeWidth"
