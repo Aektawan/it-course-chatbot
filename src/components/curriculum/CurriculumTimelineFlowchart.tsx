@@ -205,15 +205,9 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     const startPorts = getConnectionPorts(startRect);
     const endPorts = getConnectionPorts(endRect);
 
-    // Default: bottom-center to top-center
-    let startPort = startPorts.bottomCenter;
-    let endPort = endPorts.topCenter;
-
-    // Same column: use side ports
-    if (startSemIndex === endSemIndex) {
-      startPort = startPorts.rightCenter;
-      endPort = endPorts.leftCenter;
-    }
+    // Always use right-center to left-center connections
+    let startPort = startPorts.rightCenter;
+    let endPort = endPorts.leftCenter;
 
     const pathPoints = [startPort];
 
