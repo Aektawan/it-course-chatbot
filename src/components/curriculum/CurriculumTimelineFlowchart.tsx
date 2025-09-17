@@ -188,28 +188,17 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     );
   };
 
-  // Find available horizontal lanes in the gutter space
+  // Find available horizontal lanes in the gutter space between course rows
   const findHorizontalLane = (startRect: any, endRect: any, usedLanes: Set<string>) => {
-    // Try direct horizontal connection first (same Y level)
-    const directY = startRect.centerY;
-    const laneKey = `h-${Math.round(directY)}`;
-    
-    if (!usedLanes.has(laneKey) && 
-        !overlapsWithCourses(startRect.right, directY - 2, endRect.left - startRect.right, 4)) {
-      usedLanes.add(laneKey);
-      return directY;
-    }
-    
-    // Try lanes above and below the course centers
+    // Always prioritize gutter lanes that are between course rows, not at course centers
     const testYPositions = [
-      startRect.centerY - GUTTER_HEIGHT / 4,
-      startRect.centerY + GUTTER_HEIGHT / 4,
-      startRect.top - CLEARANCE,
-      startRect.bottom + CLEARANCE,
-      endRect.top - CLEARANCE,
-      endRect.bottom + CLEARANCE
+      startRect.bottom + GUTTER_HEIGHT / 2,  // Middle of gutter below start course
+      startRect.top - GUTTER_HEIGHT / 2,     // Middle of gutter above start course  
+      endRect.bottom + GUTTER_HEIGHT / 2,    // Middle of gutter below end course
+      endRect.top - GUTTER_HEIGHT / 2,       // Middle of gutter above end course
     ];
     
+    // Test each gutter lane position
     for (const testY of testYPositions) {
       const testLaneKey = `h-${Math.round(testY)}`;
       if (!usedLanes.has(testLaneKey) && 
@@ -219,8 +208,24 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       }
     }
     
-    // Fallback to original Y
-    return directY;
+    // If all preferred lanes are taken, try offset lanes in gutters
+    for (let offset = LANE_WIDTH; offset <= GUTTER_HEIGHT/2; offset += LANE_WIDTH) {
+      for (const baseY of testYPositions) {
+        for (const direction of [-1, 1]) {
+          const testY = baseY + (offset * direction);
+          const testLaneKey = `h-${Math.round(testY)}`;
+          if (!usedLanes.has(testLaneKey) && 
+              !overlapsWithCourses(startRect.right, testY - 2, endRect.left - startRect.right, 4)) {
+            usedLanes.add(testLaneKey);
+            return testY;
+          }
+        }
+      }
+    }
+    
+    // Last fallback - use gutter space below the lower course
+    const fallbackY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT / 2;
+    return fallbackY;
   };
 
   // Check if there are blocking courses between start and end points
@@ -283,32 +288,20 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
         // Need to route around obstacles with 90-degree turns
         
         // Step 1: Move horizontally into gutter space
-        const gutterX = startPort.x + GUTTER_WIDTH / 2;
+        const gutterX = startPort.x + GUTTER_WIDTH / 3;  // Smaller gutter offset to stay in gutters
         pathPoints.push({ x: gutterX, y: startPort.y });
         
-        // Step 2: Find safe vertical routing lane
-        let routingY = endPort.y;
+        // Step 2: Find safe horizontal routing lane in gutter space
+        let routingY = findHorizontalLane(startRect, endRect, usedLanes);
         
         if (isDirectPathBlocked || !isApproximatelySameLevel) {
-          // Route above or below the blocking courses
-          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT;
-          const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT;
+          // Make sure we route in proper gutter space, not touching courses
           
-          // Choose the route with less vertical distance
-          if (Math.abs(aboveY - startPort.y) <= Math.abs(belowY - startPort.y)) {
-            routingY = aboveY;
-          } else {
-            routingY = belowY;
-          }
-          
-          // Ensure minimum clearance from course boxes
-          routingY = Math.max(routingY, 30); // Minimum distance from top
-          
-          // Vertical segment to routing lane
+          // Vertical segment to gutter routing lane
           pathPoints.push({ x: gutterX, y: routingY });
           
-          // Horizontal segment across to target column
-          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+          // Horizontal segment across to target column in gutter lane
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 3;  // Smaller offset
           pathPoints.push({ x: targetGutterX, y: routingY });
           
           // Vertical segment down to target level
@@ -316,12 +309,12 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
             pathPoints.push({ x: targetGutterX, y: endPort.y });
           }
         } else {
-          // Direct horizontal at same level
-          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
-          pathPoints.push({ x: targetGutterX, y: startPort.y });
+          // Horizontal routing in gutter lane
+          const targetGutterX = endPort.x - GUTTER_WIDTH / 3;
+          pathPoints.push({ x: targetGutterX, y: routingY });
           
           // Vertical adjustment if needed
-          if (Math.abs(verticalDistance) > CLEARANCE) {
+          if (Math.abs(routingY - endPort.y) > CLEARANCE) {
             pathPoints.push({ x: targetGutterX, y: endPort.y });
           }
         }
