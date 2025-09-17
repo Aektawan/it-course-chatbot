@@ -385,9 +385,20 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       <div ref={flowchartRef} className="bg-white overflow-x-auto">
         <div className="inline-block min-w-full p-4">
           {/* Semester Headers */}
-          <div className="grid grid-flow-col auto-cols-fr gap-4 mb-2">
+          <div className="relative mb-2" style={{ 
+            height: '40px',
+            width: `${semesterLayout.length * (COURSE_WIDTH + GUTTER_WIDTH)}px`
+          }}>
             {semesterLayout.map((semData, index) => (
-              <div key={index} className="text-center">
+              <div 
+                key={index} 
+                className="absolute text-center"
+                style={{
+                  left: `${index * (COURSE_WIDTH + GUTTER_WIDTH)}px`,
+                  width: `${COURSE_WIDTH}px`,
+                  top: '0px'
+                }}
+              >
                 <div className="font-bold text-sm mb-1">
                   ปีที่ {semData.year} {semData.label}
                 </div>
