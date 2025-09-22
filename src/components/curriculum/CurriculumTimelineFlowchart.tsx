@@ -92,7 +92,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               year: Number(year),
               semester: Number(semester),
               courses,
-              label: semester === '3' ? 'ฝึกงาน' : `เทอมที่ ${semester}`,
+              label: `เทอมที่ ${semester}`,
               isInternship: semester === '3'
             });
           });
