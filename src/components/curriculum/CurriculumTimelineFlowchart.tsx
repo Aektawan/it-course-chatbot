@@ -271,13 +271,13 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
         const gutterX = startPort.x + GUTTER_WIDTH / 2;
         pathPoints.push({ x: gutterX, y: startPort.y });
         
-        // Step 2: Find safe vertical routing lane
+        // Step 2: Find safe vertical routing lane - center in gutters
         let routingY = endPort.y;
         
         if (isDirectPathBlocked || !isApproximatelySameLevel) {
-          // Route above or below the blocking courses
-          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT;
-          const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT;
+          // Route in center of gutters above or below the blocking courses
+          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT / 2 - 3;
+          const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT / 2 + 3;
           
           // Choose the route with less vertical distance
           if (Math.abs(aboveY - startPort.y) <= Math.abs(belowY - startPort.y)) {
@@ -286,8 +286,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
             routingY = belowY;
           }
           
-          // Ensure minimum clearance from course boxes
-          routingY = Math.max(routingY, 30); // Minimum distance from top
+          // Ensure minimum clearance from course boxes and center in gutter
+          routingY = Math.max(routingY, 45); // Better minimum distance from top
           
           // Vertical segment to routing lane
           pathPoints.push({ x: gutterX, y: routingY });
@@ -301,9 +301,10 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
             pathPoints.push({ x: targetGutterX, y: endPort.y });
           }
         } else {
-          // Direct horizontal at same level
+          // Direct horizontal at same level - adjust to center between blocks
           const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
-          pathPoints.push({ x: targetGutterX, y: startPort.y });
+          const centerY = (startRect.bottom + endRect.top) / 2;
+          pathPoints.push({ x: targetGutterX, y: centerY });
           
           // Vertical adjustment if needed
           if (Math.abs(verticalDistance) > CLEARANCE) {
