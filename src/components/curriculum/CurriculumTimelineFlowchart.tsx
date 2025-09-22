@@ -104,11 +104,11 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   // DIAGRAM ENGINE - Curriculum flowchart with prerequisite arrows
   // Following strict orthogonal routing rules through white gutters
 
-  // Course layout constants
-  const COURSE_WIDTH = 120;
-  const COURSE_HEIGHT = 80;
-  const GUTTER_WIDTH = 32;
-  const GUTTER_HEIGHT = 24;
+  // Course layout constants - reduced for better fit
+  const COURSE_WIDTH = 100;
+  const COURSE_HEIGHT = 70;
+  const GUTTER_WIDTH = 24;
+  const GUTTER_HEIGHT = 20;
   const CLEARANCE = 8;
   const LANE_WIDTH = 4;
 
@@ -383,8 +383,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       </div>
 
       {/* Flowchart */}
-      <div ref={flowchartRef} className="bg-white overflow-x-auto">
-        <div className="inline-block min-w-full p-4">
+      <div ref={flowchartRef} className="bg-white overflow-x-auto max-w-full">
+        <div className="inline-block min-w-full p-2" style={{ transform: 'scale(0.85)', transformOrigin: 'top left' }}>
           {/* Semester Headers */}
           <div className="relative mb-2" style={{ 
             height: '40px',
@@ -478,19 +478,19 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                       }}
                     >
                       {/* Course Code */}
-                      <div className="font-bold text-center text-[10px] leading-tight">
+                      <div className="font-bold text-center text-[9px] leading-tight">
                         {course.code}
                       </div>
                       
                       {/* Course Name */}
-                      <div className="text-center leading-tight flex-1 flex items-center justify-center px-1" style={{ fontSize: '8px' }}>
+                      <div className="text-center leading-tight flex-1 flex items-center justify-center px-1" style={{ fontSize: '7px' }}>
                         <span className="line-clamp-3 overflow-hidden text-ellipsis">
                           {course.name}
                         </span>
                       </div>
                       
                       {/* Credits */}
-                      <div className="text-center font-bold text-[9px]">
+                      <div className="text-center font-bold text-[8px]">
                         {formatCredits(course.credits)}
                       </div>
                     </div>
