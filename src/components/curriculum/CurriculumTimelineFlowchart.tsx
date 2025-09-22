@@ -104,10 +104,10 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   // DIAGRAM ENGINE - Curriculum flowchart with prerequisite arrows
   // Following strict orthogonal routing rules through white gutters
 
-  // Course layout constants - Reduced for better fit
+  // Course layout constants - reduced for better fit
   const COURSE_WIDTH = 100;
   const COURSE_HEIGHT = 70;
-  const GUTTER_WIDTH = 28;
+  const GUTTER_WIDTH = 24;
   const GUTTER_HEIGHT = 20;
   const CLEARANCE = 8;
   const LANE_WIDTH = 4;
@@ -134,7 +134,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   // Calculate precise course positions in the grid
   const getCourseRect = (semIndex: number, courseIndex: number) => {
     const x = semIndex * (COURSE_WIDTH + GUTTER_WIDTH);
-    const y = courseIndex * (COURSE_HEIGHT + GUTTER_HEIGHT) + 50; // Reduced header offset
+    const y = courseIndex * (COURSE_HEIGHT + GUTTER_HEIGHT) + 60; // Header offset
     
     return {
       x,
@@ -383,8 +383,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       </div>
 
       {/* Flowchart */}
-      <div ref={flowchartRef} className="bg-white">
-        <div className="inline-block min-w-full p-2 scale-105 origin-top-left">
+      <div ref={flowchartRef} className="bg-white overflow-x-auto max-w-full">
+        <div className="inline-block min-w-full p-2" style={{ transform: 'scale(0.85)', transformOrigin: 'top left' }}>
           {/* Semester Headers */}
           <div className="relative mb-2" style={{ 
             height: '40px',
@@ -400,7 +400,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                   top: '0px'
                 }}
               >
-                <div className="font-bold text-xs mb-1">
+                <div className="font-bold text-sm mb-1">
                   ปีที่ {semData.year} {semData.label}
                 </div>
               </div>
