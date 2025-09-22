@@ -498,9 +498,11 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                 })
               )}
               
-              {/* Credits Summary for each semester */}
+              {/* Credits Summary for each semester - aligned at bottom */}
               {semesterLayout.map((semData, semIndex) => {
-                const rect = getCourseRect(semIndex, semData.courses.length);
+                // Find the maximum number of courses in any semester for consistent alignment
+                const maxCoursesInAnySemester = Math.max(...semesterLayout.map(s => s.courses.length));
+                const rect = getCourseRect(semIndex, maxCoursesInAnySemester);
                 
                 return (
                   <div
