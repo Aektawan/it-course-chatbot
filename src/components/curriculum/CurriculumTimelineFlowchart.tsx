@@ -384,7 +384,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
 
       {/* Flowchart */}
       <div ref={flowchartRef} className="bg-white">
-        <div className="inline-block min-w-full p-2 scale-90 origin-top-left">
+        <div className="inline-block min-w-full p-2">
           {/* Semester Headers */}
           <div className="relative mb-2" style={{ 
             height: '40px',
