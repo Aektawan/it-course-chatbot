@@ -109,6 +109,7 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
 
   // Find prerequisites within the curriculum
   const findPrerequisiteConnections = (course: Course) => {
+    console.log('=== findPrerequisiteConnections called ===', course.code, course.name);
     const connections: Course[] = [];
     if (course.prerequisites && course.prerequisites.length > 0) {
       // กรอง prerequisites ที่เป็น 'โดยความเห็นชอบของภาควิชา' ออก
@@ -117,8 +118,12 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
         !prereq.includes('โดยความเห็นชอบของภาควิชา')
       );
       
+      console.log(`Course ${course.code}: Original prerequisites:`, course.prerequisites);
+      console.log(`Course ${course.code}: Valid prerequisites:`, validPrerequisites);
+      
       // หากไม่มี prerequisites ที่ถูกต้องแล้ว ไม่แสดงเส้นเชื่อมโยง
       if (validPrerequisites.length === 0) {
+        console.log(`Course ${course.code}: No valid prerequisites, returning empty connections`);
         return connections;
       }
       

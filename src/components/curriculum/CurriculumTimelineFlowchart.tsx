@@ -114,6 +114,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
 
   // Find prerequisite relationships
   const findPrerequisites = (course: Course) => {
+    console.log('=== Timeline findPrerequisites called ===', course.code, course.name);
     const prereqIds: string[] = [];
     if (course.prerequisites && course.prerequisites.length > 0) {
       // กรอง prerequisites ที่เป็น 'โดยความเห็นชอบของภาควิชา' ออก
@@ -122,8 +123,12 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
         !prereq.includes('โดยความเห็นชอบของภาควิชา')
       );
       
+      console.log(`Timeline Course ${course.code}: Original prereq:`, course.prerequisites);
+      console.log(`Timeline Course ${course.code}: Valid prereq:`, validPrerequisites);
+      
       // หากไม่มี prerequisites ที่ถูกต้องแล้ว ไม่แสดงเส้นเชื่อมโยง
       if (validPrerequisites.length === 0) {
+        console.log(`Timeline Course ${course.code}: No valid prereq, returning empty`);
         return prereqIds;
       }
       
