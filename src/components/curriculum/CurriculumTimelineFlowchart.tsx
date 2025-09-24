@@ -71,6 +71,11 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     const individual = credits * 2;
     return `${credits}(${lecture}-${lab}-${individual})`;
   };
+  
+  // Remove prefix from course code (INE-, INET-, IT-, ITI-, ITT-)
+  const removeCodePrefix = (code: string) => {
+    return code.replace(/^(INE-|INET-|IT-|ITI-|ITT-)/i, '');
+  };
 
   // Create a flat list of all semesters for easier layout
   const semesterLayout = useMemo(() => {
@@ -105,12 +110,14 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   // Following strict orthogonal routing rules through white gutters
 
   // Course layout constants
-  const COURSE_WIDTH = 120;
-  const COURSE_HEIGHT = 80;
-  const GUTTER_WIDTH = 32;
-  const GUTTER_HEIGHT = 24;
-  const CLEARANCE = 8;
-  const LANE_WIDTH = 4;
+  const COURSE_WIDTH = 120; // ปรับลดลงเพื่อให้พอดีกับหน้าจอ
+  const COURSE_HEIGHT = 80; // ปรับลดลงเพื่อให้พอดีกับหน้าจอ
+  const GUTTER_WIDTH = 20; // ปรับลดลงเพื่อให้พอดีกับหน้าจอ
+  const GUTTER_HEIGHT = 18; // ปรับลดลงเพื่อให้พอดีกับหน้าจอ
+  const CLEARANCE = 6; // คงเดิม
+  const LANE_WIDTH = 3; // คงเดิม
+
+
 
   // Find prerequisite relationships
   const findPrerequisites = (course: Course) => {
@@ -173,7 +180,9 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     topCenter: { x: rect.centerX, y: rect.top },
     bottomCenter: { x: rect.centerX, y: rect.bottom },
     rightCenter: { x: rect.right, y: rect.centerY },
-    leftCenter: { x: rect.left, y: rect.centerY }
+    leftCenter: { x: rect.left, y: rect.centerY },
+    leftUpper: { x: rect.left, y: rect.centerY - 12 },
+    leftLower: { x: rect.left, y: rect.centerY + 12 }
   });
 
   // Check if a rectangular area overlaps with any course box
@@ -250,16 +259,18 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   const generateOrthogonalPath = (
     startSemIndex: number, startCourseIndex: number,
     endSemIndex: number, endCourseIndex: number,
-    usedLanes: Set<string>
+    usedLanes: Set<string>,
+    endPortType: string = 'leftCenter'
   ) => {
     const startRect = getCourseRect(startSemIndex, startCourseIndex);
     const endRect = getCourseRect(endSemIndex, endCourseIndex);
     const startPorts = getConnectionPorts(startRect);
     const endPorts = getConnectionPorts(endRect);
 
-    // Always use right-center to left-center connections
+    // Always use right-center for start port
     let startPort = startPorts.rightCenter;
-    let endPort = endPorts.leftCenter;
+    // Use specified end port type (leftCenter, leftUpper, or leftLower)
+    let endPort = endPorts[endPortType as keyof typeof endPorts];
 
     const pathPoints = [startPort];
 
@@ -297,11 +308,20 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
           const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT / 2 - 3;
           const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT / 2 + 3;
           
-          // Choose the route with less vertical distance
-          if (Math.abs(aboveY - startPort.y) <= Math.abs(belowY - startPort.y)) {
+          // ปรับเส้นทางตามตำแหน่งของ endPortType เพื่อลดการตัดกันของเส้น
+          if (endPortType === 'leftUpper') {
+            // สำหรับลูกศรที่เข้าด้านบน ให้เลือกเส้นทางด้านบน
             routingY = aboveY;
-          } else {
+          } else if (endPortType === 'leftLower') {
+            // สำหรับลูกศรที่เข้าด้านล่าง ให้เลือกเส้นทางด้านล่าง
             routingY = belowY;
+          } else {
+            // สำหรับลูกศรที่เข้าตรงกลาง ให้เลือกเส้นทางที่ใกล้ที่สุด
+            if (Math.abs(aboveY - startPort.y) <= Math.abs(belowY - startPort.y)) {
+              routingY = aboveY;
+            } else {
+              routingY = belowY;
+            }
           }
           
           // Ensure minimum clearance from course boxes and center in gutter
@@ -350,7 +370,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       semData.courses.forEach((course, courseIndex) => {
         const prereqIds = findPrerequisites(course);
         
-        prereqIds.forEach((prereqId) => {
+        // ใช้ตำแหน่งลูกศรที่แตกต่างกันตามจำนวน prerequisites
+        prereqIds.forEach((prereqId, prereqIndex) => {
           // Find prerequisite position
           let prereqSemIndex = -1;
           let prereqCourseIndex = -1;
@@ -364,10 +385,26 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
           });
 
           if (prereqSemIndex >= 0) {
+            // เลือกตำแหน่งลูกศรตามจำนวน prerequisites
+            let endPortType = 'leftCenter';
+            
+            // ถ้ามี prerequisites มากกว่า 1 วิชา ให้ใช้ตำแหน่งที่แตกต่างกัน
+            if (prereqIds.length > 1) {
+              if (prereqIndex === 0) {
+                endPortType = 'leftUpper';
+              } else if (prereqIndex === 1) {
+                endPortType = 'leftLower';
+              } else {
+                // สำหรับกรณีที่มีมากกว่า 2 วิชา ให้ใช้ตำแหน่งกลาง
+                endPortType = 'leftCenter';
+              }
+            }
+            
             const pathPoints = generateOrthogonalPath(
               prereqSemIndex, prereqCourseIndex,
               semIndex, courseIndex,
-              usedLanes
+              usedLanes,
+              endPortType
             );
 
             arrows.push({
@@ -438,16 +475,16 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               <defs>
                 <marker
                   id="arrowhead"
-                  markerWidth="6"
-                  markerHeight="5"
+                  markerWidth="5.7"
+                  markerHeight="4.75"
                   refX="5.5"
-                  refY="2.5"
+                  refY="2.375"
                   orient="auto"
                   markerUnits="strokeWidth"
                 >
                   <polygon
-                    points="0 0, 6 2.5, 0 5"
-                    fill="#000"
+                    points="0 0, 5.7 2.375, 0 4.75"
+                    fill="#555"
                   />
                 </marker>
               </defs>
@@ -462,12 +499,12 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                   <path
                     key={arrow.id}
                     d={pathString}
-                    stroke="#000"
-                    strokeWidth="2"
+                    stroke="#555"
+                    strokeWidth="1.5"
                     fill="none"
                     markerEnd="url(#arrowhead)"
                     style={{
-                      filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
+                      filter: 'none'
                     }}
                   />
                 );
@@ -496,19 +533,19 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                       }}
                     >
                       {/* Course Code */}
-                      <div className="font-bold text-center text-[10px] leading-tight">
-                        {course.code}
+                      <div className="font-bold text-center text-[12px] leading-tight px-2">
+                        {removeCodePrefix(course.code)}
                       </div>
                       
                       {/* Course Name */}
-                      <div className="text-center leading-tight flex-1 flex items-center justify-center px-1" style={{ fontSize: '8px' }}>
-                        <span className="line-clamp-3 overflow-hidden text-ellipsis">
+                      <div className="text-center leading-tight flex-1 flex items-center justify-center px-1" style={{ fontSize: '9px' }}>
+                        <span className="line-clamp-none overflow-hidden text-ellipsis w-full">
                           {course.name}
                         </span>
                       </div>
                       
                       {/* Credits */}
-                      <div className="text-center font-bold text-[9px]">
+                      <div className="text-center font-bold text-[10px]">
                         {formatCredits(course.credits)}
                       </div>
                     </div>
