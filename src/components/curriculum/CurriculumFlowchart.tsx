@@ -187,6 +187,10 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                           {courses.map((course) => {
                             const prerequisites = findPrerequisiteConnections(course);
+                            console.log('=== Course in flowchart ===', course.code, 'Prerequisites found:', prerequisites.length);
+                            if (course.prerequisites) {
+                              console.log('Raw prerequisites:', course.prerequisites);
+                            }
                             const courseId = `course-${course.code.replace(/[^a-zA-Z0-9]/g, '')}`;
                             
                             return (
