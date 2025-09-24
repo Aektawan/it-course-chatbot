@@ -111,6 +111,15 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
   const findPrerequisiteConnections = (course: Course) => {
     const connections: Course[] = [];
     if (course.prerequisites && course.prerequisites.length > 0) {
+      // ตรวจสอบว่าวิชานี้มี prerequisites เป็น 'โดยความเห็นชอบของภาควิชา' หรือไม่
+      if (course.prerequisites.length === 1 && 
+          (course.prerequisites[0] === 'โดยความเห็นชอบของภาควิชา' || 
+           course.prerequisites[0].includes('โดยความเห็นชอบของภาควิชา'))) {
+        // ไม่แสดงเส้นเชื่อมโยงสำหรับวิชาที่มี prerequisites เป็น 'โดยความเห็นชอบของภาควิชา'
+        return connections;
+      }
+      
+      // สำหรับวิชาอื่นๆ ให้แสดงเส้นเชื่อมโยงตามปกติ
       Object.values(coursesByYear).forEach(yearData => {
         Object.values(yearData).forEach(courses => {
           courses.forEach(prereqCourse => {
@@ -120,6 +129,7 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
           });
         });
       });
+      }
     }
     return connections;
   };

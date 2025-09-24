@@ -116,6 +116,15 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   const findPrerequisites = (course: Course) => {
     const prereqIds: string[] = [];
     if (course.prerequisites && course.prerequisites.length > 0) {
+      // ตรวจสอบว่าวิชานี้มี prerequisites เป็น 'โดยความเห็นชอบของภาควิชา' หรือไม่
+      if (course.prerequisites.length === 1 && 
+          (course.prerequisites[0] === 'โดยความเห็นชอบของภาควิชา' || 
+           course.prerequisites[0].includes('โดยความเห็นชอบของภาควิชา'))) {
+        // ไม่แสดงเส้นเชื่อมโยงสำหรับวิชาที่มี prerequisites เป็น 'โดยความเห็นชอบของภาควิชา'
+        return prereqIds;
+      }
+      
+      // สำหรับวิชาอื่นๆ ให้แสดงเส้นเชื่อมโยงตามปกติ
       semesterLayout.forEach((semData) => {
         semData.courses.forEach((c) => {
           if (course.prerequisites.some(prereq => 
