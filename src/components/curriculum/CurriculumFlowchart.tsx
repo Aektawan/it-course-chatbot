@@ -129,7 +129,6 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
           });
         });
       });
-      }
     }
     return connections;
   };
