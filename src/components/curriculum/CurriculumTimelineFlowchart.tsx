@@ -135,11 +135,12 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       // สำหรับ prerequisites ที่ถูกต้อง ให้แสดงเส้นเชื่อมโยงตามปกติ
       semesterLayout.forEach((semData) => {
         semData.courses.forEach((c) => {
-          if (validPrerequisites.some(prereq => 
-            c.code.includes(prereq.split(' ')[0]) || 
-            c.name.includes(prereq) ||
-            prereq.includes(c.code.split('-')[1] || c.code)
-          )) {
+          // ตรวจสอบการจับคู่อย่างแม่นยำ - เฉพาะรหัสวิชาที่ตรงกันเท่านั้น
+          if (validPrerequisites.some(prereq => {
+            const prereqCode = prereq.split(' ')[0]; // เอาเฉพาะรหัสวิชา
+            const courseCode = c.code.split('-')[1] || c.code; // เอาเฉพาะรหัสวิชา
+            return prereqCode === courseCode;
+          })) {
             prereqIds.push(c.id);
           }
         });

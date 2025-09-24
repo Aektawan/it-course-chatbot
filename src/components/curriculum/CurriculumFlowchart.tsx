@@ -131,7 +131,12 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
       Object.values(coursesByYear).forEach(yearData => {
         Object.values(yearData).forEach(courses => {
           courses.forEach(prereqCourse => {
-            if (validPrerequisites.some(prereq => prereqCourse.code.includes(prereq.split(' ')[0]))) {
+            // ตรวจสอบการจับคู่อย่างแม่นยำ - เฉพาะรหัสวิชาที่ตรงกันเท่านั้น
+            if (validPrerequisites.some(prereq => {
+              const prereqCode = prereq.split(' ')[0]; // เอาเฉพาะรหัสวิชา
+              const courseCode = prereqCourse.code.split('-')[1] || prereqCourse.code; // เอาเฉพาะรหัสวิชา
+              return prereqCode === courseCode;
+            })) {
               connections.push(prereqCourse);
             }
           });
