@@ -111,19 +111,22 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
   const findPrerequisiteConnections = (course: Course) => {
     const connections: Course[] = [];
     if (course.prerequisites && course.prerequisites.length > 0) {
-      // ตรวจสอบว่าวิชานี้มี prerequisites เป็น 'โดยความเห็นชอบของภาควิชา' หรือไม่
-      if (course.prerequisites.length === 1 && 
-          (course.prerequisites[0] === 'โดยความเห็นชอบของภาควิชา' || 
-           course.prerequisites[0].includes('โดยความเห็นชอบของภาควิชา'))) {
-        // ไม่แสดงเส้นเชื่อมโยงสำหรับวิชาที่มี prerequisites เป็น 'โดยความเห็นชอบของภาควิชา'
+      // กรอง prerequisites ที่เป็น 'โดยความเห็นชอบของภาควิชา' ออก
+      const validPrerequisites = course.prerequisites.filter(prereq => 
+        prereq !== 'โดยความเห็นชอบของภาควิชา' && 
+        !prereq.includes('โดยความเห็นชอบของภาควิชา')
+      );
+      
+      // หากไม่มี prerequisites ที่ถูกต้องแล้ว ไม่แสดงเส้นเชื่อมโยง
+      if (validPrerequisites.length === 0) {
         return connections;
       }
       
-      // สำหรับวิชาอื่นๆ ให้แสดงเส้นเชื่อมโยงตามปกติ
+      // สำหรับ prerequisites ที่ถูกต้อง ให้แสดงเส้นเชื่อมโยงตามปกติ
       Object.values(coursesByYear).forEach(yearData => {
         Object.values(yearData).forEach(courses => {
           courses.forEach(prereqCourse => {
-            if (course.prerequisites.some(prereq => prereqCourse.code.includes(prereq.split(' ')[0]))) {
+            if (validPrerequisites.some(prereq => prereqCourse.code.includes(prereq.split(' ')[0]))) {
               connections.push(prereqCourse);
             }
           });
