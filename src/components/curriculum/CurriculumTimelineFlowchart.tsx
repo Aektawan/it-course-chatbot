@@ -355,58 +355,67 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     }> = [];
     const usedLanes = new Set<string>();
 
+    // สำหรับหลักสูตร INET 67 ใช้การแสดงเส้นทางแบบพิเศษ
+    const isINET67 = selectedCurriculum.includes('INET 67');
+
     semesterLayout.forEach((semData, semIndex) => {
       semData.courses.forEach((course, courseIndex) => {
         const prereqIds = findPrerequisites(course);
         
-        // ใช้ตำแหน่งลูกศรที่แตกต่างกันตามจำนวน prerequisites
-        prereqIds.forEach((prereqId, prereqIndex) => {
-          // Find prerequisite position
-          let prereqSemIndex = -1;
-          let prereqCourseIndex = -1;
-          
-          semesterLayout.forEach((prevSem, prevSemIndex) => {
-            const courseIdx = prevSem.courses.findIndex(c => c.id === prereqId);
-            if (courseIdx !== -1 && prevSemIndex < semIndex) {
-              prereqSemIndex = prevSemIndex;
-              prereqCourseIndex = courseIdx;
+        // สำหรับหลักสูตร INET 67 ตัดเส้นวงกลมสีแดงออก
+        if (isINET67 && course.code === 'INET-060233214') {
+          // ไม่แสดงเส้นวงกลมสีแดง - ข้ามการสร้างเส้นทางสำหรับวิชานี้
+          return;
+        } else {
+          // ใช้ตำแหน่งลูกศรที่แตกต่างกันตามจำนวน prerequisites
+          prereqIds.forEach((prereqId, prereqIndex) => {
+            // Find prerequisite position
+            let prereqSemIndex = -1;
+            let prereqCourseIndex = -1;
+            
+            semesterLayout.forEach((prevSem, prevSemIndex) => {
+              const courseIdx = prevSem.courses.findIndex(c => c.id === prereqId);
+              if (courseIdx !== -1 && prevSemIndex < semIndex) {
+                prereqSemIndex = prevSemIndex;
+                prereqCourseIndex = courseIdx;
+              }
+            });
+
+            if (prereqSemIndex >= 0) {
+              // เลือกตำแหน่งลูกศรตามจำนวน prerequisites
+              let endPortType = 'leftCenter';
+              
+              // ถ้ามี prerequisites มากกว่า 1 วิชา ให้ใช้ตำแหน่งที่แตกต่างกัน
+              if (prereqIds.length > 1) {
+                if (prereqIndex === 0) {
+                  endPortType = 'leftUpper';
+                } else if (prereqIndex === 1) {
+                  endPortType = 'leftLower';
+                } else {
+                  // สำหรับกรณีที่มีมากกว่า 2 วิชา ให้ใช้ตำแหน่งกลาง
+                  endPortType = 'leftCenter';
+                }
+              }
+              
+              const pathPoints = generateOrthogonalPath(
+                prereqSemIndex, prereqCourseIndex,
+                semIndex, courseIndex,
+                usedLanes,
+                endPortType
+              );
+
+              arrows.push({
+                id: `${prereqId}-${course.id}`,
+                pathPoints
+              });
             }
           });
-
-          if (prereqSemIndex >= 0) {
-            // เลือกตำแหน่งลูกศรตามจำนวน prerequisites
-            let endPortType = 'leftCenter';
-            
-            // ถ้ามี prerequisites มากกว่า 1 วิชา ให้ใช้ตำแหน่งที่แตกต่างกัน
-            if (prereqIds.length > 1) {
-              if (prereqIndex === 0) {
-                endPortType = 'leftUpper';
-              } else if (prereqIndex === 1) {
-                endPortType = 'leftLower';
-              } else {
-                // สำหรับกรณีที่มีมากกว่า 2 วิชา ให้ใช้ตำแหน่งกลาง
-                endPortType = 'leftCenter';
-              }
-            }
-            
-            const pathPoints = generateOrthogonalPath(
-              prereqSemIndex, prereqCourseIndex,
-              semIndex, courseIndex,
-              usedLanes,
-              endPortType
-            );
-
-            arrows.push({
-              id: `${prereqId}-${course.id}`,
-              pathPoints
-            });
-          }
-        });
+        }
       });
     });
 
     return arrows;
-  }, [semesterLayout]);
+  }, [semesterLayout, selectedCurriculum]);
 
   return (
     <div className="space-y-4">
@@ -467,6 +476,20 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                     fill="#555"
                   />
                 </marker>
+                <marker
+                  id="greenArrowhead"
+                  markerWidth="5.7"
+                  markerHeight="4.75"
+                  refX="5.5"
+                  refY="2.375"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <polygon
+                    points="0 0, 5.7 2.375, 0 4.75"
+                    fill="#4CAF50"
+                  />
+                </marker>
               </defs>
               
               {/* Render orthogonal prerequisite arrows */}
@@ -474,15 +497,21 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                 const pathString = arrow.pathPoints.map((point, index) => 
                   `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
                 ).join(' ');
+                
+                // ใช้สีดำสำหรับทุกหลักสูตร
+                const strokeColor = "#555";
+                
+                // ใช้ marker สีดำสำหรับทุกหลักสูตร
+                const markerEnd = "url(#arrowhead)";
 
                 return (
                   <path
                     key={arrow.id}
                     d={pathString}
-                    stroke="#555"
+                    stroke={strokeColor}
                     strokeWidth="1.5"
                     fill="none"
-                    markerEnd="url(#arrowhead)"
+                    markerEnd={markerEnd}
                     style={{
                       filter: 'none'
                     }}
