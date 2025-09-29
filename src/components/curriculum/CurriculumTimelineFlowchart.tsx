@@ -1,9 +1,6 @@
-import React, { useMemo, useRef } from 'react';
-import { Button } from '@/components/ui/button';
+import React, { useMemo } from 'react';
 import { Course } from '@/types/course';
 import { generateCoursesForSemester } from '@/services/completeCurriculumData';
-import { Download } from 'lucide-react';
-import { exportToPDF } from '@/utils/pdfExport';
 
 interface CurriculumTimelineFlowchartProps {
   selectedDepartment: string;
@@ -16,8 +13,6 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   selectedCurriculum, 
   departmentName 
 }) => {
-  const flowchartRef = useRef<HTMLDivElement>(null);
-
   // Generate course data organized by year and semester
   const timelineData = useMemo(() => {
     const [programCode, curriculumYear] = selectedCurriculum.split(' ');
@@ -56,12 +51,6 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
 
   const calculateSemesterCredits = (courses: Course[]) => {
     return courses.reduce((sum, course) => sum + course.credits, 0);
-  };
-
-  const handleExportPDF = async () => {
-    if (flowchartRef.current) {
-      await exportToPDF(flowchartRef.current, `แผนผังหลักสูตร_${departmentName}_${selectedCurriculum}`);
-    }
   };
 
   // Format credits in Thai academic style (e.g., 3(3-0-6))
@@ -110,8 +99,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   // Following strict orthogonal routing rules through white gutters
 
   // Course layout constants
-  const COURSE_WIDTH = 120; // ปรับลดลงเพื่อให้พอดีกับหน้าจอ
-  const COURSE_HEIGHT = 80; // ปรับลดลงเพื่อให้พอดีกับหน้าจอ
+  const COURSE_WIDTH = 140; // เพิ่มความกว้างเพื่อให้แสดงชื่อวิชาได้มากขึ้น
+  const COURSE_HEIGHT = 100; // เพิ่มความสูงเพื่อให้แสดงชื่อวิชาได้มากขึ้น
   const GUTTER_WIDTH = 20; // ปรับลดลงเพื่อให้พอดีกับหน้าจอ
   const GUTTER_HEIGHT = 18; // ปรับลดลงเพื่อให้พอดีกับหน้าจอ
   const CLEARANCE = 6; // คงเดิม
@@ -426,19 +415,10 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
         <h1 className="text-lg font-bold">
           แผนผังรายวิชาตามแผนการเรียนของนักศึกษาวิทยาลัยนวัตกรรม หลักสูตร {departmentName} (ปรับปรุง ปี {selectedCurriculum.split(' ')[1]})
         </h1>
-        <Button 
-          onClick={handleExportPDF} 
-          variant="outline" 
-          size="sm" 
-          className="mt-2 border-black"
-        >
-          <Download className="w-4 h-4 mr-2" />
-          ส่งออก PDF
-        </Button>
       </div>
 
       {/* Flowchart */}
-      <div ref={flowchartRef} className="bg-white overflow-x-auto">
+      <div className="bg-white overflow-x-auto">
         <div className="inline-block min-w-full p-4">
           {/* Semester Headers */}
           <div className="relative mb-2" style={{ 
@@ -538,8 +518,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                       </div>
                       
                       {/* Course Name */}
-                      <div className="text-center leading-tight flex-1 flex items-center justify-center px-1" style={{ fontSize: '9px' }}>
-                        <span className="line-clamp-none overflow-hidden text-ellipsis w-full">
+                      <div className="text-center leading-tight flex-1 flex items-center justify-center px-1" style={{ fontSize: '10px' }}>
+                        <span className="line-clamp-none overflow-hidden w-full">
                           {course.name}
                         </span>
                       </div>
