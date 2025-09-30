@@ -167,12 +167,16 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   // Following strict orthogonal routing rules through white gutters
 
   // Course layout constants
-  const COURSE_WIDTH = 140; // เพิ่มความกว้างเพื่อให้แสดงชื่อวิชาได้มากขึ้น
-  const COURSE_HEIGHT = 100; // เพิ่มความสูงเพื่อให้แสดงชื่อวิชาได้มากขึ้น
-  const GUTTER_WIDTH = 20; // ปรับลดลงเพื่อให้พอดีกับหน้าจอ
-  const GUTTER_HEIGHT = 18; // ปรับลดลงเพื่อให้พอดีกับหน้าจอ
-  const CLEARANCE = 6; // คงเดิม
-  const LANE_WIDTH = 3; // คงเดิม
+  // ตรวจสอบว่าหลักสูตรนี้มี semester 3 หรือไม่
+  const hasSemester3 = semesterLayout.some(sem => sem.semester === 3);
+  
+  // ปรับขนาดให้ใหญ่ขึ้นสำหรับหลักสูตรที่มี semester 3
+  const COURSE_WIDTH = 140;
+  const COURSE_HEIGHT = hasSemester3 ? 90 : 100; // ลดความสูงเล็กน้อยเมื่อมี semester 3
+  const GUTTER_WIDTH = 20;
+  const GUTTER_HEIGHT = hasSemester3 ? 15 : 18; // ลด gutter เมื่อมี semester 3
+  const CLEARANCE = 6;
+  const LANE_WIDTH = 3;
 
 
 
@@ -544,9 +548,9 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
             <svg 
               className="absolute inset-0 w-full h-full pointer-events-none z-10"
               style={{ 
-                minHeight: '600px',
+                minHeight: hasSemester3 ? '500px' : '600px',
                 width: `${semesterLayout.length * (COURSE_WIDTH + GUTTER_WIDTH)}px`,
-                height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + 200}px`
+                height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + (hasSemester3 ? 150 : 200)}px`
               }}
             >
               <defs>
@@ -610,7 +614,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
 
             {/* Course Boxes Grid - Fixed positioning to match arrow coordinates */}
             <div className="relative" style={{ 
-              height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + 200}px`,
+              height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + (hasSemester3 ? 150 : 200)}px`,
               width: `${semesterLayout.length * (COURSE_WIDTH + GUTTER_WIDTH)}px`
             }}>
               {semesterLayout.map((semData, semIndex) => 
