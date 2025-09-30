@@ -20,8 +20,6 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
     const baseClasses = "text-xs px-2 py-1 rounded-full";
     switch (category) {
       case 'core': return <Badge variant="default" className={baseClasses}>วิชาแกน</Badge>;
-      case 'major': return <Badge className={`bg-secondary text-secondary-foreground ${baseClasses}`}>วิชาเอก</Badge>;
-      case 'elective': return <Badge className={`bg-warning text-warning-foreground ${baseClasses}`}>วิชาเลือก</Badge>;
       case 'free': return <Badge className={`bg-orange-500/90 hover:bg-orange-500/80 text-white ${baseClasses}`}>วิชาเสรี</Badge>;
       case 'general': return <Badge variant="outline" className={baseClasses}>ศึกษาทั่วไป</Badge>;
       default: return <Badge variant="outline" className={baseClasses}>{category}</Badge>;
@@ -30,8 +28,29 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
 
   // Generate real course data based on selected curriculum
   const coursesByYear = useMemo(() => {
-    const [programCode, curriculumYear] = selectedCurriculum.split(' ');
+    let programCode, curriculumYear;
+    
+    // กรณีพิเศษสำหรับหลักสูตรสหกิจทั้งหมด ให้ใช้ข้อมูลจากโครงสร้างของตัวเองโดยตรง
+    if (selectedCurriculum === 'IT 62 สหกิจ') {
+      programCode = 'IT';
+      curriculumYear = '62 สหกิจ';
+    } else if (selectedCurriculum === 'IT 67 สหกิจ') {
+      programCode = 'IT';
+      curriculumYear = '67 สหกิจ';
+    } else if (selectedCurriculum === 'INE 62 สหกิจ') {
+      programCode = 'INE';
+      curriculumYear = '62 สหกิจ';
+    } else if (selectedCurriculum === 'INE 67 สหกิจ') {
+      programCode = 'INE';
+      curriculumYear = '67 สหกิจ';
+    } else {
+      [programCode, curriculumYear] = selectedCurriculum.split(' ');
+    }
+    
     const grouped: { [key: number]: { [key: number]: Course[] } } = {};
+    
+    // Check if this is a co-op curriculum
+    const isCoopCurriculum = selectedCurriculum.includes('COOP') || selectedCurriculum.includes('สหกิจ');
     
     // Determine max year based on program
     const maxYear = programCode === 'INET' ? 3 : programCode === 'ITI' || programCode === 'ITT' ? 2 : 4;
@@ -47,8 +66,8 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
         }
       }
       
-      // Special semester 3 for specific programs
-      if ((programCode === 'IT' || programCode === 'INE') && year === 3) {
+      // Special semester 3 for specific programs (skip for co-op curricula)
+      if (!isCoopCurriculum && (programCode === 'IT' || programCode === 'INE') && year === 3) {
         const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 15);
         if (courses.length > 0) {
           grouped[year][3] = courses;

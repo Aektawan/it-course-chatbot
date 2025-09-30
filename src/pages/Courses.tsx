@@ -35,11 +35,15 @@ const Courses: React.FC = () => {
     switch (selectedDepartment) {
       case 'IT': return [
         { value: 'IT 62', label: 'IT 62' },
-        { value: 'IT 67', label: 'IT 67' }
+        { value: 'IT 62 สหกิจ', label: 'IT 62 สหกิจ' },
+        { value: 'IT 67', label: 'IT 67' },
+        { value: 'IT 67 สหกิจ', label: 'IT 67 สหกิจ' }
       ];
       case 'INE': return [
         { value: 'INE 62', label: 'INE 62' },
-        { value: 'INE 67', label: 'INE 67' }
+        { value: 'INE 62 สหกิจ', label: 'INE 62 สหกิจ' },
+        { value: 'INE 67', label: 'INE 67' },
+        { value: 'INE 67 สหกิจ', label: 'INE 67 สหกิจ' }
       ];
       case 'INET': return [
         { value: 'INET 62', label: 'INET 62' },
@@ -54,9 +58,13 @@ const Courses: React.FC = () => {
       ];
       default: return [
         { value: 'IT 62', label: 'IT 62' },
+        { value: 'IT 62 สหกิจ', label: 'IT 62 สหกิจ' },
         { value: 'IT 67', label: 'IT 67' },
+        { value: 'IT 67 สหกิจ', label: 'IT 67 สหกิจ' },
         { value: 'INE 62', label: 'INE 62' },
+        { value: 'INE 62 สหกิจ', label: 'INE 62 สหกิจ' },
         { value: 'INE 67', label: 'INE 67' },
+        { value: 'INE 67 สหกิจ', label: 'INE 67 สหกิจ' },
         { value: 'INET 62', label: 'INET 62' },
         { value: 'INET 67', label: 'INET 67' },
         { value: 'ITI 61', label: 'ITI 61' },
@@ -81,11 +89,13 @@ const Courses: React.FC = () => {
     ];
 
     if (selectedCurriculum !== 'all') {
-      const [programCode] = selectedCurriculum.split(' ');
+      const curriculumParts = selectedCurriculum.split(' ');
+      const programCode = curriculumParts[0];
+      const isCoop = curriculumParts.length > 2 && curriculumParts[2] === 'สหกิจ';
       
-      // Add semester 3 based on program
-      if (programCode === 'IT' || programCode === 'INE') {
-        // Year 3 semester 3 for IT and INE
+      // Add semester 3 based on program (except for สหกิจ curricula)
+      if ((programCode === 'IT' || programCode === 'INE') && !isCoop) {
+        // Year 3 semester 3 for IT and INE (non-coop)
         const index = baseSemesters.findIndex(s => s.value === '3-2');
         baseSemesters.splice(index + 1, 0, { value: '3-3', label: 'ปี 3 – เทอม 3 (ฝึกงาน)' });
       } else if (programCode === 'INET') {
@@ -159,12 +169,48 @@ const Courses: React.FC = () => {
       // If specific curriculum and semester are selected, show only those courses
       if (selectedSemester !== 'all') {
         const [year, semester] = selectedSemester.split('-').map(Number);
-        const [programCode, curriculumYear] = selectedCurriculum.split(' ');
+        
+        // กรณีพิเศษสำหรับหลักสูตรสหกิจทั้งหมด ให้ใช้ข้อมูลจากโครงสร้างของตัวเองโดยตรง
+        let programCode, curriculumYear;
+        if (selectedCurriculum === 'IT 62 สหกิจ') {
+          programCode = 'IT';
+          curriculumYear = '62 สหกิจ';
+        } else if (selectedCurriculum === 'IT 67 สหกิจ') {
+          programCode = 'IT';
+          curriculumYear = '67 สหกิจ';
+        } else if (selectedCurriculum === 'INE 62 สหกิจ') {
+          programCode = 'INE';
+          curriculumYear = '62 สหกิจ';
+        } else if (selectedCurriculum === 'INE 67 สหกิจ') {
+          programCode = 'INE';
+          curriculumYear = '67 สหกิจ';
+        } else {
+          [programCode, curriculumYear] = selectedCurriculum.split(' ');
+        }
+        
         return generateCoursesForSemester(programCode, curriculumYear, year, semester, 7);
       }
       
       // If only curriculum is selected, show all courses for that curriculum
-      const [programCode, curriculumYear] = selectedCurriculum.split(' ');
+      let programCode, curriculumYear;
+      
+      // กรณีพิเศษสำหรับหลักสูตรสหกิจทั้งหมด ให้ใช้ข้อมูลจากโครงสร้างของตัวเองโดยตรง
+      if (selectedCurriculum === 'IT 62 สหกิจ') {
+        programCode = 'IT';
+        curriculumYear = '62 สหกิจ';
+      } else if (selectedCurriculum === 'IT 67 สหกิจ') {
+        programCode = 'IT';
+        curriculumYear = '67 สหกิจ';
+      } else if (selectedCurriculum === 'INE 62 สหกิจ') {
+        programCode = 'INE';
+        curriculumYear = '62 สหกิจ';
+      } else if (selectedCurriculum === 'INE 67 สหกิจ') {
+        programCode = 'INE';
+        curriculumYear = '67 สหกิจ';
+      } else {
+        [programCode, curriculumYear] = selectedCurriculum.split(' ');
+      }
+      
       const allCourses = [];
       const maxYear = programCode === 'INET' ? 3 : programCode === 'ITI' || programCode === 'ITT' ? 2 : 4;
       // Generate courses for all semesters
@@ -340,7 +386,7 @@ const Courses: React.FC = () => {
             </TabsTrigger>
             <TabsTrigger value="flowchart" className="flex items-center space-x-2">
               <Network className="w-4 h-4" />
-              <span>แผนผังหลักสูตร</span>
+              <span>แผนภูมิแสดงความต่อเนื่องหลักสูตร</span>
             </TabsTrigger>
           </TabsList>
 
@@ -517,10 +563,10 @@ const Courses: React.FC = () => {
                 <CardContent className="p-12 text-center space-y-4">
                   <Network className="w-16 h-16 text-muted-foreground mx-auto" />
                   <h3 className="text-xl font-semibold text-muted-foreground">
-                    เลือกสาขาวิชาและหลักสูตรเพื่อดูแผนผัง
+                    เลือกสาขาวิชาและหลักสูตรเพื่อดูแผนภูมิแสดงความต่อเนื่องหลักสูตร
                   </h3>
                   <p className="text-muted-foreground">
-                    กรุณาเลือกสาขาวิชาและหลักสูตรปีการศึกษาที่ต้องการดูแผนผังหลักสูตรจากตัวกรองด้านบน
+                    กรุณาเลือกสาขาวิชาและหลักสูตรปีการศึกษาที่ต้องการดูแผนภูมิแสดงความต่อเนื่องหลักสูตรจากตัวกรองด้านบน
                   </p>
                 </CardContent>
               </Card>

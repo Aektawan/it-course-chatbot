@@ -15,8 +15,32 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
 }) => {
   // Generate course data organized by year and semester
   const timelineData = useMemo(() => {
-    const [programCode, curriculumYear] = selectedCurriculum.split(' ');
-    const maxYear = programCode === 'INET' ? 3 : programCode === 'ITI' || programCode === 'ITT' ? 2 : 4;
+    let programCode, curriculumYear;
+    
+    // กรณีพิเศษสำหรับหลักสูตรสหกิจทั้งหมด ให้ใช้ข้อมูลจากโครงสร้างของตัวเองโดยตรง
+    if (selectedCurriculum === 'IT 62 สหกิจ') {
+      programCode = 'IT';
+      curriculumYear = '62 สหกิจ';
+    } else if (selectedCurriculum === 'IT 67 สหกิจ') {
+      programCode = 'IT';
+      curriculumYear = '67 สหกิจ';
+    } else if (selectedCurriculum === 'INE 62 สหกิจ') {
+      programCode = 'INE';
+      curriculumYear = '62 สหกิจ';
+    } else if (selectedCurriculum === 'INE 67 สหกิจ') {
+      programCode = 'INE';
+      curriculumYear = '67 สหกิจ';
+    } else {
+      [programCode, curriculumYear] = selectedCurriculum.split(' ');
+    }
+    
+    // Check if this is a co-op curriculum
+    const isCoopCurriculum = selectedCurriculum.includes('COOP') || selectedCurriculum.includes('สหกิจ');
+    
+    // Determine max year based on program and co-op status
+    let maxYear = 4; // Default for IT programs
+    if (programCode === 'INET') maxYear = 3;
+    else if (programCode === 'ITI' || programCode === 'ITT') maxYear = 2;
     
     const timeline: { [year: number]: { [semester: number]: Course[] } } = {};
     
@@ -31,18 +55,43 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
         }
       }
       
-      // Special semester 3 for specific programs
-      if ((programCode === 'IT' || programCode === 'INE') && year === 3) {
-        const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 2);
-        if (courses.length > 0) timeline[year][3] = courses;
-      }
-      if (programCode === 'INET' && year === 2) {
-        const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 2);
-        if (courses.length > 0) timeline[year][3] = courses;
-      }
-      if (programCode === 'ITI' && year === 1) {
-        const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 2);
-        if (courses.length > 0) timeline[year][3] = courses;
+      // Special handling for co-op curriculum
+      if (isCoopCurriculum) {
+        // For co-op curriculum (IT or INE), show year 3 semesters 1 and 2 instead of semester 3
+        if (year === 3) {
+          // Year 3 semester 1 and 2 for co-op
+          for (let semester = 1; semester <= 2; semester++) {
+            // ใช้ข้อมูลจากโครงสร้างของตัวเองโดยตรง ไม่ใช้ INE-COOP อีกต่อไป
+            const courses = generateCoursesForSemester(programCode, curriculumYear, year, semester, 7);
+            if (courses.length > 0) {
+              timeline[year][semester] = courses;
+            }
+          }
+        }
+        // Year 4 for co-op preparation and internship
+        if (year === 4) {
+          for (let semester = 1; semester <= 2; semester++) {
+            // ใช้ข้อมูลจากโครงสร้างของตัวเองโดยตรง ไม่ใช้ INE-COOP อีกต่อไป
+            const courses = generateCoursesForSemester(programCode, curriculumYear, year, semester, 7);
+            if (courses.length > 0) {
+              timeline[year][semester] = courses;
+            }
+          }
+        }
+      } else {
+        // Regular curriculum special semester 3 handling
+        if ((programCode === 'IT' || programCode === 'INE') && year === 3) {
+          const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 2);
+          if (courses.length > 0) timeline[year][3] = courses;
+        }
+        if (programCode === 'INET' && year === 2) {
+          const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 2);
+          if (courses.length > 0) timeline[year][3] = courses;
+        }
+        if (programCode === 'ITI' && year === 1) {
+          const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 2);
+          if (courses.length > 0) timeline[year][3] = courses;
+        }
       }
     }
     
@@ -76,24 +125,43 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       isInternship: boolean;
     }> = [];
 
+    const isCoopCurriculum = selectedCurriculum.includes('COOP') || selectedCurriculum.includes('สหกิจ');
+
     Object.entries(timelineData)
       .sort(([a], [b]) => Number(a) - Number(b))
       .forEach(([year, semesters]) => {
         Object.entries(semesters)
           .sort(([a], [b]) => Number(a) - Number(b))
           .forEach(([semester, courses]) => {
+            let label = `เทอมที่ ${semester}`;
+            let isInternship = false;
+
+            // Special labeling for co-op curriculum
+            if (isCoopCurriculum && Number(year) === 4) {
+              if (semester === '1') {
+                label = 'เทอมที่ 1';
+                isInternship = true;
+              } else if (semester === '2') {
+                label = 'เทอมที่ 2';
+                isInternship = true;
+              }
+            } else if (!isCoopCurriculum && semester === '3') {
+              label = 'ฝึกงาน';
+              isInternship = true;
+            }
+
             layout.push({
               year: Number(year),
               semester: Number(semester),
               courses,
-              label: `เทอมที่ ${semester}`,
-              isInternship: semester === '3'
+              label,
+              isInternship
             });
           });
       });
 
     return layout;
-  }, [timelineData]);
+  }, [timelineData, selectedCurriculum]);
 
   // DIAGRAM ENGINE - Curriculum flowchart with prerequisite arrows
   // Following strict orthogonal routing rules through white gutters
@@ -422,7 +490,8 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       {/* Header */}
       <div className="text-center bg-white p-4 border-b-2 border-black">
         <h1 className="text-lg font-bold">
-          แผนผังรายวิชาตามแผนการเรียนของนักศึกษาวิทยาลัยนวัตกรรม หลักสูตร {departmentName} (ปรับปรุง ปี {selectedCurriculum.split(' ')[1]})
+          แผนภูมิแสดงความต่อเนื่อง{departmentName} 
+          {selectedCurriculum.includes('สหกิจ') ? ' (สหกิจศึกษา)' : ` (ปี ${selectedCurriculum.split(' ')[1]})`}
         </h1>
       </div>
 

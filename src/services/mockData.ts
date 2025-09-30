@@ -206,6 +206,24 @@ export const mockDepartments: Department[] = [
             { id: 'IT806-67', code: 'IT806', name: 'Professional Portfolio', credits: 2, description: 'ผลงานวิชาชีพ', prerequisites: [], corequisites: [], category: 'major', semester: 2, year: 4, instructor: 'Dr. Anderson', isActive: true }
           ]}
         ]
+      },
+      {
+        id: 'IT-62-COOP',
+        year: 2019,
+        buddhistYear: 2562,
+        name: 'หลักสูตรเทคโนโลยีสารสนเทศ พ.ศ. 2562 สหกิจศึกษา (IT 62 สหกิจ)',
+        duration: 4,
+        totalCredits: 128,
+        semesters: []
+      },
+      {
+        id: 'IT-67-COOP',
+        year: 2024,
+        buddhistYear: 2567,
+        name: 'หลักสูตรเทคโนโลยีสารสนเทศ พ.ศ. 2567 สหกิจศึกษา (IT 67 สหกิจ)',
+        duration: 4,
+        totalCredits: 132,
+        semesters: []
       }
     ]
   },
@@ -286,6 +304,60 @@ export const mockDepartments: Department[] = [
             { id: 'INE804-62', code: 'INE804', name: 'Advanced Elective II', credits: 3, description: 'วิชาเลือกขั้นสูง 2', prerequisites: [], corequisites: [], category: 'elective', semester: 2, year: 4, instructor: 'Various', isActive: true },
             { id: 'INE805-62', code: 'INE805', name: 'Network Trends', credits: 2, description: 'แนวโน้มเครือข่าย', prerequisites: [], corequisites: [], category: 'general', semester: 2, year: 4, instructor: 'Dr. Trends', isActive: true },
             { id: 'INE806-62', code: 'INE806', name: 'Portfolio Development', credits: 2, description: 'การพัฒนาผลงาน', prerequisites: [], corequisites: [], category: 'major', semester: 2, year: 4, instructor: 'Dr. Portfolio', isActive: true }
+          ]}
+        ]
+      },
+      {
+        id: 'INE-62-COOP',
+        year: 2019,
+        buddhistYear: 2562,
+        name: 'หลักสูตรวิศวกรรมเครือข่ายสารสนเทศ (สหกิจศึกษา) พ.ศ. 2562 (INE 62)',
+        duration: 4,
+        totalCredits: 127,
+        isCoop: true,
+        semesters: [
+          { year: 1, semester: 1, courses: [
+            { id: 'INE101-62-COOP', code: 'INE101', name: 'Network Engineering Fundamentals', credits: 3, description: 'พื้นฐานวิศวกรรมเครือข่าย', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Network', isActive: true },
+            { id: 'INE102-62-COOP', code: 'INE102', name: 'Mathematics for Engineers', credits: 3, description: 'คณิตศาสตร์สำหรับวิศวกร', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Math', isActive: true },
+            { id: 'INE103-62-COOP', code: 'INE103', name: 'Physics for Engineers', credits: 3, description: 'ฟิสิกส์สำหรับวิศวกร', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Physics', isActive: true },
+            { id: 'INE104-62-COOP', code: 'INE104', name: 'Programming for Engineers', credits: 2, description: 'การเขียนโปรแกรมสำหรับวิศวกร', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Code', isActive: true },
+            { id: 'INE105-62-COOP', code: 'INE105', name: 'Digital Systems', credits: 3, description: 'ระบบดิจิทัล', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Digital', isActive: true },
+            { id: 'INE106-62-COOP', code: 'INE106', name: 'Technical English', credits: 2, description: 'ภาษาอังกฤษเทคนิค', prerequisites: [], corequisites: [], category: 'general', semester: 1, year: 1, instructor: 'Prof. English', isActive: true }
+          ]},
+          { year: 1, semester: 2, courses: [
+            { id: 'INE201-62-COOP', code: 'INE201', name: 'Circuit Analysis', credits: 3, description: 'การวิเคราะห์วงจร', prerequisites: ['INE103'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Circuit', isActive: true },
+            { id: 'INE202-62-COOP', code: 'INE202', name: 'Data Communications', credits: 3, description: 'การสื่อสารข้อมูล', prerequisites: ['INE101'], corequisites: [], category: 'major', semester: 2, year: 1, instructor: 'Dr. Comm', isActive: true },
+            { id: 'INE203-62-COOP', code: 'INE203', name: 'Network Protocols', credits: 3, description: 'โปรโตคอลเครือข่าย', prerequisites: ['INE101'], corequisites: [], category: 'major', semester: 2, year: 1, instructor: 'Dr. Protocol', isActive: true },
+            { id: 'INE204-62-COOP', code: 'INE204', name: 'Advanced Programming', credits: 3, description: 'การเขียนโปรแกรมขั้นสูง', prerequisites: ['INE104'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Code', isActive: true },
+            { id: 'INE205-62-COOP', code: 'INE205', name: 'Statistics for Engineers', credits: 3, description: 'สถิติสำหรับวิศวกร', prerequisites: ['INE102'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Stats', isActive: true },
+            { id: 'INE206-62-COOP', code: 'INE206', name: 'Linear Algebra', credits: 2, description: 'พีชคณิตเชิงเส้น', prerequisites: ['INE102'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Math', isActive: true }
+          ]}
+        ]
+      },
+      {
+        id: 'INE-67-COOP',
+        year: 2024,
+        buddhistYear: 2567,
+        name: 'หลักสูตรวิศวกรรมเครือข่ายสารสนเทศ (สหกิจศึกษา) พ.ศ. 2567 (INE 67)',
+        duration: 4,
+        totalCredits: 131,
+        isCoop: true,
+        semesters: [
+          { year: 1, semester: 1, courses: [
+            { id: 'INE101-67-COOP', code: 'INE101', name: 'Modern Network Engineering', credits: 3, description: 'วิศวกรรมเครือข่ายสมัยใหม่', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Modern', isActive: true },
+            { id: 'INE102-67-COOP', code: 'INE102', name: 'Engineering Mathematics', credits: 3, description: 'คณิตศาสตร์วิศวกรรม', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Math', isActive: true },
+            { id: 'INE103-67-COOP', code: 'INE103', name: 'Applied Physics', credits: 3, description: 'ฟิสิกส์ประยุกต์', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Physics', isActive: true },
+            { id: 'INE104-67-COOP', code: 'INE104', name: 'Python Programming', credits: 2, description: 'การเขียนโปรแกรม Python', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Python', isActive: true },
+            { id: 'INE105-67-COOP', code: 'INE105', name: 'Digital Innovation', credits: 3, description: 'นวัตกรรมดิจิทัล', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Innovation', isActive: true },
+            { id: 'INE106-67-COOP', code: 'INE106', name: 'Communication Skills', credits: 2, description: 'ทักษะการสื่อสาร', prerequisites: [], corequisites: [], category: 'general', semester: 1, year: 1, instructor: 'Prof. Comm', isActive: true }
+          ]},
+          { year: 1, semester: 2, courses: [
+            { id: 'INE201-67-COOP', code: 'INE201', name: 'Advanced Circuit Analysis', credits: 3, description: 'การวิเคราะห์วงจรขั้นสูง', prerequisites: ['INE103'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Circuit', isActive: true },
+            { id: 'INE202-67-COOP', code: 'INE202', name: 'Data Communication Systems', credits: 3, description: 'ระบบการสื่อสารข้อมูล', prerequisites: ['INE101'], corequisites: [], category: 'major', semester: 2, year: 1, instructor: 'Dr. DataComm', isActive: true },
+            { id: 'INE203-67-COOP', code: 'INE203', name: 'Network Protocols & Standards', credits: 3, description: 'โปรโตคอลและมาตรฐานเครือข่าย', prerequisites: ['INE101'], corequisites: [], category: 'major', semester: 2, year: 1, instructor: 'Dr. Standards', isActive: true },
+            { id: 'INE204-67-COOP', code: 'INE204', name: 'Object-Oriented Programming', credits: 3, description: 'การเขียนโปรแกรมเชิงวัตถุ', prerequisites: ['INE104'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. OOP', isActive: true },
+            { id: 'INE205-67-COOP', code: 'INE205', name: 'Engineering Statistics', credits: 3, description: 'สถิติวิศวกรรม', prerequisites: ['INE102'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Stats', isActive: true },
+            { id: 'INE206-67-COOP', code: 'INE206', name: 'Linear Systems', credits: 2, description: 'ระบบเชิงเส้น', prerequisites: ['INE102'], corequisites: [], category: 'core', semester: 2, year: 1, instructor: 'Dr. Linear', isActive: true }
           ]}
         ]
       },
