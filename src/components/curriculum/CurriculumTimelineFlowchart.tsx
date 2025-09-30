@@ -49,7 +49,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       
       // Regular semesters with more courses for better flowchart
       for (let semester = 1; semester <= 2; semester++) {
-        const courses = generateCoursesForSemester(programCode, curriculumYear, year, semester, 7);
+        const courses = generateCoursesForSemester(programCode, curriculumYear, year.toString(), semester.toString(), 7);
         if (courses.length > 0) {
           timeline[year][semester] = courses;
         }
@@ -62,7 +62,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
           // Year 3 semester 1 and 2 for co-op
           for (let semester = 1; semester <= 2; semester++) {
             // ใช้ข้อมูลจากโครงสร้างของตัวเองโดยตรง ไม่ใช้ INE-COOP อีกต่อไป
-            const courses = generateCoursesForSemester(programCode, curriculumYear, year, semester, 7);
+            const courses = generateCoursesForSemester(programCode, curriculumYear, year.toString(), semester.toString(), 7);
             if (courses.length > 0) {
               timeline[year][semester] = courses;
             }
@@ -72,7 +72,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
         if (year === 4) {
           for (let semester = 1; semester <= 2; semester++) {
             // ใช้ข้อมูลจากโครงสร้างของตัวเองโดยตรง ไม่ใช้ INE-COOP อีกต่อไป
-            const courses = generateCoursesForSemester(programCode, curriculumYear, year, semester, 7);
+            const courses = generateCoursesForSemester(programCode, curriculumYear, year.toString(), semester.toString(), 7);
             if (courses.length > 0) {
               timeline[year][semester] = courses;
             }
@@ -81,15 +81,15 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       } else {
         // Regular curriculum special semester 3 handling
         if ((programCode === 'IT' || programCode === 'INE') && year === 3) {
-          const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 2);
+          const courses = generateCoursesForSemester(programCode, curriculumYear, year.toString(), '3', 2);
           if (courses.length > 0) timeline[year][3] = courses;
         }
         if (programCode === 'INET' && year === 2) {
-          const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 2);
+          const courses = generateCoursesForSemester(programCode, curriculumYear, year.toString(), '3', 2);
           if (courses.length > 0) timeline[year][3] = courses;
         }
         if (programCode === 'ITI' && year === 1) {
-          const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 2);
+          const courses = generateCoursesForSemester(programCode, curriculumYear, year.toString(), '3', 2);
           if (courses.length > 0) timeline[year][3] = courses;
         }
       }
@@ -415,11 +415,21 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
     return pathPoints;
   };
 
+  // ฟังก์ชันตรวจสอบว่าเส้นนี้เป็นเส้นพิเศษสีน้ำเงิน (วิศวกรรมข้อมูล -> เตรียมสหกิจศึกษา)
+  const isSpecialBlueConnection = (prereqCourse: Course, targetCourse: Course) => {
+    // ตรวจสอบว่าเป็นเส้นจาก 060233112 (วิศวกรรมข้อมูล) ไปยัง 060233501 (เตรียมสหกิจศึกษา)
+    const prereqCode = prereqCourse.code.split('-')[1] || prereqCourse.code;
+    const targetCode = targetCourse.code.split('-')[1] || targetCourse.code;
+    
+    return prereqCode === '060233112' && targetCode === '060233501';
+  };
+
   // Collect all arrow data with collision-free routing
   const arrowData = useMemo(() => {
     const arrows: Array<{
       id: string;
       pathPoints: Array<{ x: number; y: number }>;
+      isSpecial?: boolean; // เพิ่ม flag สำหรับเส้นพิเศษ
     }> = [];
     const usedLanes = new Set<string>();
 
@@ -440,16 +450,18 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
             // Find prerequisite position
             let prereqSemIndex = -1;
             let prereqCourseIndex = -1;
+            let prereqCourse: Course | null = null;
             
             semesterLayout.forEach((prevSem, prevSemIndex) => {
               const courseIdx = prevSem.courses.findIndex(c => c.id === prereqId);
               if (courseIdx !== -1 && prevSemIndex < semIndex) {
                 prereqSemIndex = prevSemIndex;
                 prereqCourseIndex = courseIdx;
+                prereqCourse = prevSem.courses[courseIdx];
               }
             });
 
-            if (prereqSemIndex >= 0) {
+            if (prereqSemIndex >= 0 && prereqCourse) {
               // เลือกตำแหน่งลูกศรตามจำนวน prerequisites
               let endPortType = 'leftCenter';
               
@@ -472,9 +484,13 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                 endPortType
               );
 
+              // ตรวจสอบว่าเป็นเส้นพิเศษหรือไม่
+              const isSpecial = isSpecialBlueConnection(prereqCourse, course);
+
               arrows.push({
                 id: `${prereqId}-${course.id}`,
-                pathPoints
+                pathPoints,
+                isSpecial
               });
             }
           });
@@ -546,7 +562,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                   />
                 </marker>
                 <marker
-                  id="greenArrowhead"
+                  id="blueArrowhead"
                   markerWidth="5.7"
                   markerHeight="4.75"
                   refX="5.5"
@@ -556,7 +572,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                 >
                   <polygon
                     points="0 0, 5.7 2.375, 0 4.75"
-                    fill="#4CAF50"
+                    fill="#1e40af"
                   />
                 </marker>
               </defs>
@@ -567,11 +583,11 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
                   `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
                 ).join(' ');
                 
-                // ใช้สีดำสำหรับทุกหลักสูตร
-                const strokeColor = "#555";
+                // ใช้สีน้ำเงินเข้มสำหรับเส้นพิเศษ, สีดำสำหรับเส้นอื่น
+                const strokeColor = arrow.isSpecial ? "#1e40af" : "#555";
                 
-                // ใช้ marker สีดำสำหรับทุกหลักสูตร
-                const markerEnd = "url(#arrowhead)";
+                // ใช้ marker สีน้ำเงินเข้มสำหรับเส้นพิเศษ, สีดำสำหรับเส้นอื่น
+                const markerEnd = arrow.isSpecial ? "url(#blueArrowhead)" : "url(#arrowhead)";
 
                 return (
                   <path

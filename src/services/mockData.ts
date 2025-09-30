@@ -314,7 +314,6 @@ export const mockDepartments: Department[] = [
         name: 'หลักสูตรวิศวกรรมเครือข่ายสารสนเทศ (สหกิจศึกษา) พ.ศ. 2562 (INE 62)',
         duration: 4,
         totalCredits: 127,
-        isCoop: true,
         semesters: [
           { year: 1, semester: 1, courses: [
             { id: 'INE101-62-COOP', code: 'INE101', name: 'Network Engineering Fundamentals', credits: 3, description: 'พื้นฐานวิศวกรรมเครือข่าย', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Network', isActive: true },
@@ -341,7 +340,6 @@ export const mockDepartments: Department[] = [
         name: 'หลักสูตรวิศวกรรมเครือข่ายสารสนเทศ (สหกิจศึกษา) พ.ศ. 2567 (INE 67)',
         duration: 4,
         totalCredits: 131,
-        isCoop: true,
         semesters: [
           { year: 1, semester: 1, courses: [
             { id: 'INE101-67-COOP', code: 'INE101', name: 'Modern Network Engineering', credits: 3, description: 'วิศวกรรมเครือข่ายสมัยใหม่', prerequisites: [], corequisites: [], category: 'core', semester: 1, year: 1, instructor: 'Dr. Modern', isActive: true },

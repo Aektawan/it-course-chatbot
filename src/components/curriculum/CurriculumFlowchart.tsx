@@ -60,7 +60,7 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
       
       // Regular semesters (1 and 2)
       for (let semester = 1; semester <= 2; semester++) {
-        const courses = generateCoursesForSemester(programCode, curriculumYear, year, semester, 15);
+        const courses = generateCoursesForSemester(programCode, curriculumYear, year.toString(), semester.toString(), 15);
         if (courses.length > 0) {
           grouped[year][semester] = courses;
         }
@@ -68,21 +68,21 @@ export const CurriculumFlowchart: React.FC<CurriculumFlowchartProps> = ({
       
       // Special semester 3 for specific programs (skip for co-op curricula)
       if (!isCoopCurriculum && (programCode === 'IT' || programCode === 'INE') && year === 3) {
-        const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 15);
+        const courses = generateCoursesForSemester(programCode, curriculumYear, year.toString(), '3', 15);
         if (courses.length > 0) {
           grouped[year][3] = courses;
         }
       }
       
       if (programCode === 'INET' && year === 2) {
-        const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 15);
+        const courses = generateCoursesForSemester(programCode, curriculumYear, year.toString(), '3', 15);
         if (courses.length > 0) {
           grouped[year][3] = courses;
         }
       }
       
       if (programCode === 'ITI' && year === 1) {
-        const courses = generateCoursesForSemester(programCode, curriculumYear, year, 3, 15);
+        const courses = generateCoursesForSemester(programCode, curriculumYear, year.toString(), '3', 15);
         if (courses.length > 0) {
           grouped[year][3] = courses;
         }

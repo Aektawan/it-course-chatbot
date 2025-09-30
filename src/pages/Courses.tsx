@@ -188,7 +188,7 @@ const Courses: React.FC = () => {
           [programCode, curriculumYear] = selectedCurriculum.split(' ');
         }
         
-        return generateCoursesForSemester(programCode, curriculumYear, year, semester, 7);
+        return generateCoursesForSemester(programCode, curriculumYear, year.toString(), semester.toString(), 7);
       }
       
       // If only curriculum is selected, show all courses for that curriculum
@@ -216,17 +216,17 @@ const Courses: React.FC = () => {
       // Generate courses for all semesters
       for (let year = 1; year <= maxYear; year++) {
         for (let semester = 1; semester <= 2; semester++) {
-          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, semester, 7));
+          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year.toString(), semester.toString(), 7));
         }
         // Add semester 3 for specific programs and years
         if ((programCode === 'IT' || programCode === 'INE') && year === 3) {
-          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
+          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year.toString(), '3', 7));
         }
         if (programCode === 'INET' && year === 2) {
-          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
+          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year.toString(), '3', 7));
         }
         if ((programCode === 'ITI') && year === 1) {
-          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
+          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year.toString(), '3', 7));
         }
       }
       return allCourses;

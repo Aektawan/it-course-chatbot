@@ -1016,7 +1016,7 @@ const unusedFunction = (
       semesters.push({
         year,
         semester,
-        courses: generateCoursesForSemester(programCode, curriculumYear, year, semester)
+        courses: generateCoursesForSemester(programCode, curriculumYear, year.toString(), semester.toString())
       });
     }
   }
