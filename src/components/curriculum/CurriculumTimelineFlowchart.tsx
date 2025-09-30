@@ -350,8 +350,23 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
       if (isApproximatelySameLevel && !isDirectPathBlocked) {
         // Same level, no obstacles - direct horizontal line
         pathPoints.push(endPort);
+      } else if (!isDirectPathBlocked) {
+        // ไม่มีสิ่งกีดขวาง - ใช้เส้นทางตรงที่สุด
+        // Step 1: Move horizontally into gutter space
+        const gutterX = startPort.x + GUTTER_WIDTH / 2;
+        pathPoints.push({ x: gutterX, y: startPort.y });
+        
+        // Step 2: เดินตรงไปยัง target column ที่ระดับเดียวกับ start
+        const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+        pathPoints.push({ x: targetGutterX, y: startPort.y });
+        
+        // Step 3: ขึ้น/ลงตรงๆ ไปยัง target
+        pathPoints.push({ x: targetGutterX, y: endPort.y });
+        
+        // Final connection to target
+        pathPoints.push(endPort);
       } else {
-        // Need to route around obstacles with 90-degree turns
+        // มีสิ่งกีดขวาง - ต้องอ้อม
         
         // Step 1: Move horizontally into gutter space
         const gutterX = startPort.x + GUTTER_WIDTH / 2;
@@ -360,51 +375,39 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
         // Step 2: Find safe vertical routing lane - center in gutters
         let routingY = endPort.y;
         
-        if (isDirectPathBlocked || !isApproximatelySameLevel) {
-          // Route in center of gutters above or below the blocking courses
-          const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT / 2 - 3;
-          const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT / 2 + 3;
-          
-          // ปรับเส้นทางตามตำแหน่งของ endPortType เพื่อลดการตัดกันของเส้น
-          if (endPortType === 'leftUpper') {
-            // สำหรับลูกศรที่เข้าด้านบน ให้เลือกเส้นทางด้านบน
-            routingY = aboveY;
-          } else if (endPortType === 'leftLower') {
-            // สำหรับลูกศรที่เข้าด้านล่าง ให้เลือกเส้นทางด้านล่าง
-            routingY = belowY;
-          } else {
-            // สำหรับลูกศรที่เข้าตรงกลาง ให้เลือกเส้นทางที่ใกล้ที่สุด
-            if (Math.abs(aboveY - startPort.y) <= Math.abs(belowY - startPort.y)) {
-              routingY = aboveY;
-            } else {
-              routingY = belowY;
-            }
-          }
-          
-          // Ensure minimum clearance from course boxes and center in gutter
-          routingY = Math.max(routingY, 45); // Better minimum distance from top
-          
-          // Vertical segment to routing lane
-          pathPoints.push({ x: gutterX, y: routingY });
-          
-          // Horizontal segment across to target column
-          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
-          pathPoints.push({ x: targetGutterX, y: routingY });
-          
-          // Vertical segment down to target level
-          if (Math.abs(routingY - endPort.y) > CLEARANCE) {
-            pathPoints.push({ x: targetGutterX, y: endPort.y });
-          }
+        // Route in center of gutters above or below the blocking courses
+        const aboveY = Math.min(startRect.top, endRect.top) - GUTTER_HEIGHT / 2 - 3;
+        const belowY = Math.max(startRect.bottom, endRect.bottom) + GUTTER_HEIGHT / 2 + 3;
+        
+        // ปรับเส้นทางตามตำแหน่งของ endPortType เพื่อลดการตัดกันของเส้น
+        if (endPortType === 'leftUpper') {
+          // สำหรับลูกศรที่เข้าด้านบน ให้เลือกเส้นทางด้านบน
+          routingY = aboveY;
+        } else if (endPortType === 'leftLower') {
+          // สำหรับลูกศรที่เข้าด้านล่าง ให้เลือกเส้นทางด้านล่าง
+          routingY = belowY;
         } else {
-          // Direct horizontal at same level - adjust to center between blocks
-          const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
-          const centerY = (startRect.bottom + endRect.top) / 2;
-          pathPoints.push({ x: targetGutterX, y: centerY });
-          
-          // Vertical adjustment if needed
-          if (Math.abs(verticalDistance) > CLEARANCE) {
-            pathPoints.push({ x: targetGutterX, y: endPort.y });
+          // สำหรับลูกศรที่เข้าตรงกลาง ให้เลือกเส้นทางที่ใกล้ที่สุด
+          if (Math.abs(aboveY - startPort.y) <= Math.abs(belowY - startPort.y)) {
+            routingY = aboveY;
+          } else {
+            routingY = belowY;
           }
+        }
+        
+        // Ensure minimum clearance from course boxes and center in gutter
+        routingY = Math.max(routingY, 45); // Better minimum distance from top
+        
+        // Vertical segment to routing lane
+        pathPoints.push({ x: gutterX, y: routingY });
+        
+        // Horizontal segment across to target column
+        const targetGutterX = endPort.x - GUTTER_WIDTH / 2;
+        pathPoints.push({ x: targetGutterX, y: routingY });
+        
+        // Vertical segment down to target level
+        if (Math.abs(routingY - endPort.y) > CLEARANCE) {
+          pathPoints.push({ x: targetGutterX, y: endPort.y });
         }
         
         // Final connection to target
