@@ -122,13 +122,23 @@ const Courses: React.FC = () => {
     return baseSemesters;
   };
 
-  // Reset curriculum when department changes
+  // Auto-select the latest curriculum when department changes
   React.useEffect(() => {
     if (selectedDepartment !== 'all') {
       const availableCurricula = getAvailableCurricula();
-      if (!availableCurricula.some(c => c.value === selectedCurriculum)) {
+      // Find the curriculum with the highest number for the selected department
+      if (availableCurricula.length > 0) {
+        const latestCurriculum = availableCurricula.reduce((latest, current) => {
+          const latestYear = parseInt(latest.value.split(' ')[1]);
+          const currentYear = parseInt(current.value.split(' ')[1]);
+          return currentYear > latestYear ? current : latest;
+        });
+        setSelectedCurriculum(latestCurriculum.value);
+      } else {
         setSelectedCurriculum('all');
       }
+    } else {
+      setSelectedCurriculum('all');
     }
   }, [selectedDepartment]);
 
@@ -144,15 +154,16 @@ const Courses: React.FC = () => {
 
   // Generate courses based on selections
   const generateFilteredCourses = () => {
-    // If specific curriculum and semester are selected, show only those courses
-    if (selectedCurriculum !== 'all' && selectedSemester !== 'all') {
-      const [year, semester] = selectedSemester.split('-').map(Number);
-      const [programCode, curriculumYear] = selectedCurriculum.split(' ');
-      return generateCoursesForSemester(programCode, curriculumYear, year, semester, 7);
-    }
-    
-    // If only curriculum is selected, show all courses for that curriculum
-    if (selectedCurriculum !== 'all') {
+    // Only show courses if both department and curriculum are selected
+    if (selectedDepartment !== 'all' && selectedCurriculum !== 'all') {
+      // If specific curriculum and semester are selected, show only those courses
+      if (selectedSemester !== 'all') {
+        const [year, semester] = selectedSemester.split('-').map(Number);
+        const [programCode, curriculumYear] = selectedCurriculum.split(' ');
+        return generateCoursesForSemester(programCode, curriculumYear, year, semester, 7);
+      }
+      
+      // If only curriculum is selected, show all courses for that curriculum
       const [programCode, curriculumYear] = selectedCurriculum.split(' ');
       const allCourses = [];
       const maxYear = programCode === 'INET' ? 3 : programCode === 'ITI' || programCode === 'ITT' ? 2 : 4;
@@ -168,57 +179,15 @@ const Courses: React.FC = () => {
         if (programCode === 'INET' && year === 2) {
           allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
         }
-          if ((programCode === 'ITI') && year === 1) {
-            allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
-          }
+        if ((programCode === 'ITI') && year === 1) {
+          allCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 7));
+        }
       }
       return allCourses;
     }
     
-    // If only department is selected, show courses from that department
-    if (selectedDepartment !== 'all') {
-      const departmentCourses = [];
-      const curricula = getAvailableCurricula();
-      curricula.forEach(curriculum => {
-        const [programCode, curriculumYear] = curriculum.value.split(' ');
-        const maxYear = programCode === 'INET' ? 3 : programCode === 'ITI' || programCode === 'ITT' ? 2 : 4;
-        for (let year = 1; year <= maxYear; year++) {
-          for (let semester = 1; semester <= 2; semester++) {
-            departmentCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, semester, 4));
-          }
-          // Add semester 3 for specific programs and years
-          if ((programCode === 'IT' || programCode === 'INE') && year === 3) {
-            departmentCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 4));
-          }
-          if (programCode === 'INET' && year === 2) {
-            departmentCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 4));
-          }
-          if ((programCode === 'ITI') && year === 1) {
-            departmentCourses.push(...generateCoursesForSemester(programCode, curriculumYear, year, 3, 4));
-          }
-        }
-      });
-      return departmentCourses;
-    }
-    
-    // Default: show all IT and INE courses when no specific filter is selected
-    const allCourses = [];
-    const allPrograms = ['IT', 'INE'];
-    allPrograms.forEach(program => {
-      const curricula = program === 'IT' ? ['62', '67'] : ['62', '67'];
-      curricula.forEach(curriculumYear => {
-        for (let year = 1; year <= 4; year++) {
-          for (let semester = 1; semester <= 2; semester++) {
-            allCourses.push(...generateCoursesForSemester(program, curriculumYear, year, semester, 4));
-          }
-          // Add semester 3 for year 3
-          if (year === 3) {
-            allCourses.push(...generateCoursesForSemester(program, curriculumYear, year, 3, 4));
-          }
-        }
-      });
-    });
-    return allCourses;
+    // If department and curriculum are not both selected, return empty array
+    return [];
   };
 
   const allCourses = generateFilteredCourses();
