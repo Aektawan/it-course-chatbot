@@ -170,6 +170,9 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
   // ตรวจสอบว่าหลักสูตรนี้มี semester 3 หรือไม่
   const hasSemester3 = semesterLayout.some(sem => sem.semester === 3);
   
+  // ตรวจสอบว่าเป็นหลักสูตรที่ต้องการขยายความยาวหรือไม่ (IT 62, IT 67, INE 62, INE 67)
+  const isExtendedCurriculum = ['IT 62', 'IT 67', 'INE 62', 'INE 67'].includes(selectedCurriculum);
+  
   // ปรับขนาดให้ใหญ่ขึ้นสำหรับหลักสูตรที่มี semester 3
   const COURSE_WIDTH = 140;
   const COURSE_HEIGHT = hasSemester3 ? 90 : 100; // ลดความสูงเล็กน้อยเมื่อมี semester 3
@@ -550,7 +553,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
               style={{ 
                 minHeight: hasSemester3 ? '500px' : '600px',
                 width: `${semesterLayout.length * (COURSE_WIDTH + GUTTER_WIDTH)}px`,
-                height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + (hasSemester3 ? 150 : 200)}px`
+                height: `${(Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + (hasSemester3 ? 150 : 200)) * (isExtendedCurriculum ? 1.15 : 1)}px`
               }}
             >
               <defs>
@@ -614,7 +617,7 @@ export const CurriculumTimelineFlowchart: React.FC<CurriculumTimelineFlowchartPr
 
             {/* Course Boxes Grid - Fixed positioning to match arrow coordinates */}
             <div className="relative" style={{ 
-              height: `${Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + (hasSemester3 ? 150 : 200)}px`,
+              height: `${(Math.max(...semesterLayout.map(s => s.courses.length)) * (COURSE_HEIGHT + GUTTER_HEIGHT) + (hasSemester3 ? 150 : 200)) * (isExtendedCurriculum ? 1.15 : 1)}px`,
               width: `${semesterLayout.length * (COURSE_WIDTH + GUTTER_WIDTH)}px`
             }}>
               {semesterLayout.map((semData, semIndex) => 
